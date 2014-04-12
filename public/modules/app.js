@@ -6,7 +6,8 @@ angular.module('meanp', [
   'ngSanitize',
   'ngRoute',
   'http-auth-interceptor',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'autofill-directive'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
