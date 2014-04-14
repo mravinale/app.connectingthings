@@ -7,9 +7,13 @@ angular.module('meanp', [
   'ngRoute',
   'http-auth-interceptor',
   'ui.bootstrap',
-  'autofill-directive'
+  'autofill-directive',
+  'socket',
+  'ngStorage'
 ])
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider, $locationProvider, webSocketProvider) {
+    webSocketProvider.setWebSocketURL('ws://' + window.location.host + '/sockjs/websocket');
+
     $routeProvider
       .when('/', {
         templateUrl: 'modules/base/views/main.html',
@@ -29,7 +33,8 @@ angular.module('meanp', [
     $locationProvider.html5Mode(false);
   })
 
-  .run(function ($rootScope, $location, sessionService) {
+  .run(function ($rootScope, $sessionStorage, $location, sessionService) {
+
 
     //watching the value of the currentUser variable.
     $rootScope.$watch('currentUser', function(currentUser) {
@@ -39,7 +44,8 @@ angular.module('meanp', [
 
           sessionService.getCurrentUser()
               .success(function (response, status, headers, config) {
-               $rootScope.currentUser = response;
+                  $sessionStorage.currentUser = response;
+                  $rootScope.currentUser = $sessionStorage.currentUser;
               })
               .error(function(error, status, headers, config) {
                   $location.path('/login');

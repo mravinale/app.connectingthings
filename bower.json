@@ -12,6 +12,8 @@
     "angular-http-auth": "*",
     "angular-bootstrap": "~0.7.0",
     "angular-mocks": "~1.2.0",
-    "autofill-directive":"~2.0.0"
+    "autofill-directive":"~2.0.0",
+    "d3": "~3.3.9",
+    "ngstorage":"0.3.0"
   }
 }

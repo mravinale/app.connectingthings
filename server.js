@@ -3,6 +3,7 @@
 // Module dependencies.
 var express = require('express'),
     http = require('http'),
+    sockjs  = require('sockjs'),
     passport = require('passport'),
     path = require('path'),
     fs = require('fs'),
@@ -44,8 +45,60 @@ app.use(passport.session());
 app.use(app.router);
 require('./api/config/routes')(app);
 
+
+var clients = {};
+var clientCount = 0;
+var interval;
+
+var gaugeValue = 50;
+
+function broadcast() {
+    gaugeValue += Math.random() * 40 - 20;
+    gaugeValue = gaugeValue < 0 ? 0 : gaugeValue > 100 ? 100 : gaugeValue;
+    var time = Date.now();
+
+    var message = JSON.stringify({ value: Math.floor(gaugeValue), timestamp: time });
+
+    for (var key in clients) {
+        if(clients.hasOwnProperty(key)) {
+            clients[key].write(message);
+        }
+    }
+
+    //setTimeout(broadcast, 1000);
+}
+
+function startBroadcast () {
+    interval = setInterval(broadcast, 1000);
+    //broadcast();
+}
+
+var sockjsServer = sockjs.createServer();
+
+sockjsServer.on('connection', function(conn) {
+    clientCount++;
+    if (clientCount === 1) {
+        startBroadcast();
+    }
+
+    clients[conn.id] = conn;
+
+    conn.on('close', function() {
+        clientCount--;
+        delete clients[conn.id];
+        if (clientCount === 0) {
+            clearInterval(interval);
+        }
+    });
+});
+
+
+
 // Start server
 var port = process.env.PORT || 3000;
-app.listen(port, function () {
+var server= app.listen(port, function () {
     console.log('listening on port %d in %s mode', port, app.get('env'));
 });
+
+
+sockjsServer.installHandlers(server, { prefix: '/sockjs' });

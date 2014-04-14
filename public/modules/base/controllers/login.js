@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meanp')
-  .controller('LoginCtrl', function ($scope, $rootScope,sessionService, $location) {
+  .controller('LoginCtrl', function ($scope, $rootScope,sessionService,$sessionStorage, $location) {
     $scope.errors =  {};
     $scope.submitted = false;
 
@@ -11,7 +11,8 @@ angular.module('meanp')
 
         sessionService.create('password',$scope.user)
             .success(function (response, status, headers, config) {
-                $rootScope.currentUser = response;
+                $sessionStorage.currentUser = response;
+                $rootScope.currentUser =  $sessionStorage.currentUser;
                 $location.path('/');
             })
             .error(function(response, status, headers, config) {
