@@ -3,6 +3,7 @@
 // Module dependencies.
 var express = require('express'),
     http = require('http'),
+    mqtt = require('mqtt'),
     sockjs  = require('sockjs'),
     passport = require('passport'),
     path = require('path'),
@@ -55,17 +56,10 @@ var gaugeValue = 50;
 function broadcast() {
     gaugeValue += Math.random() * 40 - 20;
     gaugeValue = gaugeValue < 0 ? 0 : gaugeValue > 100 ? 100 : gaugeValue;
-    var time = Date.now();
 
-    var message = JSON.stringify({ value: Math.floor(gaugeValue), timestamp: time });
+    var message = JSON.stringify({ value: Math.floor(gaugeValue), timestamp: Date.now() });
 
-    for (var key in clients) {
-        if(clients.hasOwnProperty(key)) {
-            clients[key].write(message);
-        }
-    }
-
-    //setTimeout(broadcast, 1000);
+    mqttClient.publish('temperature', message);
 }
 
 function startBroadcast () {
@@ -88,10 +82,10 @@ sockjsServer.on('connection', function(conn) {
         delete clients[conn.id];
         if (clientCount === 0) {
             clearInterval(interval);
+            mqttClient.end();
         }
     });
 });
-
 
 
 // Start server
@@ -102,3 +96,14 @@ var server= app.listen(port, function () {
 
 
 sockjsServer.installHandlers(server, { prefix: '/sockjs' });
+var mqttClient = mqtt.createClient(1883, 'localhost');
+mqttClient.subscribe('temperature');
+mqttClient.on('message', function (topic, message) {
+
+    for (var key in clients) {
+        if(clients.hasOwnProperty(key)) {
+            clients[key].write(message);
+        }
+    }
+    // console.log(message);
+});
