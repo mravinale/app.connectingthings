@@ -96,14 +96,14 @@ var server= app.listen(port, function () {
 
 
 sockjsServer.installHandlers(server, { prefix: '/sockjs' });
-var mqttClient = mqtt.createClient(1883, 'localhost');
-mqttClient.subscribe('temperature');
-mqttClient.on('message', function (topic, message) {
+var mqttClient = mqtt.createClient(1883, 'localhost')
+                     .subscribe('temperature')
+                     .on('message', function (topic, message) {
 
-    for (var key in clients) {
-        if(clients.hasOwnProperty(key)) {
-            clients[key].write(message);
-        }
-    }
-    // console.log(message);
-});
+                        for (var key in clients) {
+                            if(clients.hasOwnProperty(key)) {
+                                clients[key].write(message);
+                            }
+                        }
+                        // console.log(message);
+                    });
