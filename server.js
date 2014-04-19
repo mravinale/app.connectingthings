@@ -35,7 +35,7 @@ app.use(express.methodOverride());
 
 // express/mongo session storage
 app.use(express.session({
-  secret: 'MEANP', store: new mongoStore({ url: config.db, collection: 'sessions' })
+    secret: 'MEANP', store: new mongoStore({ url: config.db, collection: 'sessions' })
 }));
 
 // Use passport session
@@ -63,7 +63,7 @@ function broadcast() {
 }
 
 function startBroadcast () {
-    interval = setInterval(broadcast, 1000);
+    interval = setInterval(broadcast, 2000);
     //broadcast();
 }
 
@@ -121,20 +121,20 @@ function setup() {
 
 // fired when a message is published
 server.on('published', function(packet, client) {
-    console.log('Published', packet.payload);
+  //  console.log('Published', packet.payload);
 });
 
 
 
 
 var mqttClient = mqtt.createClient(1883, 'localhost')
-                     .subscribe('temperature')
-                     .on('message', function (topic, message) {
+    .subscribe('temperature')
+    .on('message', function (topic, message) {
 
-                        for (var key in clients) {
-                            if(clients.hasOwnProperty(key)) {
-                                clients[key].write(message);
-                            }
-                        }
-                         console.log(message);
-                    });
+        for (var key in clients) {
+            if(clients.hasOwnProperty(key)) {
+                clients[key].write(message);
+            }
+        }
+       // console.log(message);
+    });
