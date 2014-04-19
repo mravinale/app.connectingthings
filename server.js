@@ -71,11 +71,6 @@ var sockjsServer = sockjs.createServer();
 
 sockjsServer.on('connection', function(conn) {
     console.log(" [.] open event received");
-    var t = setInterval(function(){
-        try{
-            conn._session.recv.didClose();
-        } catch (x) {}
-    }, 15000);
 
     clientCount++;
     if (clientCount === 1) {
@@ -92,9 +87,7 @@ sockjsServer.on('connection', function(conn) {
             mqttClient.end();
         }
         console.log(" [.] close event received");
-        clearInterval(t);
-        t = null;
-
+       
     });
 });
 
@@ -134,8 +127,6 @@ function setup() {
 server.on('published', function(packet, client) {
   //  console.log('Published', packet.payload);
 });
-
-
 
 
 var mqttClient = mqtt.createClient(1883, 'localhost')
