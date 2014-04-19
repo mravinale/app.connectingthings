@@ -70,6 +70,13 @@ function startBroadcast () {
 var sockjsServer = sockjs.createServer();
 
 sockjsServer.on('connection', function(conn) {
+    console.log(" [.] open event received");
+    var t = setInterval(function(){
+        try{
+            conn._session.recv.didClose();
+        } catch (x) {}
+    }, 15000);
+
     clientCount++;
     if (clientCount === 1) {
         startBroadcast();
@@ -84,6 +91,10 @@ sockjsServer.on('connection', function(conn) {
             clearInterval(interval);
             mqttClient.end();
         }
+        console.log(" [.] close event received");
+        clearInterval(t);
+        t = null;
+
     });
 });
 

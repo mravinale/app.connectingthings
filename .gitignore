@@ -1,6 +1,5 @@
 node_modules
-.tmp
+.bower
 .idea
-heroku
-staging
+.tmp
 public/lib/
