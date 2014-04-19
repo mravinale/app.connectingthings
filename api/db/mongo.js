@@ -7,10 +7,10 @@ exports.mongoose = mongoose;
 var mongoOptions = { db: { safe: true } };
 
 // Connect to Database
-exports.db = mongoose.connect(config.db, mongoOptions, function (err, res) {
+exports.db = mongoose.connect(config.db.default, mongoOptions, function (err, res) {
   if (err) {
-    console.log ('ERROR connecting to: ' + config.db + '. ' + err);
+    console.log ('ERROR connecting to: ' + config.db.default + '. ' + err);
   } else {
-    console.log ('Successfully connected to: ' + config.db);
+    console.log ('Successfully connected to: ' + config.db.default);
   }
 });

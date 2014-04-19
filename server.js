@@ -35,7 +35,7 @@ app.use(express.methodOverride());
 
 // express/mongo session storage
 app.use(express.session({
-    secret: 'MEANP', store: new mongoStore({ url: config.db, collection: 'sessions' })
+    secret: 'MEANP', store: new mongoStore({ url: config.db.default, collection: 'sessions' })
 }));
 
 // Use passport session
@@ -112,7 +112,7 @@ var mosca = require('mosca')
 
 var ascoltatore = {
     type: 'mongo',
-    url: 'mongodb://localhost:27017/mqtt',
+    url: config.db.mqtt, // 'mongodb://localhost:27017/mqtt',
     pubsubCollection: 'ascoltatori',
     mongo: {}
 };
