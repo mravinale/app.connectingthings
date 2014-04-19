@@ -96,6 +96,37 @@ var server= app.listen(port, function () {
 
 
 sockjsServer.installHandlers(server, { prefix: '/sockjs' });
+
+var mosca = require('mosca')
+
+var ascoltatore = {
+    type: 'mongo',
+    url: 'mongodb://localhost:27017/mqtt',
+    pubsubCollection: 'ascoltatori',
+    mongo: {}
+};
+
+var settings = {
+    port: 1883,
+    backend: ascoltatore
+};
+
+var server = new mosca.Server(settings);
+server.on('ready', setup);
+
+// fired when the mqtt server is ready
+function setup() {
+    console.log('Mosca server is up and running')
+}
+
+// fired when a message is published
+server.on('published', function(packet, client) {
+    console.log('Published', packet.payload);
+});
+
+
+
+
 var mqttClient = mqtt.createClient(1883, 'localhost')
                      .subscribe('temperature')
                      .on('message', function (topic, message) {
@@ -105,5 +136,5 @@ var mqttClient = mqtt.createClient(1883, 'localhost')
                                 clients[key].write(message);
                             }
                         }
-                        // console.log(message);
+                         console.log(message);
                     });
