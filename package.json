@@ -37,7 +37,7 @@
         "node": ">=0.8.0"
     },
     "scripts": {
-        "test": "grunt test"
+        "postinstall": "bower cache clean"
     },
     "devDependencies": {
         "grunt-contrib-less": "~0.11.0"
