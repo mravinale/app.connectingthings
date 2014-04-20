@@ -1,24 +1,24 @@
 'use strict';
 
 angular.module('meanp')
-    .controller('MainCtrl', function ($scope, webSocket) {
+    .controller('MainCtrl', function ($scope, socket) {
         $scope.gaugeValue = 0;
 
         var items = [];
+        socket.on('temperature', function (item) {
 
-        webSocket.subscribe(function (item) {
-            items.push(item);
+            var temperature = angular.fromJson(item);
+            temperature.timestamp = Date.now();
 
-            if (items.length > 40) {
-                items.shift();
-            }
+            console.log(temperature);
+            items.push(temperature);
 
-            $scope.chart = {
-                data: items,
-                max: 30
-            };
+            if (items.length > 40)  items.shift();
 
-            $scope.gaugeValue = item.value;
+            $scope.chart = { data: items, max: 30 };
+            $scope.gaugeValue = temperature.value;
             $scope.$apply();
         });
+
+
     });

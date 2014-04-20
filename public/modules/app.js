@@ -8,11 +8,10 @@ angular.module('meanp', [
   'http-auth-interceptor',
   'ui.bootstrap',
   'autofill-directive',
-  'socket',
-  'ngStorage'
+  'ngStorage',
+  'btford.socket-io'
 ])
-  .config(function ($routeProvider, $locationProvider, webSocketProvider) {
-    webSocketProvider.setWebSocketURL('ws://' + window.location.host + '/sockjs/websocket');
+  .config(function ($routeProvider, $locationProvider) {
 
     $routeProvider
       .when('/', {

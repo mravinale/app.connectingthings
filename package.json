@@ -31,7 +31,8 @@
         "karma-ng-html2js-preprocessor": "~0.1.0",
         "sockjs": "~0.3.8",
         "mqtt" :"0.3.8",
-        "mosca":"0.19.1"
+        "mosca":"0.19.1",
+        "socket.io": "*"
     },
     "engines": {
         "node": ">=0.8.0"

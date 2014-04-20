@@ -9,7 +9,8 @@ var express = require('express'),
     path = require('path'),
     fs = require('fs'),
     mongoStore = require('connect-mongo')(express),
-    config = require('./api/config/config');
+    config = require('./api/config/config'),
+    mosca = require('mosca');
 
 var app = express();
 
@@ -47,96 +48,38 @@ app.use(app.router);
 require('./api/config/routes')(app);
 
 
-var clients = {};
-var clientCount = 0;
-var interval;
-
-var gaugeValue = 50;
-
-function broadcast() {
-    gaugeValue += Math.random() * 40 - 20;
-    gaugeValue = gaugeValue < 0 ? 0 : gaugeValue > 100 ? 100 : gaugeValue;
-
-    var message = JSON.stringify({ value: Math.floor(gaugeValue), timestamp: Date.now() });
-
-    mqttClient.publish('temperature', message);
-}
-
-function startBroadcast () {
-    interval = setInterval(broadcast, 2000);
-    //broadcast();
-}
-
-var sockjsServer = sockjs.createServer();
-
-sockjsServer.on('connection', function(conn) {
-    console.log(" [.] open event received");
-
-    clientCount++;
-    if (clientCount === 1) {
-        startBroadcast();
-    }
-
-    clients[conn.id] = conn;
-
-    conn.on('close', function() {
-        clientCount--;
-        delete clients[conn.id];
-        if (clientCount === 0) {
-            clearInterval(interval);
-            mqttClient.end();
-        }
-        console.log(" [.] close event received");
-       
-    });
-});
-
-
 // Start server
 var port = process.env.PORT || 3000;
 var server= app.listen(port, function () {
     console.log('listening on port %d in %s mode', port, app.get('env'));
 });
 
+//Start socket conection
+var io = require('socket.io').listen(server);
+io.sockets.on('connection', function (socket) {
+    var gaugeValue = 50;
+    setInterval(function broadcast() {
+        gaugeValue += Math.random() * 40 - 20;
+        gaugeValue = gaugeValue < 0 ? 0 : gaugeValue > 100 ? 100 : gaugeValue;
+        var message = JSON.stringify({ value: Math.floor(gaugeValue) });
 
-sockjsServer.installHandlers(server, { prefix: '/sockjs' });
-
-var mosca = require('mosca')
-
-var ascoltatore = {
-    type: 'mongo',
-    url: config.db.mqtt, // 'mongodb://localhost:27017/mqtt',
-    pubsubCollection: 'ascoltatori',
-    mongo: {}
-};
-
-var settings = {
-    port: 1883,
-    backend: ascoltatore
-};
-
-var server = new mosca.Server(settings);
-server.on('ready', setup);
-
-// fired when the mqtt server is ready
-function setup() {
-    console.log('Mosca server is up and running')
-}
-
-// fired when a message is published
-server.on('published', function(packet, client) {
-  //  console.log('Published', packet.payload);
+        mqttClient.publish('temperature', message);
+    },2000);
 });
 
+var moscaServer = new mosca.Server({ port: 1883, backend:{
+        type: 'mongo',
+        url: config.db.mqtt,
+        pubsubCollection: 'ascoltatori',
+        mongo: {}
+    }})
+    .on('ready', function setup() {
+        console.log('Mosca server is up and running')
+    });
 
 var mqttClient = mqtt.createClient(1883, 'localhost')
     .subscribe('temperature')
     .on('message', function (topic, message) {
-
-        for (var key in clients) {
-            if(clients.hasOwnProperty(key)) {
-                clients[key].write(message);
-            }
-        }
-       // console.log(message);
+        io.sockets.emit('temperature', message);
+     //   console.log(message);
     });
