@@ -2,6 +2,7 @@
     "name": "riaworks-apollo",
     "version": "0.0.1",
     "dependencies": {
+        "bower": "*",
         "express": "~3.4.3",
         "passport": "~0.1.15",
         "passport-local": "~0.1.6",
@@ -37,5 +38,4 @@
     "engines": {
         "node": ">=0.8.0"
     }
-
 }
