@@ -10,13 +10,14 @@ angular.module('meanp')
             var temperature = angular.fromJson(item);
             temperature.timestamp = Date.now();
 
-            console.log(temperature);
             items.push(temperature);
 
-            if (items.length > 40)  items.shift();
+            if (items.length > 30)  items.shift();
 
             $scope.chart = { data: items, max: 30 };
             $scope.gaugeValue = temperature.value;
+
+            console.log(temperature);
             $scope.$apply();
         });
 
