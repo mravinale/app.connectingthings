@@ -66,13 +66,13 @@ var opts = {
         level: 'info'
     },
     http: {
-        port: 3000 // tcp
-    },
-    mqtt: {
         port: 3001 // tcp
     },
+    mqtt: {
+        port: 1883 // tcp
+    },
     coap: {
-        port: 3000 // udp
+        port: 1884 // udp
     },
     persistence: {
         type: 'mongo',
@@ -91,10 +91,9 @@ ponteServer.on("updated", function(resource, buffer) {
     console.log("Resource Updated", resource, buffer.toString());
 });
 
-var mqttClient = mqtt.createClient(1883, 'localhost');
-
-mqttClient.subscribe('/temperature')
-mqttClient.on('message', function (topic, message) {
+mqtt.createClient(1883, 'localhost')
+    .subscribe('/temperature')
+    .on('message', function (topic, message) {
      //   io.sockets.emit('temperature', message);
         console.log("mqtt client:",message);
     });
