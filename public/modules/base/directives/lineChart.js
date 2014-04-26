@@ -31,7 +31,7 @@ angular.module('meanp')
 
           var last = data[data.length - 1];
           var max = new Date(last.timestamp);
-          var min = new Date(last.timestamp - chart.max * 1000);
+          var min = new Date(last.timestamp - chart.max * 1000); // new Date(data[0].timestamp);
 
           var chartOptions = {
             legend: 'none',

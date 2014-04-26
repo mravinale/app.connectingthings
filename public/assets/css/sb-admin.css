@@ -313,3 +313,12 @@ table.dataTable thead .sorting:after {
 .show-grid {
     margin: 15px 0;
 }
+
+.profile-img{
+    margin-bottom: 10px;
+    border-radius: 50%;
+}
+
+.login-input{
+    margin-top: 10px;
+}
