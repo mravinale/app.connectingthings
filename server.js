@@ -84,20 +84,26 @@ var opts = {
 var ponteServer = ponte(opts);
 ponteServer.on("updated", function(resource, buffer) {
 
-    if(resource == "/temperature" || resource == "temperature"){
+    if(resource == "temperature"){
         io.sockets.emit('temperature', JSON.stringify({ value: buffer.toString() }));
     }
 
-    if(resource == "/humidity" || resource == "humidity"){
+    if(resource == "humidity"){
         io.sockets.emit('humidity', JSON.stringify({ value: buffer.toString() }));
+    }
+
+    if(resource == "smoke"){
+        io.sockets.emit('smoke', JSON.stringify({ value: buffer.toString() }));
     }
 
     console.log("Resource Updated", resource, buffer.toString());
 });
 
-mqtt.createClient(1883, 'localhost')
-    .subscribe('/temperature')
-    .subscribe('/humidity')
+var mqttClient = mqtt.createClient(1883, 'localhost')
+    .subscribe('temperature')
+    .subscribe('humidity')
+    .subscribe('smoke')
     .on('message', function (topic, message) {
         console.log("mqtt client:",message);
     });
+

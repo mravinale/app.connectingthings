@@ -5,7 +5,9 @@ angular.module('meanp')
     return {
       template: '<div></div>',
       scope: {
-        chart: '='
+        chart: '=',
+        ymin:'=',
+        ymax:'='
       },
       restrict: 'E',
       replace: true,
@@ -31,11 +33,11 @@ angular.module('meanp')
 
           var last = data[data.length - 1];
           var max = new Date(last.timestamp);
-          var min = new Date(last.timestamp - chart.max * 1000); // new Date(data[0].timestamp);
+          var min = new Date(data[0].timestamp) //new Date(last.timestamp - chart.max * 1000);
 
           var chartOptions = {
             legend: 'none',
-            vAxis: { minValue: 0, maxValue: 100 },
+            vAxis: { minValue: scope.ymin ? scope.ymin : 0, maxValue: scope.ymax ? scope.ymax :100 },
             hAxis: { viewWindow: { min: min, max: max }}
           };
 

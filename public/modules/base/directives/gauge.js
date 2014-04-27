@@ -12,11 +12,12 @@ angular.module('meanp')
         label: '@',
         min: '=',
         max: '=',
-        value: '='
+        value: '=',
+        size:'='
       },
       link: function postLink(scope, element, attrs) {
         var config = {
-          size: 220,
+          size: scope.size? scope.size : 220,
           label: attrs.label,
           min: undefined !== scope.min ? scope.min : 0,
           max: undefined !== scope.max ? scope.max : 100,
