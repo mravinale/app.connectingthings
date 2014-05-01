@@ -26,6 +26,18 @@ angular.module('meanp', [
         templateUrl: 'modules/base/views/signup.html',
         controller: 'SignupCtrl'
       })
+      .when('/panel/add', {
+        templateUrl: 'modules/panels/views/panel_add.html',
+        controller: 'PanelAddCtrl'
+      })
+      .when('/panel/edit', {
+        templateUrl: 'modules/panels/views/panel_edit.html',
+        controller: 'PanelEditCtrl'
+      })
+      .when('/panel/list', {
+        templateUrl: 'modules/panels/views/panel_list.html',
+        controller: 'PanelListCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

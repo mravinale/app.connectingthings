@@ -15,7 +15,7 @@
 
         <!-- /.row -->
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
 
                 <div class="panel panel-default">
                         <div class="panel-heading">
@@ -23,33 +23,22 @@
                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
+                                        Actions <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">Action</a>
-                                        </li>
-                                        <li><a href="#">Another action</a>
-                                        </li>
-                                        <li><a href="#">Something else here</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a>
-                                        </li>
+                                        <li><a href="#">Action</a></li>
+                                        <li class="divider"></li><li><a href="#">Separated link</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="col-lg-8 text-center">
+                            <div class="text-center">
                                 <line-chart chart="tempChart" ymax="50" class="line-chart"></line-chart>
-                            </div><!--/span-->
-                            <div class="col-lg-2 text-center">
-                                <gauge min="0" max="60" size="190" value="tempGaugeValue" label="º C" class="gauge"></gauge>
-                            </div><!--/span-->
+                            </div>
+
                         </div>
-                        <!-- /.panel-body -->
                     </div>
 
                 <div class="panel panel-default">
@@ -58,33 +47,21 @@
                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
+                                        Actions <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">Action</a>
-                                        </li>
-                                        <li><a href="#">Another action</a>
-                                        </li>
-                                        <li><a href="#">Something else here</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a>
-                                        </li>
+                                        <li><a href="#">Action</a></li>
+                                        <li class="divider"></li><li><a href="#">Separated link</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="col-lg-8 text-center">
+                            <div class="text-center">
                                 <line-chart chart="humidityChart" class="line-chart"></line-chart>
-                            </div><!--/span-->
-                            <div class="col-lg-2 text-center">
-                                <gauge min="0" max="100" size="190" value="humidityGaugeValue" label="%" class="gauge"></gauge>
-                            </div><!--/span-->
+                            </div>
                         </div>
-                        <!-- /.panel-body -->
                     </div>
 
                 <div class="panel panel-default">
@@ -93,29 +70,93 @@
                         <div class="pull-right">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                    Actions
-                                    <span class="caret"></span>
+                                    Actions <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li><a href="#">Action</a>
-                                    </li>
-                                    <li><a href="#">Another action</a>
-                                    </li>
-                                    <li><a href="#">Something else here</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a>
-                                    </li>
+                                    <li><a href="#">Action</a></li>
+                                    <li class="divider"></li><li><a href="#">Separated link</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <div class="col-lg-8 text-center">
+                        <div class="text-center">
                             <line-chart chart="smokeChart" ymax="20" class="line-chart"></line-chart>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Temperature
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li class="divider"></li><li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" style="height: 233px ;overflow-y: auto;">
+                        <div class="text-center">
+                            <gauge min="0" max="60" size="190" value="tempGaugeValue" label="º C" class="gauge"></gauge>
                         </div><!--/span-->
-                        <div class="col-lg-2 text-center">
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Humidity
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li class="divider"></li><li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" style="height: 233px ;overflow-y: auto;">
+                        <div class="text-center">
+                            <gauge min="0" max="100" size="190" value="humidityGaugeValue" label="%" class="gauge"></gauge>
+                        </div><!--/span-->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Smoke in the air
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li class="divider"></li><li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" style="height: 233px ;overflow-y: auto;">
+                        <div class="text-center">
                             <gauge min="0" max="20" size="190" value="smokeGaugeValue" label="%" class="gauge"></gauge>
                         </div><!--/span-->
                     </div>
@@ -124,7 +165,7 @@
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
