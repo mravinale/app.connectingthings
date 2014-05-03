@@ -322,3 +322,185 @@ table.dataTable thead .sorting:after {
 .login-input{
     margin-top: 10px;
 }
+
+
+
+
+
+
+/* Pure CSS3 Toggle Button */
+.toggle {
+    position:relative;
+    display:inline-block;
+    width:50px;
+    height:100px;
+    background-color:#F0F0F0;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    text-align:center;
+}
+
+.toggle input {
+    width:100%;
+    height:100%;
+    margin:0 0;
+    padding:0 0;
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    z-index:2;
+    cursor:pointer;
+    opacity:0;
+    filter:alpha(opacity=0);
+}
+
+.toggle label {
+    display:block;
+    position:absolute;
+    top:1px;
+    right:1px;
+    bottom:1px;
+    left:1px;
+    background-image:-webkit-linear-gradient(top,#fff 0%,#ddd 50%,#fff 50%,#eee 100%);
+    background-image:-moz-linear-gradient(top,#fff 0%,#ddd 50%,#fff 50%,#eee 100%);
+    background-image:-ms-linear-gradient(top,#fff 0%,#ddd 50%,#fff 50%,#eee 100%);
+    background-image:-o-linear-gradient(top,#fff 0%,#ddd 50%,#fff 50%,#eee 100%);
+    background-image:linear-gradient(top,#fff 0%,#ddd 50%,#fff 50%,#eee 100%);
+    -webkit-box-shadow:0 2px 3px rgba(0,0,0,0.4),
+    inset 0 -1px 1px #888,
+    inset 0 -5px 1px #bbb,
+    inset 0 -6px 0 white;
+    -moz-box-shadow:0 2px 3px rgba(0,0,0,0.4),
+    inset 0 -1px 1px #888,
+    inset 0 -5px 1px #bbb,
+    inset 0 -6px 0 white;
+    box-shadow:0 2px 3px rgba(0,0,0,0.4),
+    inset 0 -1px 1px #888,
+    inset 0 -5px 1px #bbb,
+    inset 0 -6px 0 white;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    font:normal 11px Arial,Sans-Serif;
+    color:#666;
+    text-shadow:0 1px 0 white;
+    cursor:text;
+}
+
+.toggle label:before {
+    content:attr(data-off);
+    position:absolute;
+    top:6px;
+    right:0;
+    left:0;
+    z-index:4;
+}
+
+.toggle label:after {
+    content:attr(data-on);
+    position:absolute;
+    right:0;
+    bottom:11px;
+    left:0;
+    color:#666;
+    text-shadow:0 -1px 0 #eee;
+}
+
+.toggle input:checked + label {
+    background-image:-webkit-linear-gradient(top,#eee 0%,#ccc 50%,#fff 50%,#eee 100%);
+    background-image:-moz-linear-gradient(top,#eee 0%,#ccc 50%,#fff 50%,#eee 100%);
+    background-image:-ms-linear-gradient(top,#eee 0%,#ccc 50%,#fff 50%,#eee 100%);
+    background-image:-o-linear-gradient(top,#eee 0%,#ccc 50%,#fff 50%,#eee 100%);
+    background-image:linear-gradient(top,#eee 0%,#ccc 50%,#fff 50%,#eee 100%);
+    -webkit-box-shadow:0 0 1px rgba(0,0,0,0.4),
+    inset 0 1px 7px -1px #ccc,
+    inset 0 5px 1px #fafafa,
+    inset 0 6px 0 white;
+    -moz-box-shadow:0 0 1px rgba(0,0,0,0.4),
+    inset 0 1px 7px -1px #ccc,
+    inset 0 5px 1px #fafafa,
+    inset 0 6px 0 white;
+    box-shadow:0 0 1px rgba(0,0,0,0.4),
+    inset 0 1px 7px -1px #ccc,
+    inset 0 5px 1px #fafafa,
+    inset 0 6px 0 white;
+}
+
+.toggle input:checked:hover + label {
+    -webkit-box-shadow:0 1px 3px rgba(0,0,0,0.4),
+    inset 0 1px 7px -1px #ccc,
+    inset 0 5px 1px #fafafa,
+    inset 0 6px 0 white;
+    -moz-box-shadow:0 1px 3px rgba(0,0,0,0.4),
+    inset 0 1px 7px -1px #ccc,
+    inset 0 5px 1px #fafafa,
+    inset 0 6px 0 white;
+    box-shadow:0 1px 3px rgba(0,0,0,0.4),
+    inset 0 1px 7px -1px #ccc,
+    inset 0 5px 1px #fafafa,
+    inset 0 6px 0 white;
+}
+
+.toggle input:checked + label:before {
+    z-index:1;
+    top:11px;
+}
+
+.toggle input:checked + label:after {
+    bottom:9px;
+    color:#aaa;
+    text-shadow:none;
+    z-index:4;
+}
+
+.toggle label {
+    margin-bottom: 0px;
+}
+
+.led-red {
+    margin: 20px auto;
+    width: 12px;
+    height: 12px;
+    background-color: #940;
+    border-radius: 50%;
+    box-shadow: #000 0 -1px 7px 1px, inset #600 0 -1px 9px, #F00 0 2px 12px;
+}
+
+.led-yellow {
+    margin: 20px auto;
+    width: 12px;
+    height: 12px;
+    background-color: #A90;
+    border-radius: 50%;
+    box-shadow: #000 0 -1px 7px 1px, inset #660 0 -1px 9px, #DD0 0 2px 12px;
+}
+
+.led-green {
+    margin: 20px auto;
+    width: 12px;
+    height: 12px;
+    background-color: #690;
+    border-radius: 50%;
+    box-shadow: #000 0 -1px 7px 1px, inset #460 0 -1px 9px, #7D0 0 2px 12px;
+}
+
+.led-blue {
+    margin: 20px auto;
+    width: 12px;
+    height: 12px;
+    background-color: #4AB;
+    border-radius: 50%;
+    box-shadow: #000 0 -1px 7px 1px, inset #006 0 -1px 9px, #06F 0 2px 14px;
+}
+
+.led-off {
+    margin: 20px auto;
+    width: 12px;
+    height: 12px;
+    background-color: #8b9195;
+    border-radius: 50%;
+    box-shadow: #8b9195 0 -1px 7px 1px, inset #929699 0 -1px 9px, #7d8285 0 2px 14px;
+}
