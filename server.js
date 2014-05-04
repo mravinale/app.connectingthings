@@ -84,17 +84,7 @@ var opts = {
 var ponteServer = ponte(opts);
 ponteServer.on("updated", function(resource, buffer) {
 
-    if(resource == "temperature"){
-        io.sockets.emit('temperature', JSON.stringify({ value: buffer.toString() }));
-    }
-
-    if(resource == "humidity"){
-        io.sockets.emit('humidity', JSON.stringify({ value: buffer.toString() }));
-    }
-
-    if(resource == "smoke"){
-        io.sockets.emit('smoke', JSON.stringify({ value: buffer.toString() }));
-    }
+    io.sockets.emit(resource, JSON.stringify({ value: buffer.toString() }));
 
     console.log("Resource Updated", resource, buffer.toString());
 });

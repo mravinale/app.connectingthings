@@ -1,22 +1,21 @@
 'use strict';
 
 /* Services */
-angular.module('meanp').service('sessionService', function ($http) {
+angular.module('meanp').service('panelService', function ($http) {
 
-    this.create = function (provider,user) {
-        return $http.post('/auth/session/', {
-            provider: provider,
-            email: user.email,
-            password: user.password,
-            rememberMe: user.rememberMe
-        });
+    this.getPanels = function(){
+        return $http.get('/panels/');
     };
 
-    this.remove = function () {
-        return $http.delete('/auth/session/');
+    this.create = function (panel) {
+        return $http.post('/panels/', panel);
     };
 
-    this.getCurrentUser = function () {
-        return $http.delete('/auth/session/');
+    this.remove = function (panelId) {
+        return $http.delete('/panels/'+panelId);
+    };
+
+    this.update = function (panelId, panel) {
+        return $http.put('/panels/'+panelId, panel);
     };
 });
