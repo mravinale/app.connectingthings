@@ -8,9 +8,6 @@ module.exports = function(app) {
   var users = require('../controllers/users');
   app.post('/auth/users', users.create);
   app.get('/auth/users/:userId', users.show);
-
-  // Check if username is available
-  // todo: probably should be a query on users
   app.get('/auth/check_username/:username', users.exists);
 
   // Session Routes
@@ -19,5 +16,12 @@ module.exports = function(app) {
   app.post('/auth/session', session.login);
   app.del('/auth/session', session.logout);
 
+  // Panel Routes
+  var panels = require('../controllers/panels');
+  app.get('/panels', panels.getAll);
+  app.get('/panels/:panelId', panels.getById);
+  app.put('/panels/:panelId', panels.update);
+  app.del('/panels/:panelId', panels.remove);
+  app.post('/panels', panels.create);
 
 }

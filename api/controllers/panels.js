@@ -1,64 +1,72 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  User = mongoose.model('Panels'),
-  ObjectId = mongoose.Types.ObjectId;
+  Panel = mongoose.model('Panel')
 
-/**
- * Create user
- * requires: {username, password, email}
- * returns: {email, password}
- */
+
 exports.create = function (req, res, next) {
-  var newUser = new User(req.body);
-  newUser.provider = 'local';
+    var newPanel = new Panel(req.body);
 
-  newUser.save(function(err) {
-    if (err) {
-      return res.json(400, err);
-    }
+    newPanel.save(function(err, panel) {
+        if (err) {
+          console.log(error);
+          return res.send(400, err);
+        }
 
-    req.logIn(newUser, function(err) {
-      if (err) return next(err);
-      return res.json(newUser.user_info);
+        return res.send(200, panel);
     });
-  });
 };
 
-/**
- *  Show profile
- *  returns {username, profile}
- */
-exports.show = function (req, res, next) {
-  var userId = req.params.userId;
 
-  User.findById(ObjectId(userId), function (err, user) {
-    if (err) {
-      return next(new Error('Failed to load User'));
-    }
-    if (user) {
-      res.send({username: user.username, profile: user.profile });
-    } else {
-      res.send(404, 'USER_NOT_FOUND')
-    }
-  });
-};
+exports.getAll = function (req, res, next) {
 
-/**
- *  Username exists
- *  returns {exists}
- */
-exports.exists = function (req, res, next) {
-  var username = req.params.username;
-  User.findOne({ username : username }, function (err, user) {
-    if (err) {
-      return next(new Error('Failed to load User ' + username));
-    }
-
-    if(user) {
-      res.json({exists: true});
-    } else {
-      res.json({exists: false});
-    }
-  });
+    Panel
+        .find()
+        .sort('name')
+        .exec(function (error, panels) {
+            if (error) {
+                console.log(error);
+                res.send(400, error);
+            } else {
+                res.send(200, panels);
+            }
+        });
 }
+
+
+exports.getById = function (req, res, next) {
+
+    Panel.findById(req.params.orgid)
+        .exec(function (error, panels) {
+            if (error) {
+                console.log(error);
+                res.send(400, error);
+            } else {
+                res.send(200, panels);
+            }
+        })
+};
+
+exports.remove = function (req, res, next) {
+
+    Panel.remove({ _id: req.params.panelId }, function (error) { // TODO remove seems fussy
+        if (error) {
+            log.error(error);
+            res.send(400, error);
+        } else {
+            res.send(200);
+        }
+    });
+};
+
+exports.update = function (req, res, next) {
+
+    Panel.update({_id: req.params.orgId}, req.body, options, function (error, panel) {
+        if (error) {
+            log.error(error);
+            res.send(400, error);
+        } else {
+            res.send(200, panel);
+        }
+    });
+};
