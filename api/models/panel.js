@@ -1,12 +1,13 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+  uuid = require('node-uuid'),
   Schema = mongoose.Schema;
 
 var PanelSchema = new Schema({
    _id: {type: String},
-  panelName: String,
-  deviceType: String
+  name: String,
+  device: String
 });
 
 PanelSchema.pre('save', function (next) {
@@ -17,4 +18,4 @@ PanelSchema.pre('save', function (next) {
     next();
 });
 
-mongoose.model('User', UserSchema);
+mongoose.model('Panel', PanelSchema);

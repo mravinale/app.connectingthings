@@ -9,7 +9,8 @@ angular.module('meanp', [
   'ui.bootstrap',
   'autofill-directive',
   'ngStorage',
-  'btford.socket-io'
+  'btford.socket-io',
+  'ngTable'
 ])
   .config(function ($routeProvider, $locationProvider) {
 

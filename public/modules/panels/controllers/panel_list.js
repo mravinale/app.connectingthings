@@ -1,65 +1,33 @@
 'use strict';
-//http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
+
 angular.module('meanp')
-    .controller('PanelListCtrl', function ($scope, socket) {
+    .controller('PanelListCtrl', function ($scope, panelService, ngTableParams) {
 
-        $scope.tempGaugeValue = 0;
-        $scope.humidityGaugeValue = 0;
-        $scope.smokeGaugeValue = 0;
+        $scope.errors = {};
 
-        var tempItems = [{value: 0, timestamp: Date.now()} ];
-        $scope.tempChart = { data: tempItems, max: 3000 };
+        $scope.tableParams = new ngTableParams({
+            page: 1,            // show first page
+            count: 10,          // count per page
+            sorting: {
+                name: 'asc'     // initial sorting
+            }
+        }, {
+            total: 0,           // length of data
+            getData: function($defer, params) {
 
-        var humidityItems = [{value: 0, timestamp: Date.now()} ];
-        $scope.humidityChart = { data: humidityItems, max: 3000 };
+                panelService.getAll()
+                    .success(function (response, status, headers, config) {
+                        params.total(response.length);
+                        $defer.resolve(response);
 
-        var smokeItems = [{value: 0, timestamp: Date.now()} ];
-        $scope.smokeChart = { data: smokeItems, max: 3000 };
-
-        socket.on('temperature', function (temp) {
-
-            var item = angular.fromJson(temp);
-            item.timestamp = Date.now();
-
-            tempItems.push(item);
-            if (tempItems.length > 3000)  tempItems.shift();
-
-            $scope.tempChart = { data: tempItems, max: 3000 };
-            $scope.tempGaugeValue = item.value;
-
-            console.log(item);
-            $scope.$apply();
+                    })
+                    .error(function(response, status, headers, config) {
+                        angular.forEach(response.errors, function(error, field) {
+                            form[field].$setValidity('mongoose', false);
+                            $scope.errors[field] = error.type;
+                        });
+                    });
+            }
         });
-
-        socket.on('humidity', function (hum) {
-
-            var item = angular.fromJson(hum);
-            item.timestamp = Date.now();
-
-            humidityItems.push(item);
-            if (humidityItems.length > 3000)  humidityItems.shift();
-
-            $scope.humidityChart = { data: humidityItems, max: 3000 };
-            $scope.humidityGaugeValue = item.value;
-
-            console.log(item);
-            $scope.$apply();
-        });
-
-        socket.on('smoke', function (smoke) {
-
-            var item = angular.fromJson(smoke);
-            item.timestamp = Date.now();
-
-            smokeItems.push(item);
-            if (smokeItems.length > 3000)  smokeItems.shift();
-
-            $scope.smokeChart = { data: smokeItems, max: 3000 };
-            $scope.smokeGaugeValue = item.value;
-
-            console.log(item);
-            $scope.$apply();
-        });
-
 
     });

@@ -9,7 +9,6 @@ exports.create = function (req, res, next) {
 
     newPanel.save(function(err, panel) {
         if (err) {
-          console.log(error);
           return res.send(400, err);
         }
 

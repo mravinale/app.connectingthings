@@ -3,13 +3,12 @@
 angular.module('meanp')
     .controller('PanelAddCtrl', function ($scope, panelService) {
 
-        $scope.register = function(form) {
+        $scope.submit = function() {
             $scope.errors = {};
 
-            panelService.create($scope.user)
+            panelService.create($scope.panel)
                 .success(function (response, status, headers, config) {
-                    $rootScope.currentUser = response;
-                    $location.path('/');
+                    console.log(response);
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
