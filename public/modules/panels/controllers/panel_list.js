@@ -7,7 +7,7 @@ angular.module('meanp')
 
         $scope.tableParams = new ngTableParams({
             page: 1,            // show first page
-            count: 10,          // count per page
+            count: 5,          // count per page
             sorting: {
                 name: 'asc'     // initial sorting
             }
@@ -15,10 +15,10 @@ angular.module('meanp')
             total: 0,           // length of data
             getData: function($defer, params) {
 
-                panelService.getAll()
+                panelService.getAll(params)
                     .success(function (response, status, headers, config) {
-                        params.total(response.length);
-                        $defer.resolve(response);
+                        params.total(response.count);
+                        $defer.resolve(response.data);
 
                     })
                     .error(function(response, status, headers, config) {

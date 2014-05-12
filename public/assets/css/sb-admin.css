@@ -504,3 +504,7 @@ table.dataTable thead .sorting:after {
     border-radius: 50%;
     box-shadow: #8b9195 0 -1px 7px 1px, inset #929699 0 -1px 9px, #7d8285 0 2px 14px;
 }
+
+.pagination{
+    margin: 0px;
+}

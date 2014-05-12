@@ -3,8 +3,13 @@
 /* Services */
 angular.module('meanp').service('panelService', function ($http) {
 
-    this.getAll = function(){
-        return $http.get('/panels');
+    this.getAll = function(params){
+        var paramsToSend ={
+            page: params.page() -1,
+            count: params.count()
+        }
+
+        return $http.get('/panels', { params :paramsToSend });
     };
 
     this.getById = function(panelId){

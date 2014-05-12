@@ -21,14 +21,18 @@ exports.getAll = function (req, res, next) {
 
     Panel
         .find()
-        .sort('name')
+        .sort({name: 'asc'})
+        .limit(req.query.count)
+        .skip(req.query.count * req.query.page)
         .exec(function (error, panels) {
-            if (error) {
-                console.log(error);
-                res.send(400, error);
-            } else {
-                res.send(200, panels);
-            }
+            Panel.count().exec(function (error, count) {
+                if (error) {
+                    console.log(error);
+                    res.send(400, error);
+                } else {
+                    res.send(200, {data:panels, count: count});
+                }
+            });
         });
 }
 
