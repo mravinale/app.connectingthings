@@ -39,13 +39,13 @@ exports.getAll = function (req, res, next) {
 
 exports.getById = function (req, res, next) {
 
-    Panel.findById(req.params.orgid)
-        .exec(function (error, panels) {
+    Panel.findOne({_id: req.params.id})
+        .exec(function (error, panel) {
             if (error) {
                 console.log(error);
                 res.send(400, error);
             } else {
-                res.send(200, panels);
+                res.send(200, panel);
             }
         })
 };
@@ -64,7 +64,7 @@ exports.remove = function (req, res, next) {
 
 exports.update = function (req, res, next) {
 
-    Panel.update({_id: req.params.orgId}, req.body, options, function (error, panel) {
+    Panel.update({_id: req.params.id}, req.body, options, function (error, panel) {
         if (error) {
             log.error(error);
             res.send(400, error);

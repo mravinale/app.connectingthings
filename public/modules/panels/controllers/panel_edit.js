@@ -1,11 +1,11 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('meanp')
-    .controller('PanelEditCtrl', function ($scope, $routeParams) {
+    .controller('PanelEditCtrl', function ($scope, $routeParams, panelService) {
 
         panelService.getById($routeParams.id)
             .success(function (response, status, headers, config) {
-                $scope.panel = response.data 
+                $scope.panel = response
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

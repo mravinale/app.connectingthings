@@ -13,7 +13,7 @@ angular.module('meanp').service('panelService', function ($http) {
     };
 
     this.getById = function(panelId){
-        return $http.get('/panels'+panelId);
+        return $http.get('/panels/'+panelId);
     };
 
     this.create = function (panel) {

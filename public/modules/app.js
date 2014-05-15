@@ -31,7 +31,7 @@ angular.module('meanp', [
         templateUrl: 'modules/panels/views/panel_add.html',
         controller: 'PanelAddCtrl'
       })
-      .when('/panel/edit', {
+      .when('/panel/edit/:id', {
         templateUrl: 'modules/panels/views/panel_edit.html',
         controller: 'PanelEditCtrl'
       })

@@ -19,9 +19,9 @@ module.exports = function(app) {
   // Panel Routes
   var panels = require('../controllers/panels');
   app.get('/panels', panels.getAll);
-  app.get('/panels/:panelId', panels.getById);
-  app.put('/panels/:panelId', panels.update);
-  app.del('/panels/:panelId', panels.remove);
+  app.get('/panels/:id', panels.getById);
+  app.put('/panels/:id', panels.update);
+  app.del('/panels/:id', panels.remove);
   app.post('/panels', panels.create);
 
 }
