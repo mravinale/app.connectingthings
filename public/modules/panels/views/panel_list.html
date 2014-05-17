@@ -43,7 +43,10 @@
                                 <tr ng-repeat="panel in $data" >
                                     <td data-title="'Name'" sortable="'name'"> <a href="#/panel/edit/{{panel._id}}">{{panel.name}} </a></td>
                                     <td data-title="'Device'" sortable="'device'"><a href="#/panel/edit/{{panel._id}}">{{panel.device}}</a></td>
-                                    <td data-title="'Actions'" style="width: 90px"> <a href="#/panel/edit/{{panel._id}}" class="btn btn-primary" role="button">Edit Panel</a> </td>
+                                    <td data-title="'Actions'" style="width: 124px">
+                                        <a href="#/panel/edit/{{panel._id}}" class="btn btn-primary" role="button">Edit</a>
+                                        <button class="btn btn-primary" ng-click="delete(panel)" class="pull-right">Delete</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

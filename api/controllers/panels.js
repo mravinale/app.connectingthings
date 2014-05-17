@@ -52,7 +52,7 @@ exports.getById = function (req, res, next) {
 
 exports.remove = function (req, res, next) {
 
-    Panel.remove({ _id: req.params.panelId }, function (error) { // TODO remove seems fussy
+    Panel.remove({ _id: req.params.id }, function (error) { // TODO remove seems fussy
         if (error) {
             log.error(error);
             res.send(400, error);

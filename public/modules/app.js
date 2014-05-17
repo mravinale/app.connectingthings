@@ -39,6 +39,10 @@ angular.module('meanp', [
         templateUrl: 'modules/panels/views/panel_list.html',
         controller: 'PanelListCtrl'
       })
+      .when('/panel/me', {
+        templateUrl: 'modules/panels/views/panel_me.html',
+        controller: 'PanelMeCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

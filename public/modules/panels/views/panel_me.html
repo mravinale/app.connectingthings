@@ -1,0 +1,58 @@
+
+<div ng-include="" src="'modules/base/views/partials/navbar.html'" ng-controller="NavbarCtrl"></div>
+
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">My Dashboard</h1>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Temperature
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <line-chart chart="tempChart" ymax="50" class="line-chart"></line-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <panel-gauge> </panel-gauge>
+        </div>
+
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> Temperature Notifications Panel
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body" style="height: 233px ;overflow-y: auto;">
+                    <div class="list-group">
+
+                        <a href="#" class="list-group-item" ng-repeat="item in tempChart.data">
+                            <i class="fa fa-envelope fa-fw"></i> {{item.value}}º celcius
+                                                <span class="pull-right text-muted small"><em>{{item.timestamp  | date:'medium'}}</em>
+                                                </span>
+                        </a>
+
+                    </div>
+                    <!-- /.list-group -->
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>

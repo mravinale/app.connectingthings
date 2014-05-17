@@ -6,7 +6,9 @@ angular.module('meanp').service('panelService', function ($http) {
     this.getAll = function(params){
         var paramsToSend ={
             page: params.page() -1,
-            count: params.count()
+            count: params.count(),
+            orderBy: params.orderBy(),
+            filter: {}
         }
 
         return $http.get('/panels', { params :paramsToSend });
@@ -24,7 +26,7 @@ angular.module('meanp').service('panelService', function ($http) {
         return $http.delete('/panels/'+panelId);
     };
 
-    this.update = function (panelId, panel) {
-        return $http.put('/panels/'+panelId, panel);
+    this.update = function ( panel) {
+        return $http.put('/panels/'+panel._id, panel);
     };
 });
