@@ -4,16 +4,12 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('meanp')
-    .directive('panelGauge', function (socket) {
+    .directive('panelChart', function (socket) {
         return {
             scope:{
-                name:"@",
+                ymax:"=",
                 tag:"@",
-                label:"@",
-                min:"=",
-                max:"=",
-                size:"=",
-                initValue:"="
+                name:"@"
             },
             restrict: 'E',
             replace: true,
@@ -22,18 +18,27 @@ angular.module('meanp')
                     '<div class="panel-heading">'+
                         '<i class="fa fa-bar-chart-o fa-fw"></i> {{name}}'+
                     '</div>'+
-                    '<div class="panel-body" style="height: 233px ;overflow-y: auto;">'+
+                    '<div class="panel-body">'+
                         '<div class="text-center">'+
-                            '<gauge min="min" max="max" size="size" value="gaugeValue" label="{{label}}" class="gauge"></gauge>'+
+                            '<line-chart chart="values" ymax="ymax" class="line-chart"></line-chart>'+
                         '</div>'+
                     '</div>'+
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
-                scope.gaugeValue = scope.initValue? scope.initValue : 0;
+                var items = [{value: 0, timestamp: Date.now()} ];
+                scope.values = { data: items, max: 3000 };
 
-                socket.on(scope.tag, function (temp) {
-                    scope.gaugeValue = angular.fromJson(temp).value;
+                socket.on(scope.tag, function (value) {
+
+                    var item = angular.fromJson(value);
+                    item.timestamp = Date.now();
+
+                    items.push(item);
+                    if (items.length > 3000)  items.shift();
+
+                    scope.values = { data: items, max: 3000 };
+
                 });
 
             }
