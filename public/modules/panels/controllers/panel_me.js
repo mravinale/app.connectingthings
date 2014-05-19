@@ -1,27 +1,18 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('meanp')
-    .controller('PanelMeCtrl', function ($scope, socket) {
-/*
-        $scope.tempGaugeValue = 0;
+    .controller('PanelMeCtrl', function ($scope, panelService) {
 
-        var tempItems = [{value: 0, timestamp: Date.now()} ];
-        $scope.tempChart = { data: tempItems, max: 3000 };
+        panelService.getAllPanels()
+            .success(function (response, status, headers, config) {
+               $scope.panels = response;
+                console.log(response);
+            })
+            .error(function(response, status, headers, config) {
+                angular.forEach(response.errors, function(error, field) {
+                    form[field].$setValidity('mongoose', false);
+                    $scope.errors[field] = error.type;
+                });
+            });
 
-        socket.on('temperature', function (temp) {
-
-            var item = angular.fromJson(temp);
-            item.timestamp = Date.now();
-
-            tempItems.push(item);
-            if (tempItems.length > 3000)  tempItems.shift();
-
-            $scope.tempChart = { data: tempItems, max: 3000 };
-            $scope.tempGaugeValue = item.value;
-
-            console.log(item);
-            $scope.$apply();
-        });
-
-*/
     });

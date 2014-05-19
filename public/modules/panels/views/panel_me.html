@@ -7,38 +7,23 @@
         </div>
     </div>
 
-    <div class="row">
 
-        <div class="col-md-6">
-            <panel-chart name="Temperature" tag="temperature" ymax="80" > </panel-chart>
-        </div>
+    <div ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in panels">
 
-        <div class="col-md-3">
+        <panel-chart ng-if="panel.type=='chart'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-chart>
+
+        <panel-gauge ng-if="panel.type=='gauge'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-gauge>
+
+        <panel-info ng-if="panel.type=='info'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-info>
+
+    </div>
+
+        <!--div class="col-md-3">
             <panel-gauge name="Temperature" tag="temperature" label="º C" min="0" max="80" size="190" init-value="0"> </panel-gauge>
         </div>
 
         <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-bell fa-fw"></i> Temperature Notifications Panel
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body" style="height: 233px ;overflow-y: auto;">
-                    <div class="list-group">
+            <panel-info name="Temperature" tag="temperature" label="º Celcius" > </panel-info>
+        </div-->
 
-                        <a href="#" class="list-group-item" ng-repeat="item in tempChart.data">
-                            <i class="fa fa-envelope fa-fw"></i> {{item.value}}º celcius
-                                                <span class="pull-right text-muted small"><em>{{item.timestamp  | date:'medium'}}</em>
-                                                </span>
-                        </a>
-
-                    </div>
-                    <!-- /.list-group -->
-
-                </div>
-                <!-- /.panel-body -->
-            </div>
-        </div>
-
-    </div>
 </div>

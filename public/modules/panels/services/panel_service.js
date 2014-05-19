@@ -14,6 +14,11 @@ angular.module('meanp').service('panelService', function ($http) {
         return $http.get('/panels', { params :paramsToSend });
     };
 
+    this.getAllPanels = function(){
+
+        return $http.get('/panels/items');
+    };
+
     this.getById = function(panelId){
         return $http.get('/panels/'+panelId);
     };

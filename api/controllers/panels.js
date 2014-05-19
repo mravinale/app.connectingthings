@@ -36,6 +36,18 @@ exports.getAll = function (req, res, next) {
         });
 }
 
+exports.getAllPanels = function (req, res, next) {
+
+    Panel.find().exec(function (error, panels) {
+        if (error) {
+           console.log(error);
+           return res.send(400, error);
+        }
+        return  res.send(200, panels);
+
+    });
+}
+
 
 exports.getById = function (req, res, next) {
 
@@ -63,13 +75,14 @@ exports.remove = function (req, res, next) {
 };
 
 exports.update = function (req, res, next) {
-
-    Panel.update({_id: req.params.id}, req.body, options, function (error, panel) {
+    delete req.body._id;
+    Panel.update({_id: req.params.id}, req.body,{upsert: true}, function (error, panel) {
         if (error) {
-            log.error(error);
-            res.send(400, error);
-        } else {
-            res.send(200, panel);
+           console.log(error);
+           return res.json(400, error);
         }
+
+        return  res.json(panel);
+
     });
 };

@@ -26,10 +26,30 @@
                                     <label  class="col-sm-2 control-label">Device type</label>
                                     <div class="col-sm-10">
                                         <select ng-model="panel.device" class="form-control">
-                                            <option>Temperature</option>
-                                            <option>Humidity</option>
-                                            <option>Smoke</option>
-                                            <option>Switch</option>
+                                            <option>temperature</option>
+                                            <option>humidity</option>
+                                            <option>smoke</option>
+                                            <option>switch</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label">Control type</label>
+                                    <div class="col-sm-10">
+                                        <select ng-model="panel.type" class="form-control">
+                                            <option>gauge</option>
+                                            <option>chart</option>
+                                            <option>info</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label">Control size</label>
+                                    <div class="col-sm-10">
+                                        <select ng-model="panel.size" class="form-control">
+                                            <option>small</option>
+                                            <option>medium</option>
+                                            <option>large</option>
                                         </select>
                                     </div>
                                 </div>

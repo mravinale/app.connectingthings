@@ -1,7 +1,7 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('meanp')
-    .controller('PanelEditCtrl', function ($scope, $routeParams, panelService) {
+    .controller('PanelEditCtrl', function ($scope, $routeParams, panelService,$location) {
 
         panelService.getById($routeParams.id)
             .success(function (response, status, headers, config) {

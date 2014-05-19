@@ -7,7 +7,9 @@ var mongoose = require('mongoose'),
 var PanelSchema = new Schema({
    _id: {type: String},
   name: String,
-  device: String
+  device: String,
+  type: String,
+  size: String
 });
 
 PanelSchema.pre('save', function (next) {
