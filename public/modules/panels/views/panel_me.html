@@ -7,17 +7,17 @@
         </div>
     </div>
 
+    <div class="panels" ui-sortable>
+        <div  ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in panels">
 
-    <div ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in panels">
+            <panel-chart ng-if="panel.type=='chart'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-chart>
 
-        <panel-chart ng-if="panel.type=='chart'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-chart>
+            <panel-gauge ng-if="panel.type=='gauge'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-gauge>
 
-        <panel-gauge ng-if="panel.type=='gauge'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-gauge>
+            <panel-info ng-if="panel.type=='info'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-info>
 
-        <panel-info ng-if="panel.type=='info'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-info>
-
+        </div>
     </div>
-
         <!--div class="col-md-3">
             <panel-gauge name="Temperature" tag="temperature" label="º C" min="0" max="80" size="190" init-value="0"> </panel-gauge>
         </div>

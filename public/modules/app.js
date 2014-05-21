@@ -7,6 +7,7 @@ angular.module('meanp', [
   'ngRoute',
   'http-auth-interceptor',
   'ui.bootstrap',
+  'ui.sortable',
   'autofill-directive',
   'ngStorage',
   'btford.socket-io',
