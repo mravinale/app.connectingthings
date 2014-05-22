@@ -12,6 +12,7 @@ angular.module('meanp')
       restrict: 'E',
       replace: true,
       link: function postLink(scope, element) {
+
         var lineChart = new google.visualization.LineChart(element[0]);
 
         function draw(chart) {
@@ -47,6 +48,8 @@ angular.module('meanp')
         scope.$watch('chart', function (chart) {
           if (chart && chart.data && chart.max) {
             draw(chart);
+            $(".line-chart").children().css("height", "");
+            $(".line-chart div").css("position", "relative");
           }
         });
       }
