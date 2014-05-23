@@ -508,3 +508,8 @@ table.dataTable thead .sorting:after {
 .pagination{
     margin: 0px;
 }
+
+.gauge{
+    display: initial;
+    width: initial;
+}

@@ -22,7 +22,7 @@ angular.module('meanp')
                     '<div class="panel-heading">'+
                         '<i class="fa fa-bar-chart-o fa-fw"></i> {{name}}'+
                     '</div>'+
-                    '<div class="panel-body" style="height: 233px ;overflow-y: auto;">'+
+                    '<div class="panel-body" style="height: 233px ;">'+
                         '<div class="text-center">'+
                             '<gauge min="min" max="max" size="size" value="gaugeValue" label="{{label}}" class="gauge"></gauge>'+
                         '</div>'+

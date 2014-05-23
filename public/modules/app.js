@@ -11,7 +11,8 @@ angular.module('meanp', [
   'autofill-directive',
   'ngStorage',
   'btford.socket-io',
-  'ngTable'
+  'ngTable',
+  'nvd3ChartDirectives'
 ])
   .config(function ($routeProvider, $locationProvider) {
 

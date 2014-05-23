@@ -16,14 +16,9 @@
 
             <panel-info ng-if="panel.type=='info'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-info>
 
+            <panel-d3-chart ng-if="panel.type=='d3-chart'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-d3-chart>
+
         </div>
     </div>
-        <!--div class="col-md-3">
-            <panel-gauge name="Temperature" tag="temperature" label="º C" min="0" max="80" size="190" init-value="0"> </panel-gauge>
-        </div>
-
-        <div class="col-md-3">
-            <panel-info name="Temperature" tag="temperature" label="º Celcius" > </panel-info>
-        </div-->
 
 </div>

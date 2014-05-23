@@ -48,8 +48,8 @@ angular.module('meanp')
         scope.$watch('chart', function (chart) {
           if (chart && chart.data && chart.max) {
             draw(chart);
-            $(".line-chart").children().css("height", "");
-            $(".line-chart div").css("position", "relative");
+         //   $(".line-chart").children().css("height", "");
+         //   $(".line-chart div").css("position", "relative");
           }
         });
       }
