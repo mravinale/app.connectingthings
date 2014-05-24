@@ -4,16 +4,12 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('meanp')
-    .directive('panelGauge', function (socket) {
+    .directive('panelSwitch', function (socket) {
         return {
             scope:{
                 name:"@",
                 tag:"@",
-                label:"@",
-                min:"=",
-                max:"=",
-                size:"=",
-                initValue:"="
+                label:"@"
             },
             restrict: 'E',
             replace: true,
@@ -30,19 +26,23 @@ angular.module('meanp')
                                 '</ul>'+
                             '</div>'+
                         '</div>'+
-                    '</div>'+
-                    '<div class="panel-body" style="height: 233px ;">'+
-                        '<div class="text-center">'+
-                            '<gauge min="min" max="max" size="size" value="gaugeValue" label="{{label}}" class="gauge"></gauge>'+
-                        '</div>'+
-                    '</div>'+
+                     '</div>'+
+                    '<div class="panel-body text-center" style="margin-bottom: 65px;margin-top: 30px">'+
+                        '<span class="toggle">'+
+                            '<input checked type="checkbox" ng-model="toggleButton">'+
+                                '<label data-off="&#10006;" data-on="&#10004;"></label>'+
+                            '<div ng-class="'+"{'led-green' : toggleButton, 'led-off' : !toggleButton }"+'"  style="margin-top: 120px;"></div>'+
+
+                        '</span>'+
+                    ' </div>'+
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
-                scope.gaugeValue = scope.initValue? scope.initValue : 0;
 
-                socket.on(scope.tag, function (temp) {
-                    scope.gaugeValue = angular.fromJson(temp).value;
+                socket.on(scope.tag, function (value) {
+
+                    console.log(scope.tag);
+
                 });
 
             }
