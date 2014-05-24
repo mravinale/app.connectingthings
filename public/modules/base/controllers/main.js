@@ -1,7 +1,7 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('meanp')
-    .controller('MainCtrl', function ($scope, socket) {
+    .controller('MainCtrl', function ($scope, $location) {
 
         $scope.tempGaugeValue = 0;
         $scope.humidityGaugeValue = 0;
@@ -60,6 +60,5 @@ angular.module('meanp')
             console.log(item);
             $scope.$apply();
         });
-
 
     });

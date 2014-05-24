@@ -31,8 +31,7 @@ angular.module('meanp')
                         '<span class="toggle">'+
                             '<input checked type="checkbox" ng-model="toggleButton">'+
                                 '<label data-off="&#10006;" data-on="&#10004;"></label>'+
-                            '<div ng-class="'+"{'led-green' : toggleButton, 'led-off' : !toggleButton }"+'"  style="margin-top: 120px;"></div>'+
-
+                                '<div ng-class="'+"{'led-green' : toggleButton, 'led-off' : !toggleButton }"+'"  style="margin-top: 120px;"></div>'+
                         '</span>'+
                     ' </div>'+
                 '</div>' ,

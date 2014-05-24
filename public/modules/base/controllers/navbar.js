@@ -1,15 +1,19 @@
 'use strict';
 
-angular.module('meanp').controller('NavbarCtrl', function ($scope,$rootScope,$localStorage, sessionService, $location) {
+angular.module('meanp').controller('NavbarCtrl', function ($scope,$rootScope,$sessionStorage, sessionService, $location) {
 
     $scope.logout = function() {
         sessionService.remove()
             .success(function (response, status) {
-                delete $rootScope.currentUser;
-                delete $localStorage.counter;
-                $location.path('/login');
+                console.log("Ok:",response);
             })
             .error(function(response, status) {
+                console.log("Error:",response);
+            })
+            .finally(function() {
+                $rootScope.currentUser = undefined;
+                $sessionStorage.$reset();
+                $location.path('/login');
                 console.log(response);
             });
 

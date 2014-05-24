@@ -17,10 +17,10 @@ angular.module('meanp', [
   .config(function ($routeProvider, $locationProvider) {
 
     $routeProvider
-      .when('/', {
+    /*  .when('/', {
         templateUrl: 'modules/base/views/main.html',
         controller: 'MainCtrl'
-      })
+      })*/
       .when('/login', {
         templateUrl: 'modules/base/views/login.html',
         controller: 'LoginCtrl'
@@ -46,24 +46,25 @@ angular.module('meanp', [
         controller: 'PanelMeCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/panel/me'
       });
     $locationProvider.html5Mode(false);
   })
 
   .run(function ($rootScope, $sessionStorage, $location, sessionService) {
 
-
     //watching the value of the currentUser variable.
     $rootScope.$watch('currentUser', function(currentUser) {
+
+      $rootScope.currentUser = $sessionStorage.currentUser? $sessionStorage.currentUser : $rootScope.currentUser;
+
       // if no currentUser and on a page that requires authorization then try to update it
       // will trigger 401s if user does not have a valid session
-      if (!currentUser && ([ '/login', '/logout', '/signup'].indexOf($location.path()) == -1 )) {
+      if (!$rootScope.currentUser && ([ '/login', '/logout', '/signup'].indexOf($location.path()) == -1 )) {
 
           sessionService.getCurrentUser()
               .success(function (response, status, headers, config) {
                   $sessionStorage.currentUser = response;
-                  $rootScope.currentUser = $sessionStorage.currentUser;
               })
               .error(function(error, status, headers, config) {
                   $location.path('/login');

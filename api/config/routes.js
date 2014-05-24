@@ -7,8 +7,8 @@ module.exports = function(app) {
   // User Routes
   var users = require('../controllers/users');
   app.post('/auth/users', users.create);
-  app.get('/auth/users/:userId', users.show);
-  app.get('/auth/check_username/:username', users.exists);
+  app.get('/auth/users/:userId', auth.ensureAuthenticated, users.show);
+  app.get('/auth/check_username/:username', auth.ensureAuthenticated, users.exists);
 
   // Session Routes
   var session = require('../controllers/session');
@@ -18,11 +18,11 @@ module.exports = function(app) {
 
   // Panel Routes
   var panels = require('../controllers/panels');
-  app.get('/panels', panels.getAll);
-  app.get('/panels/items', panels.getAllPanels);
-  app.get('/panels/:id', panels.getById);
-  app.put('/panels/:id', panels.update);
-  app.del('/panels/:id', panels.remove);
-  app.post('/panels', panels.create);
+  app.get('/panels', auth.ensureAuthenticated, panels.getAll);
+  app.get('/panels/items',auth.ensureAuthenticated,  panels.getAllPanels);
+  app.get('/panels/:id', auth.ensureAuthenticated, panels.getById);
+  app.put('/panels/:id', auth.ensureAuthenticated, panels.update);
+  app.del('/panels/:id', auth.ensureAuthenticated, panels.remove);
+  app.post('/panels', auth.ensureAuthenticated, panels.create);
 
 }
