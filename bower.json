@@ -18,7 +18,8 @@
     "ngstorage": "0.3.0",
     "angular-socket-io": "0.4.1",
     "angularjs-nvd3-directives": "*",
-    "momentjs":"~2.6.0"
+    "momentjs":"~2.6.0",
+    "underscore":"*"
   },
   "resolutions": {
     "d3": "~3.4.1"

@@ -7,8 +7,8 @@
         </div>
     </div>
 
-    <div class="panels" ui-sortable>
-        <div  ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in panels">
+    <div class="panels" ui-sortable="sortableConfig" ng-model="panels">
+        <div  ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in panels | orderPanel">
 
             <panel-switch ng-if="panel.type=='switch'" name="{{panel.name}}" tag="{{panel.device}}" > </panel-switch>
 
