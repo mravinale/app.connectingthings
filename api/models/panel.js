@@ -1,15 +1,16 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  uuid = require('node-uuid'),
-  Schema = mongoose.Schema;
+    uuid = require('node-uuid'),
+    Schema = mongoose.Schema;
 
 var PanelSchema = new Schema({
-   _id: {type: String},
+  _id: { type: String },
   name: String,
   device: String,
   type: String,
-  size: String
+  size: String,
+  section: String //this should be an entity
 });
 
 PanelSchema.pre('save', function (next) {

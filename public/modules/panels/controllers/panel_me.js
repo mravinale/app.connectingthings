@@ -15,6 +15,8 @@ angular.module('meanp')
         panelService.getAllPanels()
             .success(function (response, status, headers, config) {
                $scope.panels = response;
+                var panels = _.groupBy(response, function(panel){ return panel.section });
+                console.log(panels);
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
