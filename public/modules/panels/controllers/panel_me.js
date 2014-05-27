@@ -1,14 +1,20 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('meanp')
-    .controller('PanelMeCtrl', function ($scope, panelService,$sessionStorage) {
+    .controller('PanelMeCtrl', function ($scope, panelService, $sessionStorage, dashboardService) {
 
-        console.log("init",$sessionStorage.panels);
+        dashboardService.getDashboard()
+            .success(function (response, status, headers, config) {
+                $sessionStorage.dashboard = response.order;
+            })
+            .error(function(response, status, headers, config) {
+                console.log(response);
+            });
+
 
         panelService.getAllPanels()
             .success(function (response, status, headers, config) {
                $scope.panels = response;
-                console.log(response);
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -19,7 +25,18 @@ angular.module('meanp')
 
         $scope.sortableConfig =  {
             stop: function(e, ui) {
-                $sessionStorage.panels = $scope.panels.map(function(i){ return i._id; });
+
+                $sessionStorage.dashboard = $scope.panels.map(function(i){ return i._id; });
+
+                dashboardService.createDashboard($sessionStorage.dashboard)
+                    .success(function (response, status, headers, config) {
+                        console.log(response);
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.log(response);
+                    });
+
+
             }
         };
 
@@ -29,12 +46,13 @@ angular.module('meanp').filter('orderPanel', function($sessionStorage) {
     return function(input) {
         var out = [];
 
-        if($sessionStorage.panels === undefined){
+        if($sessionStorage.dashboard === undefined){
             out = input
         }
         else{
-            _.each($sessionStorage.panels, function(panelId){
-                out.push(_.find(input, function(panel){ return panelId  == panel._id; }));
+            _.each($sessionStorage.dashboard, function(panelId){
+                if(input !== undefined)
+                    out.push(_.find(input, function(panel){ return panelId  == panel._id; }));
             });
         }
 

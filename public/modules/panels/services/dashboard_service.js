@@ -8,8 +8,8 @@ angular.module('meanp').service('dashboardService', function ($http) {
         return $http.get('/dashboard');
     };
 
-    this.createDashboard = function (panel) {
-        return $http.post('/dashboard', panel);
+    this.createDashboard = function (param) {
+        return $http.post('/dashboard', {order: param});
     };
 
 });
