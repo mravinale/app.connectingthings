@@ -14,9 +14,9 @@ angular.module('meanp')
 
         panelService.getAllPanels()
             .success(function (response, status, headers, config) {
-               $scope.panels = response;
-                var panels = _.groupBy(response, function(panel){ return panel.section });
-                console.log(panels);
+              // $scope.panels = response;
+                var groups = _.groupBy(response, function(panel){ return panel.section });
+                $scope.sections = _.map(groups, function(array, key){ return {name:key, panels: array}; });
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -28,8 +28,8 @@ angular.module('meanp')
         $scope.sortableConfig =  {
             stop: function(e, ui) {
 
-                $sessionStorage.dashboard = $scope.panels.map(function(i){ return i._id; });
-
+                $sessionStorage.dashboard = $scope.sections.map(function(i){ return i._id; });
+                console.log($sessionStorage.dashboard)
                 dashboardService.createDashboard($sessionStorage.dashboard)
                     .success(function (response, status, headers, config) {
                         console.log(response);
