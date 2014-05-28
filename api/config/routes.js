@@ -25,4 +25,9 @@ module.exports = function(app) {
   app.del('/panels/:id', auth.ensureAuthenticated, panels.remove);
   app.post('/panels', auth.ensureAuthenticated, panels.create);
 
+  // Dashboard Routes
+   var dashboard = require('../controllers/dashboard');
+  app.get('/dashboard', auth.ensureAuthenticated, dashboard.getDashboard);
+  app.post('/dashboard', auth.ensureAuthenticated, dashboard.createDashboard);
+
 }
