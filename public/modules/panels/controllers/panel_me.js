@@ -15,8 +15,8 @@ angular.module('meanp')
         panelService.getAllPanels()
             .success(function (response, status, headers, config) {
               // $scope.panels = response;
-                var groups = _.groupBy(response, function(panel){ return panel.section });
-                $scope.sections = _.map(groups, function(array, key){ return {name:key, panels: array}; });
+                var sections = _.groupBy(response, function(panel){ return panel.section });
+                $scope.sections = _.map(sections, function(array, key){ return {name:key, panels: array}; });
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -28,8 +28,8 @@ angular.module('meanp')
         $scope.sortableConfig =  {
             stop: function(e, ui) {
 
-                $sessionStorage.dashboard = $scope.sections.map(function(i){ return i._id; });
-                console.log($sessionStorage.dashboard)
+                $sessionStorage.dashboard = $scope.sections.map(function(i){ return {name: i.name, panels: i.panels.map(function(p){return p._id;})}});
+                
                 dashboardService.createDashboard($sessionStorage.dashboard)
                     .success(function (response, status, headers, config) {
                         console.log(response);
@@ -45,16 +45,18 @@ angular.module('meanp')
     });
 
 angular.module('meanp').filter('orderPanel', function($sessionStorage) {
-    return function(input) {
+    return function(input,sectionName) {
         var out = [];
-
         if($sessionStorage.dashboard === undefined){
             out = input
         }
         else{
-            _.each($sessionStorage.dashboard, function(panelId){
-                if(input !== undefined)
-                    out.push(_.find(input, function(panel){ return panelId  == panel._id; }));
+            _.each($sessionStorage.dashboard, function(section){
+                 if(section.name == sectionName && input !== undefined){
+                    _.each(section.panels, function(panelId){
+                        out.push(_.find(input, function(panel){ return panelId  == panel._id; }));
+                    });
+                 }
             });
         }
 

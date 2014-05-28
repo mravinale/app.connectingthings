@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 var DashboardSchema = new Schema({
    _id: {type: String},
-  order: [String]
+  order: Schema.Types.Mixed
 });
 
 DashboardSchema.pre('save', function (next) {
