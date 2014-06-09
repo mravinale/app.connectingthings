@@ -55,8 +55,8 @@ angular.module('meanp')
                     }
                 }
 
-                socket.on(scope.tag, function (param) {
-                    var item = angular.fromJson(param);
+                socket.on(scope.tag, function (message) {
+                    var item = angular.fromJson(message);
                     items.push([moment().valueOf(),item.value]);
 
                     scope.values =  [ { "values": items, "key": scope.name } ];

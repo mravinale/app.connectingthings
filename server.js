@@ -84,16 +84,17 @@ var opts = {
 var ponteServer = ponte(opts);
 ponteServer.on("updated", function(resource, buffer) {
 
-    io.sockets.emit(resource, JSON.stringify({ value: buffer.toString() }));
+    io.sockets.emit(resource, buffer.toString());
 
-    console.log("Resource Updated", resource, buffer.toString());
+    console.log("Resource Updated", resource, JSON.parse(buffer.toString()));
+
 });
 
 var mqttClient = mqtt.createClient(1883, 'localhost')
     .subscribe('temperature')
     .subscribe('humidity')
     .subscribe('smoke')
+    .subscribe('relay')
     .on('message', function (topic, message) {
         console.log("mqtt client:",message);
     });
-

@@ -38,7 +38,7 @@ angular.module('meanp')
             link: function postLink(scope, element, attrs) {
 
 
-                socket.on(scope.tag, function (value) {
+                socket.on(scope.tag, function (message) {
 
                     console.log(scope.tag);
 

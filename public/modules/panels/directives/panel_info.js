@@ -43,9 +43,9 @@ angular.module('meanp')
                 var items = [{value: 0, timestamp: Date.now()} ];
                 scope.values = { data: items, max: 3000 };
 
-                socket.on(scope.tag, function (value) {
+                socket.on(scope.tag, function (message) {
 
-                    var item = angular.fromJson(value);
+                    var item = angular.fromJson(message);
                     item.timestamp = Date.now();
 
                     items.push(item);

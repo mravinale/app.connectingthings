@@ -41,8 +41,8 @@ angular.module('meanp')
 
                 scope.gaugeValue = scope.initValue? scope.initValue : 0;
 
-                socket.on(scope.tag, function (temp) {
-                    scope.gaugeValue = angular.fromJson(temp).value;
+                socket.on(scope.tag, function (message) {
+                    scope.gaugeValue = angular.fromJson(message).value;
                 });
 
             }
