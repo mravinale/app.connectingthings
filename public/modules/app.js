@@ -12,7 +12,8 @@ angular.module('meanp', [
   'ngStorage',
   'btford.socket-io',
   'ngTable',
-  'nvd3ChartDirectives'
+  'nvd3ChartDirectives',
+  'localytics.directives'
 ])
   .config(function ($routeProvider, $locationProvider) {
 
@@ -44,6 +45,18 @@ angular.module('meanp', [
       .when('/panel/me', {
         templateUrl: 'modules/panels/views/panel_me.html',
         controller: 'PanelMeCtrl'
+      })
+      .when('/device/add', {
+        templateUrl: 'modules/devices/views/device_add.html',
+        controller: 'DeviceAddCtrl'
+      })
+      .when('/device/edit/:id', {
+        templateUrl: 'modules/devices/views/device_edit.html',
+        controller: 'DeviceEditCtrl'
+      })
+      .when('/device/list', {
+        templateUrl: 'modules/devices/views/device_list.html',
+        controller: 'DeviceListCtrl'
       })
       .otherwise({
         redirectTo: '/panel/me'

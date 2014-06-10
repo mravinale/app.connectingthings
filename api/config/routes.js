@@ -4,6 +4,12 @@ var path = require('path'),
     auth = require('../config/auth');
 
 module.exports = function(app) {
+
+  // Dashboard Routes
+  var dashboard = require('../controllers/dashboard');
+  app.get('/dashboard', auth.ensureAuthenticated, dashboard.getDashboard);
+  app.post('/dashboard', auth.ensureAuthenticated, dashboard.createDashboard);
+
   // User Routes
   var users = require('../controllers/users');
   app.post('/auth/users', users.create);
@@ -25,9 +31,13 @@ module.exports = function(app) {
   app.del('/panels/:id', auth.ensureAuthenticated, panels.remove);
   app.post('/panels', auth.ensureAuthenticated, panels.create);
 
-  // Dashboard Routes
-   var dashboard = require('../controllers/dashboard');
-  app.get('/dashboard', auth.ensureAuthenticated, dashboard.getDashboard);
-  app.post('/dashboard', auth.ensureAuthenticated, dashboard.createDashboard);
+  // Device Routes
+  var devices = require('../controllers/devices');
+  app.get('/devices', auth.ensureAuthenticated, devices.getAll);
+  app.get('/devices/items',auth.ensureAuthenticated, devices.getAllDevices);
+  app.get('/devices/:id', auth.ensureAuthenticated, devices.getById);
+  app.put('/devices/:id', auth.ensureAuthenticated, devices.update);
+  app.del('/devices/:id', auth.ensureAuthenticated, devices.remove);
+  app.post('/devices', auth.ensureAuthenticated, devices.create);
 
 }

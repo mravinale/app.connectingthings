@@ -19,7 +19,8 @@
     "angular-socket-io": "0.4.1",
     "angularjs-nvd3-directives": "*",
     "momentjs":"~2.6.0",
-    "underscore":"*"
+    "underscore":"*",
+    "angular-chosen-localytics": "*"
   },
   "resolutions": {
     "d3": "~3.4.1"

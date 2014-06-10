@@ -15,11 +15,14 @@
         <!-- Core CSS - Include with every page -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="lib/ng-table/ng-table.min.css" rel="stylesheet">
+        <link href="lib/chosen/chosen.min.css" rel="stylesheet">
         <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet">
 
         <!-- Page-Level Plugin CSS - Dashboard -->
         <link href="assets/css/plugins/timeline/timeline.css" rel="stylesheet">
         <link href="assets/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="lib/nvd3/nv.d3.css"/>
 
         <!-- SB Admin CSS - Include with every page -->
         <link href="assets/css/sb-admin.css" rel="stylesheet">
@@ -41,9 +44,9 @@
 
         <script src="assets/js/jquery-1.11.1.min.js"></script>
         <script src="assets/js/jquery-ui-1.10.4.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
 
         <script src="lib/angular/angular.min.js"></script>
+        <script src="lib/angular-chosen-localytics/chosen.js"></script>
         <script src="lib/angular-socket-io/socket.js"></script>
         <script src="lib/angular-resource/angular-resource.js"></script>
         <script src="lib/angular-cookies/angular-cookies.js"></script>
@@ -65,6 +68,7 @@
         <script src="modules/base/services/User.js"></script>
         <script src="modules/base/services/Session.js"></script>
         <script src="modules/panels/services/panel_service.js"></script>
+        <script src="modules/devices/services/device_service.js"></script>
         <script src="modules/panels/services/dashboard_service.js"></script>
 
         <script src="modules/common/directives/onFocus.js"></script>
@@ -80,22 +84,26 @@
         <script src="modules/panels/directives/panel_info.js"></script>
         <script src="modules/panels/directives/panel_switch.js"></script>
 
+        <script src="modules/devices/controllers/device_add.js"></script>
+        <script src="modules/devices/controllers/device_edit.js"></script>
+        <script src="modules/devices/controllers/device_list.js"></script>
+
         <script src="assets/js/angular-ui.sorteable.js"></script>
         <script src="assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
         <script src="assets/js/sb-admin.js"></script>
 
+        <script src="lib/ng-table/ng-table.min.js"></script>
+        <script src="lib/chosen/chosen.jquery.min.js"></script>
         <script src="lib/momentjs/moment.js"></script>
         <script src="lib/d3/d3.js"></script>
         <script src="lib/nvd3/nv.d3.js"></script>
         <script src="lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
-        <link rel="stylesheet" href="lib/nvd3/nv.d3.css"/>
+
 
         <script src="modules/common/vendor/gauge.js"></script>
         <script src="modules/common/factories/websocket.js"></script>
         <script src="modules/common/directives/gauge.js"></script>
         <script src="modules/common/directives/lineChart.js"></script>
-
-        <script src="lib/ng-table/ng-table.min.js"></script>
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="//localhost:35729/livereload.js"></script>
