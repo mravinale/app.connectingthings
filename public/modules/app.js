@@ -58,6 +58,18 @@ angular.module('meanp', [
         templateUrl: 'modules/devices/views/device_list.html',
         controller: 'DeviceListCtrl'
       })
+      .when('/sensor/add', {
+          templateUrl: 'modules/sensors/views/sensor_add.html',
+          controller: 'SensorAddCtrl'
+      })
+      .when('/sensor/edit/:id', {
+          templateUrl: 'modules/sensors/views/sensor_edit.html',
+          controller: 'SensorEditCtrl'
+        })
+      .when('/sensor/list', {
+          templateUrl: 'modules/sensors/views/sensor_list.html',
+          controller: 'SensorListCtrl'
+      })
       .otherwise({
         redirectTo: '/panel/me'
       });

@@ -1,0 +1,98 @@
+<div ng-include="" src="'modules/base/views/partials/navbar.html'" ng-controller="NavbarCtrl"></div>
+
+<div id="page-wrapper">
+
+    <div class="col-lg-12">
+        <h1 class="page-header">Devices</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-11" style="padding-left: 30px">
+            <div class="panel panel-default" >
+                <div class="panel-heading">
+                    Edit Device
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <form class="form-horizontal" role="form">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Device Name</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="device.name" class="form-control" placeholder="Device name">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Sensors</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <input type="text" ng-model="sensor" class="form-control" placeholder="Tag">
+                                            <span class="input-group-btn">
+                                              <button class="btn btn-default" type="button" ng-click="addSensor(sensor)" >Add Tag</button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <select multiple
+                                                chosen
+                                                data-placeholder="Selected sensors"
+                                                no-results-text="'No sensors yet'"
+                                                ng-model="device.sensors"
+                                                ng-options="sensor for sensor in device.sensors"
+                                                class="form-control"
+                                                >
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Actuators</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <input type="text" ng-model="actuator" class="form-control" placeholder="Tag">
+                                            <span class="input-group-btn">
+                                              <button class="btn btn-default" type="button" ng-click="addActuator(actuator)" >Add Tag</button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <select multiple
+                                                chosen
+                                                data-placeholder="selected actuators"
+                                                no-results-text="'No actuators yet'"
+                                                ng-model="device.actuators"
+                                                ng-options="actuator for actuator in device.actuators"
+                                                class="form-control"
+                                                >
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" style="padding-top: 30px">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="button" ng-click="save()" class="btn btn-primary">Save</button>
+                                        <a href="#/device/list" class="btn btn-danger" role="button">Cancel</a>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
