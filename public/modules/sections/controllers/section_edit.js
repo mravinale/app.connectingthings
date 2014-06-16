@@ -1,10 +1,10 @@
 'use strict';
 angular.module('meanp')
-    .controller('SensorEditCtrl', function ($scope, $routeParams, sensorService,$location) {
+    .controller('SectionEditCtrl', function ($scope, $routeParams, sectionService,$location) {
 
-        sensorService.getById($routeParams.id)
+        sectionService.getById($routeParams.id)
             .success(function (response, status, headers, config) {
-                $scope.sensor = response
+                $scope.section = response
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -16,9 +16,9 @@ angular.module('meanp')
         $scope.submit = function(){
             $scope.errors = {};
 
-            sensorService.update($scope.sensor)
+            sectionService.update($scope.section)
                 .success(function (response, status, headers, config) {
-                    $location.path("/sensor/list");
+                    $location.path("/section/list");
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {

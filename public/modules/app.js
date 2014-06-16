@@ -59,16 +59,28 @@ angular.module('meanp', [
         controller: 'DeviceListCtrl'
       })
       .when('/sensor/add', {
-          templateUrl: 'modules/sensors/views/sensor_add.html',
-          controller: 'SensorAddCtrl'
+        templateUrl: 'modules/sensors/views/sensor_add.html',
+        controller: 'SensorAddCtrl'
       })
       .when('/sensor/edit/:id', {
-          templateUrl: 'modules/sensors/views/sensor_edit.html',
-          controller: 'SensorEditCtrl'
-        })
+        templateUrl: 'modules/sensors/views/sensor_edit.html',
+        controller: 'SensorEditCtrl'
+      })
       .when('/sensor/list', {
-          templateUrl: 'modules/sensors/views/sensor_list.html',
-          controller: 'SensorListCtrl'
+        templateUrl: 'modules/sensors/views/sensor_list.html',
+        controller: 'SensorListCtrl'
+      })
+      .when('/section/add', {
+        templateUrl: 'modules/sections/views/section_add.html',
+        controller: 'SectionAddCtrl'
+      })
+      .when('/section/edit/:id', {
+        templateUrl: 'modules/sections/views/section_edit.html',
+        controller: 'SectionEditCtrl'
+      })
+      .when('/section/list', {
+        templateUrl: 'modules/sections/views/section_list.html',
+        controller: 'SectionListCtrl'
       })
       .otherwise({
         redirectTo: '/panel/me'

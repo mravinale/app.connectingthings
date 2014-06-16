@@ -40,4 +40,22 @@ module.exports = function(app) {
   app.del('/devices/:id', auth.ensureAuthenticated, devices.remove);
   app.post('/devices', auth.ensureAuthenticated, devices.create);
 
+  // Sensor Routes
+  var sensors = require('../controllers/sensors');
+  app.get('/sensors', auth.ensureAuthenticated, sensors.getAll);
+  app.get('/sensors/items',auth.ensureAuthenticated, sensors.getAllDevices);
+  app.get('/sensors/:id', auth.ensureAuthenticated, sensors.getById);
+  app.put('/sensors/:id', auth.ensureAuthenticated, sensors.update);
+  app.del('/sensors/:id', auth.ensureAuthenticated, sensors.remove);
+  app.post('/sensors', auth.ensureAuthenticated, sensors.create);
+
+  // Section Routes
+  var sections = require('../controllers/sections');
+  app.get('/sections', auth.ensureAuthenticated, sections.getAll);
+  app.get('/sections/items',auth.ensureAuthenticated, sections.getAllSections);
+  app.get('/sections/:id', auth.ensureAuthenticated, sections.getById);
+  app.put('/sections/:id', auth.ensureAuthenticated, sections.update);
+  app.del('/sections/:id', auth.ensureAuthenticated, sections.remove);
+  app.post('/sections', auth.ensureAuthenticated, sections.create);
+
 }

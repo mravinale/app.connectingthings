@@ -1,13 +1,13 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Sensor = mongoose.model('Sensor')
+    Section = mongoose.model('Section')
 
 
 exports.create = function (req, res, next) {
-    var newSensor = new Sensor(req.body);
+    var newSection = new Section(req.body);
 
-    newSensor.save(function(err, panel) {
+    newSection.save(function(err, panel) {
         if (err) {
           return res.send(400, err);
         }
@@ -18,13 +18,13 @@ exports.create = function (req, res, next) {
 
 exports.getAll = function (req, res, next) {
 
-    Sensor
+    Section
         .find()
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
         .exec(function (error, devices) {
-            Sensor.count().exec(function (error, count) {
+            Section.count().exec(function (error, count) {
                 if (error) {
                     console.log(error);
                     res.send(400, error);
@@ -35,9 +35,9 @@ exports.getAll = function (req, res, next) {
         });
 }
 
-exports.getAllDevices = function (req, res, next) {
+exports.getAllSections = function (req, res, next) {
 
-    Sensor.find().exec(function (error, devices) {
+    Section.find().exec(function (error, devices) {
         if (error) {
            console.log(error);
            return res.send(400, error);
@@ -50,7 +50,7 @@ exports.getAllDevices = function (req, res, next) {
 
 exports.getById = function (req, res, next) {
 
-    Sensor.findOne({_id: req.params.id})
+    Section.findOne({_id: req.params.id})
         .exec(function (error, device) {
             if (error) {
                 console.log(error);
@@ -63,7 +63,7 @@ exports.getById = function (req, res, next) {
 
 exports.remove = function (req, res, next) {
 
-    Sensor.remove({ _id: req.params.id }, function (error) { // TODO remove seems fussy
+    Section.remove({ _id: req.params.id }, function (error) { // TODO remove seems fussy
         if (error) {
             log.error(error);
             res.send(400, error);
@@ -75,7 +75,7 @@ exports.remove = function (req, res, next) {
 
 exports.update = function (req, res, next) {
     delete req.body._id;
-    Sensor.update({_id: req.params.id}, req.body,{upsert: true}, function (error, device) {
+    Section.update({_id: req.params.id}, req.body,{upsert: true}, function (error, device) {
         if (error) {
            console.log(error);
            return res.json(400, error);
