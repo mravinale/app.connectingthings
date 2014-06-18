@@ -38,13 +38,13 @@ exports.getAll = function (req, res, next) {
 
 exports.getAllPanels = function (req, res, next) {
 
-    Panel.find().exec(function (error, panels) {
-        if (error) {
-           console.log(error);
-           return res.send(400, error);
-        }
-        return  res.send(200, panels);
-
+    Panel.find()
+        .exec(function (error, panels) {
+            if (error) {
+               console.log(error);
+               return res.send(400, error);
+            }
+            return  res.send(200, panels);
     });
 }
 

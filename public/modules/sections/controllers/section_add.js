@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meanp')
-    .controller('SectionAddCtrl', function ($scope, sectionService,$location) {
+    .controller('SectionAddCtrl', function ($scope, sectionService,panelService,$location) {
 
         $scope.submit = function() {
             $scope.errors = {};
@@ -18,5 +18,20 @@ angular.module('meanp')
                 });
 
         };
+
+        panelService.getAllPanels()
+            .success(function (response, status, headers, config) {
+                $scope.panels = response;
+                console.log(response);
+
+            })
+            .error(function(response, status, headers, config) {
+                angular.forEach(response.errors, function(error, field) {
+                    form[field].$setValidity('mongoose', false);
+                    $scope.errors[field] = error.type;
+                });
+            });
+
+
 
     });

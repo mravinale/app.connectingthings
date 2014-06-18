@@ -8,7 +8,8 @@ var SectionSchema = new Schema({
   _id: { type: String },
   name: {type: String},
   tag: {type: String},
-  description: {type: String}
+  description: {type: String},
+  panels:[{ type: String, ref: 'Panel' }]
 });
 
 SectionSchema.pre('save', function (next) {

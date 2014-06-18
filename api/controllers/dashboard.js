@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  Dashboard = mongoose.model('Dashboard')
+  Dashboard = mongoose.model('Dashboard');
 
 
 exports.createDashboard = function (req, res, next) {

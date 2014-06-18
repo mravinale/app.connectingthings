@@ -37,12 +37,14 @@ exports.getAll = function (req, res, next) {
 
 exports.getAllSections = function (req, res, next) {
 
-    Section.find().exec(function (error, devices) {
-        if (error) {
-           console.log(error);
-           return res.send(400, error);
-        }
-        return  res.send(200, devices);
+    Section.find()
+        .populate("panels")
+        .exec(function (error, devices) {
+            if (error) {
+               console.log(error);
+               return res.send(400, error);
+            }
+            return  res.send(200, devices);
 
     });
 }
