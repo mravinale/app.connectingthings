@@ -9,7 +9,7 @@ var SectionSchema = new Schema({
   name: {type: String},
   tag: {type: String},
   description: {type: String},
-  panels:[{ type: String, ref: 'Panel' }]
+  panels:[{type:String, ref: 'Section' }]
 });
 
 SectionSchema.pre('save', function (next) {
@@ -19,5 +19,6 @@ SectionSchema.pre('save', function (next) {
 
     next();
 });
+
 
 mongoose.model('Section', SectionSchema);

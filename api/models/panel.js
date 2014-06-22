@@ -10,14 +10,13 @@ var PanelSchema = new Schema({
   device: String,
   type: String,
   size: String,
-  section: String //this should be an entity
+  sections:[{type: String, ref: 'Section'}]
 });
 
 PanelSchema.pre('save', function (next) {
     if (this._id === undefined) {
         this._id = uuid.v1();
     }
-
     next();
 });
 

@@ -24,6 +24,22 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group" >
+                                    <label class="col-sm-2 control-label">Section Panels</label>
+                                    <div class="col-sm-10">
+                                        <select multiple
+                                                chosen
+                                                data-placeholder="selected section"
+                                                no-results-text="'No section yet'"
+                                                ng-model="panel.sections"
+                                                ng-options="section._id as section.name for section in sections"
+                                                class="form-control"
+                                                >
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Section name</label>
                                     <div class="col-sm-10">
