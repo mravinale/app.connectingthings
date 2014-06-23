@@ -1,7 +1,7 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('meanp')
-    .controller('PanelMeCtrl', function ($scope, panelService, $sessionStorage, dashboardService) {
+    .controller('PanelMeCtrl', function ($scope, panelService, sectionService, $sessionStorage, dashboardService) {
 
         dashboardService.getDashboard()
             .success(function (response, status, headers, config) {
@@ -12,11 +12,14 @@ angular.module('meanp')
             });
 
 
-        panelService.getAllPanels()
+        sectionService.getAllSections()
             .success(function (response, status, headers, config) {
-              // $scope.panels = response;
-                var sections = _.groupBy(response, function(panel){ return panel.section });
-                $scope.sections = _.map(sections, function(array, key){ return {name:key, panels: array}; });
+
+                //var sections = _.groupBy(response, function(panel){ return panel.section });
+                //$scope.sections = _.map(sections, function(array, key){ return {name:key, panels: array}; });
+
+                $scope.sections = response; //_.map(sections, function(array, key){ return {name:key, panels: array}; });
+
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

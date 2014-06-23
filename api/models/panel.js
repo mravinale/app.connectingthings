@@ -9,8 +9,7 @@ var PanelSchema = new Schema({
   name: String,
   device: String,
   type: String,
-  size: String,
-  sections:[{type: String, ref: 'Section'}]
+  size: String
 });
 
 PanelSchema.pre('save', function (next) {

@@ -7,12 +7,12 @@ var mongoose = require('mongoose'),
 exports.create = function (req, res, next) {
     var newSection = new Section(req.body);
 
-    newSection.save(function(err, panel) {
+    newSection.save(function(err, section) {
         if (err) {
           return res.send(400, err);
         }
 
-        return res.send(200, panel);
+        return res.send(200, section);
     });
 };
 
@@ -38,13 +38,14 @@ exports.getAll = function (req, res, next) {
 exports.getAllSections = function (req, res, next) {
 
     Section.find()
-        .populate("panels")
-        .exec(function (error, devices) {
+        .populate('panels')
+        .exec(function (error, sections) {
             if (error) {
                console.log(error);
                return res.send(400, error);
             }
-            return  res.send(200, devices);
+
+            return  res.send(200, sections);
 
     });
 }
@@ -53,12 +54,13 @@ exports.getAllSections = function (req, res, next) {
 exports.getById = function (req, res, next) {
 
     Section.findOne({_id: req.params.id})
-        .exec(function (error, device) {
+       // .populate('panels')
+        .exec(function (error, section) {
             if (error) {
                 console.log(error);
                 res.send(400, error);
             } else {
-                res.send(200, device);
+                res.send(200, section);
             }
         })
 };
@@ -77,13 +79,13 @@ exports.remove = function (req, res, next) {
 
 exports.update = function (req, res, next) {
     delete req.body._id;
-    Section.update({_id: req.params.id}, req.body,{upsert: true}, function (error, device) {
+    Section.update({_id: req.params.id}, req.body,{upsert: true}, function (error, section) {
         if (error) {
            console.log(error);
            return res.json(400, error);
         }
 
-        return  res.json(device);
+        return  res.json(section);
 
     });
 };

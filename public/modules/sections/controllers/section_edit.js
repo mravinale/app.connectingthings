@@ -4,7 +4,6 @@ angular.module('meanp')
 
         sectionService.getById($routeParams.id)
             .success(function (response, status, headers, config) {
-                debugger
                 $scope.section = response
             })
             .error(function(response, status, headers, config) {

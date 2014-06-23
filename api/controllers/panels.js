@@ -39,6 +39,7 @@ exports.getAll = function (req, res, next) {
 exports.getAllPanels = function (req, res, next) {
 
     Panel.find()
+        .populate('sections')
         .exec(function (error, panels) {
             if (error) {
                console.log(error);
@@ -52,6 +53,7 @@ exports.getAllPanels = function (req, res, next) {
 exports.getById = function (req, res, next) {
 
     Panel.findOne({_id: req.params.id})
+        //.populate('sections')
         .exec(function (error, panel) {
             if (error) {
                 console.log(error);
