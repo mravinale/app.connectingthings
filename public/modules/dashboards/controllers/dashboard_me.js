@@ -1,7 +1,7 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('meanp')
-    .controller('PanelMeCtrl', function ($scope, panelService, sectionService, $sessionStorage, dashboardService) {
+    .controller('DashboardMeCtrl', function ($scope, panelService, sectionService, $sessionStorage, dashboardService) {
 
         dashboardService.getDashboard()
             .success(function (response, status, headers, config) {

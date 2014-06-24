@@ -42,9 +42,9 @@ angular.module('meanp', [
         templateUrl: 'modules/panels/views/panel_list.html',
         controller: 'PanelListCtrl'
       })
-      .when('/panel/me', {
-        templateUrl: 'modules/panels/views/panel_me.html',
-        controller: 'PanelMeCtrl'
+      .when('/dashboard/me', {
+        templateUrl: 'modules/dashboards/views/dashboard_me.html',
+        controller: 'DashboardMeCtrl'
       })
       .when('/device/add', {
         templateUrl: 'modules/devices/views/device_add.html',
@@ -83,7 +83,7 @@ angular.module('meanp', [
         controller: 'SectionListCtrl'
       })
       .otherwise({
-        redirectTo: '/panel/me'
+        redirectTo: '/dashboard/me'
       });
     $locationProvider.html5Mode(false);
   })
