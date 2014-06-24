@@ -36,8 +36,7 @@
                                 <tbody>
                                     <tr ng-repeat="device in $data" >
                                         <td data-title="'Name'" sortable="'name'">{{device.name}}</td>
-                                        <td data-title="'Sensors'" sortable="'sensors'">{{device.sensors.toString()}}</td>
-                                        <td data-title="'Actuators'" sortable="'actuators'">{{device.actuators.toString()}}</td>
+                                        <td data-title="'Description'" sortable="'sensors'">{{device.description}}</td>
                                         <td data-title="'Actions'" style="width: 124px">
                                             <a href="#/device/edit/{{device._id}}" class="btn btn-primary" role="button">Edit</a>
                                             <button class="btn btn-primary" ng-click="delete(device)" class="pull-right">Delete</button>

@@ -7,8 +7,8 @@ var mongoose = require('mongoose'),
 var DeviceSchema = new Schema({
   _id: { type: String },
   name: String,
-  sensors: [{type: String}],
-  actuators: [{type: String}]
+  description: String,
+  sensors: [{ type:String, ref: 'Sensor' }]
 });
 
 DeviceSchema.pre('save', function (next) {

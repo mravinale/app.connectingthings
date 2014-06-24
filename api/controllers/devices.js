@@ -24,6 +24,7 @@ exports.getAll = function (req, res, next) {
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
+        .populate('sensors')
         .exec(function (error, devices) {
             Device.count().exec(function (error, count) {
                 if (error) {
