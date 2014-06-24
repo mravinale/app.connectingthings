@@ -14,12 +14,7 @@ angular.module('meanp')
 
         sectionService.getAllSections()
             .success(function (response, status, headers, config) {
-
-                //var sections = _.groupBy(response, function(panel){ return panel.section });
-                //$scope.sections = _.map(sections, function(array, key){ return {name:key, panels: array}; });
-
-                $scope.sections = response; //_.map(sections, function(array, key){ return {name:key, panels: array}; });
-
+                $scope.sections = response;
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

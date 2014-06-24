@@ -32,8 +32,6 @@ angular.module('meanp')
         sensorService.getAllSensors()
             .success(function (response, status, headers, config) {
                 $scope.sensors = response;
-                console.log(response);
-
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -41,7 +39,5 @@ angular.module('meanp')
                     $scope.errors[field] = error.type;
                 });
             });
-
-
 
     });
