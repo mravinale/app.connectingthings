@@ -13,7 +13,7 @@ angular.module('meanp').service('sensorService', function ($http) {
         return $http.get('/sensors', { params : paramsToSend });
     };
 
-    this.getAllDevices = function(){
+    this.getAllSensors = function(){
         return $http.get('/sensors/items');
     };
 

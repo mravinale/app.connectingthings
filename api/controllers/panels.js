@@ -24,6 +24,7 @@ exports.getAll = function (req, res, next) {
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
+        .populate('sensor')
         .exec(function (error, panels) {
             Panel.count().exec(function (error, count) {
                 if (error) {
@@ -39,7 +40,6 @@ exports.getAll = function (req, res, next) {
 exports.getAllPanels = function (req, res, next) {
 
     Panel.find()
-        .populate('sections')
         .exec(function (error, panels) {
             if (error) {
                console.log(error);
@@ -53,7 +53,6 @@ exports.getAllPanels = function (req, res, next) {
 exports.getById = function (req, res, next) {
 
     Panel.findOne({_id: req.params.id})
-        //.populate('sections')
         .exec(function (error, panel) {
             if (error) {
                 console.log(error);

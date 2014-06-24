@@ -35,7 +35,7 @@
                             <tbody>
                                 <tr ng-repeat="panel in $data" >
                                     <td data-title="'Name'" sortable="'name'"> <a href="#/panel/edit/{{panel._id}}">{{panel.name}} </a></td>
-                                    <td data-title="'Device'" sortable="'device'"><a href="#/panel/edit/{{panel._id}}">{{panel.device}}</a></td>
+                                    <td data-title="'Sensor'" sortable="'device'"><a href="#/panel/edit/{{panel._id}}">{{panel.sensor.tag}}</a></td>
                                     <td data-title="'Type'" sortable="'type'"><a href="#/panel/edit/{{panel._id}}">{{panel.type}}</a></td>
                                     <td data-title="'Size'" sortable="'size'"><a href="#/panel/edit/{{panel._id}}">{{panel.size}}</a></td>
                                     <td data-title="'Actions'" style="width: 124px">

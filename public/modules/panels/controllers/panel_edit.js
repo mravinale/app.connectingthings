@@ -1,7 +1,7 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('meanp')
-    .controller('PanelEditCtrl', function ($scope, $routeParams, panelService, $location) {
+    .controller('PanelEditCtrl', function ($scope, $routeParams, panelService, sensorService, $location) {
 
         panelService.getById($routeParams.id)
             .success(function (response, status, headers, config) {
@@ -28,5 +28,20 @@ angular.module('meanp')
                     });
                 });
         }
+
+        sensorService.getAllSensors()
+            .success(function (response, status, headers, config) {
+                $scope.sensors = response;
+                console.log(response);
+
+            })
+            .error(function(response, status, headers, config) {
+                angular.forEach(response.errors, function(error, field) {
+                    form[field].$setValidity('mongoose', false);
+                    $scope.errors[field] = error.type;
+                });
+            });
+
+
 
     });
