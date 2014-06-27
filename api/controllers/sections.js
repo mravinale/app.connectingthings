@@ -1,18 +1,16 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    async = require('async'),
     Section = mongoose.model('Section'),
-    Panel = mongoose.model('Panel')
+    Sensor = mongoose.model('Sensor')
+
 
 
 exports.create = function (req, res, next) {
     var newSection = new Section(req.body);
 
     newSection.save(function(err, section) {
-        if (err) {
-          return res.send(400, err);
-        }
+        if (error) { return res.send(400, error); }
 
         return res.send(200, section);
     });
@@ -40,37 +38,18 @@ exports.getAll = function (req, res, next) {
 exports.getAllSections = function (req, res, next) {
 
     Section.find()
-        .lean()
         .populate({path: 'panels'})
-        .exec(function (error, sections) {
+        .exec(function (error, docs) {
             if (error) { return res.send(400, error); }
 
-            var options = {
-                path: 'sensor',
+            Sensor.populate(docs, {
+                path: 'panels.sensor',
                 model: 'Sensor'
-            };
-
-            async.forEach(sections, function (section, callback){
-
-                Section.populate(section, options, function (err, result) {
-
-                    callback();
-                });
-
-
-            }, function(err) {
-                return  res.send(200, sections);
+            },function (err, result) {
+                if (error) { return res.send(400, error); }
+                return  res.send(200, result);
             });
-
-
-
-
-
-
-
-
-
-    });
+        });
 }
 
 
@@ -80,7 +59,7 @@ exports.getById = function (req, res, next) {
        // .populate('panels')
         .exec(function (error, section) {
             if (error) { return res.send(400, error); }
-            return  res.send(200, sections);
+            return  res.send(200, section);
         })
 };
 
@@ -99,10 +78,7 @@ exports.remove = function (req, res, next) {
 exports.update = function (req, res, next) {
     delete req.body._id;
     Section.update({_id: req.params.id}, req.body,{upsert: true}, function (error, section) {
-        if (error) {
-           console.log(error);
-           return res.json(400, error);
-        }
+        if (error) { return res.send(400, error); }
 
         return  res.json(section);
 
