@@ -1,7 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Section = mongoose.model('Section')
+    async = require('async'),
+    Section = mongoose.model('Section'),
+    Panel = mongoose.model('Panel')
 
 
 exports.create = function (req, res, next) {
@@ -38,14 +40,35 @@ exports.getAll = function (req, res, next) {
 exports.getAllSections = function (req, res, next) {
 
     Section.find()
-        .populate('panels')
+        .lean()
+        .populate({path: 'panels'})
         .exec(function (error, sections) {
-            if (error) {
-               console.log(error);
-               return res.send(400, error);
-            }
+            if (error) { return res.send(400, error); }
 
-            return  res.send(200, sections);
+            var options = {
+                path: 'sensor',
+                model: 'Sensor'
+            };
+
+            async.forEach(sections, function (section, callback){
+
+                Section.populate(section, options, function (err, result) {
+
+                    callback();
+                });
+
+
+            }, function(err) {
+                return  res.send(200, sections);
+            });
+
+
+
+
+
+
+
+
 
     });
 }
@@ -56,12 +79,8 @@ exports.getById = function (req, res, next) {
     Section.findOne({_id: req.params.id})
        // .populate('panels')
         .exec(function (error, section) {
-            if (error) {
-                console.log(error);
-                res.send(400, error);
-            } else {
-                res.send(200, section);
-            }
+            if (error) { return res.send(400, error); }
+            return  res.send(200, sections);
         })
 };
 
