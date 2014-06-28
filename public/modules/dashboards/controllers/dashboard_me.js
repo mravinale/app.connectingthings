@@ -14,7 +14,6 @@ angular.module('meanp')
 
         sectionService.getAllSections()
             .success(function (response, status, headers, config) {
-                debugger;
                 $scope.sections = response;
             })
             .error(function(response, status, headers, config) {

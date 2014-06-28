@@ -34,4 +34,8 @@ angular.module('meanp').service('panelService', function ($http) {
     this.update = function ( panel) {
         return $http.put('/panels/'+panel._id, panel);
     };
+
+    this.command = function (command) {
+        return $http.post('/panels/command', command);
+    };
 });

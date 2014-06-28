@@ -39,7 +39,10 @@ exports.getAll = function (req, res, next) {
 
 exports.getAllDevices = function (req, res, next) {
 
-    Device.find().exec(function (error, devices) {
+    Device
+        .find()
+        .populate('sensors')
+        .exec(function (error, devices) {
         if (error) {
            console.log(error);
            return res.send(400, error);
@@ -50,9 +53,25 @@ exports.getAllDevices = function (req, res, next) {
 }
 
 
+exports.getFullById = function (req, res, next) {
+
+    Device
+        .findOne({_id: req.params.id})
+        .populate('sensors')
+        .exec(function (error, device) {
+            if (error) {
+                console.log(error);
+                res.send(400, error);
+            } else {
+                res.send(200, device);
+            }
+        })
+};
+
 exports.getById = function (req, res, next) {
 
-    Device.findOne({_id: req.params.id})
+    Device
+        .findOne({_id: req.params.id})
         .exec(function (error, device) {
             if (error) {
                 console.log(error);

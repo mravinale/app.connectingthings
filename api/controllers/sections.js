@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 exports.create = function (req, res, next) {
     var newSection = new Section(req.body);
 
-    newSection.save(function(err, section) {
+    newSection.save(function(error, section) {
         if (error) { return res.send(400, error); }
 
         return res.send(200, section);
@@ -47,7 +47,14 @@ exports.getAllSections = function (req, res, next) {
                 model: 'Sensor'
             },function (err, result) {
                 if (error) { return res.send(400, error); }
-                return  res.send(200, result);
+
+                Sensor.populate(docs, {
+                    path: 'panels.device',
+                    model: 'Device'
+                },function (err, result) {
+                    if (error) { return res.send(400, error); }
+                    return  res.send(200, result);
+                });
             });
         });
 }

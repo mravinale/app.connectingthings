@@ -30,11 +30,13 @@ module.exports = function(app) {
   app.put('/panels/:id', auth.ensureAuthenticated, panels.update);
   app.del('/panels/:id', auth.ensureAuthenticated, panels.remove);
   app.post('/panels', auth.ensureAuthenticated, panels.create);
+  app.post('/panels/command', auth.ensureAuthenticated, panels.command);
 
   // Device Routes
   var devices = require('../controllers/devices');
   app.get('/devices', auth.ensureAuthenticated, devices.getAll);
   app.get('/devices/items',auth.ensureAuthenticated, devices.getAllDevices);
+  app.get('/devices/full/:id', auth.ensureAuthenticated, devices.getFullById);
   app.get('/devices/:id', auth.ensureAuthenticated, devices.getById);
   app.put('/devices/:id', auth.ensureAuthenticated, devices.update);
   app.del('/devices/:id', auth.ensureAuthenticated, devices.remove);

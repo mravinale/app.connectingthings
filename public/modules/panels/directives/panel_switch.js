@@ -4,7 +4,7 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('meanp')
-    .directive('panelSwitch', function (socket) {
+    .directive('panelSwitch', function (socket, panelService) {
         return {
             scope:{
                 name:"@",
@@ -37,6 +37,29 @@ angular.module('meanp')
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
+                scope.$watch('toggleButton', function(toggle) {
+debugger;
+                    var infoToSend = {tag:scope.tag, message: {command: null}}
+
+                    if(toggle === true){
+                        infoToSend.message.command = "ON"
+                    }
+                    else{
+                        infoToSend.message.command = "OFF"
+                    }
+
+                    panelService.command(infoToSend)
+                        .success(function (response, status, headers, config) {
+                           console.log(response);
+                        })
+                        .error(function(response, status, headers, config) {
+                            angular.forEach(response.errors, function(error, field) {
+                                form[field].$setValidity('mongoose', false);
+                                $scope.errors[field] = error.type;
+                            });
+                        });
+
+                });
 
                 socket.on(scope.tag, function (message) {
 

@@ -89,7 +89,7 @@ ponteServer.on("updated", function(resource, buffer) {
     console.log("Resource Updated", resource, JSON.parse(buffer.toString()));
 
 });
-
+/*
 var mqttClient = mqtt.createClient(1883, 'localhost')
     .subscribe('temperature')
     .subscribe('humidity')
@@ -98,3 +98,4 @@ var mqttClient = mqtt.createClient(1883, 'localhost')
     .on('message', function (topic, message) {
         console.log("mqtt client:",message);
     });
+*/

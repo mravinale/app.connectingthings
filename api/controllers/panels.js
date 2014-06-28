@@ -1,7 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  Panel = mongoose.model('Panel')
+    Panel = mongoose.model('Panel'),
+    mqtt = require('mqtt'),
+    mqttClient = mqtt.createClient(1883, 'localhost')
 
 
 exports.create = function (req, res, next) {
@@ -87,3 +89,11 @@ exports.update = function (req, res, next) {
 
     });
 };
+
+exports.command = function (req, res, next) {
+
+    mqttClient.publish(req.body.tag, JSON.stringify(req.body.message));
+
+    return  res.json({result: "ok"});
+};
+

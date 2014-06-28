@@ -7,7 +7,8 @@ var mongoose = require('mongoose'),
 var PanelSchema = new Schema({
   _id: { type: String },
   name: String,
-  sensor: { type:String, ref: 'Sensor' },
+  device: { type: String, ref: 'Device' },
+  sensor: { type: String, ref: 'Sensor' },
   type: String,
   size: String
 });
