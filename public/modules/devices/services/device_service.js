@@ -21,6 +21,10 @@ angular.module('meanp').service('deviceService', function ($http) {
         return $http.get('/devices/'+panelId);
     };
 
+    this.getFullById = function(panelId){
+        return $http.get('/devices/full/'+panelId);
+    };
+
     this.create = function (device) {
         return $http.post('/devices', device);
     };
