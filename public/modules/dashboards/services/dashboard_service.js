@@ -4,12 +4,48 @@
 angular.module('meanp').service('dashboardService', function ($http) {
 
 
-    this.getDashboard = function(){
-        return $http.get('/dashboard');
+    this.getMyDashboard = function(){
+        return $http.get('/mydashboard');
     };
 
-    this.createDashboard = function (param) {
-        return $http.post('/dashboard', {order: param});
+    this.createMyDashboard = function (param) {
+        return $http.post('/mydashboard', {order: param});
     };
 
+
+
+    this.getAll = function(params) {
+        var paramsToSend ={
+            page: params.page() -1,
+            count: params.count(),
+            orderBy: params.orderBy(),
+            filter: {}
+        }
+
+        return $http.get('/dashboards', { params : paramsToSend });
+    };
+
+    this.getAllDashboards = function(){
+        return $http.get('/dashboards/items');
+    };
+
+    this.getById = function(dashboardId){
+        return $http.get('/dashboards/'+dashboardId);
+    };
+
+    this.getFullById = function(dashboardId){
+        return $http.get('/dashboards/full/'+dashboardId);
+    };
+
+    this.create = function (dashboard) {
+        return $http.post('/dashboards', dashboard);
+    };
+
+    this.remove = function (dashboardId) {
+        return $http.delete('/dashboards/'+dashboardId);
+    };
+
+    this.update = function ( dashboard) {
+        return $http.put('/dashboards/'+dashboard._id, dashboard);
+    };
 });

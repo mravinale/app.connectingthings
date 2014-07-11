@@ -1,12 +1,14 @@
 'use strict';
-
+//https://github.com/localytics/angular-chosen
 var mongoose = require('mongoose'),
-  uuid = require('node-uuid'),
-  Schema = mongoose.Schema;
+    uuid = require('node-uuid'),
+    Schema = mongoose.Schema;
 
 var DashboardSchema = new Schema({
-   _id: {type: String},
-  order: Schema.Types.Mixed
+  _id: { type: String },
+  name: String,
+  description: String,
+  sections: [{ type:String, ref: 'Section' }]
 });
 
 DashboardSchema.pre('save', function (next) {

@@ -1,11 +1,11 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('meanp')
-    .controller('DashboardMeCtrl', function ($scope, panelService, sectionService, $sessionStorage, dashboardService) {
+    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $sessionStorage, dashboardService) {
 
-        dashboardService.getDashboard()
+        dashboardService.getMyDashboard()
             .success(function (response, status, headers, config) {
-                $sessionStorage.dashboard = response.order;
+                $sessionStorage.myDashboard = response.order;
             })
             .error(function(response, status, headers, config) {
                 console.log(response);
@@ -26,9 +26,9 @@ angular.module('meanp')
         $scope.sortableConfig =  {
             stop: function(e, ui) {
 
-                $sessionStorage.dashboard = $scope.sections.map(function(i){ return {name: i.name, panels: i.panels.map(function(p){return p._id;})}});
-                
-                dashboardService.createDashboard($sessionStorage.dashboard)
+                $sessionStorage.myDashboard = $scope.sections.map(function(i){ return {name: i.name, panels: i.panels.map(function(p){return p._id;})}});
+
+                dashboardService.createMyDashboard($sessionStorage.myDashboard)
                     .success(function (response, status, headers, config) {
                         console.log(response);
                     })
@@ -45,11 +45,11 @@ angular.module('meanp')
 angular.module('meanp').filter('orderPanel', function($sessionStorage) {
     return function(input,sectionName) {
         var out = [];
-        if($sessionStorage.dashboard === undefined){
+        if($sessionStorage.myDashboard === undefined){
             out = input
         }
         else{
-            _.each($sessionStorage.dashboard, function(section){
+            _.each($sessionStorage.myDashboard, function(section){
                  if(section.name == sectionName && input !== undefined){
                     _.each(section.panels, function(panelId){
                         out.push(_.find(input, function(panel){ return panelId  == panel._id; }));
