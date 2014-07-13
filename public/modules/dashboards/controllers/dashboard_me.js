@@ -3,24 +3,28 @@
 angular.module('meanp')
     .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $sessionStorage, dashboardService) {
 
-        dashboardService.getMyDashboard()
-            .success(function (response, status, headers, config) {
-                $sessionStorage.myDashboards = response;
-            })
-            .error(function(response, status, headers, config) {
-                console.log(response);
-            });
-
-        dashboardService.getAllDashboards()
-            .success(function (response, status, headers, config) {
-                $scope.dashboards = response;
-            })
-            .error(function(response, status, headers, config) {
-                angular.forEach(response.errors, function(error, field) {
-                    form[field].$setValidity('mongoose', false);
-                    $scope.errors[field] = error.type;
+        $scope.getMyDashboard = function(){
+            dashboardService.getMyDashboard()
+                .success(function (response, status, headers, config) {
+                    $sessionStorage.myDashboards = response;
+                })
+                .error(function(response, status, headers, config) {
+                    console.log(response);
                 });
-            });
+        };
+
+        $scope.getAllDashboards = function() {
+            dashboardService.getAllDashboards()
+                .success(function (response, status, headers, config) {
+                    $scope.dashboards = response;
+                })
+                .error(function (response, status, headers, config) {
+                    angular.forEach(response.errors, function (error, field) {
+                        form[field].$setValidity('mongoose', false);
+                        $scope.errors[field] = error.type;
+                    });
+                });
+        };
 
         $scope.sortableConfig =  {
             stop: function(e, ui) {
@@ -29,11 +33,9 @@ angular.module('meanp')
 
                     var sections = dashboard.sections.map(function(i){ return {name: i.name, panels: i.panels.map(function(p){return p._id;})}});
 
-                    $sessionStorage.myDashboards[index].sections = sections;
-
                     dashboardService.createMyDashboard(sections, dashboard._id)
                         .success(function (response, status, headers, config) {
-                            console.log(response);
+                            $sessionStorage.myDashboards = response;
                         })
                         .error(function(response, status, headers, config) {
                             console.log(response);
@@ -43,6 +45,8 @@ angular.module('meanp')
             }
         };
 
+        $scope.getMyDashboard();
+        $scope.getAllDashboards();
     });
 
 angular.module('meanp').filter('orderPanel', function($sessionStorage) {
