@@ -1,7 +1,11 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Dashboard = mongoose.model('Dashboard')
+    Dashboard = mongoose.model('Dashboard'),
+    Panel = mongoose.model('Panel'),
+    Section = mongoose.model('Section'),
+    Sensor = mongoose.model('Sensor'),
+    Device = mongoose.model('Device')
 
 
 exports.create = function (req, res, next) {
@@ -43,13 +47,31 @@ exports.getAllDashboards = function (req, res, next) {
         .find()
         .populate('sections')
         .exec(function (error, dashboards) {
-        if (error) {
-           console.log(error);
-           return res.send(400, error);
-        }
-        return  res.send(200, dashboards);
+            if (error) { return res.send(400, error); }
 
-    });
+            Panel.populate(dashboards, {
+                path: 'sections.panels',
+                model: 'Panel'
+            },function (err, result) {
+                if (error) { return res.send(400, error); }
+
+                Sensor.populate(dashboards, {
+                    path: 'sections.panels.sensor',
+                    model: 'Sensor'
+                },function (err, result) {
+                    if (error) { return res.send(400, error); }
+
+                    Device.populate(dashboards, {
+                        path: 'sections.panels.device',
+                        model: 'Device'
+                    },function (err, result) {
+                        if (error) { return res.send(400, error); }
+
+                        return  res.send(200, result);
+                    });
+                });
+            });
+        });
 }
 
 

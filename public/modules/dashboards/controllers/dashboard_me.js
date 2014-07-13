@@ -5,16 +5,15 @@ angular.module('meanp')
 
         dashboardService.getMyDashboard()
             .success(function (response, status, headers, config) {
-                $sessionStorage.myDashboard = response.order;
+                $sessionStorage.myDashboards = response;
             })
             .error(function(response, status, headers, config) {
                 console.log(response);
             });
 
-
-        sectionService.getAllSections()
+        dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
-                $scope.sections = response;
+                $scope.dashboards = response;
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -26,16 +25,20 @@ angular.module('meanp')
         $scope.sortableConfig =  {
             stop: function(e, ui) {
 
-                $sessionStorage.myDashboard = $scope.sections.map(function(i){ return {name: i.name, panels: i.panels.map(function(p){return p._id;})}});
+                angular.forEach($scope.dashboards, function(dashboard, index) {
 
-                dashboardService.createMyDashboard($sessionStorage.myDashboard)
-                    .success(function (response, status, headers, config) {
-                        console.log(response);
-                    })
-                    .error(function(response, status, headers, config) {
-                        console.log(response);
-                    });
+                    var sections = dashboard.sections.map(function(i){ return {name: i.name, panels: i.panels.map(function(p){return p._id;})}});
 
+                    $sessionStorage.myDashboards[index].sections = sections;
+
+                    dashboardService.createMyDashboard(sections, dashboard._id)
+                        .success(function (response, status, headers, config) {
+                            console.log(response);
+                        })
+                        .error(function(response, status, headers, config) {
+                            console.log(response);
+                        });
+                });
 
             }
         };
@@ -43,13 +46,16 @@ angular.module('meanp')
     });
 
 angular.module('meanp').filter('orderPanel', function($sessionStorage) {
-    return function(input,sectionName) {
+    return function(input, sectionName, dashboardId) {
         var out = [];
-        if($sessionStorage.myDashboard === undefined){
+
+        if($sessionStorage.myDashboards.length == 0 ){
             out = input
         }
         else{
-            _.each($sessionStorage.myDashboard, function(section){
+            var dashboard = _.find($sessionStorage.myDashboards, function(order){ return order.dashboard == dashboardId; });
+
+            _.each(dashboard.sections, function(section){
                  if(section.name == sectionName && input !== undefined){
                     _.each(section.panels, function(panelId){
                         out.push(_.find(input, function(panel){ return panelId  == panel._id; }));

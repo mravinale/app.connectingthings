@@ -20,10 +20,10 @@ exports.createMyDashboard = function (req, res, next) {
 
 exports.getMyDashboard = function (req, res, next) {
 
-    MyDashboard.find().exec(function (error, dashboard) {
+    MyDashboard.find().exec(function (error, dashboards) {
         if (error)  return res.send(400, error);
 
-        return  res.send(200, dashboard[0]);
+        return  res.send(200, dashboards);
 
     });
 }
