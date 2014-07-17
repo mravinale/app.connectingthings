@@ -1,21 +1,32 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+    async = require('async'),
     MyDashboard = mongoose.model('MyDashboard');
 
 
 exports.createMyDashboard = function (req, res, next) {
-    var newMyDashboard = new MyDashboard(req.body);
 
     MyDashboard.remove({}, function (error) {
         if (error) return res.send(400, error);
 
-        newMyDashboard.save(function(err, dashboard) {
-            if (error) return res.send(400, error);
+        async.each(req.body, function( dashboard, callback) {
 
-            return res.send(200, dashboard);
+            var newMyDashboard = new MyDashboard(dashboard);
+
+            newMyDashboard.save(callback);
+
+            }, function (error) {
+                if (error) return res.send(400, error);
+
+                MyDashboard.find().exec(function (error, dashboards) {
+                    if (error)  return res.send(400, error);
+
+                    return  res.send(200, dashboards);
+                });
+
+            });
         });
-    });
 };
 
 exports.getMyDashboard = function (req, res, next) {

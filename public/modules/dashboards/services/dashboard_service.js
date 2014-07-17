@@ -8,8 +8,8 @@ angular.module('meanp').service('dashboardService', function ($http) {
         return $http.get('/mydashboard');
     };
 
-    this.createMyDashboard = function (sections,dashboardId) {
-        return $http.post('/mydashboard', {sections:sections, dashboard:dashboardId});
+    this.createMyDashboard = function (dashboardsChanges) {
+        return $http.post('/mydashboard', dashboardsChanges);
     };
 
 

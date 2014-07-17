@@ -3,50 +3,45 @@
 angular.module('meanp')
     .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $sessionStorage, dashboardService) {
 
-        $scope.getMyDashboard = function(){
-            dashboardService.getMyDashboard()
-                .success(function (response, status, headers, config) {
-                    $sessionStorage.myDashboards = response;
-                })
-                .error(function(response, status, headers, config) {
-                    console.log(response);
-                });
-        };
+        dashboardService.getMyDashboard()
+            .success(function (response, status, headers, config) {
+                $sessionStorage.myDashboards = response;
+            })
+            .error(function(response, status, headers, config) {
+                console.log(response);
+            });
 
-        $scope.getAllDashboards = function() {
-            dashboardService.getAllDashboards()
-                .success(function (response, status, headers, config) {
-                    $scope.dashboards = response;
-                })
-                .error(function (response, status, headers, config) {
-                    angular.forEach(response.errors, function (error, field) {
-                        form[field].$setValidity('mongoose', false);
-                        $scope.errors[field] = error.type;
-                    });
+        dashboardService.getAllDashboards()
+            .success(function (response, status, headers, config) {
+                $scope.dashboards = response;
+            })
+            .error(function(response, status, headers, config) {
+                angular.forEach(response.errors, function(error, field) {
+                    form[field].$setValidity('mongoose', false);
+                    $scope.errors[field] = error.type;
                 });
-        };
+            });
 
         $scope.sortableConfig =  {
             stop: function(e, ui) {
 
+                var dashboardsChanges = [];
+
                 angular.forEach($scope.dashboards, function(dashboard, index) {
-
                     var sections = dashboard.sections.map(function(i){ return {name: i.name, panels: i.panels.map(function(p){return p._id;})}});
-
-                    dashboardService.createMyDashboard(sections, dashboard._id)
-                        .success(function (response, status, headers, config) {
-                            $sessionStorage.myDashboards = response;
-                        })
-                        .error(function(response, status, headers, config) {
-                            console.log(response);
-                        });
+                    dashboardsChanges.push({sections: sections, dashboard:dashboard._id});
                 });
 
+                dashboardService.createMyDashboard(dashboardsChanges)
+                    .success(function (response, status, headers, config) {
+                        $sessionStorage.myDashboards = response;
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.log(response);
+                    });
             }
         };
 
-        $scope.getMyDashboard();
-        $scope.getAllDashboards();
     });
 
 angular.module('meanp').filter('orderPanel', function($sessionStorage) {
