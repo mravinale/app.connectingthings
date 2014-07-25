@@ -31,7 +31,6 @@
         "karma-coffee-preprocessor": "~0.1.0",
         "karma-phantomjs-launcher": "~0.1.0",
         "karma-ng-html2js-preprocessor": "~0.1.0",
-        "sockjs": "~0.3.8",
         "mqtt" : "0.3.8",
         "socket.io": "*",
         "ponte": "0.0.7"

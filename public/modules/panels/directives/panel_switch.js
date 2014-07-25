@@ -37,8 +37,12 @@ angular.module('meanp')
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
+                socket.on(scope.tag, function (message) {
+                    scope.toggleButton = angular.fromJson(message).command == "ON";
+                });
+
                 scope.$watch('toggleButton', function(toggle) {
-debugger;
+
                     var infoToSend = {tag:scope.tag, message: {command: null}}
 
                     if(toggle === true){
@@ -58,13 +62,6 @@ debugger;
                                 $scope.errors[field] = error.type;
                             });
                         });
-
-                });
-
-                socket.on(scope.tag, function (message) {
-
-                    console.log(scope.tag);
-
                 });
 
             }

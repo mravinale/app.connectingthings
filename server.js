@@ -4,7 +4,6 @@
 var express = require('express'),
     http = require('http'),
     mqtt = require('mqtt'),
-    sockjs  = require('sockjs'),
     passport = require('passport'),
     path = require('path'),
     fs = require('fs'),
