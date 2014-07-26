@@ -30,8 +30,8 @@
 @media(min-width:768px) {
     #page-wrapper {
         position: inherit;
-        margin: 0 0 0 250px;
-        padding: 0 30px;
+        margin: 0 0 0 150px;
+        padding: 0 20px;
         min-height: 1300px;
         border-left: 1px solid #e7e7e7;
     }
@@ -136,7 +136,7 @@
     .navbar-static-side {
         z-index: 1;
         position: absolute;
-        width: 250px;
+        width: 150px;
         margin-top: 51px;
     }
 
