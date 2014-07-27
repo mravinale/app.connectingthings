@@ -13,6 +13,7 @@ exports.createMyDashboard = function (req, res, next) {
         async.each(req.body, function( dashboard, callback) {
 
             var newMyDashboard = new MyDashboard(dashboard);
+            newMyDashboard.owner = req.user;
 
             newMyDashboard.save(callback);
 

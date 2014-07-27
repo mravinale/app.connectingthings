@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 
 exports.create = function (req, res, next) {
     var newSection = new Section(req.body);
+    newSection.owner = req.user;
 
     newSection.save(function(error, section) {
         if (error) { return res.send(400, error); }
@@ -19,7 +20,7 @@ exports.create = function (req, res, next) {
 exports.getAll = function (req, res, next) {
 
     Section
-        .find()
+        .find({owner: req.user.id})
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -37,7 +38,7 @@ exports.getAll = function (req, res, next) {
 
 exports.getAllSections = function (req, res, next) {
 
-    Section.find()
+    Section.find({owner: req.user.id})
         .populate({path: 'panels'})
         .exec(function (error, docs) {
             if (error) { return res.send(400, error); }

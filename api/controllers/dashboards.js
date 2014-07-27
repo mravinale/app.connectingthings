@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
 
 exports.create = function (req, res, next) {
     var newDashboard = new Dashboard(req.body);
+    newDashboard.owner = req.user;
 
     newDashboard.save(function(err, panel) {
         if (err) {
@@ -24,7 +25,7 @@ exports.create = function (req, res, next) {
 exports.getAll = function (req, res, next) {
 
     Dashboard
-        .find()
+        .find({owner: req.user.id})
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -44,7 +45,7 @@ exports.getAll = function (req, res, next) {
 exports.getAllDashboards = function (req, res, next) {
 
     Dashboard
-        .find()
+        .find({owner: req.user.id})
         .populate('sections')
         .exec(function (error, dashboards) {
             if (error) { return res.send(400, error); }

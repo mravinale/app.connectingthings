@@ -10,7 +10,8 @@ var PanelSchema = new Schema({
   device: { type: String, ref: 'Device' },
   sensor: { type: String, ref: 'Sensor' },
   type: String,
-  size: String
+  size: String,
+  owner: { type: String, ref: 'User' }
 });
 
 PanelSchema.pre('save', function (next) {

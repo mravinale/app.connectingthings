@@ -1,9 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  passport = require('passport'),
-  ObjectId = mongoose.Types.ObjectId;
+  User = mongoose.model('User');
 
 /**
  * Create user
@@ -33,7 +31,7 @@ exports.create = function (req, res, next) {
 exports.show = function (req, res, next) {
   var userId = req.params.userId;
 
-  User.findById(ObjectId(userId), function (err, user) {
+  User.findById(userId, function (err, user) {
     if (err) {
       return next(new Error('Failed to load User'));
     }

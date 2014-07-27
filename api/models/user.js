@@ -2,19 +2,13 @@
 
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
+  uuid = require('node-uuid'),
   crypto = require('crypto');
 
 var UserSchema = new Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  username: {
-    type: String,
-    unique: true,
-    required: true
-  },
+  _id: { type: String },
+  email: { type: String, unique: true, required: true },
+  username: { type: String, unique: true, required: true },
   hashedPassword: String,
   salt: String,
   name: String,
@@ -77,16 +71,19 @@ UserSchema.path('username').validate(function(value, respond) {
  */
 
 UserSchema.pre('save', function(next) {
-  if (!this.isNew) {
-    return next();
-  }
+    if (this._id === undefined) {
+        this._id = uuid.v1();
+    }
+    if (!this.isNew) {
+        return next();
+    }
 
-  if (!validatePresenceOf(this.password)) {
-    next(new Error('Invalid password'));
-  }
-  else {
-    next();
-  }
+    if (!validatePresenceOf(this.password)) {
+        next(new Error('Invalid password'));
+    }
+    else {
+        next();
+    }
 });
 
 /**

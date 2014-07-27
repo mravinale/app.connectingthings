@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 
 exports.create = function (req, res, next) {
     var newPanel = new Panel(req.body);
+    newPanel.owner = req.user;
 
     newPanel.save(function(err, panel) {
         if (err) {
@@ -22,7 +23,7 @@ exports.create = function (req, res, next) {
 exports.getAll = function (req, res, next) {
 
     Panel
-        .find()
+        .find({owner: req.user.id})
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -41,7 +42,7 @@ exports.getAll = function (req, res, next) {
 
 exports.getAllPanels = function (req, res, next) {
 
-    Panel.find()
+    Panel.find({owner: req.user.id})
         .exec(function (error, panels) {
             if (error) {
                console.log(error);

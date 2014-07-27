@@ -8,7 +8,8 @@ var DeviceSchema = new Schema({
   _id: { type: String },
   name: String,
   description: String,
-  sensors: [{ type:String, ref: 'Sensor' }]
+  sensors: [{ type:String, ref: 'Sensor' }],
+  owner: { type: String, ref: 'User' }
 });
 
 DeviceSchema.pre('save', function (next) {

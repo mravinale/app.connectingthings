@@ -8,7 +8,8 @@ var DashboardSchema = new Schema({
   _id: { type: String },
   name: String,
   description: String,
-  sections: [{ type:String, ref: 'Section' }]
+  sections: [{ type:String, ref: 'Section' }],
+  owner: { type: String, ref: 'User' }
 });
 
 DashboardSchema.pre('save', function (next) {
