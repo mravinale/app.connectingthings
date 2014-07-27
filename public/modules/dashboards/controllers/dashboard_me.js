@@ -11,17 +11,9 @@ angular.module('meanp')
                 console.log(response);
             });
 
-
         dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
                 $scope.dashboards = response;
-/*
-                $sessionStorage.myDashboards = [];
-                angular.forEach($scope.dashboards, function(dashboard, index) {
-                    var sections = dashboard.sections.map(function(i){ return {name: i.name, panels: i.panels.map(function(p){return p._id;})}});
-                    $sessionStorage.myDashboards.push({sections: sections, dashboard:dashboard._id});
-                });
-*/
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -30,24 +22,25 @@ angular.module('meanp')
                 });
             });
 
-        $scope.sortableConfig =  {
-            stop: function(e, ui) {
+        $scope.updatePanels = function(){
 
-                var dashboardsChanges = [];
-                angular.forEach($scope.dashboards, function(dashboard, index) {
-                    var sections = dashboard.sections.map(function(i){ return {name: i.name, panels: i.panels.map(function(p){return p._id;})}});
-                    dashboardsChanges.push({sections: sections, dashboard:dashboard._id});
+            var dashboardsChanges = [];
+            angular.forEach($scope.dashboards, function(dashboard, index) {
+                var sections = dashboard.sections.map(function(i){ return {name: i.name, panels: i.panels.map(function(p){return p._id;})}});
+                dashboardsChanges.push({sections: sections, dashboard:dashboard._id});
+            });
+
+            dashboardService.createMyDashboard(dashboardsChanges)
+                .success(function (response) {
+                    $sessionStorage.myDashboards = response;
+                })
+                .error(function(response) {
+                    console.log(response);
                 });
+        };
 
-                dashboardService.createMyDashboard(dashboardsChanges)
-                    .success(function (response, status, headers, config) {
-                        $sessionStorage.myDashboards = response;
-                    })
-                    .error(function(response, status, headers, config) {
-                        console.log(response);
-                    });
-
-            }
+        $scope.sortableConfig =  {
+            stop: function(e, ui) { $scope.updatePanels(); }
         };
 
     });
