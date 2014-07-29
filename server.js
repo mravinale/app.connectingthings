@@ -8,7 +8,8 @@ var express = require('express'),
     path = require('path'),
     fs = require('fs'),
     mongoStore = require('connect-mongo')(express),
-    config = require('./api/config/config')
+    config = require('./api/config/config'),
+    mongoose = require('mongoose')
 
 
 var app = express();
@@ -75,17 +76,31 @@ var opts = {
     },
     persistence: {
         type: 'mongo',
-        url: config.db.mqtt,
-        pubsubCollection: 'ascoltatori',
-        mongo: {}
+        url: config.db.mqtt
+    },
+    broker: {
+        type: 'mongo',
+        url: config.db.mqtt
     }
 };
+
+var Message = mongoose.model('Message');
+// Start socket conection
 var ponteServer = ponte(opts);
+var lastValue = { tag:null, message:null }
 ponteServer.on("updated", function(resource, buffer) {
+    var message = { tag:resource, message:buffer.toString() };
 
-    io.sockets.emit(resource, buffer.toString());
+    if(lastValue.tag == message.tag && lastValue.message ==  message.message) return;
 
-    console.log("Resource Updated", resource, JSON.parse(buffer.toString()));
+    var newMessage = new Message(message);
+    newMessage.save(function(err, item) {
+        if (err) { return console.error(err.code, err.message); }
+
+        lastValue = item;
+        io.sockets.emit(item.tag, item.message);
+        console.log("Resource Updated", item.tag, JSON.parse(item.message));
+    });
 
 });
 /*

@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
     Panel = mongoose.model('Panel'),
     Section = mongoose.model('Section'),
     Sensor = mongoose.model('Sensor'),
-    Device = mongoose.model('Device')
+    Device = mongoose.model('Device');
 
 
 exports.create = function (req, res, next) {

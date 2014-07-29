@@ -38,18 +38,18 @@ angular.module('meanp')
             link: function postLink(scope, element, attrs) {
 
                 socket.on(scope.tag, function (message) {
-                    scope.toggleButton = angular.fromJson(message).command == "ON";
+                    scope.toggleButton = angular.fromJson(message).value == "1";
                 });
 
                 scope.$watch('toggleButton', function(toggle) {
 
-                    var infoToSend = {tag:scope.tag, message: {command: null}}
+                    var infoToSend = {tag:scope.tag, message: {value: null}}
 
                     if(toggle === true){
-                        infoToSend.message.command = "ON"
+                        infoToSend.message.value = "1"
                     }
                     else{
-                        infoToSend.message.command = "OFF"
+                        infoToSend.message.value = "0"
                     }
 
                     panelService.command(infoToSend)
