@@ -61,7 +61,7 @@ module.exports = function(app) {
     app.del('/sensors/:id', auth.ensureAuthenticated, sensors.remove);
     app.post('/sensors', auth.ensureAuthenticated, sensors.create);
 
-    // Section Routes
+    // Section Sections
     var sections = require('../controllers/sections');
     app.get('/sections', auth.ensureAuthenticated, sections.getAll);
     app.get('/sections/items', auth.ensureAuthenticated, sections.getAllSections);
@@ -69,5 +69,10 @@ module.exports = function(app) {
     app.put('/sections/:id', auth.ensureAuthenticated, sections.update);
     app.del('/sections/:id', auth.ensureAuthenticated, sections.remove);
     app.post('/sections', auth.ensureAuthenticated, sections.create);
+
+    // Section Messages
+    var messages = require('../controllers/messages');
+    app.get('/messages', auth.ensureAuthenticated, messages.getAll);
+    app.get('/messages/items', auth.ensureAuthenticated, messages.getAllMessages);
 
 }

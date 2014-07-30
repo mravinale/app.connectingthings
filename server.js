@@ -9,7 +9,8 @@ var express = require('express'),
     fs = require('fs'),
     mongoStore = require('connect-mongo')(express),
     config = require('./api/config/config'),
-    mongoose = require('mongoose')
+    mongoose = require('mongoose'),
+    moment = require('moment');
 
 
 var app = express();
@@ -89,7 +90,7 @@ var Message = mongoose.model('Message');
 var ponteServer = ponte(opts);
 var lastValue = { tag:null, message:null }
 ponteServer.on("updated", function(resource, buffer) {
-    var message = { tag:resource, message:buffer.toString() };
+    var message = { tag: resource, message: buffer.toString(), date: moment().valueOf() };
 
     if(lastValue.tag == message.tag && lastValue.message ==  message.message) return;
 

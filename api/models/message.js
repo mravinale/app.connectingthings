@@ -6,7 +6,8 @@ var mongoose = require('mongoose'),
 var MessageSchema = new Schema({
   _id: { type: String },
   tag: {type: String},
-  message: {type: String}
+  message: {type: String},
+  date:{type: Number}
 });
 
 MessageSchema.pre('save', function (next) {

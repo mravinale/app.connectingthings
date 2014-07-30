@@ -4,7 +4,7 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('meanp')
-    .directive('panelD3Chart', function (socket) {
+    .directive('panelD3Chart', function (socket, messageService) {
         return {
             scope:{
                 yrange:"@",
@@ -49,11 +49,26 @@ angular.module('meanp')
                 var items = [[moment().valueOf(),0] ];
                 scope.values =[ { "values": [],"key": scope.name }];
 
+                messageService.getAllMessages(scope.tag)
+                    .success(function (response, status, headers, config) {
+
+                        angular.forEach(response, function(message) {
+                            var item = angular.fromJson(message.message);
+                            items.push([message.date, parseInt(item.value)]);
+                        });
+
+                        scope.values =  [ { "values": items, "key": scope.name } ];
+                        //console.log("from :" + scope.tag,  scope.values);
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.error( response);
+                    });
+
                 scope.xAxisTickFormatFunction = function(){
                     return function(d){
                         return d3.time.format('%H:%M:%S')(moment(d).toDate());
                     }
-                }
+                };
 
                 socket.on(scope.tag, function (message) {
                     var item = angular.fromJson(message);

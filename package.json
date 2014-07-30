@@ -33,7 +33,8 @@
         "karma-ng-html2js-preprocessor": "~0.1.0",
         "mqtt" : "0.3.8",
         "socket.io": "*",
-        "ponte": "0.0.7"
+        "ponte": "0.0.7",
+        "moment": "2.7.0"
     },
     "engines": {
         "node": ">=0.8.0"
