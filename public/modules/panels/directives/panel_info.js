@@ -8,7 +8,7 @@ angular.module('meanp')
         return {
             scope:{
                 name:"@",
-                tag:"@",
+                topic:"@",
                 label:"@"
             },
             restrict: 'E',
@@ -43,7 +43,7 @@ angular.module('meanp')
                 var items = [{value: 0, timestamp: Date.now()} ];
                 scope.values = { data: items, max: 3000 };
 
-                socket.on(scope.tag, function (message) {
+                socket.on(scope.topic, function (message) {
 
                     var item = angular.fromJson(message);
                     item.timestamp = Date.now();

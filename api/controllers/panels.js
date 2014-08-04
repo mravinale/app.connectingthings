@@ -3,7 +3,10 @@
 var mongoose = require('mongoose'),
     Panel = mongoose.model('Panel'),
     mqtt = require('mqtt'),
-    mqttClient = mqtt.createClient(1883, 'localhost')
+    mqttClient = mqtt.createClient(1883, 'localhost'),
+    Client = require('node-rest-client').Client;
+
+var client = new Client();
 
 
 exports.create = function (req, res, next) {
@@ -93,8 +96,20 @@ exports.update = function (req, res, next) {
 
 exports.command = function (req, res, next) {
 
-    mqttClient.publish(req.body.tag, JSON.stringify(req.body.message));
+    if(req.body.protocol == "http") {
 
-    return  res.json({result: "ok"});
+        client.get(req.body.url + "?" + req.body.tag + "=" + req.body.message.value, function (data, response) {
+            mqttClient.publish(req.body.topic, JSON.stringify(req.body.message));
+            return res.json({result: "ok"});
+        });
+
+    }
+
+    if(req.body.protocol == "mqtt"){
+
+        mqttClient.publish(req.body.topic, JSON.stringify(req.body.message));
+        return res.json({result: "ok"});
+
+    }
 };
 

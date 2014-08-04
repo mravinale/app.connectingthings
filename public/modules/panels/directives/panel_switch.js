@@ -8,8 +8,11 @@ angular.module('meanp')
         return {
             scope:{
                 name:"@",
-                tag:"@",
-                label:"@"
+                topic:"@",
+                label:"@",
+                url:"@",
+                protocol:"@",
+                tag:"@"
             },
             restrict: 'E',
             replace: true,
@@ -37,13 +40,18 @@ angular.module('meanp')
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
-                socket.on(scope.tag, function (message) {
+                //scope.url = "https://agent.electricimp.com/ke1jT-hwEMyU";
+                //scope.protocol = "http";
+
+                debugger;
+
+                socket.on(scope.topic, function (message) {
                     scope.toggleButton = angular.fromJson(message).value == "1";
                 });
 
                 scope.$watch('toggleButton', function(toggle) {
 
-                    var infoToSend = {tag:scope.tag, message: {value: null}}
+                    var infoToSend = {topic:scope.topic, tag:scope.tag, url:scope.url, protocol:scope.protocol, message: {value: null}}
 
                     if(toggle === true){
                         infoToSend.message.value = "1"

@@ -8,7 +8,7 @@ angular.module('meanp')
         return {
             scope:{
                 yrange:"@",
-                tag:"@",
+                topic:"@",
                 name:"@"
             },
             restrict: 'E',
@@ -49,7 +49,7 @@ angular.module('meanp')
                 var items = [[moment().valueOf(),0] ];
                 scope.values =[ { "values": [],"key": scope.name }];
 
-                messageService.getAllMessages(scope.tag)
+                messageService.getAllMessages(scope.topic)
                     .success(function (response, status, headers, config) {
 
                         angular.forEach(response, function(message) {
@@ -58,7 +58,7 @@ angular.module('meanp')
                         });
 
                         scope.values =  [ { "values": items, "key": scope.name } ];
-                        //console.log("from :" + scope.tag,  scope.values);
+                        //console.log("from :" + scope.topic,  scope.values);
                     })
                     .error(function(response, status, headers, config) {
                         console.error( response);
@@ -70,7 +70,7 @@ angular.module('meanp')
                     }
                 };
 
-                socket.on(scope.tag, function (message) {
+                socket.on(scope.topic, function (message) {
                     var item = angular.fromJson(message);
                     items.push([moment().valueOf(),item.value]);
 

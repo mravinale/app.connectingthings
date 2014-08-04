@@ -34,7 +34,8 @@
         "mqtt" : "0.3.8",
         "socket.io": "*",
         "ponte": "0.0.7",
-        "moment": "2.7.0"
+        "moment": "2.7.0",
+        "node-rest-client" :"1.0.0"
     },
     "engines": {
         "node": ">=0.8.0"

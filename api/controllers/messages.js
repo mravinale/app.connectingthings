@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 exports.getAll = function (req, res, next) {
 
     Message
-        .find({tag: req.query.tag})
+        .find({topic: req.query.topic})
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -26,7 +26,7 @@ exports.getAll = function (req, res, next) {
 exports.getAllMessages = function (req, res, next) {
 
     Message
-        .find({tag: req.query.tag})
+        .find({topic: req.query.topic})
         .exec(function (error, messages) {
             if (error) {
                console.log(error);

@@ -88,19 +88,19 @@ var opts = {
 var Message = mongoose.model('Message');
 // Start socket conection
 var ponteServer = ponte(opts);
-var lastValue = { tag:null, message:null }
+var lastValue = { topic:null, message:null }
 ponteServer.on("updated", function(resource, buffer) {
-    var message = { tag: resource, message: buffer.toString(), date: moment().valueOf() };
+    var message = { topic: resource, message: buffer.toString(), date: moment().valueOf() };
 
-    if(lastValue.tag == message.tag && lastValue.message ==  message.message) return;
+    if(lastValue.topic == message.topic && lastValue.message ==  message.message) return;
 
     var newMessage = new Message(message);
     newMessage.save(function(err, item) {
         if (err) { return console.error(err.code, err.message); }
 
         lastValue = item;
-        io.sockets.emit(item.tag, item.message);
-        console.log("Resource Updated", item.tag, JSON.parse(item.message));
+        io.sockets.emit(item.topic, item.message);
+        console.log("Resource Updated", item.topic, JSON.parse(item.message));
     });
 
 });
