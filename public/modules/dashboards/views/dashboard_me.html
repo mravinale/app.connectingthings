@@ -16,13 +16,13 @@
                 <div class="panels" ui-sortable="sortableConfig" ng-model="section.panels">
                     <div  ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in section.panels | orderPanel:section.name:dashboard._id">
 
-                        <panel-switch ng-if="panel.type=='switch'" name="{{panel.name}}" url="{{panel.device.url}}" protocol="{{panel.device.protocol}}" topic="{{panel.device.name}}/{{panel.sensor.tag}}" tag="{{panel.sensor.tag}}"> </panel-switch>
+                        <panel-switch ng-if="panel.type=='switch'" name="{{panel.name}}" url="{{panel.device.url}}" protocol="{{panel.device.protocol}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" tag="{{panel.sensor.tag}}"> </panel-switch>
 
-                        <panel-gauge ng-if="panel.type=='gauge'" name="{{panel.name}}" url="{{panel.device.url}}" protocol="{{panel.device.protocol}}" topic="{{panel.device.name}}/{{panel.sensor.tag}}" > </panel-gauge>
+                        <panel-gauge ng-if="panel.type=='gauge'" name="{{panel.name}}" url="{{panel.device.url}}" protocol="{{panel.device.protocol}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" > </panel-gauge>
 
-                        <panel-info ng-if="panel.type=='info'" name="{{panel.name}}" url="{{panel.device.url}}" protocol="{{panel.device.protocol}}" topic="{{panel.device.name}}/{{panel.sensor.tag}}" > </panel-info>
+                        <panel-info ng-if="panel.type=='info'" name="{{panel.name}}" url="{{panel.device.url}}" protocol="{{panel.device.protocol}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" > </panel-info>
 
-                        <panel-d3-chart ng-if="panel.type=='d3-chart'" name="{{panel.name}}" url="{{panel.device.url}}" protocol="{{panel.device.protocol}}" topic="{{panel.device.name}}/{{panel.sensor.tag}}"  > </panel-d3-chart>
+                        <panel-d3-chart ng-if="panel.type=='d3-chart'" name="{{panel.name}}" url="{{panel.device.url}}" protocol="{{panel.device.protocol}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}"  > </panel-d3-chart>
 
                     </div>
                 </div>

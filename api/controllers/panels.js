@@ -100,7 +100,7 @@ exports.command = function (req, res, next) {
 
         client.get(req.body.url + "?" + req.body.tag + "=" + req.body.message.value, function (data, response) {
             mqttClient.publish(req.body.topic, JSON.stringify(req.body.message));
-            return res.json({result: "ok"});
+            return res.send(200, "ok");
         });
 
     }

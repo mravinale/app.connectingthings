@@ -15,7 +15,7 @@ var express = require('express'),
 
 var app = express();
 
-// Connect to database
+    // Connect to database
 var db = require('./api/db/mongo').db;
 
 // Bootstrap models
