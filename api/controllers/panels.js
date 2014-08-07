@@ -96,6 +96,7 @@ exports.update = function (req, res, next) {
 
 exports.command = function (req, res, next) {
 
+    /*
     if(req.body.protocol == "http") {
 
         client.get(req.body.url + "?" + req.body.tag + "=" + req.body.message.value, function (data, response) {
@@ -104,6 +105,7 @@ exports.command = function (req, res, next) {
         });
 
     }
+    */
 
     if(req.body.protocol == "mqtt"){
 

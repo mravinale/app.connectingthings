@@ -9,9 +9,9 @@ var DeviceSchema = new Schema({
   name: String,
   description: String,
   sensors: [{ type:String, ref: 'Sensor' }],
-  owner: { type: String, ref: 'User' },
-  url: String,
-  protocol: String
+  owner: { type: String, ref: 'User' }
+ // url: String,
+ // protocol: String
 });
 
 DeviceSchema.pre('save', function (next) {
