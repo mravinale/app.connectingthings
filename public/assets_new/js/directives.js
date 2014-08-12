@@ -145,7 +145,7 @@ angular.module('app.directives', ['ui.load'])
       template:'<i class="fa fa-expand fa-fw text"></i><i class="fa fa-compress fa-fw text-active"></i>',
       link: function(scope, el, attr) {
         el.addClass('hide');
-        uiLoad.load('js/libs/screenfull.min.js').then(function(){
+        uiLoad.load('assets_new/js/libs/screenfull.min.js').then(function(){
           if (screenfull.enabled) {
             el.removeClass('hide');
           }

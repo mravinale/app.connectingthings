@@ -43,11 +43,11 @@ var app = angular.module('app', [
             .state('app', {
                 abstract: true,
                 url: '/app',
-                templateUrl: 'tpl/app.html'
+                templateUrl: 'assets_new/tpl/app.html'
             })
             .state('app.dashboard', {
                 url: '/dashboard',
-                templateUrl: 'tpl/app_dashboard.html'
+                templateUrl: 'assets_new/tpl/app_dashboard.html'
             })
             .state('app.ui', {
                 url: '/ui',
@@ -55,43 +55,43 @@ var app = angular.module('app', [
             })
             .state('app.ui.buttons', {
                 url: '/buttons',
-                templateUrl: 'tpl/ui_buttons.html'
+                templateUrl: 'assets_new/tpl/ui_buttons.html'
             })
             .state('app.ui.icons', {
                 url: '/icons',
-                templateUrl: 'tpl/ui_icons.html'
+                templateUrl: 'assets_new/tpl/ui_icons.html'
             })
             .state('app.ui.grid', {
                 url: '/grid',
-                templateUrl: 'tpl/ui_grid.html'
+                templateUrl: 'assets_new/tpl/ui_grid.html'
             })
             .state('app.ui.widgets', {
                 url: '/widgets',
-                templateUrl: 'tpl/ui_widgets.html'
+                templateUrl: 'assets_new/tpl/ui_widgets.html'
             })
             .state('app.ui.bootstrap', {
                 url: '/bootstrap',
-                templateUrl: 'tpl/ui_bootstrap.html'
+                templateUrl: 'assets_new/tpl/ui_bootstrap.html'
             })
             .state('app.ui.sortable', {
                 url: '/sortable',
-                templateUrl: 'tpl/ui_sortable.html'
+                templateUrl: 'assets_new/tpl/ui_sortable.html'
             })
             .state('app.ui.portlet', {
                 url: '/portlet',
-                templateUrl: 'tpl/ui_portlet.html'
+                templateUrl: 'assets_new/tpl/ui_portlet.html'
             })
             .state('app.ui.timeline', {
                 url: '/timeline',
-                templateUrl: 'tpl/ui_timeline.html'
+                templateUrl: 'assets_new/tpl/ui_timeline.html'
             })
             .state('app.ui.jvectormap', {
                 url: '/jvectormap',
-                templateUrl: 'tpl/ui_jvectormap.html'
+                templateUrl: 'assets_new/tpl/ui_jvectormap.html'
             })
             .state('app.ui.chart', {
                 url: '/chart',
-                templateUrl: 'tpl/ui_chart.html'
+                templateUrl: 'assets_new/tpl/ui_chart.html'
             })
             // table
             .state('app.table', {
@@ -100,15 +100,15 @@ var app = angular.module('app', [
             })
             .state('app.table.static', {
                 url: '/static',
-                templateUrl: 'tpl/table_static.html'
+                templateUrl: 'assets_new/tpl/table_static.html'
             })
             .state('app.table.datatable', {
                 url: '/datatable',
-                templateUrl: 'tpl/table_datatable.html'
+                templateUrl: 'assets_new/tpl/table_datatable.html'
             })
             .state('app.table.footable', {
                 url: '/footable',
-                templateUrl: 'tpl/table_footable.html'
+                templateUrl: 'assets_new/tpl/table_footable.html'
             })
             // form
             .state('app.form', {
@@ -117,15 +117,15 @@ var app = angular.module('app', [
             })
             .state('app.form.elements', {
                 url: '/elements',
-                templateUrl: 'tpl/form_elements.html'
+                templateUrl: 'assets_new/tpl/form_elements.html'
             })
             .state('app.form.validation', {
                 url: '/validation',
-                templateUrl: 'tpl/form_validation.html'
+                templateUrl: 'assets_new/tpl/form_validation.html'
             })
             .state('app.form.wizard', {
                 url: '/wizard',
-                templateUrl: 'tpl/form_wizard.html'
+                templateUrl: 'assets_new/tpl/form_wizard.html'
             })
             // pages
             .state('app.page', {
@@ -134,28 +134,28 @@ var app = angular.module('app', [
             })
             .state('app.page.profile', {
                 url: '/profile',
-                templateUrl: 'tpl/page_profile.html'
+                templateUrl: 'assets_new/tpl/page_profile.html'
             })
             .state('app.page.post', {
                 url: '/post',
-                templateUrl: 'tpl/page_post.html'
+                templateUrl: 'assets_new/tpl/page_post.html'
             })
             .state('app.page.search', {
                 url: '/search',
-                templateUrl: 'tpl/page_search.html'
+                templateUrl: 'assets_new/tpl/page_search.html'
             })
             .state('app.page.invoice', {
                 url: '/invoice',
-                templateUrl: 'tpl/page_invoice.html'
+                templateUrl: 'assets_new/tpl/page_invoice.html'
             })
             .state('app.docs', {
                 url: '/docs',
-                templateUrl: 'tpl/docs.html'
+                templateUrl: 'assets_new/tpl/docs.html'
             })
             // others
             .state('lockme', {
                 url: '/lockme',
-                templateUrl: 'tpl/page_lockme.html'
+                templateUrl: 'assets_new/tpl/page_lockme.html'
             })
             .state('access', {
                 url: '/access',
@@ -163,34 +163,34 @@ var app = angular.module('app', [
             })
             .state('access.signin', {
                 url: '/signin',
-                templateUrl: 'tpl/page_signin.html'
+                templateUrl: 'assets_new/tpl/page_signin.html'
             })
             .state('access.signup', {
                 url: '/signup',
-                templateUrl: 'tpl/page_signup.html'
+                templateUrl: 'assets_new/tpl/page_signup.html'
             })
             .state('access.forgotpwd', {
                 url: '/forgotpwd',
-                templateUrl: 'tpl/page_forgotpwd.html'
+                templateUrl: 'assets_new/tpl/page_forgotpwd.html'
             })
             .state('access.404', {
                 url: '/404',
-                templateUrl: 'tpl/page_404.html'
+                templateUrl: 'assets_new/tpl/page_404.html'
             })
 
             // fullCalendar
             .state('app.calendar', {
                 url: '/calendar',
-                templateUrl: 'tpl/app_calendar.html',
+                templateUrl: 'assets_new/tpl/app_calendar.html',
                 // use resolve to load other dependences
                 resolve: {
                     deps: ['uiLoad',
                       function( uiLoad ){
-                        return uiLoad.load( ['js/jquery/fullcalendar/fullcalendar.css',
-                                             'js/jquery/jquery-ui-1.10.3.custom.min.js',
-                                             'js/jquery/fullcalendar/fullcalendar.min.js',
-                                             'js/app/calendar/ui-calendar.js',
-                                             'js/app/calendar/calendar.js']);
+                        return uiLoad.load( ['assets_new/js/jquery/fullcalendar/fullcalendar.css',
+                                             'assets_new/js/jquery/jquery-ui-1.10.3.custom.min.js',
+                                             'assets_new/js/jquery/fullcalendar/fullcalendar.min.js',
+                                             'assets_new/js/app/calendar/ui-calendar.js',
+                                             'assets_new/js/app/calendar/calendar.js']);
                     }]
                 }
             })
@@ -199,28 +199,28 @@ var app = angular.module('app', [
             .state('app.mail', {
                 abstract: true,
                 url: '/mail',
-                templateUrl: 'tpl/mail.html',
+                templateUrl: 'assets_new/tpl/mail.html',
                 // use resolve to load other dependences
                 resolve: {
                     deps: ['uiLoad',
                       function( uiLoad ){
-                        return uiLoad.load( ['js/app/mail/mail.js',
-                                             'js/app/mail/mail-service.js',
-                                             'js/libs/moment.min.js']);
+                        return uiLoad.load( ['assets_new/js/app/mail/mail.js',
+                                             'assets_new/js/app/mail/mail-service.js',
+                                             'assets_new/js/libs/moment.min.js']);
                     }]
                 }
             })
             .state('app.mail.list', {
                 url: '/inbox/{fold}',
-                templateUrl: 'tpl/mail.list.html'
+                templateUrl: 'assets_new/tpl/mail.list.html'
             })
             .state('app.mail.detail', {
                 url: '/{mailId:[0-9]{1,4}}',
-                templateUrl: 'tpl/mail.detail.html'
+                templateUrl: 'assets_new/tpl/mail.detail.html'
             })
             .state('app.mail.compose', {
                 url: '/compose',
-                templateUrl: 'tpl/mail.new.html'
+                templateUrl: 'assets_new/tpl/mail.new.html'
             })
     }
   ]
@@ -232,7 +232,7 @@ var app = angular.module('app', [
   // So, the module will search missing translation tables under the specified urls.
   // Those urls are [prefix][langKey][suffix].
   $translateProvider.useStaticFilesLoader({
-    prefix: 'l10n/',
+    prefix: 'assets_new/l10n/',
     suffix: '.json'
   });
 
@@ -251,36 +251,36 @@ var app = angular.module('app', [
  */
 
 .constant('JQ_CONFIG', {
-    easyPieChart:   ['js/jquery/charts/easypiechart/jquery.easy-pie-chart.js'],
-    sparkline:      ['js/jquery/charts/sparkline/jquery.sparkline.min.js'],
-    plot:           ['js/jquery/charts/flot/jquery.flot.min.js', 
-                        'js/jquery/charts/flot/jquery.flot.resize.js',
-                        'js/jquery/charts/flot/jquery.flot.tooltip.min.js',
-                        'js/jquery/charts/flot/jquery.flot.spline.js',
-                        'js/jquery/charts/flot/jquery.flot.orderBars.js',
-                        'js/jquery/charts/flot/jquery.flot.pie.min.js'],
-    slimScroll:     ['js/jquery/slimscroll/jquery.slimscroll.min.js'],
-    sortable:       ['js/jquery/sortable/jquery.sortable.js'],
-    nestable:       ['js/jquery/nestable/jquery.nestable.js',
-                        'js/jquery/nestable/nestable.css'],
-    filestyle:      ['js/jquery/file/bootstrap-filestyle.min.js'],
-    slider:         ['js/jquery/slider/bootstrap-slider.js',
-                        'js/jquery/slider/slider.css'],
-    chosen:         ['js/jquery/chosen/chosen.jquery.min.js',
-                        'js/jquery/chosen/chosen.css'],
-    TouchSpin:      ['js/jquery/spinner/jquery.bootstrap-touchspin.min.js',
-                        'js/jquery/spinner/jquery.bootstrap-touchspin.css'],
-    wysiwyg:        ['js/jquery/wysiwyg/bootstrap-wysiwyg.js',
-                        'js/jquery/wysiwyg/jquery.hotkeys.js'],
-    dataTable:      ['js/jquery/datatables/jquery.dataTables.min.js',
-                        'js/jquery/datatables/dataTables.bootstrap.js',
-                        'js/jquery/datatables/dataTables.bootstrap.css'],
-    vectorMap:      ['js/jquery/jvectormap/jquery-jvectormap.min.js', 
-                        'js/jquery/jvectormap/jquery-jvectormap-world-mill-en.js',
-                        'js/jquery/jvectormap/jquery-jvectormap-us-aea-en.js',
-                        'js/jquery/jvectormap/jquery-jvectormap.css'],
-    footable:       ['js/jquery/footable/footable.all.min.js',
-                        'js/jquery/footable/footable.core.css']
+    easyPieChart:   ['assets_new/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js'],
+    sparkline:      ['assets_new/js/jquery/charts/sparkline/jquery.sparkline.min.js'],
+    plot:           ['assets_new/js/jquery/charts/flot/jquery.flot.min.js', 
+                        'assets_new/js/jquery/charts/flot/jquery.flot.resize.js',
+                        'assets_new/js/jquery/charts/flot/jquery.flot.tooltip.min.js',
+                        'assets_new/js/jquery/charts/flot/jquery.flot.spline.js',
+                        'assets_new/js/jquery/charts/flot/jquery.flot.orderBars.js',
+                        'assets_new/js/jquery/charts/flot/jquery.flot.pie.min.js'],
+    slimScroll:     ['assets_new/js/jquery/slimscroll/jquery.slimscroll.min.js'],
+    sortable:       ['assets_new/js/jquery/sortable/jquery.sortable.js'],
+    nestable:       ['assets_new/js/jquery/nestable/jquery.nestable.js',
+                        'assets_new/js/jquery/nestable/nestable.css'],
+    filestyle:      ['assets_new/js/jquery/file/bootstrap-filestyle.min.js'],
+    slider:         ['assets_new/js/jquery/slider/bootstrap-slider.js',
+                        'assets_new/js/jquery/slider/slider.css'],
+    chosen:         ['assets_new/js/jquery/chosen/chosen.jquery.min.js',
+                        'assets_new/js/jquery/chosen/chosen.css'],
+    TouchSpin:      ['assets_new/js/jquery/spinner/jquery.bootstrap-touchspin.min.js',
+                        'assets_new/js/jquery/spinner/jquery.bootstrap-touchspin.css'],
+    wysiwyg:        ['assets_new/js/jquery/wysiwyg/bootstrap-wysiwyg.js',
+                        'assets_new/js/jquery/wysiwyg/jquery.hotkeys.js'],
+    dataTable:      ['assets_new/js/jquery/datatables/jquery.dataTables.min.js',
+                        'assets_new/js/jquery/datatables/dataTables.bootstrap.js',
+                        'assets_new/js/jquery/datatables/dataTables.bootstrap.css'],
+    vectorMap:      ['assets_new/js/jquery/jvectormap/jquery-jvectormap.min.js', 
+                        'assets_new/js/jquery/jvectormap/jquery-jvectormap-world-mill-en.js',
+                        'assets_new/js/jquery/jvectormap/jquery-jvectormap-us-aea-en.js',
+                        'assets_new/js/jquery/jvectormap/jquery-jvectormap.css'],
+    footable:       ['assets_new/js/jquery/footable/footable.all.min.js',
+                        'assets_new/js/jquery/footable/footable.core.css']
     }
 )
 ;

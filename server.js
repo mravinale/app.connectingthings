@@ -55,6 +55,8 @@ var server= app.listen(port, function () {
     console.log('listening on port %d in %s mode', port, app.get('env'));
 });
 
+/*
+
 //Start socket conection
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
@@ -104,6 +106,9 @@ ponteServer.on("updated", function(resource, buffer) {
     });
 
 });
+
+*/
+
 /*
 var mqttClient = mqtt.createClient(1883, 'localhost')
     .subscribe('temperature')
