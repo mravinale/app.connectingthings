@@ -43,7 +43,7 @@ angular.module('meanp')
                 //scope.url = "https://agent.electricimp.com/ke1jT-hwEMyU";
                 //scope.protocol = "http";
 
-                debugger;
+
 
                 socket.on(scope.topic, function (message) {
                     scope.toggleButton = angular.fromJson(message).value == "1";

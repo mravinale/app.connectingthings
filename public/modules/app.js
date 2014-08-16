@@ -15,7 +15,7 @@ angular.module('meanp', [
   'nvd3ChartDirectives',
   'localytics.directives'
 ])
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider, $locationProvider, $compileProvider) {
 
         $routeProvider
             /*  .when('/', {
@@ -98,7 +98,9 @@ angular.module('meanp', [
                 redirectTo: '/dashboard/me'
             });
         $locationProvider.html5Mode(false);
-    })
+        $compileProvider.imgSrcSanitizationWhitelist(/^\s*(http(?:s)?|ftp|file|blob):|data:image\//);
+
+})
 
   .run(function ($rootScope, $sessionStorage, $location, sessionService) {
 
