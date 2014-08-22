@@ -1,0 +1,85 @@
+<div ng-include="" src="'modules/base/views/partials/navbar.html'" ng-controller="NavbarCtrl"></div>
+
+<div id="page-wrapper">
+
+    <div class="col-lg-12">
+        <h1 class="page-header">Devices</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-11" style="padding-left: 30px">
+            <div class="panel panel-default" >
+
+                <div class="panel-heading">
+                    Add Camera
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <form class="form-horizontal" role="form">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="camera.name" class="form-control" placeholder="Camera name">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Description</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="camera.description" class="form-control" placeholder="Camera description">
+                                    </div>
+                                </div>
+
+                                <!--div class="form-group">
+                                    <label class="col-sm-2 control-label">Protocol</label>
+                                    <div class="col-sm-10">
+                                        <select  ng-model="camera.protocol" class="form-control" >
+                                            <option disabled="disabled" value="">Select a Protocol</option>
+                                            <option value="mqtt">MQTT</option>
+                                            <option value="http">HTTP</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div ng-show="camera.protocol=='http'" class="form-group">
+                                    <label class="col-sm-2 control-label">Url</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="camera.url" class="form-control" placeholder="Url">
+                                    </div>
+                                </div-->
+
+                                <div class="form-group" >
+                                    <label class="col-sm-2 control-label">Sensors</label>
+                                    <div class="col-sm-10">
+                                        <select multiple
+                                                chosen
+                                                data-placeholder="Select a Sensor"
+                                                no-results-text="'No Sensors yet'"
+                                                ng-model="camera.sensors"
+                                                ng-options="sensor._id as sensor.name for sensor in sensors"
+                                                class="form-control"
+                                                >
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="padding-top: 30px">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="button" ng-click="save()" class="btn btn-primary">Submit</button>
+                                        <a href="#/camera/list" class="btn btn-danger" role="button">Cancel</a>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
