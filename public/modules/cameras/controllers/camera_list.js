@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meanp')
-    .controller('DeviceListCtrl', function ($scope, deviceService, ngTableParams) {
+    .controller('CameraListCtrl', function ($scope, cameraService, ngTableParams) {
 
         $scope.errors = {};
 
@@ -15,11 +15,10 @@ angular.module('meanp')
             },{
                 total: 0,           // length of data
                 getData: function($defer, params) {
-                    deviceService.getAll(params)
+                    cameraService.getAll(params)
                         .success(function (response, status, headers, config) {
                             params.total(response.count);
                             $defer.resolve(response.data);
-
                         })
                         .error(function(response, status, headers, config) {
                             angular.forEach(response.errors, function(error, field) {
@@ -33,7 +32,7 @@ angular.module('meanp')
 
         $scope.delete =  function(camera){
 
-            deviceService.remove(camera._id)
+            cameraService.remove(camera._id)
                 .success(function (response, status, headers, config) {
                     $scope.tableParams.reload();
                 })

@@ -8,6 +8,7 @@ var PanelSchema = new Schema({
   _id: { type: String },
   name: String,
   device: { type: String, ref: 'Device' },
+  camera: { type: String, ref: 'Camera' },
   sensor: { type: String, ref: 'Sensor' },
   type: String,
   size: String,

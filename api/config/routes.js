@@ -70,6 +70,16 @@ module.exports = function(app) {
     app.del('/sections/:id', auth.ensureAuthenticated, sections.remove);
     app.post('/sections', auth.ensureAuthenticated, sections.create);
 
+    // Camera Routes
+    var cameras = require('../controllers/cameras');
+    app.get('/cameras', auth.ensureAuthenticated, cameras.getAll);
+    app.get('/cameras/items', auth.ensureAuthenticated, cameras.getAllCameras);
+    app.get('/cameras/full/:id', auth.ensureAuthenticated, cameras.getFullById);
+    app.get('/cameras/:id', auth.ensureAuthenticated, cameras.getById);
+    app.put('/cameras/:id', auth.ensureAuthenticated, cameras.update);
+    app.del('/cameras/:id', auth.ensureAuthenticated, cameras.remove);
+    app.post('/cameras', auth.ensureAuthenticated, cameras.create);
+
     // Section Messages
     var messages = require('../controllers/messages');
     app.get('/messages', auth.ensureAuthenticated, messages.getAll);

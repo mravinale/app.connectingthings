@@ -4,12 +4,13 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('meanp')
-    .directive('panelCamera', function (socket) {
+    .directive('panelCamera', function (socket, $rootScope) {
         return {
             scope:{
                 name:"@",
-                topic:"@",
-                label:"@",
+                login:"@",
+                password:"@",
+                url:"@"
             },
             restrict: 'E',
             replace: true,
@@ -32,7 +33,8 @@ angular.module('meanp')
                     '</div>'+
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
-                scope.stream = "http://mravinale.dyndns.org/videostream.cgi?user=guest&pwd=123456789";
+
+                scope.stream = scope.url+"?user="+ scope.login +"&pwd="+ scope.password + '&cb=' + new Date().getTime();
             }
         };
 });

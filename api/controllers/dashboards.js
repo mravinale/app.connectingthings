@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
     Panel = mongoose.model('Panel'),
     Section = mongoose.model('Section'),
     Sensor = mongoose.model('Sensor'),
+    Camera = mongoose.model('Camera'),
     Device = mongoose.model('Device');
 
 
@@ -53,22 +54,30 @@ exports.getAllDashboards = function (req, res, next) {
             Panel.populate(dashboards, {
                 path: 'sections.panels',
                 model: 'Panel'
-            },function (err, result) {
+            },function (err) {
                 if (error) { return res.send(400, error); }
 
                 Sensor.populate(dashboards, {
                     path: 'sections.panels.sensor',
                     model: 'Sensor'
-                },function (err, result) {
+                },function (err) {
                     if (error) { return res.send(400, error); }
 
                     Device.populate(dashboards, {
                         path: 'sections.panels.device',
                         model: 'Device'
-                    },function (err, result) {
+                    },function (err) {
                         if (error) { return res.send(400, error); }
 
-                        return  res.send(200, result);
+                        Camera.populate(dashboards, {
+                            path: 'sections.panels.camera',
+                            model: 'Camera'
+                        },function (err, result) {
+                            if (error) { return res.send(400, error); }
+
+                            return  res.send(200, result);
+                        });
+
                     });
                 });
             });

@@ -93,6 +93,18 @@ angular.module('meanp', [
             .when('/section/list', {
                 templateUrl: 'modules/sections/views/section_list.html',
                 controller: 'SectionListCtrl'
+            })  
+            .when('/camera/add', {
+                templateUrl: 'modules/cameras/views/camera_add.html',
+                controller: 'CameraAddCtrl'
+            })
+            .when('/camera/edit/:id', {
+                templateUrl: 'modules/cameras/views/camera_edit.html',
+                controller: 'CameraEditCtrl'
+            })
+            .when('/camera/list', {
+                templateUrl: 'modules/cameras/views/camera_list.html',
+                controller: 'CameraListCtrl'
             })
             .otherwise({
                 redirectTo: '/dashboard/me'

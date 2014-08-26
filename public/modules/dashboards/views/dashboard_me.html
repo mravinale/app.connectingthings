@@ -24,7 +24,7 @@
 
                         <panel-d3-chart ng-if="panel.type=='d3-chart'" name="{{panel.name}}" url="{{panel.device.url}}"  topic="/{{panel.device.name}}/{{panel.sensor.tag}}"  > </panel-d3-chart>
 
-                        <panel-camera ng-if="panel.type=='camera'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" > </panel-camera>
+                        <panel-camera ng-if="panel.type=='camera'" name="{{panel.name}}" url="{{panel.camera.url}}" login="{{panel.camera.login}}" password="{{panel.camera.password}}" > </panel-camera>
 
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp').service('deviceService', function ($http) {
+angular.module('meanp').service('cameraService', function ($http) {
 
     this.getAll = function(params) {
         var paramsToSend ={
@@ -10,30 +10,30 @@ angular.module('meanp').service('deviceService', function ($http) {
             filter: {}
         }
 
-        return $http.get('/devices', { params : paramsToSend });
+        return $http.get('/cameras', { params : paramsToSend });
     };
 
-    this.getAllDevices = function(){
-        return $http.get('/devices/items');
+    this.getAllCameras = function(){
+        return $http.get('/cameras/items');
     };
 
     this.getById = function(panelId){
-        return $http.get('/devices/'+panelId);
+        return $http.get('/cameras/'+panelId);
     };
 
     this.getFullById = function(panelId){
-        return $http.get('/devices/full/'+panelId);
+        return $http.get('/cameras/full/'+panelId);
     };
 
     this.create = function (camera) {
-        return $http.post('/devices', camera);
+        return $http.post('/cameras', camera);
     };
 
-    this.remove = function (deviceId) {
-        return $http.delete('/devices/'+deviceId);
+    this.remove = function (cameraId) {
+        return $http.delete('/cameras/'+cameraId);
     };
 
     this.update = function ( panel) {
-        return $http.put('/devices/'+panel._id, panel);
+        return $http.put('/cameras/'+panel._id, panel);
     };
 });

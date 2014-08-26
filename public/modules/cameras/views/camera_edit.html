@@ -3,7 +3,7 @@
 <div id="page-wrapper">
 
     <div class="col-lg-12">
-        <h1 class="page-header">Devices</h1>
+        <h1 class="page-header">Cameras</h1>
     </div>
 
     <div class="row">
@@ -31,38 +31,24 @@
                                     </div>
                                 </div>
 
-                                <!--div class="form-group">
-                                    <label class="col-sm-2 control-label">Protocol</label>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Login</label>
                                     <div class="col-sm-10">
-                                        <select  ng-model="camera.protocol" class="form-control" >
-                                            <option disabled="disabled" value="">Select a Protocol</option>
-                                            <option value="mqtt">MQTT</option>
-                                            <option value="http">HTTP</option>
-                                        </select>
+                                        <input ng-model="camera.login" class="form-control" placeholder="Camera Login Name">
                                     </div>
                                 </div>
 
-                                <div ng-show="camera.protocol=='http'" class="form-group">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Password</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="camera.password" type="password" class="form-control" placeholder="Camera Password">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">Url</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="camera.url" class="form-control" placeholder="Url">
-                                    </div>
-                                </div-->
-
-
-                                <div class="form-group" >
-                                    <label class="col-sm-2 control-label">Sensors</label>
-                                    <div class="col-sm-10">
-                                        <select multiple
-                                                chosen
-                                                data-placeholder="Select a Sensor"
-                                                no-results-text="'No Sensors yet'"
-                                                ng-model="camera.sensors"
-                                                ng-options="sensor._id as sensor.name for sensor in sensors"
-                                                class="form-control"
-                                                >
-                                            <option value=""></option>
-                                        </select>
+                                        <input ng-model="camera.url" class="form-control" placeholder="Camera Url">
                                     </div>
                                 </div>
 
