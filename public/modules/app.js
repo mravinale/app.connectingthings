@@ -111,7 +111,6 @@ angular.module('meanp', [
             });
         $locationProvider.html5Mode(false);
         $compileProvider.imgSrcSanitizationWhitelist(/^\s*(http(?:s)?|ftp|file|blob):|data:image\//);
-
 })
 
   .run(function ($rootScope, $sessionStorage, $location, sessionService) {

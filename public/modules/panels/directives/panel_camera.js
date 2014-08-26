@@ -2,9 +2,10 @@
  * Modified copy of https://github.com/lithiumtech/angular_and_d3/blob/master/step5/custom/gauges.js
  */
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
+//http://www.foscam.es/descarga/ipcam_cgi_sdk.pdf
 'use strict';
 angular.module('meanp')
-    .directive('panelCamera', function (socket, $rootScope) {
+    .directive('panelCamera', function (socket, $http) {
         return {
             scope:{
                 name:"@",
@@ -22,8 +23,10 @@ angular.module('meanp')
                             '<div class="btn-group">'+
                                 '<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>'+
                                 '<ul class="dropdown-menu pull-right" role="menu">'+
-                                    '<li><a href="#">Action</a></li>'+
-                                    '<li class="divider"></li><li><a href="#">Separated link</a></li>'+
+                                    '<li><a href="" ng-mousedown="moveUp()" ng-mouseup="stopUp()" class="glyphicon glyphicon-arrow-up" > Move Up</a></li>'+
+                                    '<li><a href="" ng-mousedown="moveDown()" ng-mouseup="stopDown()" class="glyphicon glyphicon-arrow-down" > Move Down</a></li>'+
+                                    '<li><a href="" ng-mousedown="moveLeft()" ng-mouseup="stopLeft()" class="glyphicon glyphicon-arrow-left" > Move Left</a></li>'+
+                                    '<li><a href="" ng-mousedown="moveRight()" ng-mouseup="stopRight()" class="glyphicon glyphicon-arrow-right" > Move Right</a></li>'+
                                 '</ul>'+
                             '</div>'+
                         '</div>'+
@@ -34,7 +37,89 @@ angular.module('meanp')
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
-                scope.stream = scope.url+"?user="+ scope.login +"&pwd="+ scope.password + '&cb=' + new Date().getTime();
+                scope.stream = scope.url+"/videostream.cgi?user="+ scope.login +"&pwd="+ scope.password + '&cb=' + new Date().getTime();
+
+                scope.moveUp = function(){
+                    $http.jsonp(scope.url+'/decoder_control.cgi?callback=JSON_CALLBACK&command=0&user='+ scope.login +'&pwd='+ scope.password)
+                    .success(function (response, status, headers, config) {
+                        console.log(response)
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.log(response)
+                    });
+                };
+
+                scope.stopUp = function(){
+                    $http.jsonp(scope.url+'/decoder_control.cgi?callback=JSON_CALLBACK&command=1&user='+ scope.login +'&pwd='+ scope.password)
+                    .success(function (response, status, headers, config) {
+                        console.log(response)
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.log(response)
+                    });
+                };
+
+                scope.moveDown = function(){
+                    $http.jsonp(scope.url+'/decoder_control.cgi?callback=JSON_CALLBACK&command=2&user='+ scope.login +'&pwd='+ scope.password)
+                    .success(function (response, status, headers, config) {
+                        console.log(response)
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.log(response)
+                    });
+                };
+
+                scope.stopDown = function(){
+                    $http.jsonp(scope.url+'/decoder_control.cgi?callback=JSON_CALLBACK&command=3&user='+ scope.login +'&pwd='+ scope.password)
+                    .success(function (response, status, headers, config) {
+                        console.log(response)
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.log(response)
+                    });
+                };
+
+                scope.moveLeft = function(){
+                    $http.jsonp(scope.url+'/decoder_control.cgi?callback=JSON_CALLBACK&command=4&user='+ scope.login +'&pwd='+ scope.password)
+                    .success(function (response, status, headers, config) {
+                        console.log(response)
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.log(response)
+                    });
+                };
+
+                scope.stopLeft = function(){
+                    $http.jsonp(scope.url+'/decoder_control.cgi?callback=JSON_CALLBACK&command=5&user='+ scope.login +'&pwd='+ scope.password)
+                    .success(function (response, status, headers, config) {
+                        console.log(response)
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.log(response)
+                    });
+                };
+
+                scope.moveRight = function(){
+                    $http.jsonp(scope.url+'/decoder_control.cgi?callback=JSON_CALLBACK&command=6&user='+ scope.login +'&pwd='+ scope.password)
+                    .success(function (response, status, headers, config) {
+                        console.log(response)
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.log(response)
+                    });
+                };
+
+                scope.stopRight = function(){
+                    $http.jsonp(scope.url+'/decoder_control.cgi?callback=JSON_CALLBACK&command=7&user='+ scope.login +'&pwd='+ scope.password)
+                    .success(function (response, status, headers, config) {
+                        console.log(response)
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.log(response)
+                    });
+                };
+
+
             }
         };
 });
