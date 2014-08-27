@@ -6,6 +6,7 @@ angular.module('meanp')
         dashboardService.getMyDashboard()
             .success(function (response, status, headers, config) {
                 $sessionStorage.myDashboards = response;
+
             })
             .error(function(response, status, headers, config) {
                 console.log(response);
@@ -49,9 +50,9 @@ angular.module('meanp').filter('orderPanel', function($sessionStorage, $rootScop
     return function(input, sectionName, dashboardId) {
         var out = [];
 
-        if($sessionStorage.myDashboards.length == 0 ){
+//        if($sessionStorage.myDashboards.length == 0 ){
             out = input
-        }
+ /*        }
         else{
             var dashboard = _.find($sessionStorage.myDashboards, function(order){ return order.dashboard == dashboardId; });
 
@@ -63,6 +64,7 @@ angular.module('meanp').filter('orderPanel', function($sessionStorage, $rootScop
                  }
             });
         }
+*/
         return out;
     };
-})
+});
