@@ -90,16 +90,16 @@ var Message = mongoose.model('Message');
 var ponteServer = ponte(opts);
 var lastValue = { topic:null, message:null }
 ponteServer.on("updated", function(resource, buffer) {
-    var message = { topic: resource, message: buffer.toString(), date: moment().valueOf() };
+    var message = { topic: resource, message: buffer.toString() };
 
     if(lastValue.topic == message.topic && lastValue.message ==  message.message) return;
-
+    //TODO: we should validate format
     var newMessage = new Message(message);
     newMessage.save(function(err, item) {
         if (err) { return console.error(err.code, err.message); }
 
         lastValue = item;
-        io.sockets.emit(item.topic, item.message);
+        io.sockets.emit(message.topic, message.message);
         console.log("Resource Updated", item.topic, JSON.parse(item.message));
     });
 

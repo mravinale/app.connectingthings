@@ -1,7 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Message = mongoose.model('Message')
+    Message = mongoose.model('Message'),
+    moment = require('moment');
 
 
 exports.getAll = function (req, res, next) {
@@ -26,7 +27,7 @@ exports.getAll = function (req, res, next) {
 exports.getAllMessages = function (req, res, next) {
 
     Message
-        .find({topic: req.query.topic})
+        .find({ topic: req.query.topic })
         .exec(function (error, messages) {
             if (error) {
                console.log(error);

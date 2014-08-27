@@ -11,12 +11,12 @@ angular.module('meanp').service('messageService', function ($http) {
             filter: {}
         }
 
-        return $http.get('/messages', { params :paramsToSend });
+        return $http.get('/messages', { params: paramsToSend });
     };
 
     this.getAllMessages = function(param){
 
-        return $http.get('/messages/items', { params : { tag: param} });
+        return $http.get('/messages/items', { params : {topic: param } });
     };
 
 

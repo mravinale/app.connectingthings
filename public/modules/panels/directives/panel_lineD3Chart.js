@@ -46,19 +46,18 @@ angular.module('meanp')
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
-                var items = [[moment().valueOf(),0] ];
+                var items = [];
                 scope.values =[ { "values": [],"key": scope.name }];
-
                 messageService.getAllMessages(scope.topic)
                     .success(function (response, status, headers, config) {
 
                         angular.forEach(response, function(message) {
                             var item = angular.fromJson(message.message);
-                            items.push([message.date, parseInt(item.value)]);
+                            items.push([moment(message.createdAt).valueOf(), parseInt(item.value)]);
                         });
 
                         scope.values =  [ { "values": items, "key": scope.name } ];
-                        //console.log("from :" + scope.topic,  scope.values);
+                        console.log("from :" + scope.topic,  scope.values);
                     })
                     .error(function(response, status, headers, config) {
                         console.error( response);
