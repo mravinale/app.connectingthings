@@ -1,5 +1,5 @@
 'use strict';
-angular.module('meanp')
+angular.module('app')
     .controller('SensorEditCtrl', function ($scope, $routeParams, sensorService,$location) {
 
         sensorService.getById($routeParams.id)

@@ -15,7 +15,19 @@ var app = angular.module('app', [
     'app.filters',
     'app.services',
     'app.directives',
-    'app.controllers'
+    'app.controllers',
+
+    'ngResource',
+    'ngSanitize',
+    'ngRoute',
+    'ngTable',
+    'ngStorage',
+    'http-auth-interceptor',
+    'autofill-directive',
+    'btford.socket-io',
+    'nvd3ChartDirectives',
+    'localytics.directives'
+
   ])
 .run(
   [          '$rootScope', '$state', '$stateParams',
@@ -45,19 +57,120 @@ var app = angular.module('app', [
                 url: '/app',
                 templateUrl: 'assets_new/tpl/app.html'
             })
-            .state('app.dashboard', {
-                url: '/dashboard',
-                templateUrl: 'assets_new/tpl/app_dashboard.html'
-            })
             .state('app.ui', {
                 url: '/ui',
                 template: '<div ui-view class="fade-in-right"></div>'
             })
-
             .state('app.ui.portlet', {
                 url: '/portlet',
                 templateUrl: 'assets_new/tpl/ui_portlet.html'
             })
+            //dashboard
+            .state('app.dashboard', {
+                url: '/dashboard',
+                template: '<div ui-view class="fade-in-right"></div>'
+            })
+            .state('app.dashboard.me', {
+                url: '/me',
+                templateUrl: 'modules/dashboards/views/dashboard_me.html',
+                controller: 'MyDashboardCtrl'
+            })
+            .state('app.dashboard.add', {
+                url: '/add',
+                templateUrl: 'modules/dashboards/views/dashboard_add.html',
+                controller: 'DashboardAddCtrl'
+            })
+            .state('app.dashboard.edit', {
+                url: '/edit/:id',
+                templateUrl: 'modules/dashboards/views/dashboard_edit.html',
+                controller: 'DashboardEditCtrl'
+            })
+            .state('app.dashboard.list', {
+                url:'/list',
+                templateUrl: 'modules/dashboards/views/dashboard_list.html',
+                controller: 'DashboardListCtrl'
+            })
+            //sections
+            .state('app.section', {
+                url: '/section',
+                template: '<div ui-view class="fade-in-right"></div>'
+            })
+            .state('app.section.add', {
+                url: '/add',
+                templateUrl: 'modules/sections/views/section_add.html',
+                controller: 'SectionAddCtrl'
+            })
+            .state('app.section.edit', {
+                url: '/edit/:id',
+                templateUrl: 'modules/sections/views/section_edit.html',
+                controller: 'SectionEditCtrl'
+            })
+            .state('app.section.list', {
+                url:'/list',
+                templateUrl: 'modules/sections/views/section_list.html',
+                controller: 'SectionListCtrl'
+            })
+            //panels
+            .state('app.panel', {
+                url: '/panel',
+                template: '<div ui-view class="fade-in-right"></div>'
+            })
+            .state('app.panel.add', {
+                url: '/add',
+                templateUrl: 'modules/panels/views/panel_add.html',
+                controller: 'PanelAddCtrl'
+            })
+            .state('app.panel.edit', {
+                url: '/edit/:id',
+                templateUrl: 'modules/panels/views/panel_edit.html',
+                controller: 'PanelEditCtrl'
+            })
+            .state('app.panel.list', {
+                url:'/list',
+                templateUrl: 'modules/panels/views/panel_list.html',
+                controller: 'PanelListCtrl'
+            })
+            //devices
+            .state('app.device', {
+                url: '/section',
+                template: '<div ui-view class="fade-in-right"></div>'
+            })
+            .state('app.device.add', {
+                url: '/add',
+                templateUrl: 'modules/devices/views/device_add.html',
+                controller: 'DeviceAddCtrl'
+            })
+            .state('app.device.edit', {
+                url: '/edit/:id',
+                templateUrl: 'modules/devices/views/device_edit.html',
+                controller: 'DeviceEditCtrl'
+            })
+            .state('app.device.list', {
+                url:'/list',
+                templateUrl: 'modules/devices/views/device_list.html',
+                controller: 'DeviceListCtrl'
+            })
+            //sensors
+            .state('app.sensor', {
+                url: '/section',
+                template: '<div ui-view class="fade-in-right"></div>'
+            })
+            .state('app.sensor.add', {
+                url: '/add',
+                templateUrl: 'modules/sensors/views/sensor_add.html',
+                controller: 'SensorAddCtrl'
+            })
+            .state('app.sensor.edit', {
+                url: '/edit/:id',
+                templateUrl: 'modules/sensors/views/sensor_edit.html',
+                controller: 'SensorEditCtrl'
+            })
+            .state('app.sensor.list', {
+                url:'/list',
+                templateUrl: 'modules/sensors/views/sensor_list.html',
+                controller: 'SensorListCtrl'
+            })
+
 
             // pages
             .state('app.page', {
@@ -68,19 +181,15 @@ var app = angular.module('app', [
                 url: '/profile',
                 templateUrl: 'assets_new/tpl/page_profile.html'
             })
-
             // others
-            .state('lockme', {
-                url: '/lockme',
-                templateUrl: 'assets_new/tpl/page_lockme.html'
-            })
             .state('access', {
                 url: '/access',
                 template: '<div ui-view class="fade-in-right-big smooth"></div>'
             })
             .state('access.signin', {
                 url: '/signin',
-                templateUrl: 'assets_new/tpl/page_signin.html'
+                templateUrl: 'assets_new/tpl/page_signin.html',
+                controller: 'LoginCtrl'
             })
             .state('access.signup', {
                 url: '/signup',
@@ -98,6 +207,35 @@ var app = angular.module('app', [
     }
   ]
 )
+
+.run(function ($rootScope, $sessionStorage, $location, sessionService) {
+
+    //watching the value of the currentUser variable.
+    $rootScope.$watch('currentUser', function(currentUser) {
+
+        $rootScope.currentUser = $sessionStorage.currentUser? $sessionStorage.currentUser : $rootScope.currentUser;
+
+        // if no currentUser and on a page that requires authorization then try to update it
+        // will trigger 401s if user does not have a valid session
+        if (!$rootScope.currentUser && ([ '/login', '/logout', '/signup'].indexOf($location.path()) == -1 )) {
+
+            sessionService.getCurrentUser()
+            .success(function (response, status, headers, config) {
+                $sessionStorage.currentUser = response;
+            })
+            .error(function(error, status, headers, config) {
+                $location.path('/login');
+                console.log(error)
+            });
+        }
+    });
+
+    // On catching 401 errors, redirect to the login page.
+    $rootScope.$on('event:auth-loginRequired', function() {
+        $location.path('/login');
+        return false;
+    });
+})
 
 .config(['$translateProvider', function($translateProvider){
 

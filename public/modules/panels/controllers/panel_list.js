@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp')
+angular.module('app')
     .controller('PanelListCtrl', function ($scope, panelService, ngTableParams,$location) {
 
         $scope.errors = {};

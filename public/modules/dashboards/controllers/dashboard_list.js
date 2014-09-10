@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp')
+angular.module('app')
     .controller('DashboardListCtrl', function ($scope, dashboardService, ngTableParams) {
 
         $scope.errors = {};

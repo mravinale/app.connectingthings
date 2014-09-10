@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp')
+angular.module('app')
     .controller('SensorListCtrl', function ($scope, sensorService, ngTableParams) {
 
         $scope.errors = {};

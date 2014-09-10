@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp')
+angular.module('app')
     .controller('SectionAddCtrl', function ($scope, sectionService,panelService,$location) {
 
         $scope.submit = function() {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp')
+angular.module('app')
     .controller('SensorAddCtrl', function ($scope, sensorService,$location) {
 
         $scope.submit = function() {

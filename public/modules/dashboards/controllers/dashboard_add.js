@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp')
+angular.module('app')
     .controller('DashboardAddCtrl', function ($scope, dashboardService, sectionService, $location) {
 
         $scope.save = function() {

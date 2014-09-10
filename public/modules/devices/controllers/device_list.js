@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp')
+angular.module('app')
     .controller('DeviceListCtrl', function ($scope, deviceService, ngTableParams) {
 
         $scope.errors = {};

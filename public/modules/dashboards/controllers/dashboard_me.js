@@ -1,6 +1,6 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
-angular.module('meanp')
+angular.module('app')
     .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $sessionStorage, dashboardService) {
 
         dashboardService.getMyDashboard()
@@ -45,7 +45,7 @@ angular.module('meanp')
 
     });
 
-angular.module('meanp').filter('orderPanel', function($sessionStorage) {
+angular.module('app').filter('orderPanel', function($sessionStorage) {
     return function(input, sectionName, dashboardId) {
         var out = [];
 

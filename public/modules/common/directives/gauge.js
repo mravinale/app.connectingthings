@@ -3,7 +3,7 @@
  */
 
 'use strict';
-angular.module('meanp')
+angular.module('app')
   .directive('gauge', function () {
     return {
       restrict: 'E',

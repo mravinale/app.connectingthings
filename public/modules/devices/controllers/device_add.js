@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp')
+angular.module('app')
     .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $location) {
 
         $scope.save = function() {

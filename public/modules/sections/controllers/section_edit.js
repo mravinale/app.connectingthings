@@ -1,5 +1,5 @@
 'use strict';
-angular.module('meanp')
+angular.module('app')
     .controller('SectionEditCtrl', function ($scope, $routeParams, sectionService,$location,panelService) {
 
         sectionService.getById($routeParams.id)

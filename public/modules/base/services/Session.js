@@ -1,7 +1,7 @@
 'use strict';
 
 /* Services */
-angular.module('meanp').service('sessionService', function ($http) {
+angular.module('app').service('sessionService', function ($http) {
 
     this.create = function (provider,user) {
         return $http.post('/auth/session/', {

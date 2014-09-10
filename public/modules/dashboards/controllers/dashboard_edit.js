@@ -1,5 +1,5 @@
 'use strict';
-angular.module('meanp')
+angular.module('app')
     .controller('DashboardEditCtrl', function ($scope, $routeParams, dashboardService, sectionService, $location) {
 
         dashboardService.getById($routeParams.id)

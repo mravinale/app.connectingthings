@@ -1,4 +1,4 @@
-<div class="aside-wrap">
+<div class="aside-wrap" ng-controller="NavbarCtrl">
   <div class="navi-wrap">
     <!-- user -->
     <div class="clearfix hidden-xs text-center hide" id="aside-user">
@@ -40,7 +40,7 @@
           </li>
           <li class="divider"></li>
           <li>
-            <a ui-sref="access.signin">Logout</a>
+            <a ui-sref="access.signin" ng-click="logout()">Logout</a>
           </li>
         </ul>
         <!-- / dropdown -->

@@ -1,7 +1,7 @@
 'use strict';
 
 /* Services */
-angular.module('meanp').service('messageService', function ($http) {
+angular.module('app').service('messageService', function ($http) {
 
     this.getAll = function(params){
         var paramsToSend ={

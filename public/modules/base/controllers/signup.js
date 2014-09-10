@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp').controller('SignupCtrl', function ($scope,$rootScope, $location, userService) {
+angular.module('app').controller('SignupCtrl', function ($scope,$rootScope, $location, userService) {
 
 		$scope.register = function(form) {
             $scope.errors = {};

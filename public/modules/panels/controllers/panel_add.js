@@ -1,6 +1,6 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
-angular.module('meanp')
+angular.module('app')
     .controller('PanelAddCtrl', function ($scope, panelService, deviceService, $location) {
 
         $scope.submit = function() {
