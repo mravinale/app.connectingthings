@@ -2,7 +2,7 @@
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
     .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $sessionStorage, dashboardService) {
-
+/*
         dashboardService.getMyDashboard()
             .success(function (response, status, headers, config) {
                 $sessionStorage.myDashboards = response;
@@ -10,10 +10,11 @@ angular.module('app')
             .error(function(response, status, headers, config) {
                 console.log(response);
             });
-
+*/
         dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
                 $scope.dashboards = response;
+
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -40,7 +41,9 @@ angular.module('app')
         };
 
         $scope.sortableConfig =  {
-            stop: function(e, ui) { $scope.updatePanels(); }
+            stop: function(e, ui) {
+             //   $scope.updatePanels();
+            }
         };
 
     });
@@ -48,7 +51,7 @@ angular.module('app')
 angular.module('app').filter('orderPanel', function($sessionStorage) {
     return function(input, sectionName, dashboardId) {
         var out = [];
-
+/*
         if($sessionStorage.myDashboards.length == 0 ){
             out = input
         }
@@ -63,7 +66,7 @@ angular.module('app').filter('orderPanel', function($sessionStorage) {
                  }
             });
         }
-
-        return out;
+*/
+        return input;
     };
 })

@@ -55,13 +55,14 @@ var server= app.listen(port, function () {
     console.log('listening on port %d in %s mode', port, app.get('env'));
 });
 
-/*
 
 //Start socket conection
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
     // mqttClient.publish('temperature', message);
 });
+
+/*
 
 var ponte = require("ponte");
 var opts = {

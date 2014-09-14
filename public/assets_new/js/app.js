@@ -17,11 +17,11 @@ var app = angular.module('app', [
     'app.directives',
     'app.controllers',
 
+    'ui.sortable',
     'ngResource',
     'ngSanitize',
     'ngRoute',
     'ngTable',
-    'ngStorage',
     'http-auth-interceptor',
     'autofill-directive',
     'btford.socket-io',
@@ -50,13 +50,14 @@ var app = angular.module('app', [
         app.constant   = $provide.constant;
 
         $urlRouterProvider
-            .otherwise('/app/dashboard');
+            .otherwise('app/dashboard/me');
         $stateProvider            
             .state('app', {
                 abstract: true,
                 url: '/app',
                 templateUrl: 'assets_new/tpl/app.html'
             })
+        /*
             .state('app.ui', {
                 url: '/ui',
                 template: '<div ui-view class="fade-in-right"></div>'
@@ -64,7 +65,7 @@ var app = angular.module('app', [
             .state('app.ui.portlet', {
                 url: '/portlet',
                 templateUrl: 'assets_new/tpl/ui_portlet.html'
-            })
+            })*/
             //dashboard
             .state('app.dashboard', {
                 url: '/dashboard',
@@ -208,7 +209,7 @@ var app = angular.module('app', [
   ]
 )
 
-.run(function ($rootScope, $sessionStorage, $location, sessionService) {
+.run(function ($rootScope, $sessionStorage, $location, sessionService,$state) {
 
     //watching the value of the currentUser variable.
     $rootScope.$watch('currentUser', function(currentUser) {
@@ -224,7 +225,8 @@ var app = angular.module('app', [
                 $sessionStorage.currentUser = response;
             })
             .error(function(error, status, headers, config) {
-                $location.path('/login');
+                $state.transitionTo('access.signin')
+              //  $location.path('/login');
                 console.log(error)
             });
         }
@@ -232,7 +234,8 @@ var app = angular.module('app', [
 
     // On catching 401 errors, redirect to the login page.
     $rootScope.$on('event:auth-loginRequired', function() {
-        $location.path('/login');
+        $state.transitionTo('access.signin')
+      //  $location.path('/login');
         return false;
     });
 })
@@ -271,7 +274,7 @@ var app = angular.module('app', [
                         'assets_new/js/jquery/charts/flot/jquery.flot.orderBars.js',
                         'assets_new/js/jquery/charts/flot/jquery.flot.pie.min.js'],
     slimScroll:     ['assets_new/js/jquery/slimscroll/jquery.slimscroll.min.js'],
-    sortable:       ['assets_new/js/jquery/sortable/jquery.sortable.js'],
+ //   sortable:       ['assets_new/js/jquery/sortable/jquery.sortable.js'],
     nestable:       ['assets_new/js/jquery/nestable/jquery.nestable.js',
                         'assets_new/js/jquery/nestable/nestable.css'],
     filestyle:      ['assets_new/js/jquery/file/bootstrap-filestyle.min.js'],
