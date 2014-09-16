@@ -30,7 +30,7 @@ var app = angular.module('app', [
 
   ])
 .run(
-  [          '$rootScope', '$state', '$stateParams',
+  [ '$rootScope', '$state', '$stateParams',
     function ($rootScope,   $state,   $stateParams) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;        
@@ -38,7 +38,7 @@ var app = angular.module('app', [
   ]
 )
 .config(
-  [          '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
+  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
     function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide) {
         
         // lazy controller, directive and service
@@ -133,7 +133,7 @@ var app = angular.module('app', [
             })
             //devices
             .state('app.device', {
-                url: '/section',
+                url: '/device',
                 template: '<div ui-view class="fade-in-right"></div>'
             })
             .state('app.device.add', {
@@ -153,7 +153,7 @@ var app = angular.module('app', [
             })
             //sensors
             .state('app.sensor', {
-                url: '/section',
+                url: '/sensor',
                 template: '<div ui-view class="fade-in-right"></div>'
             })
             .state('app.sensor.add', {
