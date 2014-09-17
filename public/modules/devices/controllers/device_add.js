@@ -1,14 +1,16 @@
 'use strict';
 
 angular.module('app')
-    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $location) {
+    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $modalInstance, $location) {
+
+        $scope.device = { };
 
         $scope.save = function() {
             $scope.errors = {};
 
             deviceService.create($scope.device)
                 .success(function (response, status, headers, config) {
-                    $location.path("/device/list");
+                    $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -29,5 +31,9 @@ angular.module('app')
                     $scope.errors[field] = error.type;
                 });
             });
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
 
     });
