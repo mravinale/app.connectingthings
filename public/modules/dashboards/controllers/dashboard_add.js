@@ -8,7 +8,8 @@ angular.module('app')
     $scope.save = function () {
         $scope.errors = {};
 
-        dashboardService.create($scope.dashboard).success(function (response, status, headers, config) {
+        dashboardService.create($scope.dashboard)
+        .success(function (response, status, headers, config) {
             $modalInstance.close();
         }).error(function (response, status, headers, config) {
             angular.forEach(response.errors, function (error, field) {
@@ -19,7 +20,8 @@ angular.module('app')
 
     };
 
-    sectionService.getAllSections().success(function (response, status, headers, config) {
+    sectionService.getAllSections()
+    .success(function (response, status, headers, config) {
         $scope.sections = response;
     }).error(function (response, status, headers, config) {
         angular.forEach(response.errors, function (error, field) {

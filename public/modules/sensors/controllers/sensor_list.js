@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('SensorListCtrl', function ($scope, sensorService, ngTableParams) {
+    .controller('SensorListCtrl', function ($scope, sensorService, ngTableParams, $modal, $log) {
 
         $scope.errors = {};
 
@@ -29,7 +29,41 @@ angular.module('app')
                         });
                 }
               });
-        }
+        };
+
+        $scope.newSensor = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'sensor_add',
+                controller: 'SensorAddCtrl',
+                size: 'lg'
+            });
+
+            modalInstance.result.then(function () {
+                $scope.tableParams.reload();
+            }, function () {
+                $log.info('new sensor dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.editSensor = function (sensorId) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'sensor_edit',
+                controller: 'SensorEditCtrl',
+                size: 'lg',
+                resolve: {
+                    sensorId: function () {
+                        return sensorId;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.tableParams.reload();
+            }, function () {
+                $log.info('edit sensor dismissed at: ' + new Date());
+            });
+        };
 
         $scope.delete =  function(device){
 

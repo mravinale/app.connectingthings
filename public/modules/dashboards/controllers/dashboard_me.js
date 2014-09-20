@@ -11,10 +11,16 @@ angular.module('app')
                 console.log(response);
             });
 */
-        dashboardService.getAllDashboards()
+            $scope.tab = null;
+
+            $scope.setTab = function(id){
+                $scope.tab = id;
+            };
+
+            dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
                 $scope.dashboards = response;
-
+                $scope.tab = response[0].name;
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

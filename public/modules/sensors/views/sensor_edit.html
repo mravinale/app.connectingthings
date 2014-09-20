@@ -2,7 +2,7 @@
 <div id="page-wrapper">
 
     <div class="col-lg-12">
-        <h1 class="page-header">Sensors</h1>
+        <h1 class="page-header">Sensor {{sensor.name}}</h1>
     </div>
 
     <div class="row">
@@ -40,8 +40,8 @@
 
                                 <div class="form-group" style="padding-top: 30px">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="button" ng-click="submit()" class="btn btn-primary">Submit</button>
-                                        <a href="#/sensor/list" class="btn btn-danger" role="button">Cancel</a>
+                                        <button type="button" ng-click="save()" class="btn btn-primary">Submit</button>
+                                        <a  ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
                                     </div>
                                 </div>
 

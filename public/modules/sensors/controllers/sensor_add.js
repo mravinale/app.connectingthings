@@ -1,14 +1,16 @@
 'use strict';
 
 angular.module('app')
-    .controller('SensorAddCtrl', function ($scope, sensorService,$location) {
+    .controller('SensorAddCtrl', function ($scope, sensorService,$location, $modalInstance) {
 
-        $scope.submit = function() {
+        $scope.sensor = { };
+
+        $scope.save = function() {
             $scope.errors = {};
 
            sensorService.create($scope.sensor)
                 .success(function (response, status, headers, config) {
-                    $location.path("/sensor/list");
+                   $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -17,6 +19,10 @@ angular.module('app')
                     });
                 });
 
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
         };
 
     });

@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="col-sm-6 dataTables_filter pull-right" style="padding-right: 7px;">
-                        <a ui-sref="app.section.add" class="btn btn-primary " role="button" style="width: 115px; float:right">New Section</a>
+                        <a ng-click="newSection()" class="btn btn-primary " role="button" style="width: 115px; float:right">New Section</a>
                     </div>
 
                 </div>
@@ -33,7 +33,7 @@
                                         <td data-title="'Name'" sortable="'name'">{{section.name}}</td>
                                         <td data-title="'Description'" sortable="'description'">{{section.description}}</td>
                                         <td data-title="'Actions'" style="width: 147px">
-                                            <a href="#/app/section/edit/{{section._id}}" class="btn btn-primary" role="button">Edit</a>
+                                            <a ng-click="editSection(section._id)" class="btn btn-primary" role="button">Edit</a>
                                             <button class="btn btn-primary" ng-click="delete(section)" class="pull-right">Delete</button>
                                         </td>
                                     </tr>
@@ -48,3 +48,10 @@
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="section_add">
+    <div ng-include="'modules/sections/views/section_add.html'"></div>
+</script>
+<script type="text/ng-template" id="section_edit">
+    <div ng-include="'modules/sections/views/section_edit.html'"></div>
+</script>

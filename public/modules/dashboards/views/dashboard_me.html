@@ -1,17 +1,28 @@
+<!--div class="bg-light lter b-b wrapper-md">
+    <h2 class="m-n font-thin h2">Dashboards</h2>
+</div-->
 
-<div id="page-wrapper">
+<div id="page-wrapper" >
 
-    <tabset>
+        <div class="wrapper bg-white b-b">
+            <ul class="nav nav-pills nav-sm">
+                <li ng-repeat="dashboard in dashboards" ng-class="{ active:tab === '{{dashboard.name}}' }">
+                    <a href ng-click="setTab(dashboard.name)"> {{dashboard.name}}</a>
+                </li>
+            </ul>
+        </div>
 
-        <tab ng-repeat="dashboard in dashboards" heading="{{dashboard.name}}" >
+    <div class="wrapper-md" >
+
+         <div ng-repeat="dashboard in dashboards" ng-show="tab === '{{dashboard.name}}'">
 
             <div class="row" ng-repeat="section in dashboard.sections">
 
                 <div class="col-lg-12">
-                    <h1 class="page-header">{{section.name}}</h1>
+                    <h3 class="page-header">{{section.name}}</h3>
                 </div>
 
-                <div class="panels" ui-sortable="sortableConfig" ng-model="section.panels">
+                <div class="panels"  ng-model="section.panels">
                     <div  ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in section.panels | orderPanel:section.name:dashboard._id">
 
                         <panel-switch ng-if="panel.type=='switch'" name="{{panel.name}}" url="{{panel.device.url}}" protocol="{{panel.device.protocol}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" tag="{{panel.sensor.tag}}"> </panel-switch>
@@ -24,11 +35,8 @@
 
                     </div>
                 </div>
-
             </div>
 
-        </tab>
-
-    </tabset>
-
+         </div>
+    </div>
 </div>
