@@ -19,11 +19,11 @@
             <div class="row" ng-repeat="section in dashboard.sections">
 
                 <div class="col-lg-12">
-                    <h3 class="page-header">{{section.name}}</h3>
+                    <h3 class="row-header">{{section.name}}</h3>
                 </div>
 
                 <div class="panels"  ng-model="section.panels">
-                    <div  ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in section.panels | orderPanel:section.name:dashboard._id">
+                    <div ui-jq="sortable" ui-options="{items:'.panel', handle:'.panel-heading', connectWith:'.connected'}" ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in section.panels | orderPanel:section.name:dashboard._id">
 
                         <panel-switch ng-if="panel.type=='switch'" name="{{panel.name}}" url="{{panel.device.url}}" protocol="{{panel.device.protocol}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" tag="{{panel.sensor.tag}}"> </panel-switch>
 
