@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp').service('cameraService', function ($http) {
+angular.module('app').service('cameraService', function ($http) {
 
     this.getAll = function(params) {
         var paramsToSend ={

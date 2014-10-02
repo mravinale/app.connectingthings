@@ -1,14 +1,16 @@
 'use strict';
 
-angular.module('meanp')
-    .controller('CameraAddCtrl', function ($scope, cameraService, sensorService, $location) {
+angular.module('app')
+    .controller('CameraAddCtrl', function ($scope, cameraService, sensorService, $location, $modalInstance ) {
+
+        $scope.camera = { };
 
         $scope.save = function() {
             $scope.errors = {};
 
             cameraService.create($scope.camera)
                 .success(function (response, status, headers, config) {
-                    $location.path("/camera/list");
+                    $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -17,6 +19,10 @@ angular.module('meanp')
                     });
                 });
 
+        };
+
+        $scope.cancel = function() {
+            $modalInstance.dismiss('cancel');
         };
 
     });

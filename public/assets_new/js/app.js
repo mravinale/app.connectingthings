@@ -172,6 +172,26 @@ var app = angular.module('app', [
                 controller: 'SensorListCtrl'
             })
 
+            //cameras
+            .state('app.camera', {
+                url: '/camera',
+                template: '<div ui-view class="fade-in-right"></div>'
+            })
+            .state('app.camera.add', {
+                url: '/add',
+                templateUrl: 'modules/cameras/views/camera_add.html',
+                controller: 'CameraAddCtrl'
+            })
+            .state('app.camera.edit', {
+                url: '/edit/:id',
+                templateUrl: 'modules/cameras/views/camera_edit.html',
+                controller: 'CameraEditCtrl'
+            })
+            .state('app.camera.list', {
+                url:'/list',
+                templateUrl: 'modules/cameras/views/camera_list.html',
+                controller: 'CameraListCtrl'
+            })
 
             // pages
             .state('app.page', {

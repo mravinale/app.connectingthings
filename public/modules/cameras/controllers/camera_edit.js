@@ -1,8 +1,10 @@
 'use strict';
-angular.module('meanp')
-    .controller('CameraEditCtrl', function ($scope, $routeParams, cameraService, sensorService, $location) {
+angular.module('app')
+    .controller('CameraEditCtrl', function ($scope, $routeParams, cameraService, sensorService, $location, $modalInstance , cameraId) {
 
-        cameraService.getById($routeParams.id)
+        $scope.camera = { };
+
+        cameraService.getById(cameraId)
             .success(function (response, status, headers, config) {
                 $scope.camera = response
             })
@@ -18,7 +20,7 @@ angular.module('meanp')
 
             cameraService.update($scope.camera)
                 .success(function (response, status, headers, config) {
-                    $location.path("/camera/list");
+                    $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -26,6 +28,10 @@ angular.module('meanp')
                         $scope.errors[field] = error.type;
                     });
                 });
+        };
+
+        $scope.cancel = function() {
+            $modalInstance.dismiss('cancel');
         };
 
     });

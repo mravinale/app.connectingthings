@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('meanp')
-    .controller('CameraListCtrl', function ($scope, cameraService, ngTableParams) {
+angular.module('app')
+    .controller('CameraListCtrl', function ($scope, cameraService, ngTableParams, $modal, $log) {
 
         $scope.errors = {};
 
@@ -28,7 +28,42 @@ angular.module('meanp')
                         });
                 }
               });
-        }
+        };
+
+        $scope.newCamera = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'camera_add',
+                controller: 'CameraAddCtrl',
+                size: 'lg'
+            });
+
+            modalInstance.result.then(function () {
+                $scope.tableParams.reload();
+            }, function () {
+                $log.info('newDashboard dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.editCamera = function (cameraId) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'camera_edit',
+                controller: 'CameraEditCtrl',
+                size: 'lg',
+                resolve: {
+                    cameraId: function () {
+                        return cameraId;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.tableParams.reload();
+            }, function () {
+                $log.info('editDashboard dismissed at: ' + new Date());
+            });
+        };
+
 
         $scope.delete =  function(camera){
 
