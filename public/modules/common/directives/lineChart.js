@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp')
+angular.module('app')
   .directive('lineChart', function () {
     return {
       template: '<div></div>',

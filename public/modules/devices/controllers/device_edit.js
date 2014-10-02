@@ -1,8 +1,10 @@
 'use strict';
-angular.module('meanp')
-    .controller('DeviceEditCtrl', function ($scope, $routeParams, deviceService, sensorService, $location) {
+angular.module('app')
+    .controller('DeviceEditCtrl', function ($scope, $routeParams, deviceService, sensorService, $location, $modalInstance, deviceId) {
 
-        deviceService.getById($routeParams.id)
+        $scope.device = { };
+
+        deviceService.getById(deviceId)
             .success(function (response, status, headers, config) {
                 $scope.device = response
             })
@@ -18,7 +20,7 @@ angular.module('meanp')
 
             deviceService.update($scope.device)
                 .success(function (response, status, headers, config) {
-                    $location.path("/device/list");
+                    $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -38,5 +40,10 @@ angular.module('meanp')
                     $scope.errors[field] = error.type;
                 });
             });
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+
 
     });

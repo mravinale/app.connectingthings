@@ -1,7 +1,7 @@
 'use strict';
 
 /* Services */
-angular.module('meanp').service('dashboardService', function ($http) {
+angular.module('app').service('dashboardService', function ($http) {
 
 
     this.getMyDashboard = function(){

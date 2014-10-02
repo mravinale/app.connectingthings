@@ -1,132 +1,119 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <title>Connecthings</title>
+    <meta name="description" content="app, web app, responsive, responsive layout, admin, admin panel, admin dashboard, flat, flat ui, ui kit, AngularJS, ui route, charts, widgets, components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="assets_new/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="assets_new/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="assets_new/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets_new/css/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="assets_new/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="assets_new/css/sb-admin.css" type="text/css" />
+    <link rel="stylesheet" href="assets_new/css/app.css" type="text/css" />
 
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <link rel="stylesheet" href="lib/nvd3/nv.d3.css"/>
+    <link href="lib/chosen/chosen.min.css" rel="stylesheet">
+    <link href="lib/ng-table/ng-table.min.css" rel="stylesheet">
+</head>
+<body ng-controller="AppCtrl">
+<div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}" ui-view></div>
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <base href="/"/>
-        <title></title>
-        <meta name="description" content="">
-        <meta http-equiv="content-script-type" content="text/javascript">
-        <meta name="viewport" content="width=device-width">
-        <!-- Core CSS - Include with every page -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-        <link href="lib/ng-table/ng-table.min.css" rel="stylesheet">
-        <link href="lib/chosen/chosen.min.css" rel="stylesheet">
-        <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+<!-- jQuery -->
+<script src="assets_new/js/jquery/jquery.min.js"></script>
 
-        <!-- Page-Level Plugin CSS - Dashboard -->
-        <link href="assets/css/plugins/timeline/timeline.css" rel="stylesheet">
-        <link href="assets/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<!-- Angular V1-->
+<script src="assets_new/js/angular/angular.min.js"></script>
+<script src="assets_new/js/angular/angular-cookies.min.js"></script>
+<script src="assets_new/js/angular/angular-animate.min.js"></script>
+<script src="assets_new/js/angular/angular-ui-router.min.js"></script>
+<script src="assets_new/js/angular/angular-translate.js"></script>
+<script src="assets_new/js/angular/ngStorage.min.js"></script>
+<script src="assets_new/js/angular/ui-load.js"></script>
+<script src="assets_new/js/angular/ui-jq.js"></script>
+<script src="assets_new/js/angular/ui-validate.js"></script>
+<script src="assets_new/js/angular/ui-bootstrap-tpls.min.js"></script>
 
-        <link rel="stylesheet" href="lib/nvd3/nv.d3.css"/>
+<!-- Angular V2-->
+<script src="lib/angular-chosen-localytics/chosen.js"></script>
+<script src="lib/angular-socket-io/socket.js"></script>
+<script src="lib/angular-resource/angular-resource.js"></script>
+<script src="lib/angular-cookies/angular-cookies.js"></script>
+<script src="lib/angular-sanitize/angular-sanitize.js"></script>
+<script src="lib/angular-route/angular-route.js"></script>
+<script src="lib/angular-http-auth/src/http-auth-interceptor.js"></script>
+<script src="assets/js/angular-ui.sorteable.js"></script>
 
-        <!-- SB Admin CSS - Include with every page -->
-        <link href="assets/css/sb-admin.css" rel="stylesheet">
-        <!-- endbuild -->
-    </head>
-    <body ng-app="meanp" style="padding-top: 50px;">
-        <!--[if lt IE 7]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+<!-- Lib references V2-->
+<script src="lib/autofill-directive/autofill-directive.js"></script>
+<script src="lib/underscore/underscore.js"></script>
+<script src="lib/ng-table/ng-table.min.js"></script>
+<script src="lib/chosen/chosen.jquery.min.js"></script>
+<script src="lib/momentjs/moment.js"></script>
+<script src="lib/d3/d3.js"></script>
+<script src="lib/nvd3/nv.d3.js"></script>
+<script src="lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
 
-        <!--[if lt IE 9]>
-        <script src="lib/es5-shim/es5-shim.js"></script>
-        <script src="lib/json3/lib/json3.min.js"></script>
-        <![endif]-->
 
-        <!-- Add your site or application content here -->
+<!-- App -->
+<script src="assets_new/js/app.js"></script>
+<script src="assets_new/js/services.js"></script>
+<script src="assets_new/js/controllers.js"></script>
+<script src="assets_new/js/filters.js"></script>
+<script src="assets_new/js/directives.js"></script>
 
-        <div id="wrapper" ng-view=""></div>
+<!-- ABM's -->
+<script src="modules/dashboards/controllers/dashboard_me.js"></script>
+<script src="modules/base/controllers/login.js"></script>
+<script src="modules/base/controllers/navbar.js"></script>
 
-        <script src="assets/js/jquery-1.11.1.min.js"></script>
-        <script src="assets/js/jquery-ui-1.10.4.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+<script src="modules/dashboards/controllers/dashboard_add.js"></script>
+<script src="modules/dashboards/controllers/dashboard_edit.js"></script>
+<script src="modules/dashboards/controllers/dashboard_list.js"></script>
 
-        <script src="lib/angular/angular.min.js"></script>
-        <script src="lib/angular-chosen-localytics/chosen.js"></script>
-        <script src="lib/angular-socket-io/socket.js"></script>
-        <script src="lib/angular-resource/angular-resource.js"></script>
-        <script src="lib/angular-cookies/angular-cookies.js"></script>
-        <script src="lib/angular-sanitize/angular-sanitize.js"></script>
-        <script src="lib/angular-route/angular-route.js"></script>
-        <script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-        <script src="lib/angular-http-auth/src/http-auth-interceptor.js"></script>
-        <script src="lib/autofill-directive/autofill-directive.js"></script>
-        <script src="lib/ngstorage/ngStorage.js"></script>
-        <script src="lib/underscore/underscore.js"></script>
+<script src="modules/sections/controllers/section_add.js"></script>
+<script src="modules/sections/controllers/section_edit.js"></script>
+<script src="modules/sections/controllers/section_list.js"></script>
 
-        <script src="modules/app.js"></script>
+<script src="modules/panels/controllers/panel_add.js"></script>
+<script src="modules/panels/controllers/panel_edit.js"></script>
+<script src="modules/panels/controllers/panel_list.js"></script>
 
-        <script src="modules/base/controllers/main.js"></script>
-        <script src="modules/base/controllers/login.js"></script>
-        <script src="modules/base/controllers/navbar.js"></script>
-        <script src="modules/base/controllers/signup.js"></script>
+<script src="modules/devices/controllers/device_add.js"></script>
+<script src="modules/devices/controllers/device_edit.js"></script>
+<script src="modules/devices/controllers/device_list.js"></script>
 
-        <script src="modules/base/services/User.js"></script>
-        <script src="modules/base/services/Session.js"></script>
-        <script src="modules/panels/services/message_service.js"></script>
-        <script src="modules/common/directives/onFocus.js"></script>
-        <script src="modules/common/directives/mongooseError.js"></script>
+<script src="modules/sensors/controllers/sensor_add.js"></script>
+<script src="modules/sensors/controllers/sensor_edit.js"></script>
+<script src="modules/sensors/controllers/sensor_list.js"></script>
 
-        <script src="modules/panels/directives/panel_gauge.js"></script>
-        <script src="modules/panels/directives/panel_lineD3Chart.js"></script>
-        <script src="modules/panels/directives/panel_info.js"></script>
-        <script src="modules/panels/directives/panel_switch.js"></script>
-        <script src="modules/panels/directives/panel_camera.js"></script>
 
-        <script src="modules/panels/controllers/panel_add.js"></script>
-        <script src="modules/panels/controllers/panel_edit.js"></script>
-        <script src="modules/panels/controllers/panel_list.js"></script>
-        <script src="modules/panels/services/panel_service.js"></script>
+<!-- Services -->
+<script src="modules/base/services/User.js"></script>
+<script src="modules/base/services/Session.js"></script>
 
-        <script src="modules/devices/controllers/device_add.js"></script>
-        <script src="modules/devices/controllers/device_edit.js"></script>
-        <script src="modules/devices/controllers/device_list.js"></script>
-        <script src="modules/devices/services/device_service.js"></script>
+<script src="modules/panels/services/panel_service.js"></script>
+<script src="modules/devices/services/device_service.js"></script>
+<script src="modules/sensors/services/sensor_service.js"></script>
+<script src="modules/sections/services/section_service.js"></script>
+<script src="modules/dashboards/services/dashboard_service.js"></script>
+<script src="modules/panels/services/message_service.js"></script>
 
-        <script src="modules/cameras/controllers/camera_add.js"></script>
-        <script src="modules/cameras/controllers/camera_edit.js"></script>
-        <script src="modules/cameras/controllers/camera_list.js"></script>
-        <script src="modules/cameras/services/camera_service.js"></script>
+<!-- Directives -->
+<script src="modules/common/directives/onFocus.js"></script>
+<script src="modules/common/directives/mongooseError.js"></script>
 
-        <script src="modules/dashboards/controllers/dashboard_me.js"></script>
-        <script src="modules/dashboards/controllers/dashboard_add.js"></script>
-        <script src="modules/dashboards/controllers/dashboard_edit.js"></script>
-        <script src="modules/dashboards/controllers/dashboard_list.js"></script>
-        <script src="modules/dashboards/services/dashboard_service.js"></script>
+<script src="modules/panels/directives/panel_gauge.js"></script>
+<script src="modules/panels/directives/panel_lineD3Chart.js"></script>
+<script src="modules/panels/directives/panel_info.js"></script>
+<script src="modules/panels/directives/panel_switch.js"></script>
 
-        <script src="modules/sensors/controllers/sensor_add.js"></script>
-        <script src="modules/sensors/controllers/sensor_edit.js"></script>
-        <script src="modules/sensors/controllers/sensor_list.js"></script>
-        <script src="modules/sensors/services/sensor_service.js"></script>
+<script src="modules/common/vendor/gauge.js"></script>
+<script src="modules/common/factories/websocket.js"></script>
+<script src="modules/common/directives/gauge.js"></script>
+<script src="modules/common/directives/lineChart.js"></script>
 
-        <script src="modules/sections/controllers/section_add.js"></script>
-        <script src="modules/sections/controllers/section_edit.js"></script>
-        <script src="modules/sections/controllers/section_list.js"></script>
-        <script src="modules/sections/services/section_service.js"></script>
-
-        <script src="assets/js/angular-ui.sorteable.js"></script>
-        <script src="assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-        <script src="assets/js/sb-admin.js"></script>
-
-        <script src="lib/ng-table/ng-table.min.js"></script>
-        <script src="lib/chosen/chosen.jquery.min.js"></script>
-        <script src="lib/momentjs/moment.js"></script>
-        <script src="lib/d3/d3.js"></script>
-        <script src="lib/nvd3/nv.d3.js"></script>
-        <script src="lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
-
-        <script src="modules/common/vendor/gauge.js"></script>
-        <script src="modules/common/factories/websocket.js"></script>
-        <script src="modules/common/directives/gauge.js"></script>
-        <script src="modules/common/directives/lineChart.js"></script>
-
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="//localhost:35729/livereload.js"></script>
-    </body>
+<script src="/socket.io/socket.io.js"></script>
+</body>
 </html>

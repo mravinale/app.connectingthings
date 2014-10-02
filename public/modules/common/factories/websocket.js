@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp')
+angular.module('app')
     .factory('socket', function (socketFactory) {
         return socketFactory({
             prefix: '',

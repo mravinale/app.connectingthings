@@ -1,6 +1,6 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
-angular.module('meanp')
+angular.module('app')
     .controller('MainCtrl', function ($scope, $location) {
 
         $scope.tempGaugeValue = 0;

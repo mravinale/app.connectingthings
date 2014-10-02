@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp')
+angular.module('app')
   .constant('focusConfig', {
     focusClass: 'focused'
   })

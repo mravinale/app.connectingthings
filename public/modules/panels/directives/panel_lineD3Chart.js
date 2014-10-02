@@ -3,7 +3,7 @@
  */
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
-angular.module('meanp')
+angular.module('app')
     .directive('panelD3Chart', function (socket, messageService) {
         return {
             scope:{

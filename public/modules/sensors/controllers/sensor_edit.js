@@ -1,8 +1,10 @@
 'use strict';
-angular.module('meanp')
-    .controller('SensorEditCtrl', function ($scope, $routeParams, sensorService,$location) {
+angular.module('app')
+    .controller('SensorEditCtrl', function ($scope, $routeParams, sensorService, $modalInstance, sensorId) {
 
-        sensorService.getById($routeParams.id)
+        $scope.sensor = { };
+
+        sensorService.getById(sensorId)
             .success(function (response, status, headers, config) {
                 $scope.sensor = response
             })
@@ -13,12 +15,12 @@ angular.module('meanp')
                 });
             });
 
-        $scope.submit = function(){
+        $scope.save = function(){
             $scope.errors = {};
 
             sensorService.update($scope.sensor)
                 .success(function (response, status, headers, config) {
-                    $location.path("/sensor/list");
+                    $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -26,6 +28,10 @@ angular.module('meanp')
                         $scope.errors[field] = error.type;
                     });
                 });
-        }
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
 
     });

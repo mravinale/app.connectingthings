@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('meanp')
-    .controller('DeviceListCtrl', function ($scope, deviceService, ngTableParams) {
+angular.module('app')
+    .controller('DeviceListCtrl', function ($scope, deviceService, ngTableParams, $modal, $log) {
 
         $scope.errors = {};
 
@@ -29,7 +29,42 @@ angular.module('meanp')
                         });
                 }
               });
-        }
+        };
+
+
+        $scope.newDevice = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'device_add',
+                controller: 'DeviceAddCtrl',
+                size: 'lg'
+            });
+
+            modalInstance.result.then(function () {
+                $scope.tableParams.reload();
+            }, function () {
+                $log.info('newDevice dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.editDevice = function (deviceId) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'device_edit',
+                controller: 'DeviceEditCtrl',
+                size: 'lg',
+                resolve: {
+                    deviceId: function () {
+                        return deviceId;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.tableParams.reload();
+            }, function () {
+                $log.info('editDevice dismissed at: ' + new Date());
+            });
+        };
 
         $scope.delete =  function(device){
 

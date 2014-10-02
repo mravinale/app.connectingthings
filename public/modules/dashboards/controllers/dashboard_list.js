@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('meanp')
-    .controller('DashboardListCtrl', function ($scope, dashboardService, ngTableParams) {
+angular.module('app')
+    .controller('DashboardListCtrl', function ($scope, dashboardService, ngTableParams, $modal, $log) {
 
         $scope.errors = {};
 
@@ -19,7 +19,6 @@ angular.module('meanp')
                         .success(function (response, status, headers, config) {
                             params.total(response.count);
                             $defer.resolve(response.data);
-
                         })
                         .error(function(response, status, headers, config) {
                             angular.forEach(response.errors, function(error, field) {
@@ -29,7 +28,41 @@ angular.module('meanp')
                         });
                 }
             });
-        }
+        };
+
+        $scope.newDashboard = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'dashboard_add',
+                controller: 'DashboardAddCtrl',
+                size: 'lg'
+            });
+
+            modalInstance.result.then(function () {
+                $scope.tableParams.reload();
+            }, function () {
+                $log.info('newDashboard dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.editDashboard = function (dashboardId) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'dashboard_edit',
+                controller: 'DashboardEditCtrl',
+                size: 'lg',
+                resolve: {
+                    dashboardId: function () {
+                        return dashboardId;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.tableParams.reload();
+            }, function () {
+                $log.info('editDashboard dismissed at: ' + new Date());
+            });
+        };
 
         $scope.delete =  function(dashboard){
 

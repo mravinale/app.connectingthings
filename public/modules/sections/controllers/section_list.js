@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('meanp')
-    .controller('SectionListCtrl', function ($scope, sectionService, ngTableParams) {
+angular.module('app')
+    .controller('SectionListCtrl', function ($scope, sectionService, ngTableParams, $modal, $log) {
 
         $scope.errors = {};
 
@@ -19,7 +19,6 @@ angular.module('meanp')
                         .success(function (response, status, headers, config) {
                             params.total(response.count);
                             $defer.resolve(response.data);
-
                         })
                         .error(function(response, status, headers, config) {
                             angular.forEach(response.errors, function(error, field) {
@@ -29,7 +28,41 @@ angular.module('meanp')
                         });
                 }
               });
-        }
+        };
+
+        $scope.newSection = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'section_add',
+                controller: 'SectionAddCtrl',
+                size: 'lg'
+            });
+
+            modalInstance.result.then(function () {
+                $scope.tableParams.reload();
+            }, function () {
+                $log.info('newSection dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.editSection = function (sectionId) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'section_edit',
+                controller: 'SectionEditCtrl',
+                size: 'lg',
+                resolve: {
+                    sectionId: function () {
+                        return sectionId;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.tableParams.reload();
+            }, function () {
+                $log.info('editSection dismissed at: ' + new Date());
+            });
+        };
 
         $scope.delete =  function(device){
 

@@ -1,14 +1,16 @@
 'use strict';
 
-angular.module('meanp')
-    .controller('SectionAddCtrl', function ($scope, sectionService,panelService,$location) {
+angular.module('app')
+    .controller('SectionAddCtrl', function ($scope, sectionService,panelService, $location, $modalInstance) {
 
-        $scope.submit = function() {
+        $scope.section = { };
+
+        $scope.save = function() {
             $scope.errors = {};
 
            sectionService.create($scope.section)
                 .success(function (response, status, headers, config) {
-                    $location.path("/section/list");
+                   $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -33,5 +35,8 @@ angular.module('meanp')
             });
 
 
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
 
     });

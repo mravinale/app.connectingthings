@@ -1,0 +1,40 @@
+{
+
+    "header": {
+        "navbar": {
+            "NOTIFICATIONS": "Notifications"
+        }
+    },
+    "aside": {
+        "nav": {
+            "HEADER": "Navigation",
+            "MYVIEW": "My View",
+            "DASHBOARD": "Dashboard",
+            "SECTIONS": "Sections",
+            "PANELS": "Panels",
+            "DEVICES": "Devices",
+            "SENSORS": "Sensors",
+            "components": {
+                "COMPONENTS": "Components",
+                "ui_kits": {
+                    "UI_KITS": "UI Kits",
+                    "PORTLET": "Portlet"
+                },
+                "pages": {
+                    "PAGES": "Pages",
+                    "SIGNIN": "Signin",
+                    "SIGNUP": "Signup",
+                    "FORGOT_PASSWORD": "Forgot password"
+
+                }
+            },
+            "your_stuff": {
+                "YOUR_STUFF":"Your Stuff",
+                "PROFILE": "Profile"
+            }
+        },
+        "MILESTONE": "Milestone",
+        "RELEASE": "Release"
+    }
+
+}

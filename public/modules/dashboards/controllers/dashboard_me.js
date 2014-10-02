@@ -1,20 +1,26 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
-angular.module('meanp')
-    .controller('MyDashboardCtrl', function ($scope, $rootScope, panelService, sectionService, $sessionStorage, dashboardService) {
-
+angular.module('app')
+    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $sessionStorage, dashboardService) {
+/*
         dashboardService.getMyDashboard()
             .success(function (response, status, headers, config) {
                 $sessionStorage.myDashboards = response;
-
             })
             .error(function(response, status, headers, config) {
                 console.log(response);
             });
+*/
+            $scope.tab = null;
 
-        dashboardService.getAllDashboards()
+            $scope.setTab = function(id){
+                $scope.tab = id;
+            };
+
+            dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
                 $scope.dashboards = response;
+                $scope.tab = response[0].name;
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -41,18 +47,21 @@ angular.module('meanp')
         };
 
         $scope.sortableConfig =  {
-            stop: function(e, ui) { $scope.updatePanels(); }
+            stop: function(e, ui) {
+             //   $scope.updatePanels();
+            }
         };
 
     });
 
-angular.module('meanp').filter('orderPanel', function($sessionStorage, $rootScope) {
+//TODO: sections should be another kind of panel ;)
+angular.module('app').filter('orderPanel', function($sessionStorage) {
     return function(input, sectionName, dashboardId) {
         var out = [];
-
-//        if($sessionStorage.myDashboards.length == 0 ){
+/*
+        if($sessionStorage.myDashboards.length == 0 ){
             out = input
- /*        }
+        }
         else{
             var dashboard = _.find($sessionStorage.myDashboards, function(order){ return order.dashboard == dashboardId; });
 
@@ -65,6 +74,6 @@ angular.module('meanp').filter('orderPanel', function($sessionStorage, $rootScop
             });
         }
 */
-        return out;
+        return input;
     };
-});
+})

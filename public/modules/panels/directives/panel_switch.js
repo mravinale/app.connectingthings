@@ -3,7 +3,7 @@
  */
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
-angular.module('meanp')
+angular.module('app')
     .directive('panelSwitch', function (socket, panelService) {
         return {
             scope:{
@@ -39,11 +39,6 @@ angular.module('meanp')
                     ' </div>'+
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
-
-                //scope.url = "https://agent.electricimp.com/ke1jT-hwEMyU";
-                //scope.protocol = "http";
-
-
 
                 socket.on(scope.topic, function (message) {
                     scope.toggleButton = angular.fromJson(message).value == "1";

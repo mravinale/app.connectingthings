@@ -1,8 +1,10 @@
 'use strict';
-angular.module('meanp')
-    .controller('DashboardEditCtrl', function ($scope, $routeParams, dashboardService, sectionService, $location) {
+angular.module('app')
+    .controller('DashboardEditCtrl', function ($scope, $routeParams, dashboardService, sectionService, $location, $modalInstance, dashboardId) {
 
-        dashboardService.getById($routeParams.id)
+        $scope.dashboard = { };
+
+        dashboardService.getById(dashboardId)
             .success(function (response, status, headers, config) {
                 $scope.dashboard = response
             })
@@ -18,7 +20,7 @@ angular.module('meanp')
 
             dashboardService.update($scope.dashboard)
                 .success(function (response, status, headers, config) {
-                    $location.path("/dashboard/list");
+                    $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -38,5 +40,10 @@ angular.module('meanp')
                     $scope.errors[field] = error.type;
                 });
             });
+
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
 
     });

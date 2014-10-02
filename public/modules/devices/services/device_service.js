@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp').service('deviceService', function ($http) {
+angular.module('app').service('deviceService', function ($http) {
 
     this.getAll = function(params) {
         var paramsToSend ={

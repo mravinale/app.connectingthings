@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meanp').service('sectionService', function ($http) {
+angular.module('app').service('sectionService', function ($http) {
 
     this.getAll = function(params) {
         var paramsToSend ={

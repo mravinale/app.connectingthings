@@ -1,8 +1,10 @@
 'use strict';
-angular.module('meanp')
-    .controller('SectionEditCtrl', function ($scope, $routeParams, sectionService,$location,panelService) {
+angular.module('app')
+    .controller('SectionEditCtrl', function ($scope, $routeParams, sectionService, $location, panelService, $modalInstance, sectionId) {
 
-        sectionService.getById($routeParams.id)
+        $scope.section = { };
+
+        sectionService.getById(sectionId)
             .success(function (response, status, headers, config) {
                 $scope.section = response
             })
@@ -13,12 +15,12 @@ angular.module('meanp')
                 });
             });
 
-        $scope.submit = function(){
+        $scope.save = function(){
             $scope.errors = {};
 
             sectionService.update($scope.section)
                 .success(function (response, status, headers, config) {
-                    $location.path("/section/list");
+                    $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -26,13 +28,11 @@ angular.module('meanp')
                         $scope.errors[field] = error.type;
                     });
                 });
-        }
+        };
 
         panelService.getAllPanels()
             .success(function (response, status, headers, config) {
                 $scope.panels = response;
-                console.log(response);
-
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -40,5 +40,9 @@ angular.module('meanp')
                     $scope.errors[field] = error.type;
                 });
             });
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
 
     });
