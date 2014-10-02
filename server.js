@@ -62,7 +62,6 @@ io.sockets.on('connection', function (socket) {
     // mqttClient.publish('temperature', message);
 });
 
-/*
 
 var ponte = require("ponte");
 var opts = {
@@ -108,7 +107,7 @@ ponteServer.on("updated", function(resource, buffer) {
 
 });
 
-*/
+
 
 /*
 var mqttClient = mqtt.createClient(1883, 'localhost')

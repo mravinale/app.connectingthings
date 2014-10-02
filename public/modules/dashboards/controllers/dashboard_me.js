@@ -54,6 +54,7 @@ angular.module('app')
 
     });
 
+//TODO: sections should be another kind of panel ;)
 angular.module('app').filter('orderPanel', function($sessionStorage) {
     return function(input, sectionName, dashboardId) {
         var out = [];
