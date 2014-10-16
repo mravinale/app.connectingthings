@@ -12,7 +12,7 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
 
     // config
     $scope.app = {
-      name: 'Connecthings',
+      name: 'ConnectingThings',
       version: '1.0.3',
       // for chart colors
       color: {
