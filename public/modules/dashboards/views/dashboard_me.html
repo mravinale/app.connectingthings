@@ -22,8 +22,8 @@
                     <h3 class="row-header">{{section.name}}</h3>
                 </div>
 
-                <div class="panels"  ng-model="section.panels">
-                    <div  ui-options="{items:'.panel', handle:'.panel-heading', connectWith:'.connected'}" ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in section.panels | orderPanel:section.name:dashboard._id">
+                <div class="panels" ui-sortable ng-model="section.panels">
+                    <div   ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in section.panels | orderPanel:section.name:dashboard._id">
 
                         <panel-switch ng-if="panel.type=='switch'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" tag="{{panel.sensor.tag}}"> </panel-switch>
 

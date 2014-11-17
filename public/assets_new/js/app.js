@@ -294,7 +294,7 @@ var app = angular.module('app', [
                         'assets_new/js/jquery/charts/flot/jquery.flot.orderBars.js',
                         'assets_new/js/jquery/charts/flot/jquery.flot.pie.min.js'],
     slimScroll:     ['assets_new/js/jquery/slimscroll/jquery.slimscroll.min.js'],
- //   sortable:       ['assets_new/js/jquery/sortable/jquery.sortable.js'],
+    sortable:       ['assets_new/js/jquery/sortable/jquery.sortable.js'],
     nestable:       ['assets_new/js/jquery/nestable/jquery.nestable.js',
                         'assets_new/js/jquery/nestable/nestable.css'],
     filestyle:      ['assets_new/js/jquery/file/bootstrap-filestyle.min.js'],
