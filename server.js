@@ -94,14 +94,15 @@ var lastValue = { topic:null, message:null }
 ponteServer.on("updated", function(resource, buffer) {
     var message = { topic: resource, message: buffer.toString() };
 
-    if(lastValue.topic == message.topic && lastValue.message ==  message.message) return;
+    io.sockets.emit(message.topic, message.message);
+
+    if(lastValue.topic == message.topic && lastValue.message ==  message.message) return; //add configuration
     //TODO: we should validate format
     var newMessage = new Message(message);
     newMessage.save(function(err, item) {
         if (err) { return console.error(err.code, err.message); }
 
         lastValue = item;
-        io.sockets.emit(message.topic, message.message);
         console.log("Resource Updated", item.topic, JSON.parse(item.message));
     });
 
