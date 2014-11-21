@@ -38,6 +38,7 @@ angular.module('app')
                                 ' showYAxis="true"'+
                                 ' useInteractiveGuideLine="true"'+
                                 ' noData="No Data Yet :( "'+
+                                ' isArea="true"'+
                                 ' >'+
                             '</nvd3-line-chart>'+
 

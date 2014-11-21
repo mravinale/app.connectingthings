@@ -1,5 +1,11 @@
 html {
-  background-color: #f0f3f4;
+ /* background-color: #f0f3f4;*/
+    background: url(../img/backbroundImage.jpg) no-repeat center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
 }
 body {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;

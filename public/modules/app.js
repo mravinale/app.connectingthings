@@ -1,6 +1,6 @@
 'use strict';
 
-
+//http://blog.mailgun.com/how-to-send-transactional-emails-in-a-nodejs-app-using-the-mailgun-api/
 // Declare app level module which depends on filters, and services
 var app = angular.module('app', [
     'ngAnimate',
@@ -55,10 +55,9 @@ var app = angular.module('app', [
             .state('app', {
                 abstract: true,
                 url: '/app',
-                templateUrl: 'assets/tpl/app.html'
+                templateUrl: 'modules/base/views/app.html'
             })
-        /*
-            .state('app.ui', {
+         /* .state('app.ui', {
                 url: '/ui',
                 template: '<div ui-view class="fade-in-right"></div>'
             })
