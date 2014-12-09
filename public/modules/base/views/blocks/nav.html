@@ -3,43 +3,43 @@
   <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
     <span translate="aside.nav.HEADER">Navigation</span>
   </li>
-    <li>
+    <li >
         <a ui-sref="app.dashboard.me">
             <i class="fa fa-laptop fa-fw icon text-primary-dker"></i>
             <span class="font-bold" translate="aside.nav.MYVIEW">My View</span>
         </a>
     </li>
-  <li>
+  <li ng-show="currentUser.admin">
     <a ui-sref="app.dashboard.list">
       <i class="fa fa-bar-chart-o fa-fw icon text-info-dker"></i>
       <span class="font-bold" translate="aside.nav.DASHBOARD">Dashboard</span>
     </a>
   </li>
-  <li>
+  <li ng-show="currentUser.admin">
     <a ui-sref="app.section.list">
       <i class="fa fa-bars fa-fw icon text-info-dker"></i>
       <span class="font-bold" translate="aside.nav.SECTIONS">Sections</span>
     </a>
   </li>
-  <li>
+  <li ng-show="currentUser.admin">
     <a ui-sref="app.panel.list">
       <i class="fa fa-dashboard fa-fw icon text-info-dker"></i>
       <span class="font-bold" translate="aside.nav.PANELS">Panels</span>
     </a>
   </li>
-  <li>
+  <li ng-show="currentUser.admin">
     <a ui-sref="app.device.list">
       <i class="fa fa-keyboard-o fa-fw icon text-info-dker"></i>
       <span class="font-bold" translate="aside.nav.DEVICES">Devices</span>
     </a>
   </li>
-    <li>
+    <li ng-show="currentUser.admin">
         <a ui-sref="app.sensor.list">
             <i class="fa fa-cogs fa-fw icon text-info-dker"></i>
             <span class="font-bold" translate="aside.nav.SENSORS">Sensors</span>
         </a>
     </li>
-    <li>
+    <li ng-show="currentUser.admin">
         <a  ui-sref="app.camera.list" >
             <i class="fa fa-video-camera icon text-info-dker"></i>
             <span class="font-bold" translate="aside.nav.CAMERAS">Cameras</span>
@@ -102,16 +102,16 @@
     </ul>
   </li-->
 
-  <li class="line dk hidden-folded"></li>
+  <li class="line dk hidden-folded" ng-show="currentUser.admin"></li>
 
-  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">          
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs" ng-show="currentUser.admin">
     <span translate="aside.nav.your_stuff.YOUR_STUFF">Personal</span>
   </li>  
   <li>
-    <a ui-sref="app.page.profile">
+    <a ui-sref="app.user.list" ng-show="currentUser.admin" >
       <i class="icon-user icon text-success-lter"></i>
       <!--b class="badge bg-success dk pull-right">30%</b-->
-      <span translate="aside.nav.your_stuff.PROFILE">Profile</span>
+      <span translate="aside.nav.your_stuff.USERS">Users</span>
     </a>
   </li>
 

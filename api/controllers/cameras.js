@@ -35,7 +35,7 @@ exports.getAll = function (req, res, next) {
                 }
             });
         });
-}
+};
 
 exports.getAllCameras = function (req, res, next) {
 
@@ -49,7 +49,7 @@ exports.getAllCameras = function (req, res, next) {
         return  res.send(200, cameras);
 
     });
-}
+};
 
 
 exports.getFullById = function (req, res, next) {

@@ -192,6 +192,28 @@ var app = angular.module('app', [
                 controller: 'CameraListCtrl'
             })
 
+            //users
+            .state('app.user', {
+                url: '/user',
+                template: '<div ui-view class="fade-in-right"></div>'
+            })
+            .state('app.user.add', {
+                url: '/add',
+                templateUrl: 'modules/users/views/user_add.html',
+                controller: 'UserAddCtrl'
+            })
+            .state('app.user.edit', {
+                url: '/edit/:id',
+                templateUrl: 'modules/users/views/user_edit.html',
+                controller: 'UserEditCtrl'
+            })
+            .state('app.user.list', {
+                url:'/list',
+                templateUrl: 'modules/users/views/user_list.html',
+                controller: 'UserListCtrl'
+            })
+
+
             // pages
             .state('app.page', {
                 url: '/page',
@@ -228,7 +250,8 @@ var app = angular.module('app', [
   ]
 )
 
-.run(function ($rootScope, $sessionStorage, $location, sessionService,$state) {
+.run(function ($rootScope, $sessionStorage, $location, sessionService,$state,userService) {
+
 
     //watching the value of the currentUser variable.
     $rootScope.$watch('currentUser', function(currentUser) {

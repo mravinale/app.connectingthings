@@ -8,7 +8,7 @@ var MessageSchema = new Schema({
   _id: { type: String },
   topic: {type: String},
   message: {type: String},
-  createdAt: { type: Date, expires: '24h' }
+  createdAt: { type: Date, expires: '12h' }
 }
 //,{ capped: 1024 }
 );

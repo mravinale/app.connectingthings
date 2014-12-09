@@ -26,6 +26,13 @@ module.exports = function(app) {
     app.get('/auth/users/:userId', auth.ensureAuthenticated, users.show);
     app.get('/auth/check_username/:username', auth.ensureAuthenticated, users.exists);
 
+    app.get('/users', auth.ensureAuthenticated, users.getAll);
+    app.get('/users/items', auth.ensureAuthenticated, users.getAllUsers);
+    app.get('/users/:id', auth.ensureAuthenticated, users.getById);
+    app.put('/users/:id', auth.ensureAuthenticated, users.update);
+    app.del('/users/:id', auth.ensureAuthenticated, users.remove);
+    app.post('/users', auth.ensureAuthenticated, users.create);
+
     // Session Routes
     var session = require('../controllers/session');
     app.get('/auth/session', auth.ensureAuthenticated, session.session);

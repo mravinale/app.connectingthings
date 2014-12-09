@@ -1,0 +1,53 @@
+
+<div id="page-wrapper">
+
+    <div class="col-lg-12">
+        <h1 class="page-header">User {{user.name}}</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12" style="padding-left: 30px">
+            <div class="panel " >
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <form class="form-horizontal" role="form">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">User Name</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="user.username" class="form-control" placeholder="User name">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="user.email" class="form-control" placeholder="User Tag">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">User Admin</label>
+                                    <div class="col-sm-10" style="padding-top: 7px">
+                                        <input type="checkbox" ng-model="user.admin"  ng-disabled="currentUser._id == user._id " placeholder="User Description">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="padding-top: 30px">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="button" ng-click="save()" class="btn btn-primary">Submit</button>
+                                        <a  ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
