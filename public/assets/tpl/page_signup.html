@@ -4,17 +4,64 @@
         <div class="wrapper text-center">
           <strong>Sign up to find interesting thing</strong>
         </div>
-        <form name="signup" action="#/">
+        <form name="form" autofill-submit="register(form)"
+              novalidate>
           <div class="list-group list-group-sm">
-            <div class="list-group-item">
-              <input placeholder="Name" class="form-control no-border">
-            </div>
-            <div class="list-group-item">
-              <input type="email" placeholder="Email" class="form-control no-border">
-            </div>
-            <div class="list-group-item">
-               <input type="password" placeholder="Password" class="form-control no-border">
-            </div>
+              <div ng-class="{'has-error': form.password.$error.mongoose}" class="list-group list-group-sm">
+                  <input type="username"
+                         class="form-control"
+                         placeholder="User Name"
+                         name="username"
+                         ng-model="user.username"
+                         required
+                         mongoose-error
+                         autofill >
+                  <div class="error"
+                       ng-show="form.username.$error.mongoose && submitted">
+                      {{ errors.username }}
+                  </div>
+                  <div class="error"
+                       ng-show="form.username.$error.required && submitted ">
+                      field required
+                  </div>
+              </div>
+              <div ng-class="{'has-error': form.email.$error.mongoose}" class="list-group list-group-sm">
+                  <input type="text"
+                         class="form-control"
+                         placeholder="Email"
+                         name="email"
+                         ng-model="user.email"
+                         required
+                         autofocus
+                         mongoose-error
+                         autofill >
+                  <div class="error"
+                       ng-show="form.email.$error.mongoose">
+                      {{ errors.email }}
+                  </div>
+                  <div class="error"
+                       ng-show="form.email.$error.required && submitted ">
+                      field required
+                  </div>
+              </div>
+              <div ng-class="{'has-error': form.password.$error.mongoose}" class="list-group list-group-sm">
+                  <input type="password"
+                         class="form-control"
+                         placeholder="Password"
+                         name="password"
+                         ng-model="user.password"
+                         required
+                         mongoose-error
+                         autofill >
+                  <div class="error"
+                       ng-show="form.password.$error.mongoose && submitted">
+                      {{ errors.password }}
+                  </div>
+                  <div class="error"
+                       ng-show="form.password.$error.required && submitted ">
+                      field required
+                  </div>
+              </div>
           </div>
           <div class="checkbox m-b-md m-t-none">
             <label class="i-checks">
