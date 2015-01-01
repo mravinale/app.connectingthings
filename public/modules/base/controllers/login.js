@@ -5,6 +5,11 @@ angular.module('app')
     $scope.errors =  {};
     $scope.submitted = false;
 
+    $scope.init = function(form) {
+
+        $scope.message = $location.search().message;
+    };
+
     $scope.login = function(form) {
         $scope.submitted = true;
         if(form.email.$error.required) return;
@@ -23,4 +28,6 @@ angular.module('app')
                 $scope.errors.other = response.message;
             });
     };
+
+    $scope.init();
   });

@@ -11,6 +11,7 @@ var mongoose = require('mongoose'),
 exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
+  newUser.isValidated = false;
 
   newUser.save(function(err) {
     if (err) {
@@ -21,6 +22,7 @@ exports.create = function (req, res, next) {
       if (err) return next(err);
       return res.json(newUser.user_info);
     });
+
   });
 };
 

@@ -22,7 +22,7 @@ module.exports = function(app) {
 
     // User Routes
     var users = require('../controllers/users');
-    app.post('/auth/users', users.create);
+    //app.post('/auth/users', users.create);
     app.get('/auth/users/:userId', auth.ensureAuthenticated, users.show);
     app.get('/auth/check_username/:username', auth.ensureAuthenticated, users.exists);
 
@@ -35,6 +35,7 @@ module.exports = function(app) {
 
     // Session Routes
     var session = require('../controllers/session');
+    app.post('/auth/session/user', session.signUp);
     app.get('/auth/session', auth.ensureAuthenticated, session.session);
     app.post('/auth/session', session.login);
     app.del('/auth/session', session.logout);

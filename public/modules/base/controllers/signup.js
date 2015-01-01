@@ -1,15 +1,16 @@
 'use strict';
 
-angular.module('app').controller('SignupCtrl', function ($scope,$rootScope, $location, userService, $sessionStorage) {
+angular.module('app').controller('SignupCtrl', function ($scope,$rootScope, $location, sessionService) {
 
 		$scope.register = function(form) {
             $scope.errors = {};
 
-            userService.create($scope.user)
+            sessionService.create($scope.user)
                 .success(function (response, status, headers, config) {
-                    $rootScope.currentUser = response;
-                    $sessionStorage.currentUser = $rootScope.currentUser;
-                    $location.path('/');
+                 //   $rootScope.currentUser = response;
+                 //   $sessionStorage.currentUser = $rootScope.currentUser;
+                    debugger;
+                    $location.path('/login').search( {'message': 'Check your email for complete your sign up process'});
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {

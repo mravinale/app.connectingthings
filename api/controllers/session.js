@@ -1,7 +1,29 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    passport = require('passport');
+    passport = require('passport'),
+    User = mongoose.model('User');
+
+/**
+ * Create user
+ * requires: {username, password, email}
+ * returns: {email, password}
+ */
+exports.signUp = function (req, res, next) {
+    var newUser = new User(req.body);
+    newUser.provider = 'local';
+    newUser.isValidated = false;
+
+    newUser.save(function(err) {
+        if (err) {
+            return res.json(400, err);
+        } else {
+            res.send(200, newUser);
+        }
+
+    });
+};
+
 
 /**
  * Session

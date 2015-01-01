@@ -14,7 +14,8 @@ var UserSchema = new Schema({
   name: String,
   admin: Boolean,
   guest: Boolean,
-  provider: String
+  provider: String,
+  isValidated: Boolean
 });
 
 /**
@@ -46,7 +47,7 @@ var validatePresenceOf = function (value) {
 };
 
 UserSchema.path('email').validate(function (email) {
-  var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  var emailRegex = /^([-0-9a-zA-Z.+_]+@([\w-]+\.)+[\w-]{2,4})?$/;
   return emailRegex.test(email);
 }, 'The specified email is invalid.');
 
