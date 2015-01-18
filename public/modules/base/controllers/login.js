@@ -6,7 +6,6 @@ angular.module('app')
     $scope.submitted = false;
 
     $scope.init = function(form) {
-
         $scope.message = $location.search().message;
     };
 

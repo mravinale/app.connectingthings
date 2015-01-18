@@ -7,6 +7,15 @@ angular.module('app').service('sessionService', function ($http) {
         return $http.post('/auth/session/user', user);
     };
 
+    this.login = function (provider,user) {
+        return $http.post('/auth/session', {
+            provider: provider,
+            email: user.email,
+            password: user.password,
+            rememberMe: user.rememberMe
+        });
+    };
+
     this.remove = function () {
         return $http.delete('/auth/session/');
     };
