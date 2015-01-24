@@ -13,6 +13,7 @@ exports.signUp = function (req, res, next) {
     var newUser = new User(req.body);
     newUser.provider = 'local';
     newUser.isValidated = false;
+    newUser.admin = true;
 
     newUser.save(function(err) {
         if (err) {

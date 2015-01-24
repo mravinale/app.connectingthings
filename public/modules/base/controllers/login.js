@@ -13,7 +13,7 @@ angular.module('app')
         $scope.submitted = true;
         if(form.email.$error.required) return;
 
-        sessionService.create('password',$scope.user)
+        sessionService.login('password',$scope.user)
             .success(function (response, status, headers, config) {
                 $sessionStorage.currentUser = response;
                 $rootScope.currentUser =  $sessionStorage.currentUser;
