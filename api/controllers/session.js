@@ -26,6 +26,19 @@ exports.signUp = function (req, res, next) {
 };
 
 
+exports.confirmUser = function (req, res, next) {
+
+    User.findByIdAndUpdate( req.params.userId, {$set: {isValidated: true}}, function (error, user) {
+        if (error) {
+            console.log(error);
+            return res.json(400, error);
+        }
+
+        return  res.json(user);
+
+    });
+};
+
 /**
  * Session
  * returns info on authenticated user
@@ -53,7 +66,11 @@ exports.logout = function (req, res) {
  */
 exports.login = function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
-        var error = err || info;
+        var error = err || info ;
+
+        if (!user.isValidated) {
+            return res.json(400, {errors:{email:{type: "Check your email and confirm your registration"}}});
+        }
         if (error) {
             return res.json(400, error);
         }

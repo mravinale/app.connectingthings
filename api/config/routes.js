@@ -39,6 +39,8 @@ module.exports = function(app) {
     app.get('/auth/session', auth.ensureAuthenticated, session.session);
     app.post('/auth/session', session.login);
     app.del('/auth/session', session.logout);
+    app.put('/auth/session/confirm/:userId', session.confirmUser);
+
 
     // Panel Routes
     var panels = require('../controllers/panels');

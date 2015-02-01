@@ -3,6 +3,10 @@
 /* Services */
 angular.module('app').service('sessionService', function ($http) {
 
+    this.confirmUser = function (id) {
+        return $http.put('/auth/session/confirm/'+id);
+    };
+
     this.create = function (user) {
         return $http.post('/auth/session/user', user);
     };
