@@ -214,6 +214,27 @@ var app = angular.module('app', [
                 controller: 'UserListCtrl'
             })
 
+            //organization
+            .state('app.organization', {
+                url: '/organization',
+                template: '<div ui-view class="fade-in-right"></div>'
+            })
+            .state('app.organization.add', {
+                url: '/add',
+                templateUrl: 'modules/organizations/views/organization_add.html',
+                controller: 'OrganizationAddCtrl'
+            })
+            .state('app.organization.edit', {
+                url: '/edit/:id',
+                templateUrl: 'modules/organizations/views/organization_edit.html',
+                controller: 'OrganizationEditCtrl'
+            })
+            .state('app.organization.list', {
+                url:'/list',
+                templateUrl: 'modules/organizations/views/organization_list.html',
+                controller: 'OrganizationListCtrl'
+            })
+
 
             // pages
             .state('app.page', {

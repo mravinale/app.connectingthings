@@ -95,4 +95,11 @@ module.exports = function(app) {
     app.get('/messages', auth.ensureAuthenticated, messages.getAll);
     app.get('/messages/items', auth.ensureAuthenticated, messages.getAllMessages);
 
+    // Organization Routes
+    var organizations = require('../controllers/organizations');
+    app.get('/organizations', auth.ensureAuthenticated, organizations.getAll);
+    app.get('/organizations/:id', auth.ensureAuthenticated, organizations.getById);
+    app.put('/organizations/:id', auth.ensureAuthenticated, organizations.update);
+    app.del('/organizations/:id', auth.ensureAuthenticated, organizations.remove);
+    app.post('/organizations', auth.ensureAuthenticated, organizations.create);
 }

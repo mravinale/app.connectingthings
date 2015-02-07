@@ -114,6 +114,13 @@
       <span translate="aside.nav.your_stuff.USERS">Users</span>
     </a>
   </li>
+    <li>
+        <a ui-sref="app.organization.list" ng-show="currentUser.admin" >
+            <i class="icon-user icon text-success-lter"></i>
+            <!--b class="badge bg-success dk pull-right">30%</b-->
+            <span translate="aside.nav.your_stuff.ORGANIZATION">Organization</span>
+        </a>
+    </li>
 
     <li class="line dk hidden-folded"></li>
 </ul>

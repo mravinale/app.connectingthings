@@ -31,7 +31,9 @@
             },
             "your_stuff": {
                 "YOUR_STUFF":"Your Stuff",
-                "PROFILE": "Profile"
+                "PROFILE": "Profile",
+                "USERS": "Users",
+                "ORGANIZATION": "Organization"
             }
         },
         "MILESTONE": "Milestone",

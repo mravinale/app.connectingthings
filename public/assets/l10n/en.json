@@ -32,7 +32,8 @@
             "your_stuff": {
                 "YOUR_STUFF":"Your Stuff",
                 "PROFILE": "Profile",
-                "USERS": "Users"
+                "USERS": "Users",
+                "ORGANIZATION": "Organization"
             }
         },
         "MILESTONE": "Milestone",
