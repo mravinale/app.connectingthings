@@ -26,7 +26,8 @@ var app = angular.module('app', [
     'autofill-directive',
     'btford.socket-io',
     'nvd3ChartDirectives',
-    'localytics.directives'
+    'localytics.directives',
+    'ui.gravatar'
 
   ])
 .run(

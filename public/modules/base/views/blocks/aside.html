@@ -5,13 +5,13 @@
       <div class="dropdown wrapper">
         <a ui-sref="app.page.profile">
           <span class="thumb-lg w-auto-folded avatar m-t-sm">
-            <img src="assets/img/a0.jpg" class="img-full" alt="...">
+              <img gravatar-src="'{{currentUser.email}}'" gravatar-size="100">
           </span>
         </a>
         <a href class="dropdown-toggle hidden-folded">
           <span class="clear">
             <span class="block m-t-sm">
-              <strong class="font-bold text-lt">John.Smith</strong> 
+              <strong class="font-bold text-lt">{{currentUser.username}}</strong>
               <b class="caret"></b>
             </span>
             <span class="text-muted text-xs block">Manager</span>

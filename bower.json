@@ -20,7 +20,8 @@
     "angularjs-nvd3-directives": "*",
     "momentjs":"~2.6.0",
     "underscore":"*",
-    "angular-chosen-localytics": "*"
+    "angular-chosen-localytics": "*",
+      "angular-gravatar":"0.2.4"
   },
   "resolutions": {
     "d3": "~3.4.1"
