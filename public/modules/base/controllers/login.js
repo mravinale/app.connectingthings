@@ -18,9 +18,9 @@ angular.module('app')
             sessionService.confirmUser(confirmationId)
                 .success(function (response, status, headers, config) {
                     if(response === null){
-                        $scope.message = 'Sorry, this confirmation has expired';
+                        $scope.message = 'Sorry, this confirmation has expired, create a new account';
                     } else {
-                        $scope.message = 'Congratulations!!';
+                        $scope.message = 'Congratulations, now you are able to login!';
                     }
 
                 })

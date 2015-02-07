@@ -8,7 +8,7 @@ angular.module('app').service('userService', function ($http) {
             count: params.count(),
             orderBy: params.orderBy(),
             filter: {}
-        }
+        };
 
         return $http.get('/users', { params : paramsToSend });
     };
