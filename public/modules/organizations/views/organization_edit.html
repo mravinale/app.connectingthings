@@ -14,10 +14,49 @@
                         <div class="col-lg-11">
                             <form class="form-horizontal" role="form">
 
-                                <div class="form-group">
+                                <div ng-class="{'has-error': form.name.$error.mongoose}" class="form-group">
                                     <label class="col-sm-2 control-label">Name</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="organization.name" class="form-control" placeholder="Organization Name">
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="Organization Name"
+                                               name="Organization Name"
+                                               ng-model="organization.name"
+                                               required
+                                               autofocus
+                                               mongoose-error
+                                               autofill >
+                                        <div class="error"
+                                             ng-show="form.name.$error.mongoose">
+                                            {{ errors.name }}
+                                        </div>
+                                        <div class="error"
+                                             ng-show="form.name.$error.required && submitted ">
+                                            field required
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-class="{'has-error': form.description.$error.mongoose}" class="form-group">
+                                    <label class="col-sm-2 control-label">Description</label>
+                                    <div class="col-sm-10">
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="Organization Description"
+                                               name="Organization Description"
+                                               ng-model="organization.description"
+                                               required
+                                               autofocus
+                                               mongoose-error
+                                               autofill >
+                                        <div class="error"
+                                             ng-show="form.description.$error.mongoose">
+                                            {{ errors.name }}
+                                        </div>
+                                        <div class="error"
+                                             ng-show="form.description.$error.required && submitted ">
+                                            field required
+                                        </div>
                                     </div>
                                 </div>
 

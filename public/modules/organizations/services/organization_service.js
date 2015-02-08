@@ -13,10 +13,6 @@ angular.module('app').service('organizationService', function ($http) {
         return $http.get('/organizations', { params : paramsToSend });
     };
 
-    this.getAllOrganizations = function(){
-        return $http.get('/organizations/items');
-    };
-
     this.getById = function(organizationId){
         return $http.get('/organizations/'+organizationId);
     };

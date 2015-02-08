@@ -6,7 +6,8 @@ var mongoose = require('mongoose'),
 
 var OrganizationSchema = new Schema({
   _id: { type: String },
-  name: {type: String}
+  name: {type: String},
+    description: {type: String}
 });
 
 OrganizationSchema.pre('save', function (next) {
