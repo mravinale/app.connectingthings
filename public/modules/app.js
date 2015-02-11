@@ -315,12 +315,6 @@ var app = angular.module('app', [
 
 }])
 
-/**
- * jQuery plugin config use ui-jq directive , config the js and css files that required
- * key: function name of the jQuery plugin
- * value: array of the css js file located
- */
-
 .constant('JQ_CONFIG', {
     easyPieChart:   ['assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js'],
     sparkline:      ['assets/js/jquery/charts/sparkline/jquery.sparkline.min.js'],
