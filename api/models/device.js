@@ -9,7 +9,8 @@ var DeviceSchema = new Schema({
   name: String,
   description: String,
   sensors: [{ type:String, ref: 'Sensor' }],
-  owner: { type: String, ref: 'User' }
+  owner: { type: String, ref: 'User' },
+  organization: { type: String, ref: 'Organization' }
  // url: String,
  // protocol: String
 });

@@ -2,8 +2,9 @@
 
 var mongoose = require('mongoose'),
     passport = require('passport'),
-    User = mongoose.model('User');
-var Mailgun = require('mailgun-js');
+    User = mongoose.model('User'),
+    Organization = mongoose.model('Organization'),
+    Mailgun = require('mailgun-js');
 
 //Your api key, from Mailgun’s Control Panel
 var api_key = 'key-966ab673e0452234ef90349363496a34';
@@ -14,45 +15,43 @@ var domain = 'connectingthings.io';
 //Your sending email address
 var from_who = 'noreply@connectingthings.io';
 
-/**
- * Create user
- * requires: {username, password, email}
- * returns: {email, password}
- */
+var mailgun = new Mailgun({apiKey: api_key, domain: domain});
+
 exports.signUp = function (req, res, next) {
     var newUser = new User(req.body);
     newUser.provider = 'local';
     newUser.isValidated = false;
     newUser.admin = true;
 
-    //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
-    var mailgun = new Mailgun({apiKey: api_key, domain: domain});
-
-    newUser.save(function(err) {
-        if (err) {
-            return res.json(400, err);
+    Organization.findOrCreate({name: req.body.organization}, function (error, organization, created) {
+        if (error) {
+            console.log(error);
+            res.send(400, error);
         } else {
-
-            var data = {
-                from: from_who,
-                to: newUser.email,
-                subject: 'Activate your ConnectingThings account',
-                html: 'Activate your new ConnectingThings account by clicking on the link below. <a href="http://localhost:3000/#/access/signin?confirmation=' + newUser._id + '">Click here to confirm</a>'
-            };
-            mailgun.messages().send(data, function (err, body) {
+            newUser.organization = organization;
+            newUser.save(function(err) {
                 if (err) {
-                    res.json(400, err);
-                    console.log("got an error: ", err);
-                }
-                else {
-                    res.send(200, newUser);
-                    console.log(body);
+                    return res.json(400, err);
+                } else {
+                    var data = {
+                        from: from_who,
+                        to: newUser.email,
+                        subject: 'Activate your ConnectingThings account',
+                        html: 'Activate your new ConnectingThings account by clicking on the link below. <a href="http://localhost:3000/#/access/signin?confirmation=' + newUser._id + '">Click here to confirm</a>'
+                    };
+                    mailgun.messages().send(data, function (err, body) {
+                        if (err) {
+                            res.json(400, err);
+                            console.log("got an error: ", err);
+                        }
+                        else {
+                            res.send(200, newUser);
+                            console.log(body);
+                        }
+                    });
                 }
             });
-
-
         }
-
     });
 };
 
@@ -109,7 +108,7 @@ exports.login = function (req, res, next) {
             if (err) {
                 return res.send(err);
             }
-            res.json(req.user.user_info);
+            res.json({ '_id': user._id, 'username': user.username, 'email': user.email, 'admin': user.admin, 'organizationName': user.organization.name});
         });
     })(req, res, next);
-}
+};

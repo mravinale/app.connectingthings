@@ -11,9 +11,11 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findOne({ _id: id }, function (err, user) {
-    done(err, user);
-  });
+    User.findOne({ _id: id })
+        .populate({path: 'organization'})
+        .exec(function (err, user) {
+         done(err, user);
+    });
 });
 
 // Use local strategy
@@ -22,7 +24,10 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
   },
   function(email, password, done) {
-    User.findOne({ email: email }, function (err, user) {
+    User.findOne({ email: email })
+        .populate({path: 'organization'})
+        .exec(function (err, user) {
+
       if (err) {
         return done(err);
       }

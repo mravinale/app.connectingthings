@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 exports.create = function (req, res, next) {
     var newDevice = new Device(req.body);
     newDevice.owner = req.user;
+    newDevice.organization = req.user.organization;
 
     newDevice.save(function(err, panel) {
         if (err) {
@@ -21,7 +22,7 @@ exports.create = function (req, res, next) {
 exports.getAll = function (req, res, next) {
 
     Device
-        .find({owner: req.user.id})
+        .find({organization: req.user.organization})
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -41,7 +42,7 @@ exports.getAll = function (req, res, next) {
 exports.getAllDevices = function (req, res, next) {
 
     Device
-        .find({owner: req.user.id})
+        .find({organization: req.user.organization})
         .populate('sensors')
         .exec(function (error, devices) {
         if (error) {

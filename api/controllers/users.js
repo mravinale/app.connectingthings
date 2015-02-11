@@ -66,8 +66,11 @@ exports.exists = function (req, res, next) {
 };
 
 exports.getAll = function (req, res, next) {
+
+    var query = req.user.organization.name == "admin" && req.user.admin ? {} : {organization: req.user.organization};
+
     User
-        .find()
+        .find( query )
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -84,8 +87,10 @@ exports.getAll = function (req, res, next) {
 };
 
 exports.getAllUsers = function (req, res, next) {
+    var query = req.user.organization.name == "admin" && req.user.admin ? {} : {organization: req.user.organization};
+
     User
-        .find()
+        .find(query)
         .exec(function (error, users) {
             if (error) {
                 console.log(error);

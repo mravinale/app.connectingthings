@@ -41,7 +41,8 @@ angular.module('app')
 
         sessionService.login('password',$scope.user)
             .success(function (response, status, headers, config) {
-                $sessionStorage.currentUser = response;
+                $sessionStorage.currentUser = response
+                debugger;
                 $rootScope.currentUser =  $sessionStorage.currentUser;
                 $location.path('/');
             })

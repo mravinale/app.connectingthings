@@ -10,7 +10,8 @@ var CameraSchema = new Schema({
   owner: { type: String, ref: 'User' },
   login: String,
   password: String,
-  url: String
+  url: String,
+  organization: { type: String, ref: 'Organization' }
 });
 
 CameraSchema.pre('save', function (next) {

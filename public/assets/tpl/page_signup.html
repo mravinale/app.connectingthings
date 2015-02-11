@@ -62,6 +62,26 @@
                       field required
                   </div>
               </div>
+
+              <div ng-class="{'has-error': form.organization.$error.mongoose}" class="list-group list-group-sm">
+                  <input type="organization"
+                         class="form-control"
+                         placeholder="Organization"
+                         name="organization"
+                         ng-model="user.organization"
+                         required
+                         mongoose-error
+                         autofill >
+                  <div class="error"
+                       ng-show="form.organization.$error.mongoose && submitted">
+                      {{ errors.organization }}
+                  </div>
+                  <div class="error"
+                       ng-show="form.organization.$error.required && submitted ">
+                      field required
+                  </div>
+              </div>
+
           </div>
           <div class="checkbox m-b-md m-t-none">
             <label class="i-checks">

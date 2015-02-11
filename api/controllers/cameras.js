@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 exports.create = function (req, res, next) {
     var newCamera = new Camera(req.body);
     newCamera.owner = req.user;
+    newCamera.organization = req.user.organization;
 
     newCamera.save(function(err, panel) {
         if (err) {
@@ -21,7 +22,7 @@ exports.create = function (req, res, next) {
 exports.getAll = function (req, res, next) {
 
     Camera
-        .find({owner: req.user.id})
+        .find({organization: req.user.organization})
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -40,7 +41,7 @@ exports.getAll = function (req, res, next) {
 exports.getAllCameras = function (req, res, next) {
 
     Camera
-        .find({owner: req.user.id})
+        .find({organization: req.user.organization})
         .exec(function (error, cameras) {
         if (error) {
            console.log(error);

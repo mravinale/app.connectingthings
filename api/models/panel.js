@@ -12,7 +12,8 @@ var PanelSchema = new Schema({
   sensor: { type: String, ref: 'Sensor' },
   type: String,
   size: String,
-  owner: { type: String, ref: 'User' }
+  owner: { type: String, ref: 'User' },
+  organization: { type: String, ref: 'Organization' }
 });
 
 PanelSchema.pre('save', function (next) {

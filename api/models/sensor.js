@@ -9,7 +9,8 @@ var SensorSchema = new Schema({
   name: {type: String},
   tag: {type: String},
   description: {type: String},
-  owner: { type: String, ref: 'User' }
+  owner: { type: String, ref: 'User' },
+  organization: { type: String, ref: 'Organization' }
 });
 
 SensorSchema.pre('save', function (next) {

@@ -12,6 +12,7 @@ var client = new Client();
 exports.create = function (req, res, next) {
     var newPanel = new Panel(req.body);
     newPanel.owner = req.user;
+    newPanel.organization = req.user.organization;
 
     newPanel.save(function(err, panel) {
         if (err) {
@@ -26,7 +27,7 @@ exports.create = function (req, res, next) {
 exports.getAll = function (req, res, next) {
 
     Panel
-        .find({owner: req.user.id})
+        .find({organization: req.user.organization})
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -45,7 +46,8 @@ exports.getAll = function (req, res, next) {
 
 exports.getAllPanels = function (req, res, next) {
 
-    Panel.find({owner: req.user.id})
+    Panel
+        .find({organization: req.user.organization})
         .exec(function (error, panels) {
             if (error) {
                console.log(error);

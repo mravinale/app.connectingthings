@@ -10,7 +10,8 @@ var SectionSchema = new Schema({
   tag: {type: String},
   description: {type: String},
   panels:[{ type:String, ref: 'Panel' }],
-  owner: { type: String, ref: 'User' }
+  owner: { type: String, ref: 'User' },
+  organization: { type: String, ref: 'Organization' }
 });
 
 SectionSchema.pre('save', function (next) {

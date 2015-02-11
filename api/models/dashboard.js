@@ -9,7 +9,8 @@ var DashboardSchema = new Schema({
   name: String,
   description: String,
   sections: [{ type:String, ref: 'Section' }],
-  owner: { type: String, ref: 'User' }
+  owner: { type: String, ref: 'User' },
+  organization: { type: String, ref: 'Organization' }
 });
 
 DashboardSchema.pre('save', function (next) {
