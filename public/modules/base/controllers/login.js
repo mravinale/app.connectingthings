@@ -1,7 +1,7 @@
 'use strict';
-
+//ng-annotate --add public/modules/base/controllers/login.js -o public/modules/base/controllers/login.js
 angular.module('app')
-  .controller('LoginCtrl', function ($scope, $rootScope,sessionService,$sessionStorage, $location) {
+  .controller('LoginCtrl', ["$scope", "$rootScope", "sessionService", "$sessionStorage", "$location", function ($scope, $rootScope,sessionService,$sessionStorage, $location) {
     $scope.errors =  {};
     $scope.submitted = false;
 
@@ -56,4 +56,4 @@ angular.module('app')
     };
 
     $scope.init();
-  });
+  }]);
