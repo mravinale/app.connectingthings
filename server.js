@@ -27,7 +27,8 @@ var pass = require('./api/config/passport');
 // Environments configuration
 app.configure( function(){
     app.use(express.errorHandler());
-    app.use(express.static(__dirname + '/public'));
+   // app.use(express.static(__dirname + '/public'));
+    app.use(express.static(__dirname + '/dist'));
 });
 
 app.use(express.logger('dev'));
