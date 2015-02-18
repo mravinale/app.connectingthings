@@ -86,18 +86,21 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            dist: {
-                src: 'public/index.html',
-                dest: 'dist/index.html',
-                filter: 'isFile'
-
+            dist:  {
+                files: [
+                    { expand: true, cwd: 'public/assets/fonts/', src: ['**'], dest: 'dist/assets/fonts/'},
+                    { expand: true, cwd: 'public/assets/img/', src: ['**'], dest: 'dist/assets/img/'},
+                    { expand: true, cwd: 'public/assets/l10n/', src: ['**'], dest: 'dist/assets/l10n/'},
+                    { expand: true, cwd: 'public/modules/', src: ['**/views/**/*'], dest: 'dist/modules/'},
+                    { src: 'public/index.html', dest: 'dist/index.html'}
+                ]
             }
         },
         concat: {
             style: {
                 files: [
                     {
-                        dest: 'dist/css/style.css',
+                        dest: 'dist/assets/css/style.css',
                         src: [
                                '<%= yeoman.app %>/assets/css/bootstrap.css',
                                '<%= yeoman.app %>/assets/css/animate.css',
@@ -228,15 +231,15 @@ module.exports = function (grunt) {
         uglify: {
             dist: {
                 files: {
-                 //   'dist/js/app.js': [ 'dist/js/app.js' ],
+                    'dist/js/app.js': [ 'dist/js/app.js' ],
                     'dist/js/lib.js': [ 'dist/js/lib.js' ]
                 }
             }
         },
         cssmin: {
-            target: {
+            dist: {
                 files: {
-                    'dist/css/style.css': [ 'dist/css/style.css' ]
+                    'dist/assets/css/style.css': [ 'dist/assets/css/style.css' ]
                 }
             }
         }
@@ -272,6 +275,7 @@ module.exports = function (grunt) {
         'bower'
     ]);
     grunt.registerTask('build', [
+        'bower',
         'clean:dist',
         'copy:dist',
         'useminPrepare',
@@ -280,7 +284,7 @@ module.exports = function (grunt) {
         'concat:app',
         'ngAnnotate:dist',
         'uglify:dist',
-        'cssmin',
+        'cssmin:dist',
         'usemin'
     ]);
 

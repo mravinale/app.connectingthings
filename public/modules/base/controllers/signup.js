@@ -4,7 +4,7 @@ angular.module('app').controller('SignupCtrl', function ($scope,$rootScope, $loc
 
 		$scope.register = function(form) {
             $scope.errors = {};
-debugger;
+
             sessionService.create($scope.user)
                 .success(function (response, status, headers, config) {
                     $rootScope.currentUser = null;
