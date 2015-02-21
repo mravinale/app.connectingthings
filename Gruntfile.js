@@ -102,60 +102,16 @@ module.exports = function (grunt) {
                     {
                         dest: 'dist/assets/css/style.css',
                         src: [
-                               '<%= yeoman.app %>/assets/css/bootstrap.min.css',
-                               '<%= yeoman.app %>/assets/css/animate.css',
-                               '<%= yeoman.app %>/assets/css/font-awesome.min.css',
-                               '<%= yeoman.app %>/assets/css/simple-line-icons.css',
-                               '<%= yeoman.app %>/assets/css/app.css',
-                               '<%= yeoman.app %>/assets/css/app-admin.css',
-                               '<%= yeoman.app %>/lib/nvd3/nv.d3.min.css',
-                               '<%= yeoman.app %>/lib/chosen/chosen.min.css',
-                               '<%= yeoman.app %>/lib/ng-table/ng-table.min.css',
+                                '<%= yeoman.app %>/assets/css/bootstrap.min.css',
+                                '<%= yeoman.app %>/lib/nvd3/nv.d3.min.css',
+                                '<%= yeoman.app %>/lib/chosen/chosen.min.css',
+                                '<%= yeoman.app %>/lib/ng-table/ng-table.min.css',
+                                '<%= yeoman.app %>/assets/css/font-awesome.min.css',
+                                '<%= yeoman.app %>/assets/css/app.css',
+                                '<%= yeoman.app %>/assets/css/app-admin.css',
+                                '<%= yeoman.app %>/assets/css/animate.css',
+                                '<%= yeoman.app %>/assets/css/simple-line-icons.css'
                         ]
-                    }
-                ]
-            },
-            lib: {
-                files: [
-                    {
-                        dest: 'dist/js/lib.js',
-                        src: [
-                            '<%= yeoman.app %>/assets/js/jquery/jquery.min.js',
-                            '<%= yeoman.app %>/assets/js/jquery-ui-1.10.4.min.js',
-
-                            '<%= yeoman.app %>/assets/js/angular/angular.min.js',
-                            '<%= yeoman.app %>/assets/js/angular/angular-cookies.min.js',
-                            '<%= yeoman.app %>/assets/js/angular/angular-animate.min.js',
-                            '<%= yeoman.app %>/assets/js/angular/angular-ui-router.min.js',
-                            '<%= yeoman.app %>/assets/js/angular/angular-translate.js',
-                            '<%= yeoman.app %>/assets/js/angular/ngStorage.min.js',
-                            '<%= yeoman.app %>/assets/js/angular/ui-load.js',
-                            '<%= yeoman.app %>/assets/js/angular/ui-jq.js',
-                            '<%= yeoman.app %>/assets/js/angular/ui-validate.js',
-                            '<%= yeoman.app %>/assets/js/angular/ui-bootstrap-tpls.min.js',
-
-                            '<%= yeoman.app %>/lib/angular-chosen-localytics/chosen.js',
-                            '<%= yeoman.app %>/lib/angular-socket-io/socket.js',
-                            '<%= yeoman.app %>/lib/angular-resource/angular-resource.js',
-                            '<%= yeoman.app %>/lib/angular-cookies/angular-cookies.js',
-                            '<%= yeoman.app %>/lib/angular-sanitize/angular-sanitize.js',
-                            '<%= yeoman.app %>/lib/angular-route/angular-route.js',
-                            '<%= yeoman.app %>/lib/angular-http-auth/src/http-auth-interceptor.js',
-                            '<%= yeoman.app %>/assets/js/angular-ui.sorteable.js',
-                            '<%= yeoman.app %>/assets/js/screenfull.min.js',
-
-                            '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',
-                            '<%= yeoman.app %>/lib/underscore/underscore.js',
-                            '<%= yeoman.app %>/lib/ng-table/ng-table.min.js',
-                            '<%= yeoman.app %>/lib/chosen/chosen.jquery.min.js',
-                            '<%= yeoman.app %>/lib/momentjs/moment.js',
-                            '<%= yeoman.app %>/lib/d3/d3.js',
-                            '<%= yeoman.app %>/lib/nvd3/nv.d3.js',
-                            '<%= yeoman.app %>/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
-                            '<%= yeoman.app %>/lib/angular-gravatar/build/md5.js',
-                            '<%= yeoman.app %>/lib/angular-gravatar/build/angular-gravatar.js'
-
-                            ]
                     }
                 ]
             },
@@ -164,6 +120,41 @@ module.exports = function (grunt) {
                     {
                         dest: 'dist/js/app.js',
                         src: [
+                                '<%= yeoman.app %>/assets/js/jquery/jquery.min.js',
+                                '<%= yeoman.app %>/assets/js/jquery-ui-1.10.4.min.js',
+
+                                '<%= yeoman.app %>/assets/js/angular/angular.min.js',
+                                '<%= yeoman.app %>/assets/js/angular/angular-cookies.min.js',
+                                '<%= yeoman.app %>/assets/js/angular/angular-animate.min.js',
+                                '<%= yeoman.app %>/assets/js/angular/angular-ui-router.min.js',
+                                '<%= yeoman.app %>/assets/js/angular/angular-translate.js',
+                                '<%= yeoman.app %>/assets/js/angular/ngStorage.min.js',
+                                '<%= yeoman.app %>/assets/js/angular/ui-load.js',
+                                '<%= yeoman.app %>/assets/js/angular/ui-jq.js',
+                                '<%= yeoman.app %>/assets/js/angular/ui-validate.js',
+                                '<%= yeoman.app %>/assets/js/angular/ui-bootstrap-tpls.min.js',
+
+                                '<%= yeoman.app %>/lib/angular-chosen-localytics/chosen.js',
+                                '<%= yeoman.app %>/lib/angular-socket-io/socket.js',
+                                '<%= yeoman.app %>/lib/angular-resource/angular-resource.js',
+                                '<%= yeoman.app %>/lib/angular-cookies/angular-cookies.js',
+                                '<%= yeoman.app %>/lib/angular-sanitize/angular-sanitize.js',
+                                '<%= yeoman.app %>/lib/angular-route/angular-route.js',
+                                '<%= yeoman.app %>/lib/angular-http-auth/src/http-auth-interceptor.js',
+                                '<%= yeoman.app %>/assets/js/angular-ui.sorteable.js',
+                                '<%= yeoman.app %>/assets/js/screenfull.min.js',
+
+                                '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',
+                                '<%= yeoman.app %>/lib/underscore/underscore.js',
+                                '<%= yeoman.app %>/lib/ng-table/ng-table.min.js',
+                                '<%= yeoman.app %>/lib/chosen/chosen.jquery.min.js',
+                                '<%= yeoman.app %>/lib/momentjs/moment.js',
+                                '<%= yeoman.app %>/lib/d3/d3.js',
+                                '<%= yeoman.app %>/lib/nvd3/nv.d3.js',
+                                '<%= yeoman.app %>/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
+                                '<%= yeoman.app %>/lib/angular-gravatar/build/md5.js',
+                                '<%= yeoman.app %>/lib/angular-gravatar/build/angular-gravatar.js',
+
                                '<%= yeoman.app %>/modules/app.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_me.js',
                                '<%= yeoman.app %>/modules/base/controllers/login.js',
@@ -234,8 +225,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'dist/js/app.js': [ 'dist/js/app.js' ],
-                    'dist/js/lib.js': [ 'dist/js/lib.js' ]
+                    'dist/js/app.js': [ 'dist/js/app.js' ]
                 }
             }
         },
@@ -246,7 +236,6 @@ module.exports = function (grunt) {
                 }
             }
         }
-
     });
 
     grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -283,13 +272,14 @@ module.exports = function (grunt) {
         'copy:dist',
         'useminPrepare',
 
-        'concat:lib',
+//        'concat:lib',
         'concat:app',
         'ngAnnotate:dist',
         'uglify:dist',
         'usemin',
-        'concat:style',
-       // 'cssmin:dist',
+        'concat:style'
+    //    'htmlbuild:dist'
+        //'cssmin:dist',
 
     ]);
 
