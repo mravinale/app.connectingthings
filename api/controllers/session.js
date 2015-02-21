@@ -104,9 +104,9 @@ exports.login = function (req, res, next) {
         if (error) {
             return res.json(400, error);
         }
-        req.logIn(user, function (err) {
-            if (err) {
-                return res.send(err);
+        req.logIn(user, function (error) {
+            if (error) {
+                return res.json(400, error);
             }
             res.json({ '_id': user._id, 'username': user.username, 'email': user.email, 'admin': user.admin, 'organizationName': user.organization.name});
         });
