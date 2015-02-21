@@ -102,14 +102,13 @@ module.exports = function (grunt) {
                     {
                         dest: 'dist/assets/css/style.css',
                         src: [
-                               '<%= yeoman.app %>/assets/css/bootstrap.css',
+                               '<%= yeoman.app %>/assets/css/bootstrap.min.css',
                                '<%= yeoman.app %>/assets/css/animate.css',
                                '<%= yeoman.app %>/assets/css/font-awesome.min.css',
                                '<%= yeoman.app %>/assets/css/simple-line-icons.css',
-                               '<%= yeoman.app %>/assets/css/font.css" type="text/css',
-                               '<%= yeoman.app %>/assets/css/sb-admin.css',
                                '<%= yeoman.app %>/assets/css/app.css',
-                               '<%= yeoman.app %>/lib/nvd3/nv.d3.css',
+                               '<%= yeoman.app %>/assets/css/app-admin.css',
+                               '<%= yeoman.app %>/lib/nvd3/nv.d3.min.css',
                                '<%= yeoman.app %>/lib/chosen/chosen.min.css',
                                '<%= yeoman.app %>/lib/ng-table/ng-table.min.css',
                         ]
@@ -143,6 +142,7 @@ module.exports = function (grunt) {
                             '<%= yeoman.app %>/lib/angular-route/angular-route.js',
                             '<%= yeoman.app %>/lib/angular-http-auth/src/http-auth-interceptor.js',
                             '<%= yeoman.app %>/assets/js/angular-ui.sorteable.js',
+                            '<%= yeoman.app %>/assets/js/screenfull.min.js',
 
                             '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',
                             '<%= yeoman.app %>/lib/underscore/underscore.js',
@@ -229,6 +229,9 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
+            options: {
+                mangle: false
+            },
             dist: {
                 files: {
                     'dist/js/app.js': [ 'dist/js/app.js' ],
@@ -279,13 +282,15 @@ module.exports = function (grunt) {
         'clean:dist',
         'copy:dist',
         'useminPrepare',
-        'concat:style',
+
         'concat:lib',
         'concat:app',
         'ngAnnotate:dist',
         'uglify:dist',
-        'cssmin:dist',
-        'usemin'
+        'usemin',
+        'concat:style',
+       // 'cssmin:dist',
+
     ]);
 
 };
