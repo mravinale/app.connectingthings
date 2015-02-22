@@ -1,0 +1,315 @@
+<h2 ng-show="!currentUser">Welcome. Please log in.</h2>
+
+<div  ng-show="currentUser">
+
+    <div ng-include="" src="'modules/base/views/partials/navbar.html'" ng-controller="NavbarCtrl"></div>
+
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Dashboard</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Temperature
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Actions <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Action</a></li>
+                                        <li class="divider"></li><li><a href="#">Separated link</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <line-chart chart="tempChart" ymax="50" class="line-chart"></line-chart>
+                            </div>
+
+                        </div>
+                    </div>
+
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Humidity
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Actions <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Action</a></li>
+                                        <li class="divider"></li><li><a href="#">Separated link</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <line-chart chart="humidityChart" class="line-chart"></line-chart>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Smoke in the air
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li class="divider"></li><li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="text-center">
+                            <line-chart chart="smokeChart" ymax="20" class="line-chart"></line-chart>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Temperature
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li class="divider"></li><li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" style="height: 233px ;overflow-y: auto;">
+                        <div class="text-center">
+                            <gauge min="0" max="60" size="190" value="tempGaugeValue" label="º C" class="gauge"></gauge>
+                        </div><!--/span-->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Humidity
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li class="divider"></li><li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" style="height: 233px ;overflow-y: auto;">
+                        <div class="text-center">
+                            <gauge min="0" max="100" size="190" value="humidityGaugeValue" label="%" class="gauge"></gauge>
+                        </div><!--/span-->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Smoke in the air
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li class="divider"></li><li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" style="height: 233px ;overflow-y: auto;">
+                        <div class="text-center">
+                            <gauge min="0" max="20" size="190" value="smokeGaugeValue" label="%" class="gauge"></gauge>
+                        </div><!--/span-->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bell fa-fw"></i> Temperature Notifications Panel
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" style="height: 233px ;overflow-y: auto;">
+                        <div class="list-group">
+
+                            <a href="#" class="list-group-item" ng-repeat="item in tempChart.data">
+                                <i class="fa fa-envelope fa-fw"></i> {{item.value}}º celcius
+                                                <span class="pull-right text-muted small"><em>{{item.timestamp  | date:'medium'}}</em>
+                                                </span>
+                            </a>
+
+                        </div>
+                        <!-- /.list-group -->
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bell fa-fw"></i> Humidity Notifications Panel
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" style="height: 233px ;overflow-y: auto;">
+                        <div class="list-group">
+
+                            <a href="#" class="list-group-item" ng-repeat="item in humidityChart.data">
+                                <i class="fa fa-envelope fa-fw"></i> {{item.value}} %
+                                                <span class="pull-right text-muted small"><em>{{item.timestamp  | date:'medium'}}</em>
+                                                </span>
+                            </a>
+
+                        </div>
+                        <!-- /.list-group -->
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bell fa-fw"></i> Smoke Notifications Panel
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" style="height: 233px ;overflow-y: auto;">
+                        <div class="list-group">
+
+                            <a href="#" class="list-group-item" ng-repeat="item in smokeChart.data">
+                                <i class="fa fa-envelope fa-fw"></i> {{item.value}} %
+                                                <span class="pull-right text-muted small"><em>{{item.timestamp  | date:'medium'}}</em>
+                                                </span>
+                            </a>
+
+                        </div>
+                        <!-- /.list-group -->
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Device
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li class="divider"></li><li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="text-center">
+                            <line-chart chart="tempChart" ymin="0" ymax="1" class="line-chart"></line-chart>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Device on/off Panel
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body text-center" style="margin-bottom: 65px;margin-top: 30px">
+
+                        <span class="toggle">
+                            <input checked type="checkbox" ng-model="toggleButton">
+                            <label data-off="&#10006;" data-on="&#10004;"></label>
+                            <div ng-class="{'led-green' : toggleButton,'led-off' : !toggleButton }" style="margin-top: 120px;"></div>
+                        </span>
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bell fa-fw"></i> Device Notifications Panel
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" style="height: 233px ;overflow-y: auto;">
+                        <div class="list-group">
+
+                            <a href="#" class="list-group-item" ng-repeat="item in smokeChart.data">
+                                <i class="fa fa-envelope fa-fw"></i> {{item.value}}
+                                                <span class="pull-right text-muted small"><em>{{item.timestamp  | date:'medium'}}</em>
+                                                </span>
+                            </a>
+                        </div>
+                        <!-- /.list-group -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
