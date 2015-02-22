@@ -256,6 +256,11 @@ var app = angular.module('app', [
                 url: '/forgotpwd',
                 templateUrl: 'modules/base/views/forgotpwd.html'
             })
+            .state('access.suscription', {
+                url: '/suscription',
+                templateUrl: 'modules/base/views/suscription.html',
+                controller: 'SuscriptionCtrl'
+            })
             .state('access.404', {
                 url: '/404',
                 templateUrl: 'assets/tpl/page_404.html'
@@ -275,15 +280,14 @@ var app = angular.module('app', [
 
         // if no currentUser and on a page that requires authorization then try to update it
         // will trigger 401s if user does not have a valid session
-        if (!$rootScope.currentUser && ([  '/logout', '/signup'].indexOf($location.path()) == -1 )) {
+        if (!$rootScope.currentUser && (['/logout', '/access/signin', '/access/signup', '/access/suscription'].indexOf($location.path()) == -1 )) {
 
             sessionService.getCurrentUser()
             .success(function (response, status, headers, config) {
                 $sessionStorage.currentUser = response;
             })
             .error(function(error, status, headers, config) {
-                $state.transitionTo('access.signin')
-              //  $location.path('/login');
+                $state.transitionTo('access.signin');
                 console.log(error)
             });
         }
@@ -292,7 +296,6 @@ var app = angular.module('app', [
     // On catching 401 errors, redirect to the login page.
     $rootScope.$on('event:auth-loginRequired', function() {
         $state.transitionTo('access.signin')
-      //  $location.path('/login');
         return false;
     });
 })
