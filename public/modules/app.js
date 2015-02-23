@@ -27,8 +27,8 @@ var app = angular.module('app', [
     'btford.socket-io',
     'nvd3ChartDirectives',
     'localytics.directives',
-    'ui.gravatar'
-
+    'ui.gravatar',
+    'reCAPTCHA'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',
@@ -39,8 +39,8 @@ var app = angular.module('app', [
   ]
 )
 .config(
-  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
-    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide) {
+  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider',
+    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider) {
         
         // lazy controller, directive and service
         app.controller = $controllerProvider.register;
@@ -49,6 +49,10 @@ var app = angular.module('app', [
         app.factory    = $provide.factory;
         app.service    = $provide.service;
         app.constant   = $provide.constant;
+
+        reCAPTCHAProvider.setOptions({
+            theme: 'white'
+        });
 
         $urlRouterProvider
             .otherwise('app/dashboard/me');

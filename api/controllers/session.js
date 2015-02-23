@@ -4,7 +4,8 @@ var mongoose = require('mongoose'),
     passport = require('passport'),
     User = mongoose.model('User'),
     Organization = mongoose.model('Organization'),
-    Mailgun = require('mailgun-js');
+    Mailgun = require('mailgun-js'),
+    simple_recaptcha = require('simple-recaptcha');
 
 //Your api key, from Mailgun’s Control Panel
 var api_key = 'key-966ab673e0452234ef90349363496a34';
@@ -23,38 +24,48 @@ exports.signUp = function (req, res, next) {
     newUser.isValidated = false;
     newUser.admin = true;
 
-    Organization.findOrCreate({name: req.body.organization}, function (error, organization, created) {
-        var origin = req.headers.origin;
+    var privateKey = '6LctfAITAAAAAKpEYZS-xQKZgiy8xgdnRZyN6jGM',  // your private key here
+        ip = req.ip,
+        challenge = req.body.captcha.challenge,
+        response = req.body.captcha.response;
 
-        if (error) {
-            console.log(error);
-            res.send(400, error);
-        } else {
-            newUser.organization = organization;
-            newUser.save(function(err) {
-                if (err) {
-                    return res.json(400, err);
-                } else {
-                    var data = {
-                        from: from_who,
-                        to: newUser.email,
-                        subject: 'Activate your ConnectingThings account',
-                        html: 'Activate your new ConnectingThings account by clicking on the link below. <a href="'+origin+'/#/access/suscription?confirmation=' + newUser._id + '">Click here to confirm</a>'
-                    };
-                    mailgun.messages().send(data, function (err, body) {
-                        if (err) {
-                            res.json(400, err);
-                            console.log("got an error: ", err);
-                        }
-                        else {
-                            res.send(200, newUser);
-                            console.log(body);
-                        }
-                    });
-                }
-            });
-        }
+    simple_recaptcha(privateKey, ip, challenge, response, function(err) {
+        if (err) return res.json(400,{errors:{recaptcha_response_field: {type: err.message}}});
+
+        Organization.findOrCreate({name: req.body.organization}, function (error, organization, created) {
+            var origin = req.headers.origin;
+
+            if (error) {
+                return res.json(400, error);
+            } else {
+                newUser.organization = organization;
+                newUser.save(function(err) {
+                    if (err) {
+                        return res.json(400, err);
+                    } else {
+                        var data = {
+                            from: from_who,
+                            to: newUser.email,
+                            subject: 'Activate your ConnectingThings account',
+                            html: 'Activate your new ConnectingThings account by clicking on the link below. <a href="'+origin+'/#/access/suscription?confirmation=' + newUser._id + '">Click here to confirm</a>'
+                        };
+                        mailgun.messages().send(data, function (err, body) {
+                            if (err) {
+                                res.json(400, err);
+                                console.log("got an error: ", err);
+                            }
+                            else {
+                                res.send(200, newUser);
+                                console.log(body);
+                            }
+                        });
+                    }
+                });
+            }
+        });
     });
+
+
 };
 
 

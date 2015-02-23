@@ -25,7 +25,8 @@
     "simple-line-icons": "~0.1.2",
     "animate.css": "~3.2.1",
     "font-awesome": "4.1.0",
-    "bootstrap": "3.2.0"
+    "bootstrap": "3.2.0",
+    "angular-re-captcha": "~0.2.0"
   },
   "resolutions": {
     "d3": "~3.4.1"
