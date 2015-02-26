@@ -111,7 +111,7 @@ exports.login = function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         var error = err || info ;
 
-        if (!user.isValidated) {
+        if (!error && !user.isValidated) {
             return res.json(400, {errors:{email:{type: "Check your email and confirm your registration"}}});
         }
         if (error) {

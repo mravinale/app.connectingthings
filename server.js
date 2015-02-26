@@ -10,8 +10,7 @@ var express = require('express'),
     mongoStore = require('connect-mongo')(express),
     config = require('./api/config/config'),
     mongoose = require('mongoose'),
-    moment = require('moment'),
-    argv = require('yargs').argv;
+    moment = require('moment');
 
 
 var app = express();
@@ -28,9 +27,8 @@ var pass = require('./api/config/passport');
 // Environments configuration
 app.configure( function(){
     app.use(express.errorHandler());
-    console.log(process.argv[2])
-    if(process.argv[2] == '-dist'){
 
+    if(process.argv[2] == '-dist'){
         app.use(express.static(__dirname + '/dist'));
     } else {
        app.use(express.static(__dirname + '/public'));
