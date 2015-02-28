@@ -154,6 +154,7 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
                                 '<%= yeoman.app %>/lib/angular-gravatar/build/md5.js',
                                 '<%= yeoman.app %>/lib/angular-gravatar/build/angular-gravatar.js',
+                                '<%= yeoman.app %>/lib/angular-re-captcha/angular-re-captcha.js',
 
                                '<%= yeoman.app %>/modules/app.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_me.js',
