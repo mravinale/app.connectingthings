@@ -87,7 +87,7 @@
             <div class="list-group list-group-sm">
                 <div re-captcha ng-model="user.captcha" ></div>
                 <div class="error"
-                     ng-show="form.recaptcha_response_field.$error.mongoose && submitted">
+                     ng-show="form.recaptcha_response_field.$error.mongoose">
                     {{ errors.recaptcha_response_field }}
                 </div>
                 <div class="error"

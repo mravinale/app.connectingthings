@@ -30,6 +30,7 @@ exports.signUp = function (req, res, next) {
         response = req.body.captcha.response;
 
     simple_recaptcha(privateKey, ip, challenge, response, function(err) {
+        //{errors:{email:{type: "Check your email and confirm your registration"}}}
         if (err) return res.json(400,{errors:{recaptcha_response_field: {type: err.message}}});
 
         Organization.findOrCreate({name: req.body.organization}, function (error, organization, created) {

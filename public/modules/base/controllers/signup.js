@@ -19,11 +19,12 @@ angular.module('app').controller('SignupCtrl', function ($scope,$rootScope, $loc
             $location.path('/access/suscription').search( {'message': 'Check your email for complete your sign up process'});
         })
         .error(function(response, status, headers, config) {
-            angular.forEach(response.errors, function(error, field) {
-                $scope.form[field].$setValidity('mongoose', false);
+            angular.forEach(response.errors, function (error, field) {
+                form[field].$setValidity('mongoose', false);
                 $scope.errors[field] = error.type;
                 $scope.submitted = false;
             });
+            $scope.errors.other = response.message;
         });
 
     };
