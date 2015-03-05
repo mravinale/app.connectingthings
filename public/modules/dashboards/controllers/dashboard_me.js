@@ -20,7 +20,7 @@ angular.module('app')
             dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
                 $scope.dashboards = response;
-                $scope.tab = response[0].name;
+                $scope.tab = response[0]? response[0].name : null;
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

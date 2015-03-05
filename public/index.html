@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="lib/ng-table/ng-table.min.css" type="text/css" />
 <!-- endbuild -->
 </head>
-<body ng-controller="AppCtrl" >
+<body ng-controller="AppCtrl" ng-class="{ 'body-external': enableExternal }">
 <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}" ui-view></div>
 <!-- build:js js/app.js -->
 <script src="assets/js/jquery/jquery.min.js"></script>

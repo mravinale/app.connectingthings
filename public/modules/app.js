@@ -539,7 +539,7 @@ angular.module('app.directives', ['ui.load'])
     }]);
 
 angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
-    .controller('AppCtrl', ['$scope', '$translate', '$localStorage', function($scope, $translate, $localStorage) {
+    .controller('AppCtrl', ['$scope','$rootScope', '$translate', '$localStorage','$route', '$location', function($scope,$rootScope, $translate, $localStorage, $route, $location) {
         // add 'no-touch' 'ie' classes to html
         var isTouchDevice = !!('ontouchstart' in window);
         var isIE = !!navigator.userAgent.match(/MSIE/i);
@@ -589,5 +589,15 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
             // You can change the language during runtime
             $translate.use(langKey);
         };
+
+
+
+        $rootScope.$on("$stateChangeSuccess", function (event, current, previous, rejection) {
+                if(_.contains(["/access/signin", "/access/signup", "/access/forgotpwd"], $location.$$url)){
+                    $rootScope.enableExternal = true;
+                } else {
+                    $rootScope.enableExternal = false;
+                }
+         });
 
     }]);
