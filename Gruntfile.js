@@ -92,6 +92,7 @@ module.exports = function (grunt) {
                     { expand: true, cwd: 'public/assets/img/', src: ['**'], dest: 'dist/assets/img/'},
                     { expand: true, cwd: 'public/assets/l10n/', src: ['**'], dest: 'dist/assets/l10n/'},
                     { expand: true, cwd: 'public/modules/', src: ['**/views/**/*'], dest: 'dist/modules/'},
+                    { src: 'public/favicon.ico', dest: 'dist/favicon.ico'},
                     { src: 'public/index.html', dest: 'dist/index.html'}
                 ]
             }
