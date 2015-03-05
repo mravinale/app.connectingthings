@@ -1,13 +1,14 @@
 <div class="container w-xxl w-auto-xs">
-    <a href class="navbar-brand block m-t">{{app.name}}</a>
+    <img src="/assets/img/FullBrandWhite.png" alt="{{app.name}}" >
+    <!--a href class="navbar-brand block m-t">{{app.name}}</a!-->
     <div class="m-b-lg">
         <div class="wrapper text-center">
-            <strong>Sign in to get in touch</strong>
+            <strong style="color: white;">Sign in to get in touch</strong>
         </div>
         <div class="wrapper text-center">
             <strong>{{message}}</strong>
         </div>
-        <form class="form-signin"
+        <form class="form-external"
               name="form"
               autofill-submit="login(form)"
               novalidate>
@@ -59,7 +60,7 @@
 
             </div>
             <button type="submit" class="btn btn-lg btn-primary btn-block">Log in</button>
-            <div class="text-center m-t m-b"><a ui-sref="access.forgotpwd">Forgot password?</a></div>
+            <div  class="text-center m-t m-b"><a style="color: white;" ui-sref="access.forgotpwd">Forgot password?</a></div>
             <div class="line line-dashed"></div>
             <!--p class="text-center"><small>Do not have an account?</small></p>
             <a ui-sref="access.signup" class="btn btn-lg btn-default btn-block">Create an account</a-->

@@ -54,6 +54,13 @@ body {
   -webkit-font-smoothing: antialiased;
   line-height: 1.42857143;
 }
+.body-external {
+    background:  url('/assets/img/cc3000_blur.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 *:focus {
   outline: 0 !important;
 }
@@ -205,6 +212,17 @@ a:hover .caret-white {
   right: 10px;
   top: 50%;
   margin-top: -7px;
+}
+.form-external{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.55);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+    padding: 25px;
+
 }
 .input-lg {
   height: 45px;
@@ -2941,7 +2959,7 @@ a.text-black:hover {
   color: #fff;
 }
 .text-muted {
-  color: #99a6ad;
+  color: #010101;
 }
 .pos-rlt {
   position: relative;
@@ -3563,10 +3581,10 @@ a.text-black:hover {
   width: 280px;
 }
 .w-xl {
-  width: 320px;
+  width: 340px;
 }
 .w-xxl {
-  width: 350px;
+  width: 395px;
 }
 .w-full {
   width: 100%;
