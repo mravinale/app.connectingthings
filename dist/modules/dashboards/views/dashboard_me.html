@@ -16,28 +16,30 @@
 
          <div ng-repeat="dashboard in dashboards" ng-show="tab === '{{dashboard.name}}'">
 
-            <div class="row" ng-repeat="section in dashboard.sections">
+             <div  ui-sortable  >
+                <div class="row"  ng-repeat="section in dashboard.sections">
 
                 <div class="col-lg-12">
-                    <h3 class="row-header">{{section.name}}</h3>
+                    <h3 class="row-header" style="cursor:move" >{{section.name}}</h3>
                 </div>
 
                 <div class="panels" ui-sortable ng-model="section.panels">
-                    <div   ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in section.panels | orderPanel:section.name:dashboard._id">
+                    <div ng-class="{'col-md-3': panel.size == 'small', 'col-md-6': panel.size == 'medium', 'col-md-9': panel.size == 'large'}" ng-repeat="panel in section.panels | orderPanel:section.name:dashboard._id">
 
-                        <panel-switch ng-if="panel.type=='switch'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" tag="{{panel.sensor.tag}}"> </panel-switch>
+                        <panel-switch style="cursor:move"  ng-if="panel.type=='switch'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" tag="{{panel.sensor.tag}}"> </panel-switch>
 
-                        <panel-gauge ng-if="panel.type=='gauge'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" > </panel-gauge>
+                        <panel-gauge style="cursor:move"  ng-if="panel.type=='gauge'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" > </panel-gauge>
 
-                        <panel-info ng-if="panel.type=='info'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" > </panel-info>
+                        <panel-info style="cursor:move"  ng-if="panel.type=='info'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{panel.device.name}}/{{panel.sensor.tag}}" > </panel-info>
 
-                        <panel-d3-chart ng-if="panel.type=='d3-chart'" name="{{panel.name}}" url="{{panel.device.url}}"  topic="/{{panel.device.name}}/{{panel.sensor.tag}}"  > </panel-d3-chart>
+                        <panel-d3-chart style="cursor:move"  ng-if="panel.type=='d3-chart'" name="{{panel.name}}" url="{{panel.device.url}}"  topic="/{{panel.device.name}}/{{panel.sensor.tag}}"  > </panel-d3-chart>
 
-                        <panel-camera ng-if="panel.type=='camera'" name="{{panel.name}}" url="{{panel.camera.url}}" login="{{panel.camera.login}}" password="{{panel.camera.password}}" > </panel-camera>
+                        <panel-camera style="cursor:move"  ng-if="panel.type=='camera'" name="{{panel.name}}" url="{{panel.camera.url}}" login="{{panel.camera.login}}" password="{{panel.camera.password}}" > </panel-camera>
 
                     </div>
                 </div>
             </div>
+             </div>
 
          </div>
     </div>
