@@ -14,6 +14,7 @@ exports.createMyDashboard = function (req, res, next) {
 
             var newMyDashboard = new MyDashboard(dashboard);
             newMyDashboard.owner = req.user;
+            newMyDashboard.organization = req.user.organization;
 
             newMyDashboard.save(callback);
 
