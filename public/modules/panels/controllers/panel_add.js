@@ -53,6 +53,7 @@ angular.module('app')
         deviceService.getAllDevices()
             .success(function(response, status, headers, config) {
                 $scope.devices = response;
+                $scope.panel.device = $scope.devices[0]?  $scope.devices[0]._id : null;
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
