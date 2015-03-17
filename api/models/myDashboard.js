@@ -8,7 +8,8 @@ var MyDashboardSchema = new Schema({
    _id: {type: String},
   dashboard:{type: String},
   sections: Schema.Types.Mixed,
-  owner: { type: String, ref: 'User' }
+  owner: { type: String, ref: 'User' },
+  organization: { type: String, ref: 'Organization' }
 });
 
 MyDashboardSchema.pre('save', function (next) {
