@@ -106,6 +106,14 @@ var tryParseJson = function(str) {
     }
 };
 
+var tryDecriptKey = function(str) {
+    try {
+        return key.decrypt(str, 'utf8');
+    } catch (ex) {
+        return null;
+    }
+};
+
 var key = new nodeRSA(
         '-----BEGIN RSA PRIVATE KEY-----\n'+
         'MIIBOQIBAAJAVY6quuzCwyOWzymJ7C4zXjeV/232wt2ZgJZ1kHzjI73wnhQ3WQcL\n'+
@@ -120,11 +128,13 @@ var key = new nodeRSA(
 
 ponteServer.on("updated", function(resource, buffer) {
 
+    var jsonMessage = tryParseJson(buffer.toString());
+    if(!jsonMessage) return;
+
+    var decrypted = tryDecriptKey(jsonMessage.key);
+    if(!decrypted) return;
+
     var message = { topic: resource, message: buffer.toString() };
-
-    var decrypted = key.decrypt(message.key, 'utf8');
-
-
     io.sockets.emit(message.topic, message.message);
     if(lastValue.topic == message.topic && lastValue.message ==  message.message) return; //add configuration
 
@@ -134,7 +144,7 @@ ponteServer.on("updated", function(resource, buffer) {
         if (err) { return console.error(err.code, err.message); }
 
         lastValue = item;
-        console.log("Resource Updated", item.topic, JSON.parse(item.message));
+        console.log("Resource Updated", item.topic, jsonMessage.value);
     });
 
 });
