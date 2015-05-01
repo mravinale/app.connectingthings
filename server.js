@@ -10,8 +10,7 @@ var express = require('express'),
     mongoStore = require('connect-mongo')(express),
     config = require('./api/config/config'),
     mongoose = require('mongoose'),
-    moment = require('moment'),
-   nodeRSA = require('node-rsa');
+    moment = require('moment');
 
 
 var app = express();
@@ -105,39 +104,35 @@ var tryParseJson = function(str) {
     }
 };
 
-var tryDecriptKey = function(str) {
-    try {
-        return key.decrypt(str, 'utf8');
-    } catch (ex) {
-        return null;
-    }
-};
-
-var privateKey = fs.readFileSync('rsaPrivate.key').toString();
-var key = new nodeRSA(privateKey);
-
 var lastValue = { topic: null, info: null };
+var User = mongoose.model('User');
 
 ponteServer.on("updated", function(resource, buffer) {
 
-    var jsonMessage = tryParseJson(buffer.toString());
-    if(!jsonMessage) return;
+    var message = JSON.parse(buffer.toString());
+    if(!message || !message.key) return;
 
-    var decrypted = tryDecriptKey(jsonMessage.key);
-    if(!decrypted) return;
-
-    io.sockets.emit(message.topic, message.info);
-
-    if(lastValue.topic == resource && lastValue.info ==  buffer.toString()) return; //add configuration
-
-    //TODO: we should validate format
-    var newMessage = new Message({ topic: resource, info: buffer.toString() });
-    newMessage.save(function(err, item) {
+    User.findOne({ key : message.key }, function (err, user) {
         if (err) { return console.error(err.code, err.message); }
+        if(!user) return;
 
-        lastValue = item;
-        console.log("Resource Updated", item.topic, jsonMessage.value);
+        io.sockets.emit(message.topic, message.info);
+
+        if(lastValue.topic == resource && lastValue.info ==  buffer.toString()) return; //add configuration
+
+        //TODO: we should validate format
+        var newMessage = new Message({ topic: resource, info: buffer.toString() });
+        newMessage.save(function(err, item) {
+            if (err) { return console.error(err.code, err.message); }
+
+            lastValue = item;
+            console.log("Resource Updated", item.topic, jsonMessage.value);
+        });
+
     });
+
+
+
 
 });
 

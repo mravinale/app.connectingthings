@@ -1,7 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  User = mongoose.model('User');
+  User = mongoose.model('User'),
+    crypto = require('crypto');
 
 /**
  * Create user
@@ -12,6 +13,7 @@ exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.isValidated = false;
+  newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
 
   newUser.save(function(err) {
     if (err) {

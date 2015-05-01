@@ -16,8 +16,8 @@ var UserSchema = new Schema({
   guest: Boolean,
   provider: String,
   isValidated: Boolean,
-  organization: { type: String, ref: 'Organization', unique: true, required: true}
-
+  organization: { type: String, ref: 'Organization', unique: true, required: true},
+  key: String
 });
 
 /**
