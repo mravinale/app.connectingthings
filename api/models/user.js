@@ -37,7 +37,7 @@ UserSchema
 UserSchema
   .virtual('user_info')
   .get(function () {
-    return { '_id': this._id, 'username': this.username, 'email': this.email, 'admin': this.admin, 'organizationName': this.organization.name};
+    return { '_id': this._id, 'username': this.username, 'email': this.email, 'admin': this.admin, 'organizationName': this.organization.name, 'key': this.key};
   });
 
 /**

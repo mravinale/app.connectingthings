@@ -93,6 +93,8 @@ var opts = {
 };
 
 var Message = mongoose.model('Message');
+var User = mongoose.model('User');
+
 // Start socket conection
 var ponteServer = ponte(opts);
 
@@ -104,34 +106,33 @@ var tryParseJson = function(str) {
     }
 };
 
-var lastValue = { topic: null, info: null };
-var User = mongoose.model('User');
+var lastValue = { topic: null, value: null, key: null };
 
 ponteServer.on("updated", function(resource, buffer) {
 
-    var message = JSON.parse(buffer.toString());
-    if(!message || !message.key) return;
+    console.log("Message received", resource, tryParseJson(buffer.toString()));
 
-    User.findOne({ key : message.key }, function (err, user) {
+    var message = { topic: resource, body: tryParseJson(buffer.toString()) };
+    if(!message.body || !message.body.value || !message.body.key) return console.log("Wrong message format: "+message);
+
+    User.findOne({ key : message.body.key }, function (err, user) {
+
         if (err) { return console.error(err.code, err.message); }
-        if(!user) return;
+        if(!user)  { return console.log("User not found for key: " + message.body.key)};
 
-        io.sockets.emit(message.topic, message.info);
+        io.sockets.emit(message.topic, message.body);
+        console.log("User found: '"+user.username+"', sent message to socket");
 
-        if(lastValue.topic == resource && lastValue.info ==  buffer.toString()) return; //add configuration
-
-        //TODO: we should validate format
-        var newMessage = new Message({ topic: resource, info: buffer.toString() });
+        if(lastValue.topic == resource && lastValue.value ==  message.body.value) return; //add configuration
+        var newMessage = new Message({ topic: resource, value: message.body.value, key: message.body.key });
         newMessage.save(function(err, item) {
             if (err) { return console.error(err.code, err.message); }
 
             lastValue = item;
-            console.log("Resource Updated", item.topic, jsonMessage.value);
+            console.log("Message Saved:", item);
         });
 
     });
-
-
 
 
 });

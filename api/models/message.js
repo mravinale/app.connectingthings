@@ -7,8 +7,9 @@ var mongoose = require('mongoose'),
 var MessageSchema = new Schema({
   _id: { type: String },
   topic: {type: String},
-  info: {type: String},
-  createdAt: { type: Date, expires: '12h' }
+  value: {type: String},
+  key: { type: String},
+  createdAt: { type: Date, expires: '6h' }
 }
 //,{ capped: 1024 }
 );
