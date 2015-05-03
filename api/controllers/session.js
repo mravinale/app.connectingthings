@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Organization = mongoose.model('Organization'),
     Mailgun = require('mailgun-js'),
-    simple_recaptcha = require('simple-recaptcha');
+    simple_recaptcha = require('simple-recaptcha'),
+    crypto = require('crypto');
 
 //Your api key, from Mailgun’s Control Panel
 var api_key = 'key-966ab673e0452234ef90349363496a34';
@@ -23,6 +24,7 @@ exports.signUp = function (req, res, next) {
     newUser.provider = 'local';
     newUser.isValidated = false;
     newUser.admin = true;
+    newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
 
     var privateKey = '6LctfAITAAAAAKpEYZS-xQKZgiy8xgdnRZyN6jGM',  // your private key here
         ip = req.ip,
@@ -122,7 +124,8 @@ exports.login = function (req, res, next) {
             if (error) {
                 return res.json(400, error);
             }
-            res.json({ '_id': user._id, 'username': user.username, 'email': user.email, 'admin': user.admin, 'organizationName': user.organization.name});
+            res.json({ '_id': user._id, 'username': user.username, 'email': user.email, 'admin': user.admin, 'organizationName': user.organization.name, 'organizationId': user.organization._id, 'key': user.key});
+
         });
     })(req, res, next);
 };

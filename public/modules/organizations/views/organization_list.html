@@ -32,7 +32,8 @@
                                id="dataTables-example" aria-describedby="dataTables-example_info">
                             <tbody>
                             <tr ng-repeat="organization in $data">
-                                <td data-title="'Organization Name'" sortable="'name'">{{organization.name}}</td>
+                                <td data-title="'Name'" sortable="'name'">{{organization.name}}</td>
+                                <td data-title="'Description'" sortable="'description'">{{organization.description}}</td>
 
                                 <td data-title="'Actions'" style="width: 155px">
                                     <a ng-click="editOrganization(organization._id)" class="btn btn-primary" role="button">Edit</a>

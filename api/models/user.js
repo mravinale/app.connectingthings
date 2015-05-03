@@ -16,7 +16,7 @@ var UserSchema = new Schema({
   guest: Boolean,
   provider: String,
   isValidated: Boolean,
-  organization: { type: String, ref: 'Organization', unique: true, required: true},
+  organization: { type: String, ref: 'Organization', required: true},
   key: String
 });
 
@@ -37,7 +37,7 @@ UserSchema
 UserSchema
   .virtual('user_info')
   .get(function () {
-    return { '_id': this._id, 'username': this.username, 'email': this.email, 'admin': this.admin, 'organizationName': this.organization.name, 'key': this.key};
+    return { '_id': this._id, 'username': this.username, 'email': this.email, 'admin': this.admin, 'organizationName': this.organization.name, 'organizationId': this.organization._id, 'key': this.key};
   });
 
 /**

@@ -1,4 +1,5 @@
       <!-- navbar header -->
+<div  ng-controller="HeaderCtrl">
       <div class="navbar-header {{app.settings.navbarHeaderColor}}">
         <button class="pull-right visible-xs dk" ui-toggle-class="show" data-target=".navbar-collapse">
           <i class="glyphicon glyphicon-cog"></i>
@@ -60,19 +61,10 @@
             <ul class="dropdown-menu animated fadeInRight w">
 
               <li>
-                <a href>
-                  <span class="badge bg-danger pull-right">30%</span>
-                  <span>Settings</span>
-                </a>
+                <a ng-click="settings()"><span>Settings</span> </a>
               </li>
               <li>
-                <a ui-sref="app.page.profile">Profile</a>
-              </li>
-              <li>
-                <a ui-sref="app.docs">
-                  <span class="label bg-info pull-right">new</span>
-                  Help
-                </a>
+                <a target="_blank" href="http://docs.connectingthings.io">Help</a>
               </li>
               <li class="divider"></li>
               <li>
@@ -86,3 +78,4 @@
 
       </div>
       <!-- / navbar collapse -->
+</div>

@@ -13,17 +13,19 @@ exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.isValidated = false;
+ // newUser.organization = req.user.organization._id;
   newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
 
   newUser.save(function(err) {
     if (err) {
-      return res.json(400, err);
+      return res.send(400, err);
     }
+      return res.send(newUser.user_info);
 
-    req.logIn(newUser, function(err) {
+    /*req.logIn(newUser, function(err) {
       if (err) return next(err);
-      return res.json(newUser.user_info);
-    });
+      return res.send(newUser.user_info);
+    });*/
 
   });
 };
