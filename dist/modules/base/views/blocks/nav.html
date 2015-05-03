@@ -102,13 +102,13 @@
     </ul>
   </li-->
 
-  <li class="line dk hidden-folded" ng-show="currentUser.admin"></li>
+  <li class="line dk hidden-folded" ng-show="currentUser.admin && currentUser.organizationName == 'admin'"></li>
 
-  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs" ng-show="currentUser.admin">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs" ng-show="currentUser.admin && currentUser.organizationName == 'admin'">
     <span translate="aside.nav.your_stuff.YOUR_STUFF">Personal</span>
   </li>  
   <li>
-    <a ui-sref="app.user.list" ng-show="currentUser.admin" >
+    <a ui-sref="app.user.list" ng-show="currentUser.admin && currentUser.organizationName == 'admin'" >
       <i class="icon-user icon text-success-lter"></i>
       <!--b class="badge bg-success dk pull-right">30%</b-->
       <span translate="aside.nav.your_stuff.USERS">Users</span>

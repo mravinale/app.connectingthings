@@ -12,7 +12,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-11">
-                            <form class="form-horizontal" name="form"  autofill-submit="save(form)" novalidate>
+                            <form class="form-horizontal" novalidate>
 
                                 <div ng-class="{'has-error': form.username.$error.mongoose}" class="form-group">
                                     <label class="col-sm-2 control-label">User Name</label>
@@ -81,6 +81,13 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">Organization</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="user.organization" class="form-control" placeholder="User Key" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">User Admin</label>
                                     <div class="col-sm-10" style="padding-top: 7px">
                                         <input type="checkbox" ng-model="user.admin"  placeholder="User Description">
@@ -90,7 +97,7 @@
 
                                 <div class="form-group" style="padding-top: 30px">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="button" ng-click="save()" class="btn btn-primary">Submit</button>
                                         <a  ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
                                     </div>
                                 </div>
