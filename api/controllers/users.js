@@ -13,7 +13,7 @@ exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.isValidated = false;
- // newUser.organization = req.user.organization._id;
+  newUser.organization = req.user.organization._id;
   newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
 
   newUser.save(function(err) {

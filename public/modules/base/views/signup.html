@@ -5,8 +5,7 @@
         <div class="wrapper text-center">
             <strong style="color: white;">Sign up to a new world</strong>
         </div>
-        <form name="form" class="form-external" autofill-submit="register(form)"
-              novalidate>
+        <form name="form" class="form-external" novalidate>
             <div class="list-group list-group-sm">
                 <div ng-class="{'has-error': form.password.$error.mongoose}" class="list-group list-group-sm">
                     <input type="username"
@@ -64,7 +63,7 @@
                     </div>
                 </div>
 
-                <div ng-class="{'has-error': form.organization.$error.mongoose}" class="list-group list-group-sm">
+                <!--div ng-class="{'has-error': form.organization.$error.mongoose}" class="list-group list-group-sm">
                     <input type="organization"
                            class="form-control"
                            placeholder="Organization"
@@ -83,7 +82,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div-->
 
             <div class="list-group list-group-sm">
                 <div re-captcha ng-model="user.captcha" ></div>
@@ -91,10 +90,10 @@
                      ng-show="form.recaptcha_response_field.$error.mongoose">
                     {{ errors.recaptcha_response_field }}
                 </div>
-                <div class="error"
-                     ng-show="form.recaptcha_response_field.$invalid && submitted">
+                <!--div class="error"
+                     ng-show="form.recaptcha_response_field.$error.required && submitted ">
                     field required
-                </div>
+                </div-->
             </div>
 
             <div class="checkbox m-b-md m-t-none">
@@ -103,7 +102,7 @@
                 </label>
             </div>
 
-            <button type="submit" class="btn btn-lg btn-primary btn-block">Sign up</button>
+            <button type="button" ng-click="register(form)" class="btn btn-lg btn-primary btn-block">Sign up</button>
             <div class="line line-dashed"></div>
             <p class="text-center"><small style="color: white;">Already have an account?</small></p>
             <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">Sign in</a>

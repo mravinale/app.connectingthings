@@ -33,18 +33,18 @@ exports.signUp = function (req, res, next) {
 
     simple_recaptcha(privateKey, ip, challenge, response, function(err) {
         //{errors:{email:{type: "Check your email and confirm your registration"}}}
-        if (err) return res.json(400,{errors:{recaptcha_response_field: {type: err.message}}});
+        if (err) return res.send(400,{errors:{recaptcha_response_field: {type: err.message}}});
 
-        Organization.findOrCreate({name: req.body.organization}, function (error, organization, created) {
+        Organization.findOrCreate({name: "Beta"}, function (error, organization, created) {
             var origin = req.headers.origin;
 
             if (error) {
-                return res.json(400, error);
+                return res.send(400, error);
             } else {
                 newUser.organization = organization;
                 newUser.save(function(err) {
                     if (err) {
-                        return res.json(400, err);
+                        return res.send(400, err);
                     } else {
                         var data = {
                             from: from_who,
