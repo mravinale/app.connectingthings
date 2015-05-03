@@ -53,7 +53,7 @@ angular.module('app')
                     .success(function (response, status, headers, config) {
 
                         angular.forEach(response, function(message) {
-                            var item = angular.fromJson(message.message);
+                            var item = angular.fromJson(message);
                             items.push([moment(message.createdAt).valueOf(), parseInt(item.value)]);
                         });
 
