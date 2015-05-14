@@ -165,6 +165,7 @@ module.exports = function (grunt) {
                                '<%= yeoman.app %>/modules/base/controllers/suscription.js',
                                '<%= yeoman.app %>/modules/base/controllers/navbar.js',
                                '<%= yeoman.app %>/modules/base/controllers/header.js',
+                               '<%= yeoman.app %>/modules/base/controllers/public.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_add.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_edit.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_list.js',
@@ -209,7 +210,8 @@ module.exports = function (grunt) {
                                '<%= yeoman.app %>/modules/common/vendor/gauge.js',
                                '<%= yeoman.app %>/modules/common/factories/websocket.js',
                                '<%= yeoman.app %>/modules/common/directives/gauge.js',
-                               '<%= yeoman.app %>/modules/common/directives/lineChart.js'
+                               '<%= yeoman.app %>/modules/common/directives/lineChart.js',
+                               '<%= yeoman.app %>/modules/base/services/Public.js'
                             ]
                     }
                 ]

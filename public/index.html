@@ -18,7 +18,7 @@
 <!-- endbuild -->
 </head>
 <body ng-controller="AppCtrl" ng-class="{ 'body-external': enableExternal }">
-<div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}" ui-view></div>
+<div class="app" id="app"  ng-style="noMenuStyle" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}" ui-view></div>
 <!-- build:js js/app.js -->
 <script src="assets/js/jquery/jquery.min.js"></script>
 <script src="assets/js/jquery-ui-1.10.4.min.js"></script>
@@ -64,6 +64,7 @@
 <script src="modules/base/controllers/signup.js"></script>
 <script src="modules/base/controllers/navbar.js"></script>
 <script src="modules/base/controllers/header.js"></script>
+<script src="modules/base/controllers/public.js"></script>
 
 <script src="modules/dashboards/controllers/dashboard_add.js"></script>
 <script src="modules/dashboards/controllers/dashboard_edit.js"></script>
@@ -98,6 +99,7 @@
 <script src="modules/organizations/controllers/organization_list.js"></script>
 
 <script src="modules/base/services/Session.js"></script>
+<script src="modules/base/services/Public.js"></script>
 
 <script src="modules/panels/services/panel_service.js"></script>
 <script src="modules/cameras/services/camera_service.js"></script>

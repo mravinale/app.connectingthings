@@ -233,13 +233,13 @@ var app = angular.module('app', [
             })
 
             // pages
-            .state('app.page', {
-                url: '/page',
+            .state('app.public', {
+                url: '/public',
                 template: '<div ui-view class="fade-in-down"></div>'
             })
-            .state('app.page.profile', {
-                url: '/profile',
-                templateUrl: 'modules/base/views/profile.html'
+            .state('app.public.dashboard', {
+                url: '/dashboard/:key',
+                templateUrl: 'modules/base/views/dashboard.html'
             })
             // others
             .state('access', {
@@ -276,6 +276,7 @@ var app = angular.module('app', [
 
 .run(function ($rootScope, $sessionStorage, $location, sessionService,$state,userService) {
 
+        $rootScope.showHeader = true;
 
     //watching the value of the currentUser variable.
     $rootScope.$watch('currentUser', function(currentUser) {
@@ -294,6 +295,18 @@ var app = angular.module('app', [
                 $state.transitionTo('access.signin');
                 console.log(error)
             });
+        }
+    });
+
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
+
+        if(toState.name == "app.public.dashboard") {
+            $rootScope.showHeader = false;
+            $rootScope.noMenuStyle =  { "padding-top": "0px", "margin-left": "-60px", "width": "105%", "background-color": "none" }
+        }
+        else{
+            $rootScope.showHeader = true;
+            $rootScope.noMenuStyle =  {}
         }
     });
 
@@ -568,7 +581,8 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
                 asideColor: 'bg-black',
                 headerFixed: true,
                 asideFixed: false,
-                asideFolded: false
+                asideFolded: false,
+                noMenu: ""
             }
         }
 

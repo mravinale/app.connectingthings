@@ -10,6 +10,9 @@ module.exports = function(app) {
     app.get('/mydashboard', auth.ensureAuthenticated, myDashboard.getMyDashboard);
     app.post('/mydashboard', auth.ensureAuthenticated, myDashboard.createMyDashboard);
 
+    var publics = require('../controllers/public');
+    app.get('/public/dashboards/user/:key',  publics.getAllDashboards);
+
     // Device Routes
     var dashboards = require('../controllers/dashboards');
     app.get('/dashboards', auth.ensureAuthenticated, dashboards.getAll);
