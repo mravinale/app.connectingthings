@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app')
-    .controller('UserEditCtrl', function ($scope, $routeParams, userService, $sessionStorage, $modalInstance, userId) {
+    .controller('UserEditCtrl', function ($scope, $routeParams, userService, $localStorage, $modalInstance, userId) {
 
         $scope.user = { };
 

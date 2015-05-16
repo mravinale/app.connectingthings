@@ -1,11 +1,11 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $sessionStorage, dashboardService) {
+    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService) {
 /*
         dashboardService.getMyDashboard()
             .success(function (response, status, headers, config) {
-                $sessionStorage.myDashboards = response;
+                $localStorage.myDashboards = response;
             })
             .error(function(response, status, headers, config) {
                 console.log(response);
@@ -39,7 +39,7 @@ angular.module('app')
 
             dashboardService.createMyDashboard(dashboardsChanges)
                 .success(function (response) {
-                    $sessionStorage.myDashboards = response;
+                    $localStorage.myDashboards = response;
                 })
                 .error(function(response) {
                     console.log(response);
@@ -55,15 +55,15 @@ angular.module('app')
     });
 
 //TODO: sections should be another kind of panel ;)
-angular.module('app').filter('orderPanel', function($sessionStorage) {
+angular.module('app').filter('orderPanel', function($localStorage) {
     return function(input, sectionName, dashboardId) {
         var out = [];
 /*
-        if($sessionStorage.myDashboards.length == 0 ){
+        if($localStorage.myDashboards.length == 0 ){
             out = input
         }
         else{
-            var dashboard = _.find($sessionStorage.myDashboards, function(order){ return order.dashboard == dashboardId; });
+            var dashboard = _.find($localStorage.myDashboards, function(order){ return order.dashboard == dashboardId; });
 
             _.each(dashboard.sections, function(section){
                  if(section.name == sectionName && input !== undefined){

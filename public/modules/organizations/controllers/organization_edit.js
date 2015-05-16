@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app')
-    .controller('OrganizationEditCtrl', function ($scope, $routeParams, organizationService, $sessionStorage, $modalInstance, organizationId) {
+    .controller('OrganizationEditCtrl', function ($scope, $routeParams, organizationService, $localStorage, $modalInstance, organizationId) {
 
         $scope.organization = { };
 

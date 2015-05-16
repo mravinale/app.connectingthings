@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('SignupCtrl', function ($scope,$rootScope, $location, sessionService,$sessionStorage, reCAPTCHA) {
+angular.module('app').controller('SignupCtrl', function ($scope,$rootScope, $location, sessionService,$localStorage, reCAPTCHA) {
 
     $scope.user = {};
     $scope.submitted = false;
@@ -20,7 +20,7 @@ angular.module('app').controller('SignupCtrl', function ($scope,$rootScope, $loc
         sessionService.create($scope.user)
         .success(function (response, status, headers, config) {
             $rootScope.currentUser = null;
-            $sessionStorage.$reset();
+            $localStorage.$reset();
             $location.path('/access/suscription').search( {'message': 'Check your email for complete your sign up process'});
         })
         .error(function(response, status, headers, config) {

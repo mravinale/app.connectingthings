@@ -1,5 +1,5 @@
 'use strict';
-angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessionService,$sessionStorage, $location) {
+angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessionService,$localStorage, $location) {
     $scope.errors =  {};
     $scope.submitted = false;
 
@@ -11,8 +11,8 @@ angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessi
 
         sessionService.login('password',$scope.user)
             .success(function (response, status, headers, config) {
-                $sessionStorage.currentUser = response
-                $rootScope.currentUser =  $sessionStorage.currentUser;
+                $localStorage.currentUser = response
+                $rootScope.currentUser =  $localStorage.currentUser;
                 $location.path('/');
             })
             .error(function(response, status, headers, config) {

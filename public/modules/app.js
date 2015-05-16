@@ -274,14 +274,14 @@ var app = angular.module('app', [
   ]
 )
 
-.run(function ($rootScope, $sessionStorage, $location, sessionService,$state,userService) {
+.run(function ($rootScope, $localStorage, $location, sessionService,$state,userService) {
 
         $rootScope.showHeader = true;
 
     //watching the value of the currentUser variable.
     $rootScope.$watch('currentUser', function(currentUser) {
 
-        $rootScope.currentUser = $sessionStorage.currentUser? $sessionStorage.currentUser : $rootScope.currentUser;
+        $rootScope.currentUser = $localStorage.currentUser? $localStorage.currentUser : $rootScope.currentUser;
 
         // if no currentUser and on a page that requires authorization then try to update it
         // will trigger 401s if user does not have a valid session
@@ -289,7 +289,7 @@ var app = angular.module('app', [
 
             sessionService.getCurrentUser()
             .success(function (response, status, headers, config) {
-                $sessionStorage.currentUser = response;
+                $localStorage.currentUser = response;
             })
             .error(function(error, status, headers, config) {
                 $state.transitionTo('access.signin');

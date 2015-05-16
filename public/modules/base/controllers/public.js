@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('app')
-    .controller('publicCtrl', function ($scope, panelService, sectionService, $sessionStorage, publicService, $routeParams) {
+    .controller('publicCtrl', function ($scope, panelService, sectionService, $localStorage, publicService, $routeParams) {
 
             $scope.tab = null;
 
             $scope.setTab = function(id){
                 $scope.tab = id;
             };
-debugger
+
             publicService.getAllDashboards($routeParams.key) //iL4bJVGT820
                 .success(function (response, status, headers, config) {
                     $scope.dashboards = response;
