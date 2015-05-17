@@ -145,7 +145,7 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/assets/js/angular-ui.sorteable.js',
                                 '<%= yeoman.app %>/assets/js/screenfull.min.js',
 
-                                '<%= yeoman.app %>lib/socket.io-client/socket.io.js',
+                                '<%= yeoman.app %>/lib/socket.io-client/socket.io.js',
                                 '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',
                                 '<%= yeoman.app %>/lib/underscore/underscore.js',
                                 '<%= yeoman.app %>/lib/ng-table/ng-table.min.js',
