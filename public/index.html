@@ -5,7 +5,7 @@
 <title>ConnectingThings</title>
 <meta name="description" content="app,web app,iot,saas,sensors,arduino,internet of things" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<!-- build:css assets/css/style.css -->
+<!-- build:css assets/css/style.css?v=0.0.1 -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" />
 <link rel="stylesheet" href="assets/css/animate.css" type="text/css" />
 <link rel="stylesheet" href="assets/css/font-awesome.min.css" type="text/css" />
@@ -19,7 +19,7 @@
 </head>
 <body ng-controller="AppCtrl" ng-class="{ 'body-external': enableExternal }">
 <div class="app" id="app"  ng-style="noMenuStyle" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}" ui-view></div>
-<!-- build:js js/app.js -->
+<!-- build:js js/app.js?v=0.0.1 -->
 <script src="assets/js/jquery/jquery.min.js"></script>
 <script src="assets/js/jquery-ui-1.10.4.min.js"></script>
 
@@ -124,8 +124,8 @@
 <script src="modules/common/factories/websocket.js"></script>
 <script src="modules/common/directives/gauge.js"></script>
 <script src="modules/common/directives/lineChart.js"></script>
-<!-- endbuild -->
 <script src="/socket.io/socket.io.js"></script>
+<!-- endbuild -->
 <!-- build:remove -->
 <script src="//localhost:35729/livereload.js"></script>
 <!-- endbuild -->

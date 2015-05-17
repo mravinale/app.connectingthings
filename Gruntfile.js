@@ -211,7 +211,8 @@ module.exports = function (grunt) {
                                '<%= yeoman.app %>/modules/common/factories/websocket.js',
                                '<%= yeoman.app %>/modules/common/directives/gauge.js',
                                '<%= yeoman.app %>/modules/common/directives/lineChart.js',
-                               '<%= yeoman.app %>/modules/base/services/Public.js'
+                               '<%= yeoman.app %>/modules/base/services/Public.js',
+                               '<%= yeoman.app %>/socket.io/socket.io.js'
                             ]
                     }
                 ]
