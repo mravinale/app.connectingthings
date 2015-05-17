@@ -145,6 +145,7 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/assets/js/angular-ui.sorteable.js',
                                 '<%= yeoman.app %>/assets/js/screenfull.min.js',
 
+                                '<%= yeoman.app %>lib/socket.io-client/socket.io.js',
                                 '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',
                                 '<%= yeoman.app %>/lib/underscore/underscore.js',
                                 '<%= yeoman.app %>/lib/ng-table/ng-table.min.js',
@@ -211,8 +212,7 @@ module.exports = function (grunt) {
                                '<%= yeoman.app %>/modules/common/factories/websocket.js',
                                '<%= yeoman.app %>/modules/common/directives/gauge.js',
                                '<%= yeoman.app %>/modules/common/directives/lineChart.js',
-                               '<%= yeoman.app %>/modules/base/services/Public.js',
-                               '<%= yeoman.app %>/socket.io/socket.io.js'
+                               '<%= yeoman.app %>/modules/base/services/Public.js'
                             ]
                     }
                 ]
