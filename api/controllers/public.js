@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
 exports.getAllDashboards = function (req, res, next) {
 
     User
-        .findOne({key: req.params.key || ""})
+        .findOne({publicKey: req.params.key || ""})
         .exec(function (error, user) {
             if (error) { return res.send(400, error); }
             if (!user) { return res.send(400, "user not found"); }
