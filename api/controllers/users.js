@@ -2,7 +2,20 @@
 
 var mongoose = require('mongoose'),
   User = mongoose.model('User'),
-    crypto = require('crypto');
+    crypto = require('crypto'),
+Mailgun = require('mailgun-js');
+
+
+//Your api key, from Mailgun’s Control Panel
+var api_key = 'key-966ab673e0452234ef90349363496a34';
+
+//Your domain, from the Mailgun Control Panel
+var domain = 'connectingthings.io';
+
+//Your sending email address
+var from_who = 'noreply@connectingthings.io';
+
+var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 
 /**
  * Create user
@@ -20,8 +33,26 @@ exports.create = function (req, res, next) {
   newUser.save(function(err) {
     if (err) {
       return res.send(400, err);
+    } else {
+        var data = {
+            from: from_who,
+            to: newUser.email,
+            subject: 'Activate your ConnectingThings account',
+            html: 'Activate your new ConnectingThings account by clicking on the link below. <a href="'+origin+'/#/access/suscription?confirmation=' + newUser._id + '">Click here to confirm</a>'
+        };
+        mailgun.messages().send(data, function (err, body) {
+            if (err) {
+                res.json(400, err);
+                console.log("got an error: ", err);
+            }
+            else {
+                res.send(200, newUser);
+                console.log(body);
+            }
+        });
     }
-      return res.send(newUser.user_info);
+
+    //  return res.send(newUser.user_info);
 
     /*req.logIn(newUser, function(err) {
       if (err) return next(err);
