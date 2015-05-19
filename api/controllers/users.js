@@ -52,7 +52,7 @@ exports.create = function (req, res, next) {
         });
     }
 
-    //  return res.send(newUser.user_info);
+    // return res.send(newUser.user_info);
 
     /*req.logIn(newUser, function(err) {
       if (err) return next(err);

@@ -36,6 +36,13 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">Public Url</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="user.publicUrl" class="form-control" placeholder="Public Url" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">User Admin</label>
                                     <div class="col-sm-10" style="padding-top: 7px">
                                         <input type="checkbox" ng-model="user.admin"  ng-disabled="currentUser._id == user._id " placeholder="User Description">
