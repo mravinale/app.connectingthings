@@ -25,7 +25,8 @@ exports.signUp = function (req, res, next) {
     newUser.isValidated = false;
     newUser.admin = true;
     newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
-    newUser.publicUrl = 'http://' + req.headers.host + "/#/app/public/dashboard/" +  crypto.randomBytes(8).toString('base64').slice(0,-1);
+    newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1);
+    newUser.publicUrl = 'http://' + req.headers.host + "/#/app/public/dashboard/" +  newUser.publicKey;
 
     var privateKey = '6LctfAITAAAAAKpEYZS-xQKZgiy8xgdnRZyN6jGM',  // your private key here
         ip = req.ip,

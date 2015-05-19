@@ -11,7 +11,6 @@ var UserSchema = new Schema({
   username: { type: String, unique: true, required: true },
   hashedPassword: String,
   salt: String,
-  name: String,
   surname: String,
   admin: Boolean,
   guest: Boolean,
@@ -19,6 +18,7 @@ var UserSchema = new Schema({
   isValidated: Boolean,
   organization: { type: String, ref: 'Organization', required: true},
   key: String,
+  publicKey: String,
   publicUrl: String
 
 });

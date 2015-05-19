@@ -28,7 +28,8 @@ exports.create = function (req, res, next) {
   newUser.isValidated = false;
   newUser.organization = req.user.organization._id;
   newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
-  newUser.publicUrl = 'http://' + req.headers.host + "/#/app/public/dashboard/" +  crypto.randomBytes(8).toString('base64').slice(0,-1);
+  newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1);
+  newUser.publicUrl = 'http://' + req.headers.host + "/#/app/public/dashboard/" +  newUser.publicKey;
 
   newUser.save(function(err) {
     if (err) {
