@@ -26,7 +26,7 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
                 console.log("Error:",response);
             })
             .finally(function() {
-                debugger
+
                 $rootScope.currentUser = undefined;
                 $localStorage.$reset();
                 $state.transitionTo('access.signin');

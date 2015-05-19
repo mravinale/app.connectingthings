@@ -238,7 +238,7 @@ var app = angular.module('app', [
                 template: '<div ui-view class="fade-in-down"></div>'
             })
             .state('app.public.dashboard', {
-                url: '/dashboard/:key',
+                url: '/dashboard/:id',
                 templateUrl: 'modules/base/views/dashboard.html'
             })
             // others
@@ -276,7 +276,7 @@ var app = angular.module('app', [
 
 .run(function ($rootScope, $localStorage, $location, sessionService,$state,userService) {
 
-        $rootScope.showHeader = true;
+    $rootScope.showHeader = true;
 
     //watching the value of the currentUser variable.
     $rootScope.$watch('currentUser', function(currentUser) {
@@ -285,7 +285,10 @@ var app = angular.module('app', [
 
         // if no currentUser and on a page that requires authorization then try to update it
         // will trigger 401s if user does not have a valid session
+
         if (!$rootScope.currentUser && (['/logout', '/access/signin', '/access/signup', '/access/suscription'].indexOf($location.path()) == -1 )) {
+
+            if($location.path().indexOf("/app/public/dashboard/") > -1) return;
 
             sessionService.getCurrentUser()
             .success(function (response, status, headers, config) {
@@ -373,7 +376,6 @@ angular.module('app.filters', []).filter('fromNow', function() {
             return moment(date).fromNow();
         }
     });
-
 angular.module('app.services', []);
 
 
@@ -592,6 +594,7 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
         } else {
             $localStorage.settings = $scope.app.settings;
         }
+
         $scope.$watch('app.settings', function(){ $localStorage.settings = $scope.app.settings; }, true);
 
         // angular translate
@@ -605,12 +608,16 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
         };
 
 
-
         $rootScope.$on("$stateChangeSuccess", function (event, current, previous, rejection) {
                 if(_.contains(["/access/signin", "/access/signup", "/access/forgotpwd"], $location.$$url)){
                     $rootScope.enableExternal = true;
                 } else {
                     $rootScope.enableExternal = false;
+                }
+
+                if(current.name == "app.public.dashboard") {
+                    $scope.app.settings.asideFixed = true;
+                    $scope.app.settings.asideFolded = true;
                 }
          });
 

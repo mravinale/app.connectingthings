@@ -9,14 +9,13 @@ var mongoose = require('mongoose'),
     Device = mongoose.model('Device'),
     User = mongoose.model('User');
 
-
-
 exports.getAllDashboards = function (req, res, next) {
 
     User
-        .findOne({key: req.params.key})
+        .findOne({key: req.params.key || ""})
         .exec(function (error, user) {
             if (error) { return res.send(400, error); }
+            if (!user) { return res.send(400, "user not found"); }
 
             Dashboard
                 .find({organization: user.organization})
@@ -57,6 +56,4 @@ exports.getAllDashboards = function (req, res, next) {
                     });
                 });
         });
-
-
 };

@@ -12,12 +12,15 @@ var UserSchema = new Schema({
   hashedPassword: String,
   salt: String,
   name: String,
+  surname: String,
   admin: Boolean,
   guest: Boolean,
   provider: String,
   isValidated: Boolean,
   organization: { type: String, ref: 'Organization', required: true},
-  key: String
+  key: String,
+  publicUrl: String
+
 });
 
 /**
