@@ -1,9 +1,13 @@
 'use strict';
 
 angular.module('app')
-    .controller('OrganizationListCtrl', function ($scope, organizationService, ngTableParams, $modal, $log) {
+    .controller('OrganizationListCtrl', function ($scope, organizationService, ngTableParams, $modal, $log, psResponsive,$window) {
 
         $scope.errors = {};
+
+        angular.element($window).on('resize', function () {
+            $scope.tableParams.descriptionFlag = psResponsive('> small');
+        });
 
         $scope.initDataTable =  function(){
             $scope.tableParams = new ngTableParams({
@@ -29,6 +33,7 @@ angular.module('app')
                         });
                 }
               });
+            $scope.tableParams.descriptionFlag = psResponsive('> small');
         };
 
         $scope.newOrganization = function () {

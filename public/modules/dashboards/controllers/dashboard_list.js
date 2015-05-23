@@ -1,9 +1,13 @@
 'use strict';
 
 angular.module('app')
-    .controller('DashboardListCtrl', function ($scope, dashboardService, ngTableParams, $modal, $log) {
+    .controller('DashboardListCtrl', function ($scope, dashboardService, ngTableParams, $modal, $log, psResponsive,$window) {
 
         $scope.errors = {};
+
+        angular.element($window).on('resize', function () {
+            $scope.tableParams.descriptionFlag = psResponsive('> small');
+        });
 
         $scope.initDataTable =  function(){
             $scope.tableParams = new ngTableParams({
@@ -28,6 +32,7 @@ angular.module('app')
                         });
                 }
             });
+            $scope.tableParams.descriptionFlag = psResponsive('> small');
         };
 
         $scope.newDashboard = function () {

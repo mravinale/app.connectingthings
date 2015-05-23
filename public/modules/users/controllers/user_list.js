@@ -1,9 +1,13 @@
 'use strict';
 
 angular.module('app')
-    .controller('UserListCtrl', function ($scope, userService, ngTableParams, $modal, $log) {
+    .controller('UserListCtrl', function ($scope, userService, ngTableParams, $modal, $log, psResponsive,$window) {
 
         $scope.errors = {};
+
+        angular.element($window).on('resize', function () {
+            $scope.tableParams.emailFlag = psResponsive('> small');
+        });
 
         $scope.initDataTable =  function(){
             $scope.tableParams = new ngTableParams({
@@ -29,6 +33,7 @@ angular.module('app')
                         });
                 }
               });
+            $scope.tableParams.emailFlag = psResponsive('> small');
         };
 
         $scope.newUser = function () {

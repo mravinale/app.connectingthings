@@ -144,6 +144,7 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/lib/angular-http-auth/src/http-auth-interceptor.js',
                                 '<%= yeoman.app %>/assets/js/angular-ui.sorteable.js',
                                 '<%= yeoman.app %>/assets/js/screenfull.min.js',
+                                '<%= yeoman.app %>/assets/js/ps-responsive.js',
 
                                 '<%= yeoman.app %>/lib/socket.io-client/socket.io.js',
                                 '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',

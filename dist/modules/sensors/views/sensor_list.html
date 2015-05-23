@@ -8,14 +8,18 @@
 
             <form class="bs-example form-horizontal">
                 <div class="form-group" style="margin-bottom: 0px; margin-right: 10px;" >
-                    <label class="col-lg-2 control-label" style="width: 50px;">Search: </label>
                     <div class="col-sm-4">
-                        <input type="search" class="form-control" style="max-width: 250px;">
-
+                        <div class="input-group">
+                            <input type="text" class="input-sm form-control" placeholder="Search">
+                                  <span class="input-group-btn">
+                                    <button  class="btn btn-sm btn-primary " type="button">Go!</button>
+                                  </span>
+                        </div>
                     </div>
-
-                    <div class="col-sm-6 dataTables_filter pull-right" style="padding-right: 7px;">
-                        <a ng-click="newSensor()" class="btn btn-primary " role="button" style="width: 125px; float:right">New Sensor</a>
+                    <div class="col-sm-6 m-b-xs">
+                    </div>
+                    <div class="col-sm-1 col-md-2 dataTables_filter" >
+                        <a  ng-click="newSensor()" class="btn btn-sm btn-primary " role="button" style="width: 100%" >New Sensor</a>
                     </div>
 
                 </div>
@@ -34,8 +38,8 @@
                             <tbody>
                             <tr ng-repeat="sensor in $data">
                                 <td data-title="'Name'" sortable="'name'">{{sensor.name}}</td>
-                                <td data-title="'Tag'" sortable="'tag'">{{sensor.tag}}</td>
-                                <td data-title="'Description'" sortable="'description'">{{sensor.description}}</td>
+                                <td data-title="'Tag'" ng-show="tableParams.tagFlag" sortable="'tag'">{{sensor.tag}}</td>
+                                <td data-title="'Description'" ng-show="tableParams.descriptionFlag" sortable="'description'">{{sensor.description}}</td>
                                 <td data-title="'Actions'" style="width: 155px">
                                     <a ng-click="editSensor(sensor._id)" class="btn btn-primary" role="button">Edit</a>
                                     <button class="btn btn-primary" ng-click="delete(sensor)" class="pull-right">Delete</button>

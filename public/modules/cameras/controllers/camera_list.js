@@ -1,9 +1,13 @@
 'use strict';
 
 angular.module('app')
-    .controller('CameraListCtrl', function ($scope, cameraService, ngTableParams, $modal, $log) {
+    .controller('CameraListCtrl', function ($scope, cameraService, ngTableParams, $modal, $log, psResponsive,$window) {
 
         $scope.errors = {};
+
+        angular.element($window).on('resize', function () {
+            $scope.tableParams.descriptionFlag = psResponsive('> small');
+        });
 
         $scope.initDataTable =  function(){
             $scope.tableParams = new ngTableParams({
@@ -28,7 +32,10 @@ angular.module('app')
                         });
                 }
               });
+            $scope.tableParams.descriptionFlag = psResponsive('> small');
         };
+
+
 
         $scope.newCamera = function () {
             var modalInstance = $modal.open({

@@ -1,9 +1,14 @@
 'use strict';
 
 angular.module('app')
-    .controller('PanelListCtrl', function ($scope, panelService, ngTableParams, $modal, $log) {
+    .controller('PanelListCtrl', function ($scope, panelService, ngTableParams, $modal, $log, psResponsive,$window) {
 
     $scope.errors = {};
+
+    angular.element($window).on('resize', function () {
+        $scope.tableParams.sizeFlag = psResponsive('> small');
+        $scope.tableParams.typeFlag = psResponsive('> small');
+    });
 
     $scope.initDataTable = function () {
         $scope.tableParams = new ngTableParams({
@@ -27,6 +32,8 @@ angular.module('app')
                 });
             }
         });
+        $scope.tableParams.sizeFlag = psResponsive('> small');
+        $scope.tableParams.typeFlag = psResponsive('> small');
     };
 
     $scope.newPanel = function () {
