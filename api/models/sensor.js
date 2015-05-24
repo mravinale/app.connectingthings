@@ -6,8 +6,8 @@ var mongoose = require('mongoose'),
 
 var SensorSchema = new Schema({
   _id: { type: String },
-  name: {type: String},
-  tag: {type: String},
+  name: {type: String, required: true},
+  tag: {type: String, required: true},
   description: {type: String},
   owner: { type: String, ref: 'User' },
   organization: { type: String, ref: 'Organization' }

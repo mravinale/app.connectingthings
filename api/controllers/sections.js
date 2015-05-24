@@ -5,7 +5,6 @@ var mongoose = require('mongoose'),
     Sensor = mongoose.model('Sensor')
 
 
-
 exports.create = function (req, res, next) {
     var newSection = new Section(req.body);
     newSection.owner = req.user;
@@ -35,7 +34,7 @@ exports.getAll = function (req, res, next) {
                 }
             });
         });
-}
+};
 
 exports.getAllSections = function (req, res, next) {
 
@@ -60,7 +59,7 @@ exports.getAllSections = function (req, res, next) {
                 });
             });
         });
-}
+};
 
 
 exports.getById = function (req, res, next) {
@@ -87,7 +86,7 @@ exports.remove = function (req, res, next) {
 
 exports.update = function (req, res, next) {
     delete req.body._id;
-    Section.update({_id: req.params.id}, req.body,{upsert: true}, function (error, section) {
+    Section.update({_id: req.params.id}, req.body,{upsert: true, runValidators: true }, function (error, section) {
         if (error) { return res.send(400, error); }
 
         return  res.json(section);

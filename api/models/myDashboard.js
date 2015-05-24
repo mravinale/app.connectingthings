@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 var MyDashboardSchema = new Schema({
    _id: {type: String},
-  dashboard:{type: String},
+  dashboard:{type: String, required: true },
   sections: Schema.Types.Mixed,
   owner: { type: String, ref: 'User' },
   organization: { type: String, ref: 'Organization' }

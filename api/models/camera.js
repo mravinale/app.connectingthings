@@ -5,12 +5,12 @@ var mongoose = require('mongoose'),
 
 var CameraSchema = new Schema({
   _id: { type: String },
-  name: String,
-  description: String,
+  name: { type: String, required: true },
+  description: { type: String },
+  login: { type: String, required: true },
+  password: { type: String, required: true },
+  url: { type: String, required: true },
   owner: { type: String, ref: 'User' },
-  login: String,
-  password: String,
-  url: String,
   organization: { type: String, ref: 'Organization' }
 });
 

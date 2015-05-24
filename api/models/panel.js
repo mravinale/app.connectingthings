@@ -6,13 +6,13 @@ var mongoose = require('mongoose'),
 
 var PanelSchema = new Schema({
   _id: { type: String },
-  name: String,
-  device: { type: String, ref: 'Device' },
-  camera: { type: String, ref: 'Camera' },
-  sensor: { type: String, ref: 'Sensor' },
-  type: String,
-  size: String,
-  owner: { type: String, ref: 'User' },
+  name: { type: String, required: true },
+  device: { type: String, ref: 'Device', required: true },
+  camera: { type: String, ref: 'Camera', required: true  },
+  sensor: { type: String, ref: 'Sensor', required: true  },
+  type: { type: String, required: true  },
+  size: { type: String, required: true  },
+  owner: { type: String, ref: 'User'},
   organization: { type: String, ref: 'Organization' }
 });
 

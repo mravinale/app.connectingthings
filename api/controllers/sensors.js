@@ -79,7 +79,7 @@ exports.remove = function (req, res, next) {
 
 exports.update = function (req, res, next) {
     delete req.body._id;
-    Sensor.update({_id: req.params.id}, req.body,{upsert: true}, function (error, device) {
+    Sensor.update({_id: req.params.id}, req.body,{upsert: true, runValidators: true }, function (error, device) {
         if (error) {
            console.log(error);
            return res.json(400, error);

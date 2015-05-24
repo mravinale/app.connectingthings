@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 
 var OrganizationSchema = new Schema({
   _id: { type: String },
-  name: {type: String},
+  name: { type: String, required: true },
   description: {type: String}
 });
 
