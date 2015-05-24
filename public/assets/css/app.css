@@ -3905,3 +3905,7 @@ a.text-black:hover {
     background-color: #7266ba;
   }
 }
+
+.error{
+    color:#f05050
+}

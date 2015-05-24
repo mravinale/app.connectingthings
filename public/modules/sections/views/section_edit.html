@@ -5,27 +5,40 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-11" style="padding-left: 30px">
-            <div class="panel panel-default" >
-                <div class="panel-heading">
-                    Edit Section
-                </div>
+        <div class="col-lg-12" style="padding-left: 30px">
+            <div class="panel " >
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-11">
-                            <form class="form-horizontal" role="form">
+                            <form class="form-horizontal" role="form" name="form">
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Name</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="section.name" class="form-control" placeholder="Section name">
+                                        <input ng-model="section.name"
+                                               class="form-control"
+                                               placeholder="Section name"
+                                               name="name"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.name.$error.mongoose">
+                                            {{ errors.name }}
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Description</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="section.description" class="form-control" placeholder="Section Description">
+                                        <input ng-model="section.description"
+                                               class="form-control"
+                                               placeholder="Section Description"
+                                               name="description"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.description.$error.mongoose">
+                                            {{ errors.description }}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -34,21 +47,25 @@
                                     <div class="col-sm-10">
                                         <select multiple
                                                 chosen
-                                                data-placeholder="Selected Panel"
+                                                data-placeholder="selected panel"
                                                 no-results-text="'No panel yet'"
                                                 ng-model="section.panels"
                                                 ng-options="panel._id as panel.name for panel in panels"
                                                 class="form-control"
-                                                >
+                                                name="panels"
+                                                mongoose-error>
                                             <option value="" disabled>select a panel</option>
                                         </select>
+                                        <div class="error"
+                                             ng-show="form.panels.$error.mongoose">
+                                            {{ errors.panels }}
+                                        </div>
                                     </div>
                                 </div>
 
-
                                 <div class="form-group" style="padding-top: 30px">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="button" ng-click="save()" class="btn btn-primary">Submit</button>
+                                        <button type="button" ng-click="save(form)" class="btn btn-primary">Submit</button>
                                         <a ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
                                     </div>
                                 </div>

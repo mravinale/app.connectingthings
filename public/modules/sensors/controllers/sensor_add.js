@@ -5,7 +5,7 @@ angular.module('app')
 
         $scope.sensor = { };
 
-        $scope.save = function() {
+        $scope.save = function(form) {
             $scope.errors = {};
 
            sensorService.create($scope.sensor)
@@ -15,7 +15,7 @@ angular.module('app')
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
-                        $scope.errors[field] = error.type;
+                        $scope.errors[field] = error.message;
                     });
                 });
 

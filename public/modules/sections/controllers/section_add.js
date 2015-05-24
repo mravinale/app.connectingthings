@@ -5,7 +5,7 @@ angular.module('app')
 
         $scope.section = { };
 
-        $scope.save = function() {
+        $scope.save = function(form) {
             $scope.errors = {};
 
            sectionService.create($scope.section)
@@ -15,10 +15,9 @@ angular.module('app')
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
-                        $scope.errors[field] = error.type;
+                        $scope.errors[field] = error.message;
                     });
                 });
-
         };
 
         panelService.getAllPanels()
@@ -30,7 +29,7 @@ angular.module('app')
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
                     form[field].$setValidity('mongoose', false);
-                    $scope.errors[field] = error.type;
+                    $scope.errors[field] = error.message;
                 });
             });
 
