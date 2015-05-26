@@ -3925,6 +3925,9 @@ a.text-black:hover {
   }
 }
 
+.error{
+    color:#f05050
+}
 
 .row-header {
     padding-bottom: 9px;

@@ -74,20 +74,18 @@ exports.getById = function (req, res, next) {
 exports.remove = function (req, res, next) {
 
     Panel.remove({ _id: req.params.id }, function (error) { // TODO remove seems fussy
-        if (error) {
-            log.error(error);
-            res.send(400, error);
-        } else {
-            res.send(200);
-        }
+        if (error) return res.send(400, error);
+
+        res.send(200);
     });
+
 };
 
 exports.update = function (req, res, next) {
     delete req.body._id;
+
     Panel.update({_id: req.params.id}, req.body,{upsert: true, runValidators: true }, function (error, panel) {
         if (error) {
-           console.log(error);
            return res.json(400, error);
         }
 

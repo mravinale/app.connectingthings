@@ -5,8 +5,8 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
     $scope.settings = function() {
 
         var modalInstance = $modal.open({
-            templateUrl: '/modules/users/views/user_edit.html',
-            controller: 'UserEditCtrl',
+            templateUrl: '/modules/users/views/user_settings.html',
+            controller: 'UserSettingsCtrl',
             size: 'lg',
             resolve: {
                 userId: function () {

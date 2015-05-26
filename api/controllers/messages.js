@@ -22,7 +22,7 @@ exports.getAll = function (req, res, next) {
                 }
             });
         });
-}
+};
 
 exports.getAllMessages = function (req, res, next) {
 
@@ -35,6 +35,6 @@ exports.getAllMessages = function (req, res, next) {
             }
             return  res.send(200, messages);
     });
-}
+};
 
 

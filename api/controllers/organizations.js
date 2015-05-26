@@ -34,7 +34,20 @@ exports.getAll = function (req, res, next) {
                 }
             });
         });
-}
+};
+
+exports.getAllOrganizations = function (req, res, next) {
+
+    Organization
+        .find()
+        .exec(function (error, organizations) {
+            if (error) {
+                return res.send(400, error);
+            }
+            return  res.send(200, organizations);
+        });
+};
+
 
 
 exports.getById = function (req, res, next) {

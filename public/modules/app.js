@@ -206,6 +206,11 @@ var app = angular.module('app', [
                 templateUrl: 'modules/users/views/user_edit.html',
                 controller: 'UserEditCtrl'
             })
+            .state('app.user.settings', {
+                url: '/settings/:id',
+                templateUrl: 'modules/users/views/user_settings.html',
+                controller: 'UserSettingsCtrl'
+            })
             .state('app.user.list', {
                 url:'/list',
                 templateUrl: 'modules/users/views/user_list.html',

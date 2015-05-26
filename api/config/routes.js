@@ -100,6 +100,7 @@ module.exports = function(app) {
 
     // Organization Routes
     var organizations = require('../controllers/organizations');
+    app.get('/organizations/items', auth.ensureAuthenticated, organizations.getAllOrganizations);
     app.get('/organizations', auth.ensureAuthenticated, organizations.getAll);
     app.get('/organizations/:id', auth.ensureAuthenticated, organizations.getById);
     app.put('/organizations/:id', auth.ensureAuthenticated, organizations.update);

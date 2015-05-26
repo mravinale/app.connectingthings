@@ -12,7 +12,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-11">
-                            <form class="form-horizontal" novalidate>
+                            <form class="form-horizontal" novalidate name="form">
 
                                 <div ng-class="{'has-error': form.username.$error.mongoose}" class="form-group">
                                     <label class="col-sm-2 control-label">User Name</label>
@@ -22,38 +22,31 @@
                                                placeholder="User name"
                                                name="username"
                                                ng-model="user.username"
-                                               required
-                                               autofocus
                                                mongoose-error
-                                               autofill >
+                                               >
                                         <div class="error"
                                              ng-show="form.username.$error.mongoose">
                                             {{ errors.username }}
                                         </div>
-                                        <div class="error"
-                                             ng-show="form.username.$error.required && submitted ">
-                                            field required
-                                        </div>
+
                                     </div>
                                 </div>
 
                                 <div ng-class="{'has-error': form.email.$error.mongoose}" class="form-group">
                                     <label class="col-sm-2 control-label">Email</label>
                                     <div class="col-sm-10">
-                                        <input   required
-                                                 autofocus
-                                                 mongoose-error
-                                                 autofill
-                                                 name="email"
-                                                 ng-model="user.email" class="form-control" placeholder="Email">
+                                        <input  mongoose-error
+                                                autofill
+                                                name="email"
+                                                ng-model="user.email"
+                                                class="form-control"
+                                                placeholder="Email"
+                                                >
                                         <div class="error"
                                              ng-show="form.email.$error.mongoose">
                                             {{ errors.email }}
                                         </div>
-                                        <div class="error"
-                                             ng-show="form.email.$error.required && submitted ">
-                                            field required
-                                        </div>
+
                                     </div>
                                 </div>
 
@@ -63,7 +56,6 @@
                                         <input  required
                                                 autofocus
                                                 mongoose-error
-                                                autofill
                                                 type="password"
                                                 name="password"
                                                 ng-model="user.password"
@@ -73,24 +65,19 @@
                                              ng-show="form.password.$error.mongoose">
                                             {{ errors.password }}
                                         </div>
-                                        <div class="error"
-                                             ng-show="form.password.$error.required && submitted ">
-                                            field required
-                                        </div>
+
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Key</label>
+                                <div class="form-group" >
+                                    <label  class="col-sm-2 control-label">Organization</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="user.key" class="form-control" placeholder="User Key" disabled>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Public Url</label>
-                                    <div class="col-sm-10">
-                                        <input ng-model="user.publicUrl" class="form-control" placeholder="Public Url" disabled>
+                                        <select
+                                                ng-model="user.organization"
+                                                ng-options="organization._id as organization.name for organization in organizations"
+                                                class="form-control">
+                                            <option value="" >select a organization</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -104,7 +91,7 @@
 
                                 <div class="form-group" style="padding-top: 30px">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="button" ng-click="save()" class="btn btn-primary">Submit</button>
+                                        <button type="button" ng-click="save(form)" class="btn btn-primary">Submit</button>
                                         <a  ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
                                     </div>
                                 </div>

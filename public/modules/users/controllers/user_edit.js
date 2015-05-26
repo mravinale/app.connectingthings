@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app')
-    .controller('UserEditCtrl', function ($scope, $routeParams, userService, $localStorage, $modalInstance, userId) {
+    .controller('UserEditCtrl', function ($scope, $routeParams, userService, $localStorage, $modalInstance, userId, organizationService) {
 
         $scope.user = { };
 
@@ -15,7 +15,7 @@ angular.module('app')
                 });
             });
 
-        $scope.save = function(){
+        $scope.save = function(form){
             $scope.errors = {};
 
             userService.update($scope.user)
@@ -25,10 +25,21 @@ angular.module('app')
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
-                        $scope.errors[field] = error.type;
+                        $scope.errors[field] = error.message;
                     });
                 });
         };
+
+        organizationService.getAllOrganizations()
+            .success(function (response, status, headers, config) {
+                $scope.organizations = response;
+            })
+            .error(function(response, status, headers, config) {
+                angular.forEach(response.errors, function(error, field) {
+                    form[field].$setValidity('mongoose', false);
+                    $scope.errors[field] = error.type;
+                });
+            });
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
