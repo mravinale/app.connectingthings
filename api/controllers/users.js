@@ -27,7 +27,7 @@ exports.create = function (req, res, next) {
   var origin = req.headers.origin;
   newUser.provider = 'local';
   newUser.isValidated = false;
-  newUser.organization = newUser.organization || req.user.organization._id;
+  newUser.password =  req.body.password;
   newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
   newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1);
   newUser.publicUrl = origin+ "/#/app/public/dashboard/" +  newUser.publicKey;
@@ -167,13 +167,19 @@ exports.remove = function (req, res, next) {
 exports.update = function (req, res, next) {
 
     User.findById( req.params.id, function (err, user) {
-        delete req.body._id;
+      delete req.body._id;
+	    delete req.body.email;
 
-        if(req.body.password) {
+	    if(user.username === req.body.username)
+		    delete req.body.username;
+
+	    if(req.body.password) {
             req.body.hashedPassword = user.encryptPassword(req.body.password);
+        } else {
+	          req.body.hashedPassword=  req.body.password;
         }
 
-        User.update({_id: req.params.id}, req.body, function (error, panel) {
+        User.update({_id: req.params.id}, req.body, { runValidators: true },function (error, panel) {
             if (error) return res.json(400, error);
 
             return  res.json(panel);

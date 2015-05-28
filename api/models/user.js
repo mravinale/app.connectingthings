@@ -17,7 +17,7 @@ var UserSchema = new Schema({
   guest: Boolean,
   provider: String,
   isValidated: Boolean,
-  organization: { type: String, ref: 'Organization'},
+  organization: { type: String, ref: 'Organization', required: true},
   key: String,
   publicKey: String,
   publicUrl: String
@@ -51,6 +51,12 @@ UserSchema
 var validatePresenceOf = function (value) {
   return value && value.length;
 };
+
+UserSchema.path('hashedPassword').validate(function(value) {
+    if (!value ) {
+        this.invalidate('password', 'Path `password` is required.');
+    }
+}, null);
 
 UserSchema.path('email').validate(function (email) {
   var emailRegex = /^([-0-9a-zA-Z.+_]+@([\w-]+\.)+[\w-]{2,4})?$/;

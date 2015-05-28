@@ -3,11 +3,14 @@
 angular.module('app')
     .controller('UserAddCtrl', function ($scope, userService,$location, $modalInstance, $rootScope, organizationService) {
 
-        $scope.user = { organization: $rootScope.currentUser.organizationName };
+        $scope.user = {};
         $scope.errors = {};
 
-        $scope.save = function(form) {
+        $scope.updateOrganization = function(form) {
+            form.organization.$error.mongoose = false;
+        };
 
+        $scope.save = function(form) {
            userService.create($scope.user)
                 .success(function (response, status, headers, config) {
                    $modalInstance.close();

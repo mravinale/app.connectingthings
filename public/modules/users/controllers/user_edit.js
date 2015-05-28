@@ -4,6 +4,10 @@ angular.module('app')
 
         $scope.user = { };
 
+				$scope.updateOrganization = function(form) {
+					form.organization.$error.mongoose = false;
+				};
+
         userService.getById(userId)
             .success(function (response, status, headers, config) {
                 $scope.user = response
@@ -11,18 +15,18 @@ angular.module('app')
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
                     form[field].$setValidity('mongoose', false);
-                    $scope.errors[field] = error.type;
+                    $scope.errors[field] = error.message;
                 });
             });
 
         $scope.save = function(form){
             $scope.errors = {};
-
             userService.update($scope.user)
                 .success(function (response, status, headers, config) {
                     $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
+
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
                         $scope.errors[field] = error.message;
@@ -37,7 +41,7 @@ angular.module('app')
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
                     form[field].$setValidity('mongoose', false);
-                    $scope.errors[field] = error.type;
+                    $scope.errors[field] = error.message;
                 });
             });
 
