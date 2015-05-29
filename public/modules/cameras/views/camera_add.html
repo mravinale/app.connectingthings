@@ -13,48 +13,88 @@
             <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-11">
-                            <form class="form-horizontal" role="form">
+                            <form class="form-horizontal" role="form" name="form">
 
-                                <div class="form-group">
+                                <div class="form-group" ng-class="{'has-error': form.name.$error.mongoose}">
                                     <label class="col-sm-2 control-label">Name</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="camera.name" class="form-control" placeholder="Camera name">
+                                        <input ng-model="camera.name"
+                                               class="form-control"
+                                               placeholder="Camera name"
+                                               name="name"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.name.$error.mongoose">
+                                            {{ errors.name }}
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" ng-class="{'has-error': form.description.$error.mongoose}">
                                     <label class="col-sm-2 control-label">Description</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="camera.description" class="form-control" placeholder="Camera description">
+                                        <input ng-model="camera.description"
+                                               class="form-control"
+                                               placeholder="Camera description"
+                                               name="description"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.description.$error.mongoose">
+                                            {{ errors.description }}
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" ng-class="{'has-error': form.login.$error.mongoose}">
                                     <label class="col-sm-2 control-label">Login</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="camera.login" class="form-control" placeholder="Camera Login Name">
+                                        <input ng-model="camera.login"
+                                               class="form-control"
+                                               placeholder="Camera Login Name"
+                                               name="login"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.login.$error.mongoose">
+                                            {{ errors.login }}
+                                        </div>
                                     </div>
                                 </div>
 
 
-                                <div class="form-group">
+                                <div class="form-group" ng-class="{'has-error': form.password.$error.mongoose}">
                                     <label class="col-sm-2 control-label">Password</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="camera.password" type="password" class="form-control" placeholder="Camera Password">
+                                        <input ng-model="camera.password"
+                                               type="password"
+                                               class="form-control"
+                                               placeholder="Camera Password"
+                                               name="password"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.password.$error.mongoose">
+                                            {{ errors.password }}
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" ng-class="{'has-error': form.url.$error.mongoose}">
                                     <label class="col-sm-2 control-label">Url</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="camera.url" class="form-control" placeholder="Camera Url">
+                                        <input ng-model="camera.url"
+                                               class="form-control"
+                                               placeholder="Camera Url"
+                                               name="url"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.url.$error.mongoose">
+                                            {{ errors.url }}
+                                        </div>
                                     </div>
                                 </div>
-
 
                                 <div class="form-group" style="padding-top: 30px">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="button" ng-click="save()" class="btn btn-primary">Submit</button>
+                                        <button type="button" ng-click="save(form)" class="btn btn-primary">Submit</button>
                                         <a ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
                                     </div>
                                 </div>

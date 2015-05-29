@@ -14,7 +14,7 @@
                         <div class="col-lg-11">
                             <form class="form-horizontal" role="form"  name="form">
 
-                                <div class="form-group">
+                                <div class="form-group" ng-class="{'has-error': form.name.$error.mongoose}">
                                     <label class="col-sm-2 control-label">Sensor Name</label>
                                     <div class="col-sm-10">
                                         <input ng-model="sensor.name"
@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" ng-class="{'has-error': form.tag.$error.mongoose}">
                                     <label class="col-sm-2 control-label">Sensor Tag</label>
                                     <div class="col-sm-10">
                                         <input ng-model="sensor.tag"
@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" ng-class="{'has-error': form.description.$error.mongoose}">
                                     <label class="col-sm-2 control-label">Sensor Description</label>
                                     <div class="col-sm-10">
                                         <input ng-model="sensor.description"
