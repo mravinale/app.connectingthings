@@ -38,6 +38,13 @@ passport.use(new LocalStrategy({
           }
         });
       }
+		    if (user.disabled) {
+			    return done(null, false, {
+				    'errors': {
+					    'email': { type: 'System in construction, sorry for the inconvenience.' }
+				    }
+			    });
+		    }
       if (!user.authenticate(password)) {
         return done(null, false, {
           'errors': {

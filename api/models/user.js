@@ -17,6 +17,7 @@ var UserSchema = new Schema({
   guest: Boolean,
   provider: String,
   isValidated: Boolean,
+	disabled: {type: Boolean, default: false},
   organization: { type: String, ref: 'Organization', required: true},
   key: String,
   publicKey: String,
