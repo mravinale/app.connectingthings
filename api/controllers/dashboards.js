@@ -129,13 +129,11 @@ exports.remove = function (req, res, next) {
 
 exports.update = function (req, res, next) {
     delete req.body._id;
-    Dashboard.update({_id: req.params.id}, req.body,{upsert: true, runValidators: true }, function (error, dashboard) {
-        if (error) {
-           console.log(error);
-           return res.json(400, error);
-        }
+	  req.body.sections = req.body.sections.length == 0? null : req.body.sections;
+
+    Dashboard.update({_id: req.params.id}, req.body,{ runValidators: true }, function (error, dashboard) {
+        if (error) return res.json(400, error);
 
         return  res.json(dashboard);
-
     });
 };

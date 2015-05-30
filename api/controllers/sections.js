@@ -85,11 +85,15 @@ exports.remove = function (req, res, next) {
 };
 
 exports.update = function (req, res, next) {
-    delete req.body._id;
-    Section.update({_id: req.params.id}, req.body,{upsert: true, runValidators: true }, function (error, section) {
-        if (error) { return res.send(400, error); }
 
-        return  res.json(section);
+	delete req.body._id;
+	req.body.panels = req.body.panels.length == 0? null : req.body.panels;
 
-    });
+	Section.update({_id: req.params.id}, req.body, { runValidators: true }, function (error, section) {
+		if (error) return res.send(400, error);
+
+		return  res.json(section);
+	});
+
+
 };

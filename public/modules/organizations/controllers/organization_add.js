@@ -13,9 +13,10 @@ angular.module('app')
                    $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
+		           debugger
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
-                        $scope.errors[field] = error.type;
+                        $scope.errors[field] = error.message;
                     });
                 });
 

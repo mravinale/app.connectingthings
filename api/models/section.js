@@ -22,6 +22,7 @@ SectionSchema.pre('save', function (next) {
     next();
 });
 
+
 SectionSchema.path('panels').validate(function(panels){
     if(!panels) return false;
     return panels.length !== 0;

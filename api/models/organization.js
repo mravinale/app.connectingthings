@@ -2,7 +2,6 @@
 
 var mongoose = require('mongoose'),
     uuid = require('node-uuid'),
-    supergoose = require('supergoose'),
     Schema = mongoose.Schema;
 
 var OrganizationSchema = new Schema({
@@ -11,7 +10,6 @@ var OrganizationSchema = new Schema({
   description: {type: String}
 });
 
-OrganizationSchema.plugin(supergoose);
 
 OrganizationSchema.pre('save', function (next) {
     if (this._id === undefined) {

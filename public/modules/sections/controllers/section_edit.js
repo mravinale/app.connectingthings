@@ -37,7 +37,7 @@ angular.module('app')
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
                     form[field].$setValidity('mongoose', false);
-                    $scope.errors[field] = error.type;
+                    $scope.errors[field] = error.message;
                 });
             });
 
