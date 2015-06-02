@@ -1594,11 +1594,11 @@ fieldset[disabled] .btn-black.active {
   font-size: 26px;
 }
 .settings {
-  z-index: 1000;
+  /*z-index: 1000;
   position: fixed;
   top: 95px;
   right: -240px;
-  width: 240px;
+  width: 240px;*/
   -webkit-transition: right 0.2s;
   transition: right 0.2s;
 }

@@ -308,7 +308,7 @@ var app = angular.module('app', [
     });
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
-
+/*
         if(toState.name == "app.public.dashboard") {
             $rootScope.showHeader = false;
             $rootScope.noMenuStyle =  { "padding-top": "0px", "margin-left": "-60px", "width": "105%", "background-color": "none" }
@@ -317,6 +317,7 @@ var app = angular.module('app', [
             $rootScope.showHeader = true;
             $rootScope.noMenuStyle =  {}
         }
+        */
     });
 
     // On catching 401 errors, redirect to the login page.
@@ -583,9 +584,9 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
                 black:   '#1c2b36'
             },
             settings: {
-                themeID: 1,
-                navbarHeaderColor: 'bg-black',
-                navbarCollapseColor: 'bg-white-only',
+                themeID: 10,
+                navbarHeaderColor: 'bg-info dker',
+                navbarCollapseColor: 'bg-info dk',
                 asideColor: 'bg-black',
                 headerFixed: true,
                 asideFixed: false,
@@ -595,11 +596,11 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
         }
 
         // save settings to local storage
-        if ( angular.isDefined($localStorage.settings) ) {
+       /* if ( angular.isDefined($localStorage.settings) ) {
             $scope.app.settings = $localStorage.settings;
-        } else {
+        } else {*/
             $localStorage.settings = $scope.app.settings;
-        }
+       // }
 
         $scope.$watch('app.settings', function(){ $localStorage.settings = $scope.app.settings; }, true);
 
