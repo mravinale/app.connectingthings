@@ -247,6 +247,11 @@ var app = angular.module('app', [
                 url: '/dashboard/:id',
                 templateUrl: 'modules/base/views/dashboard.html'
             })
+            .state('app.public.list', {
+              url: '/list',
+              controller: 'publicListCtrl',
+              templateUrl: 'modules/base/views/dashboard_list.html'
+            })
             // others
             .state('access', {
                 url: '/access',
@@ -595,6 +600,7 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
             }
         }
 
+          $rootScope.app = $scope.app;
         // save settings to local storage
        /* if ( angular.isDefined($localStorage.settings) ) {
             $scope.app.settings = $localStorage.settings;
