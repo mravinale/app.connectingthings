@@ -105,10 +105,10 @@ exports.exists = function (req, res, next) {
 
 exports.getAll = function (req, res, next) {
 
-    var query = req.user.organization.name == "admin" && req.user.admin ? {} : {organization: req.user.organization};
+   // var query = req.user.organization.name == "admin" && req.user.admin ? {} : {organization: req.user.organization};
 
     User
-        .find( query )
+        .find()
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)

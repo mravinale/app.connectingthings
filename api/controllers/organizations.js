@@ -17,7 +17,7 @@ exports.create = function (req, res, next) {
 };
 
 exports.getAll = function (req, res, next) {
-    var query = req.user.organization == "admin" && req.user.admin ? {} : {organization: req.user.organization};
+    //var query = req.user.organization == "admin" && req.user.admin ? {} : {organization: req.user.organization};
 
     Organization
         .find()

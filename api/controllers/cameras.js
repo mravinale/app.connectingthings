@@ -22,7 +22,8 @@ exports.create = function (req, res, next) {
 exports.getAll = function (req, res, next) {
 
     Camera
-        .find({organization: req.user.organization})
+        .find({owner: req.user})
+        //.find({organization: req.user.organization})
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -41,7 +42,8 @@ exports.getAll = function (req, res, next) {
 exports.getAllCameras = function (req, res, next) {
 
     Camera
-        .find({organization: req.user.organization})
+        .find({owner: req.user})
+      //  .find({organization: req.user.organization})
         .exec(function (error, cameras) {
         if (error) {
            console.log(error);
@@ -95,13 +97,10 @@ exports.remove = function (req, res, next) {
 
 exports.update = function (req, res, next) {
     delete req.body._id;
-    Camera.update({_id: req.params.id}, req.body,{upsert: true, runValidators: true }, function (error, camera) {
-        if (error) {
-           console.log(error);
-           return res.json(400, error);
-        }
+
+    Camera.update({ _id: req.params.id }, req.body,{ upsert: true, runValidators: true }, function (error, camera) {
+        if (error) return res.json(400, error);
 
         return  res.json(camera);
-
     });
 };

@@ -21,7 +21,7 @@ var UserSchema = new Schema({
   organization: { type: String, ref: 'Organization', required: true},
   key: String,
   publicKey: String,
-  publicUrl: String
+  publicUrl: String,
 
 });
 

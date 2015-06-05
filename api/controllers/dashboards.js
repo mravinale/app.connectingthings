@@ -27,7 +27,8 @@ exports.create = function (req, res, next) {
 exports.getAll = function (req, res, next) {
 
     Dashboard
-        .find({organization: req.user.organization})
+        .find({owner: req.user})
+        //.find({organization: req.user.organization})
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -47,7 +48,8 @@ exports.getAll = function (req, res, next) {
 exports.getAllDashboards = function (req, res, next) {
 
     Dashboard
-        .find({organization: req.user.organization})
+        .find({owner: req.user})
+        //.find({organization: req.user.organization})
         .populate('sections')
         .exec(function (error, dashboards) {
             if (error) { return res.send(400, error); }

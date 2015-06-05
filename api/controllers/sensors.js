@@ -21,7 +21,8 @@ exports.create = function (req, res, next) {
 exports.getAll = function (req, res, next) {
 
     Sensor
-        .find({organization: req.user.organization})
+        .find({owner: req.user})
+        //.find({organization: req.user.organization})
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -40,7 +41,8 @@ exports.getAll = function (req, res, next) {
 exports.getAllDevices = function (req, res, next) {
 
     Sensor
-        .find({organization: req.user.organization})
+        .find({owner: req.user})
+        //.find({organization: req.user.organization})
         .exec(function (error, devices) {
         if (error) {
            console.log(error);

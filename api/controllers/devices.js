@@ -1,8 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Device = mongoose.model('Device')
-
+    Device = mongoose.model('Device');
 
 exports.create = function (req, res, next) {
     var newDevice = new Device(req.body);
@@ -22,7 +21,8 @@ exports.create = function (req, res, next) {
 exports.getAll = function (req, res, next) {
 
     Device
-        .find({organization: req.user.organization})
+        .find({owner: req.user})
+        //.find({organization: req.user.organization})
         .sort({name: 'asc'})
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
@@ -42,7 +42,8 @@ exports.getAll = function (req, res, next) {
 exports.getAllDevices = function (req, res, next) {
 
     Device
-        .find({organization: req.user.organization})
+        .find({owner: req.user})
+       // .find({organization: req.user.organization})
         .populate('sensors')
         .exec(function (error, devices) {
         if (error) {
