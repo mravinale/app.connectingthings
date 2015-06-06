@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+    async = require('async'),
     Dashboard = mongoose.model('Dashboard'),
     Panel = mongoose.model('Panel'),
     Section = mongoose.model('Section'),
@@ -14,15 +15,20 @@ exports.create = function (req, res, next) {
     newDashboard.owner = req.user;
     newDashboard.organization = req.user.organization;
 
-    newDashboard.save(function(err, panel) {
-        if (err) {
-          return res.send(400, err);
-        }
+    async.waterfall([
+      function(callback) {
+        newDashboard.save(callback)
+      },
+      function(error, result, callback) {
+        User.update({_id: req.user._id}, { statistics: { cameras: req.user.statistics.cameras +  1 } }, callback);
+      }
+    ], function (err, result) {
+      if (err) return res.send(400, err);
 
-        return res.send(200, panel);
+      return res.send(200, result);
     });
-};
 
+};
 
 exports.getAll = function (req, res, next) {
 
@@ -87,7 +93,6 @@ exports.getAllDashboards = function (req, res, next) {
         });
 }
 
-
 exports.getFullById = function (req, res, next) {
 
     Dashboard
@@ -119,14 +124,19 @@ exports.getById = function (req, res, next) {
 
 exports.remove = function (req, res, next) {
 
-    Dashboard.remove({ _id: req.params.id }, function (error) { // TODO remove seems fussy
-        if (error) {
-            log.error(error);
-            res.send(400, error);
-        } else {
-            res.send(200);
-        }
+    async.waterfall([
+      function(callback) {
+        Dashboard.remove({ _id: req.params.id }, callback)
+      },
+      function(error, callback) {
+        User.update({_id: req.user._id}, { statistics: { cameras: req.user.statistics.cameras -  1 } } , callback);
+      }
+    ], function (err, result) {
+      if (err) return res.send(400, err);
+
+      return res.send(200, result);
     });
+
 };
 
 exports.update = function (req, res, next) {

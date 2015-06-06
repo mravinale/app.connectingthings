@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('publicListCtrl', function ($scope, $rootScope, panelService, sectionService, $localStorage, publicService, $routeParams, $state, $route, psResponsive, $window) {
+    .controller('publicListCtrl', function ($scope, $rootScope, panelService, sectionService, $localStorage, userService, publicService, $routeParams, $state, $route, psResponsive, $window) {
 
             $scope.tab = null;
 
@@ -26,6 +26,17 @@ angular.module('app')
 							}
 
 						});
+
+            userService.getAllUsers()
+              .success(function (response, status, headers, config) {
+                  $scope.users = response;
+              })
+              .error(function(response, status, headers, config) {
+                angular.forEach(response.errors, function(error, field) {
+                  form[field].$setValidity('mongoose', false);
+                  $scope.errors[field] = error.type;
+                });
+              });
 
 
     });

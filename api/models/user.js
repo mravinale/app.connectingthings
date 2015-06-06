@@ -22,6 +22,14 @@ var UserSchema = new Schema({
   key: String,
   publicKey: String,
   publicUrl: String,
+  statistics:{
+    cameras: { type: Number, default: 0 },
+    dashboards: { type: Number, default: 0 },
+    devices: { type: Number, default: 0 },
+    messages: { type: Number, default: 0 },
+    sensors: { type: Number, default: 0 },
+    panels: { type: Number, default: 0 }
+  }
 
 });
 
