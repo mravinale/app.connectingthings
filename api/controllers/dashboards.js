@@ -7,7 +7,8 @@ var mongoose = require('mongoose'),
     Section = mongoose.model('Section'),
     Sensor = mongoose.model('Sensor'),
     Camera = mongoose.model('Camera'),
-    Device = mongoose.model('Device');
+    Device = mongoose.model('Device'),
+    User = mongoose.model('User');
 
 
 exports.create = function (req, res, next) {
@@ -20,7 +21,7 @@ exports.create = function (req, res, next) {
         newDashboard.save(callback)
       },
       function(error, result, callback) {
-        User.update({_id: req.user._id}, { statistics: { cameras: req.user.statistics.cameras +  1 } }, callback);
+        User.update({_id: req.user._id}, { statistics: { dashboards: req.user.statistics.dashboards +  1 } }, callback);
       }
     ], function (err, result) {
       if (err) return res.send(400, err);
@@ -129,7 +130,7 @@ exports.remove = function (req, res, next) {
         Dashboard.remove({ _id: req.params.id }, callback)
       },
       function(error, callback) {
-        User.update({_id: req.user._id}, { statistics: { cameras: req.user.statistics.cameras -  1 } } , callback);
+        User.update({_id: req.user._id}, { statistics: { dashboards: req.user.statistics.dashboards -  1 } } , callback);
       }
     ], function (err, result) {
       if (err) return res.send(400, err);

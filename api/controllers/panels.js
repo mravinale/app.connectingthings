@@ -1,10 +1,12 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+    async = require('async'),
     Panel = mongoose.model('Panel'),
     mqtt = require('mqtt'),
     mqttClient = mqtt.createClient(1883, 'localhost'),
-    Client = require('node-rest-client').Client;
+    Client = require('node-rest-client').Client,
+    User = mongoose.model('User');
 
 var client = new Client();
 
@@ -14,15 +16,19 @@ exports.create = function (req, res, next) {
     newPanel.owner = req.user;
     newPanel.organization = req.user.organization;
 
-    newPanel.save(function(err, panel) {
-        if (err) {
-          return res.send(400, err);
-        }
+    async.waterfall([
+      function(callback) {
+        newPanel.save(callback)
+      },
+      function(error, result, callback) {
+        User.update({_id: req.user._id}, { statistics: { panels: req.user.statistics.panels +  1 } }, callback);
+      }
+    ], function (err, result) {
+      if (err) return res.send(400, err);
 
-        return res.send(200, panel);
+      return res.send(200, result);
     });
 };
-
 
 exports.getAll = function (req, res, next) {
 
@@ -75,10 +81,17 @@ exports.getById = function (req, res, next) {
 
 exports.remove = function (req, res, next) {
 
-    Panel.remove({ _id: req.params.id }, function (error) { // TODO remove seems fussy
-        if (error) return res.send(400, error);
+    async.waterfall([
+      function(callback) {
+        Panel.remove({ _id: req.params.id }, callback)
+      },
+      function(error, callback) {
+        User.update({_id: req.user._id}, { statistics: { panels: req.user.statistics.panels -  1 } } , callback);
+      }
+    ], function (err, result) {
+      if (err) return res.send(400, err);
 
-        res.send(200);
+      return res.send(200, result);
     });
 
 };

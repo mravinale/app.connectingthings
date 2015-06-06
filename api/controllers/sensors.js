@@ -1,7 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Sensor = mongoose.model('Sensor')
+    async = require('async'),
+    Sensor = mongoose.model('Sensor'),
+    User = mongoose.model('User');
 
 
 exports.create = function (req, res, next) {
@@ -9,13 +11,19 @@ exports.create = function (req, res, next) {
     newSensor.owner = req.user;
     newSensor.organization = req.user.organization;
 
-    newSensor.save(function(err, panel) {
-        if (err) {
-          return res.send(400, err);
-        }
+    async.waterfall([
+      function(callback) {
+        newSensor.save(callback)
+      },
+      function(error, result, callback) {
+        User.update({_id: req.user._id}, { statistics: { sensors: req.user.statistics.sensors +  1 } }, callback);
+      }
+    ], function (err, result) {
+      if (err) return res.send(400, err);
 
-        return res.send(200, panel);
+      return res.send(200, result);
     });
+
 };
 
 exports.getAll = function (req, res, next) {
@@ -69,14 +77,19 @@ exports.getById = function (req, res, next) {
 
 exports.remove = function (req, res, next) {
 
-    Sensor.remove({ _id: req.params.id }, function (error) { // TODO remove seems fussy
-        if (error) {
-            log.error(error);
-            res.send(400, error);
-        } else {
-            res.send(200);
-        }
+    async.waterfall([
+      function(callback) {
+        Sensor.remove({ _id: req.params.id }, callback)
+      },
+      function(error, callback) {
+        User.update({_id: req.user._id}, { statistics: { sensors: req.user.statistics.sensors -  1 } } , callback);
+      }
+    ], function (err, result) {
+      if (err) return res.send(400, err);
+
+      return res.send(200, result);
     });
+
 };
 
 exports.update = function (req, res, next) {

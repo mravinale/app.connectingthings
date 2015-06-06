@@ -1,20 +1,28 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Device = mongoose.model('Device');
+    async = require('async'),
+    Device = mongoose.model('Device'),
+    User = mongoose.model('User');
 
 exports.create = function (req, res, next) {
     var newDevice = new Device(req.body);
     newDevice.owner = req.user;
     newDevice.organization = req.user.organization;
 
-    newDevice.save(function(err, panel) {
-        if (err) {
-          return res.send(400, err);
-        }
+    async.waterfall([
+      function(callback) {
+        newDevice.save(callback)
+      },
+      function(error, result, callback) {
+        User.update({_id: req.user._id}, { statistics: { devices: req.user.statistics.devices +  1 } }, callback);
+      }
+    ], function (err, result) {
+      if (err) return res.send(400, err);
 
-        return res.send(200, panel);
+      return res.send(200, result);
     });
+
 };
 
 
@@ -87,14 +95,19 @@ exports.getById = function (req, res, next) {
 
 exports.remove = function (req, res, next) {
 
-    Device.remove({ _id: req.params.id }, function (error) { // TODO remove seems fussy
-        if (error) {
-            log.error(error);
-            res.send(400, error);
-        } else {
-            res.send(200);
-        }
+    async.waterfall([
+      function(callback) {
+        Device.remove({ _id: req.params.id }, callback)
+      },
+      function(error, callback) {
+        User.update({_id: req.user._id}, { statistics: { devices: req.user.statistics.devices -  1 } } , callback);
+      }
+    ], function (err, result) {
+      if (err) return res.send(400, err);
+
+      return res.send(200, result);
     });
+
 };
 
 exports.update = function (req, res, next) {
