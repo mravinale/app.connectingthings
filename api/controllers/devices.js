@@ -14,8 +14,9 @@ exports.create = function (req, res, next) {
       function(callback) {
         newDevice.save(callback)
       },
-      function(error, result, callback) {
-        User.update({_id: req.user._id}, { statistics: { devices: req.user.statistics.devices +  1 } }, callback);
+      function(device, callback) {
+        req.user.statistics.devices++;
+        User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
       }
     ], function (err, result) {
       if (err) return res.send(400, err);
@@ -99,8 +100,9 @@ exports.remove = function (req, res, next) {
       function(callback) {
         Device.remove({ _id: req.params.id }, callback)
       },
-      function(error, callback) {
-        User.update({_id: req.user._id}, { statistics: { devices: req.user.statistics.devices -  1 } } , callback);
+      function(result, callback) {
+        req.user.statistics.devices--;
+        User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
       }
     ], function (err, result) {
       if (err) return res.send(400, err);

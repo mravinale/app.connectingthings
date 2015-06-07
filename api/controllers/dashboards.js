@@ -20,8 +20,9 @@ exports.create = function (req, res, next) {
       function(callback) {
         newDashboard.save(callback)
       },
-      function(error, result, callback) {
-        User.update({_id: req.user._id}, { statistics: { dashboards: req.user.statistics.dashboards +  1 } }, callback);
+      function(dashboard, callback) {
+        req.user.statistics.dashboards++;
+        User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
       }
     ], function (err, result) {
       if (err) return res.send(400, err);
@@ -129,8 +130,9 @@ exports.remove = function (req, res, next) {
       function(callback) {
         Dashboard.remove({ _id: req.params.id }, callback)
       },
-      function(error, callback) {
-        User.update({_id: req.user._id}, { statistics: { dashboards: req.user.statistics.dashboards -  1 } } , callback);
+      function(result, callback) {
+        req.user.statistics.dashboards--;
+        User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
       }
     ], function (err, result) {
       if (err) return res.send(400, err);

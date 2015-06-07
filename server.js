@@ -2,6 +2,7 @@
 
 // Module dependencies.
 var express = require('express'),
+    async = require('async'),
     http = require('http'),
     mqtt = require('mqtt'),
     passport = require('passport'),
@@ -110,30 +111,35 @@ var lastValue = { topic: null, value: null, key: null };
 
 ponteServer.on("updated", function(resource, buffer) {
 
-    console.log("Message received", resource, tryParseJson(buffer.toString()));
+    //console.log("Message received", resource, tryParseJson(buffer.toString()));
 
-    var message = { topic: resource, body: tryParseJson(buffer.toString()) };
-    if(!message.body || !message.body.value || !message.body.key) return console.log("Wrong message format: "+message);
+    var message = { topic: resource, body: tryParseJson(buffer.toString())}; //https://www.npmjs.com/package/jsonschema
+    if(!message.body || !message.body.value || !message.body.key) return console.log("Wrong message format");
 
-    User.findOne({ key : message.body.key }, function (err, user) {
-
-        if (err) { return console.error(err.code, err.message); }
-        if(!user)  { return console.log("User not found for key: " + message.body.key)};
-
+    async.waterfall([
+      function(callback) {
+        User.findOne({ key : message.body.key },callback);
+      },
+      function( user, callback) {
+        if(!user) return callback({message: "User not found for key: " + message.body.key}, null);
+        
         io.sockets.emit(message.topic, message.body);
-        console.log("User found: '"+user.username+"', sent message to socket");
+        user.statistics.messages++;
+        User.update({ _id : user._id }, { statistics: user.statistics }, callback);
+      },
+      function(result, callback) {
+        if(lastValue.topic == resource && lastValue.value ==  message.body.value) return callback(null,null);
 
-        if(lastValue.topic == resource && lastValue.value ==  message.body.value) return; //add configuration
-        var newMessage = new Message({ topic: resource, value: message.body.value, key: message.body.key });
-        newMessage.save(function(err, item) {
-            if (err) { return console.error(err.code, err.message); }
+        var newMessage = new Message({ topic: resource, value: message.body.value, key: message.body.key});
+        newMessage.save(callback);
+      }
+    ], function (err, message) {
+      if (err) return console.error(err.code, err.message);
 
-            lastValue = item;
-            console.log("Message Saved:", item);
-        });
-
+      if(message) {
+        lastValue = message.toObject();
+      }
     });
-
 
 });
 
