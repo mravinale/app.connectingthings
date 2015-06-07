@@ -122,7 +122,7 @@ ponteServer.on("updated", function(resource, buffer) {
       },
       function( user, callback) {
         if(!user) return callback({message: "User not found for key: " + message.body.key}, null);
-        
+
         io.sockets.emit(message.topic, message.body);
         user.statistics.messages++;
         User.update({ _id : user._id }, { statistics: user.statistics }, callback);

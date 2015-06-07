@@ -168,6 +168,7 @@ module.exports = function (grunt) {
                                '<%= yeoman.app %>/modules/base/controllers/navbar.js',
                                '<%= yeoman.app %>/modules/base/controllers/header.js',
                                '<%= yeoman.app %>/modules/base/controllers/public.js',
+                               '<%= yeoman.app %>/modules/base/controllers/public_list.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_add.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_edit.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_list.js',

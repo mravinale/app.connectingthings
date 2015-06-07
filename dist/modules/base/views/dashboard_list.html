@@ -1,0 +1,84 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+  <div class="col">
+    <div style="background:url(assets/img/City-Street.jpeg) center center; background-size:cover">
+      <div class="wrapper-sm bg-white-opacity" style="background-color: rgba(255,255,255,0.2)">
+        <div class="row m-t">
+
+          <div class="col-sm-8">
+
+            <div class="clear m-b">
+              <div class="m-b m-t-sm"> <img src="assets/img/FullBrandWhite.png" style="padding-left: 50px;">
+              </div>
+
+            </div>
+          </div>
+          <div class="col-sm-4  ">
+            <!--div class="pull-right pull-none-xs text-center">
+              <a href class="m-b-md inline m">
+                <span class="h3 block font-bold text-white">250</span>
+                <small class="text-white">Messages</small>
+              </a>
+              <a href class="m-b-md inline m">
+                <span class="h3 block font-bold text-white">25</span>
+                <small class="text-white">Sensors</small>
+              </a>
+                <a href class="m-b-md inline m">
+                    <span class="h3 block font-bold text-white">5</span>
+                    <small class="text-white">Devices</small>
+                </a>
+            </div-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper-md">
+
+    <div class="col-md-12">
+
+        <div class="col-md-3" ng-repeat="user in users">
+            <div class="panel panel-default">
+                <a href="{{user.publicUrl}}">
+                    <div class="panel-body">
+                    <div class="clearfix text-center m-t">
+                        <div class="inline">
+                            <div ui-jq="easyPieChart" ui-options="{ percent: 100, lineWidth: 5, trackColor: '#e8eff0', barColor: '#23b7e5', scaleColor: false, color: '#3a3f51', size: 100, lineCap: 'butt', rotate: -90, animate: 1000}"
+                                 class="easyPieChart" style="width: 100px; height: 100px; line-height: 100px;">
+                                <div class="thumb-xl">
+                                    <img gravatar-src="'{{user.email}}'" style="margin-right: 28px" class="img-circle" gravatar-size="90">
+                                </div>
+                                <canvas width="100" height="100"></canvas></div>
+                            <div class="h4 m-t m-b-xs">{{user.username}}</div>
+                            <!--small class="text-muted m-b">Art director</small!-->
+                        </div>
+                    </div>
+                </div>
+                </a>
+                <footer class="panel-footer bg-info text-center no-padder">
+                        <div class="row no-gutter">
+                            <div class="col-xs-4">
+                                <div class="wrapper">
+                                    <span class="m-b-xs h3 block text-white">{{user.statistics.messages}}</span>
+                                    <small class="text-muted">Messages</small>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 dk">
+                                <div class="wrapper">
+                                    <span class="m-b-xs h3 block text-white">{{user.statistics.sensors}}</span>
+                                    <small class="text-muted">Sensors</small>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="wrapper">
+                                    <span class="m-b-xs h3 block text-white">{{user.statistics.devices}}</span>
+                                    <small class="text-muted">Devices</small>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+            </div>
+        </div>
+
+    </div>
+    </div>
+  </div>
+</div>
