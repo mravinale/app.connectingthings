@@ -14,7 +14,7 @@ exports.create = function (req, res, next) {
       function(callback) {
         newDevice.save(callback)
       },
-      function(device, callback) {
+      function(device, result, callback) {
         req.user.statistics.devices++;
         User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
       }

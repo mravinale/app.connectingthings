@@ -20,7 +20,7 @@ exports.create = function (req, res, next) {
       function(callback) {
         newDashboard.save(callback)
       },
-      function(dashboard, callback) {
+      function(dashboard, result, callback) {
         req.user.statistics.dashboards++;
         User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
       }

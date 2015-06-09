@@ -48,8 +48,6 @@ exports.getAllOrganizations = function (req, res, next) {
         });
 };
 
-
-
 exports.getById = function (req, res, next) {
 
     Organization.findOne({_id: req.params.id})

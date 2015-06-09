@@ -20,7 +20,7 @@ exports.create = function (req, res, next) {
       function(callback) {
         newPanel.save(callback)
       },
-      function(panel, callback) {
+      function(panel, result, callback) {
         req.user.statistics.panels++;
         User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
       }

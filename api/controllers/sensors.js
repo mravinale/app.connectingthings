@@ -15,7 +15,7 @@ exports.create = function (req, res, next) {
       function(callback) {
         newSensor.save(callback)
       },
-      function(sensor, callback) {
+      function(sensor, result, callback) {
         req.user.statistics.sensors++;
         User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
       }
