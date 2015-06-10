@@ -7,9 +7,9 @@ var mongoose = require('mongoose'),
 var PanelSchema = new Schema({
   _id: { type: String },
   name: { type: String, required: true },
-  device: { type: String, ref: 'Device', required: true },
-  camera: { type: String, ref: 'Camera', required: true  },
-  sensor: { type: String, ref: 'Sensor', required: true  },
+  device: { type: String, ref: 'Device' },
+  camera: { type: String, ref: 'Camera' },
+  sensor: { type: String, ref: 'Sensor' },
   type: { type: String, required: true  },
   size: { type: String, required: true  },
   owner: { type: String, ref: 'User'},
@@ -22,5 +22,18 @@ PanelSchema.pre('save', function (next) {
     }
     next();
 });
+
+
+PanelSchema.path('camera').validate(function(camera){
+     if(this.type === "camera" && !camera) return false;
+}, 'Path `camera` is required.');
+
+PanelSchema.path('device').validate(function(device){
+     if(this.type === "camera" && !device) return true;
+}, 'Path `device` is required.');
+
+PanelSchema.path('sensor').validate(function(sensor){
+     if(this.type === "camera" && !sensor) return true;
+}, 'Path `sensor` is required.');
 
 mongoose.model('Panel', PanelSchema);
