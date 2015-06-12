@@ -23,20 +23,18 @@ PanelSchema.pre('save', function (next) {
     next();
 });
 
+
 //For update use better the controller
 //https://github.com/winstonjs/winston-mongodb
 PanelSchema.path('camera').validate(function(camera){
-    if(!this && !camera) return false; //edit
     if(this && this.type === "camera" && !camera) return false;
 }, 'Path `camera` is required.');
 
 PanelSchema.path('device').validate(function(device){
-    if(!this && !device) return false; //edit
     if(this && this.type !== "camera" && !device) return false;
 }, 'Path `device` is required.');
 
 PanelSchema.path('sensor').validate(function(sensor){
-    if(!this && !sensor) return false; //edit
     if(this && this.type !== "camera" && !sensor) return false;
 }, 'Path `sensor` is required.');
 

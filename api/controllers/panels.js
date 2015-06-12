@@ -101,13 +101,25 @@ exports.remove = function (req, res, next) {
 exports.update = function (req, res, next) {
     delete req.body._id;
 
-    Panel.update({_id: req.params.id}, req.body,{upsert: true, runValidators: true }, function (error, panel) {
-        if (error) {
-           return res.json(400, error);
-        }
+    var result = {errors: {}};
+    if(req.body.type === "camera" && !req.body.camera){
+      result.errors.camera = {message: 'Path `camera` is required.'}
+    }
+    if(req.body.type !== "camera" && !req.body.device){
+      result.errors.device = {message: 'Path `device` is required.'}
+    }
+    if(req.body.type !== "camera" && !req.body.sensor){
+      result.errors.sensor = {message: 'Path `sensor` is required.'}
+    }
+
+    if( result.errors.sensor ||  result.errors.device ||  result.errors.camera){
+      return res.json(400, result);
+    }
+
+    Panel.update({_id: req.params.id}, req.body,{upsert: true, runValidators: false }, function (error, panel) {
+        if (error) return res.json(400, error);
 
         return  res.json(panel);
-
     });
 };
 
