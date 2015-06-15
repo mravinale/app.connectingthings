@@ -298,8 +298,9 @@ var app = angular.module('app', [
         // will trigger 401s if user does not have a valid session
 
         if (!$rootScope.currentUser && (['/logout', '/access/signin', '/access/signup', '/access/suscription'].indexOf($location.path()) == -1 )) {
-
+            debugger;
             if($location.path().indexOf("/app/public/dashboard/") > -1) return;
+            if($location.path().indexOf("/app/public/list") > -1) return;
 
             sessionService.getCurrentUser()
             .success(function (response, status, headers, config) {

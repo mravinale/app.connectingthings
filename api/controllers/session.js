@@ -88,6 +88,20 @@ exports.confirmUser = function (req, res, next) {
     });
 };
 
+exports.getAllUsers = function (req, res, next) {
+
+    User
+        .find()
+        .exec(function (error, users) {
+            if (error) {
+                console.log(error);
+                return res.send(400, error);
+            }
+            return  res.send(200, users);
+
+        });
+};
+
 /**
  * Session
  * returns info on authenticated user

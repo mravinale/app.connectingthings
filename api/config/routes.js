@@ -43,6 +43,7 @@ module.exports = function(app) {
     app.post('/auth/session', session.login);
     app.del('/auth/session', session.logout);
     app.put('/auth/session/confirm/:userId', session.confirmUser);
+    app.get('/auth/session/users/items',  session.getAllUsers);
 
 
     // Panel Routes
