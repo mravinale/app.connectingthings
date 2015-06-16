@@ -2,6 +2,7 @@
 angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessionService,$localStorage, $location) {
     $scope.errors =  {};
     $scope.submitted = false;
+    $rootScope.showHeader = true;
 
     $scope.init = function(form) { };
 
