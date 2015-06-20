@@ -28,7 +28,7 @@ angular.module('app')
                         $scope.errors[field] = error.message;
                     });
                 });
-        }
+        };
 
         sectionService.getAllSections()
             .success(function (response, status, headers, config) {

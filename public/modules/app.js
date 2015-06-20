@@ -245,6 +245,7 @@ var app = angular.module('app', [
             })
             .state('app.public.dashboard', {
                 url: '/dashboard/:id',
+                controller: 'publicCtrl',
                 templateUrl: 'modules/base/views/dashboard.html'
             })
             .state('app.public.list', {
@@ -298,7 +299,7 @@ var app = angular.module('app', [
         // will trigger 401s if user does not have a valid session
 
         if (!$rootScope.currentUser && (['/logout', '/access/signin', '/access/signup', '/access/suscription'].indexOf($location.path()) == -1 )) {
-            
+
             if($location.path().indexOf("/app/public/dashboard/") > -1) return;
             if($location.path().indexOf("/app/public/list") > -1) return;
 

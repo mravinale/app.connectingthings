@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+    _ = require('underscore'),
     Dashboard = mongoose.model('Dashboard'),
     Panel = mongoose.model('Panel'),
     Section = mongoose.model('Section'),
@@ -18,9 +19,11 @@ exports.getAllDashboards = function (req, res, next) {
             if (!user) { return res.send(400, "user not found"); }
 
             Dashboard
-                .find({organization: user.organization})
+                .find({owner: user})
+                //.find({organization: user.organization})
                 .populate('sections')
                 .populate('owner')
+                .lean()
                 .exec(function (error, dashboards) {
                     if (error) { return res.send(400, error); }
 
@@ -46,9 +49,13 @@ exports.getAllDashboards = function (req, res, next) {
                                     path: 'sections.panels.camera',
                                     model: 'Camera'
                                 },function (err, result) {
-                                    if (error) { return res.send(400, error); }
+                                  if (error) { return res.send(400, error); }
 
-                                    return  res.send(200, result);
+                                  _.each(result,function(dashboard){
+                                    dashboard.owner = _.pick(dashboard.owner , 'email','publicUrl','statistics')
+                                  });
+
+                                  return  res.send(200, result);
                                 });
 
                             });

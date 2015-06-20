@@ -30,8 +30,13 @@ angular.module('app')
             publicService.getAllDashboards($state.params.id) //iL4bJVGT820
                 .success(function (response, status, headers, config) {
                     $scope.dashboards = response;
-                    $rootScope.currentUser = response[0]? $scope.dashboards[0].owner : null;
+                    $rootScope.currentUser = response? response[0].owner : null;
                     $scope.tab = response[0]? response[0].name : null;
+
+                    $scope.messages =  $rootScope.currentUser.statistics.messages;
+                    $scope.devices =  $rootScope.currentUser.statistics.devices;
+                    $scope.sensors =  $rootScope.currentUser.statistics.sensors;
+
                 })
                 .error(function(response, status, headers, config) {
                     $state.transitionTo('access.signin');

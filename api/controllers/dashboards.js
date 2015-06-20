@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
     async = require('async'),
+    _ = require('underscore'),
     Dashboard = mongoose.model('Dashboard'),
     Panel = mongoose.model('Panel'),
     Section = mongoose.model('Section'),
@@ -59,6 +60,8 @@ exports.getAllDashboards = function (req, res, next) {
         .find({owner: req.user})
         //.find({organization: req.user.organization})
         .populate('sections')
+        .populate('owner')
+        .lean()
         .exec(function (error, dashboards) {
             if (error) { return res.send(400, error); }
 

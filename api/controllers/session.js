@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
     passport = require('passport'),
     User = mongoose.model('User'),
+    _ = require('underscore'),
     Organization = mongoose.model('Organization'),
     Mailgun = require('mailgun-js'),
     simple_recaptcha = require('simple-recaptcha'),
@@ -92,13 +93,13 @@ exports.getAllUsers = function (req, res, next) {
 
     User
         .find()
+        .lean()
         .exec(function (error, users) {
             if (error) {
-                console.log(error);
                 return res.send(400, error);
             }
-            return  res.send(200, users);
 
+            return  res.send(200, _.map(users, function(obj) { return _.pick(obj, 'email','publicUrl','statistics'); }));
         });
 };
 
