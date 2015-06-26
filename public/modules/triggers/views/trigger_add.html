@@ -1,0 +1,157 @@
+
+<div id="page-wrapper">
+
+    <div class="col-lg-12">
+        <h2 class="page-header">New Trigger</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12" style="padding-left: 30px">
+            <div class="trigger " >
+
+                <div class="trigger-body">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <form class="form-horizontal" role="form" name="form">
+
+                                <div class="form-group" ng-class="{'has-error': form.name.$error.mongoose}">
+                                    <label class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="trigger.name"
+                                               class="form-control"
+                                               placeholder="Trigger name"
+                                               name="name"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.name.$error.mongoose">
+                                            {{ errors.name }}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group" ng-class="{'has-error': form.description.$error.mongoose}">
+                                    <label class="col-sm-2 control-label">Description</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="trigger.description"
+                                               class="form-control"
+                                               placeholder="Trigger description"
+                                               name="description"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.description.$error.mongoose">
+                                            {{ errors.description }}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group" ng-class="{'has-error': form.device.$error.mongoose}">
+                                    <label  class="col-sm-2 control-label">Device</label>
+                                    <div class="col-sm-10">
+                                        <select
+                                                ng-model="trigger.device"
+                                                ng-options="device._id as device.name for device in devices"
+                                                class="form-control"
+                                                name="device"
+                                                mongoose-error>
+                                            <option value="" disabled>select a device</option>
+                                        </select>
+                                        <div class="error"
+                                             ng-show="form.device.$error.mongoose">
+                                            {{ errors.device }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-class="{'has-error': form.sensor.$error.mongoose}">
+                                    <label  class="col-sm-2 control-label">Sensor</label>
+                                    <div class="col-sm-10">
+                                        <select
+                                                ng-model="trigger.sensor"
+                                                ng-options="sensor._id as sensor.tag for sensor in sensors"
+                                                class="form-control"
+                                                name="sensor"
+                                                mongoose-error>
+                                            <option value="" disabled>select a sensor</option>
+                                        </select>
+                                        <div class="error"
+                                             ng-show="form.sensor.$error.mongoose">
+                                            {{ errors.sensor }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-class="{'has-error': form.rule.$error.mongoose}">
+                                    <label  class="col-sm-2 control-label">Rule</label>
+                                    <div class="col-sm-5">
+                                        <select ng-model="trigger.rule" class="form-control" name="rule" mongoose-error>
+                                            <option value="" disabled selected>Select rule type</option>
+                                            <option>equals to</option>
+                                            <option>bigger than</option>
+                                            <option>lower than</option>
+                                        </select>
+                                        <div class="error"
+                                             ng-show="form.rule.$error.mongoose">
+                                            {{ errors.rule }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5" ng-class="{'has-error': form.value.$error.mongoose}">
+                                        <input ng-model="trigger.value"
+                                               class="form-control"
+                                               placeholder="Trigger Value"
+                                               name="value"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.value.$error.mongoose">
+                                            {{ errors.value }}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-class="{'has-error': form.action.$error.mongoose}">
+                                    <label  class="col-sm-2 control-label">Action</label>
+                                    <div class="col-sm-5">
+                                        <select ng-model="trigger.action" class="form-control" name="action" mongoose-error>
+                                            <option value="" disabled selected>Select action type</option>
+                                            <option>Send email to</option>
+                                            <option>Send sms to</option>
+                                        </select>
+                                        <div class="error"
+                                             ng-show="form.action.$error.mongoose">
+                                            {{ errors.action }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5" ng-class="{'has-error': form.target.$error.mongoose}">
+                                        <input ng-model="trigger.target"
+                                               class="form-control"
+                                               placeholder="Trigger Target"
+                                               name="target"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.target.$error.mongoose">
+                                            {{ errors.target }}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="padding-top: 30px">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="button" ng-click="save(form)" class="btn btn-primary">Submit</button>
+                                        <a ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,7 @@ var express = require('express'),
     mongoStore = require('connect-mongo')(express),
     config = require('./api/config/config'),
     mongoose = require('mongoose'),
+    ponte = require("ponte"),
     moment = require('moment');
 
 
@@ -69,7 +70,7 @@ io.sockets.on('connection', function (socket) {
 });
 
 
-var ponte = require("ponte");
+
 var opts = {
     logger: {
         level: 'info'

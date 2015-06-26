@@ -67,6 +67,15 @@ module.exports = function(app) {
     app.del('/devices/:id', auth.ensureAuthenticated, devices.remove);
     app.post('/devices', auth.ensureAuthenticated, devices.create);
 
+    // Trigger Routes
+    var triggers = require('../controllers/triggers');
+    app.get('/triggers', auth.ensureAuthenticated, triggers.getAll);
+    app.get('/triggers/items', auth.ensureAuthenticated, triggers.getAllTriggers);
+    app.get('/triggers/:id', auth.ensureAuthenticated, triggers.getById);
+    app.put('/triggers/:id', auth.ensureAuthenticated, triggers.update);
+    app.del('/triggers/:id', auth.ensureAuthenticated, triggers.remove);
+    app.post('/triggers', auth.ensureAuthenticated, triggers.create);
+
     // Sensor Routes
     var sensors = require('../controllers/sensors');
     app.get('/sensors', auth.ensureAuthenticated, sensors.getAll);

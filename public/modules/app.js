@@ -149,6 +149,26 @@ var app = angular.module('app', [
                 templateUrl: 'modules/devices/views/device_list.html',
                 controller: 'DeviceListCtrl'
             })
+            //triggers
+            .state('app.trigger', {
+                url: '/trigger',
+                template: '<div ui-view class="fade-in-right"></div>'
+            })
+            .state('app.trigger.add', {
+                url: '/add',
+                templateUrl: 'modules/triggers/views/trigger_add.html',
+                controller: 'TriggerAddCtrl'
+            })
+            .state('app.trigger.edit', {
+                url: '/edit/:id',
+                templateUrl: 'modules/triggers/views/trigger_edit.html',
+                controller: 'TriggerEditCtrl'
+            })
+            .state('app.trigger.list', {
+                url:'/list',
+                templateUrl: 'modules/triggers/views/trigger_list.html',
+                controller: 'TriggerListCtrl'
+            })
             //sensors
             .state('app.sensor', {
                 url: '/sensor',

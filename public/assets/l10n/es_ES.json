@@ -7,22 +7,23 @@
     },
     "aside": {
         "nav": {
-            "HEADER": "Navigation",
-            "MYVIEW": "My View",
+            "HEADER": "Navegacion",
+            "MYVIEW": "Mi Vista",
             "DASHBOARD": "Dashboard",
-            "SECTIONS": "Sections",
-            "PANELS": "Panels",
-            "DEVICES": "Devices",
-            "SENSORS": "Sensors",
-            "CAMERAS": "Cameras",
+            "SECTIONS": "Secciones",
+            "PANELS": "Paneles",
+            "DEVICES": "Artefactos",
+            "SENSORS": "Sensores",
+            "TRIGGERS": "Disparadores",
+            "CAMERAS": "Camaras",
             "components": {
-                "COMPONENTS": "Components",
+                "COMPONENTS": "Componentes",
                 "ui_kits": {
                     "UI_KITS": "UI Kits",
                     "PORTLET": "Portlet"
                 },
                 "pages": {
-                    "PAGES": "Pages",
+                    "PAGES": "Paginas",
                     "SIGNIN": "Signin",
                     "SIGNUP": "Signup",
                     "FORGOT_PASSWORD": "Forgot password"
@@ -30,10 +31,10 @@
                 }
             },
             "your_stuff": {
-                "YOUR_STUFF":"Your Stuff",
-                "PROFILE": "Profile",
-                "USERS": "Users",
-                "ORGANIZATION": "Organization"
+                "YOUR_STUFF":"Tus cosas",
+                "PROFILE": "Perfil",
+                "USERS": "Usuarios",
+                "ORGANIZATION": "Organizacion"
             }
         },
         "MILESTONE": "Milestone",
