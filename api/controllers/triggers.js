@@ -2,18 +2,29 @@
 
 var mongoose = require('mongoose'),
     async = require('async'),
-    Trigger = mongoose.model('Trigger');
+    _ = require('underscore'),
+    Trigger = mongoose.model('Trigger'),
+    User = mongoose.model('User');
 
 exports.create = function (req, res, next) {
     var newTrigger = new Trigger(req.body);
     newTrigger.owner = req.user;
     newTrigger.organization = req.user.organization;
 
-    newTrigger.save( function (err, result) {
+    async.waterfall([
+      function(callback) {
+        newTrigger.save( callback);
+      },
+      function(trigger, result, callback) {
+        req.user.triggers.push(newTrigger._id);
+        User.update({_id:  req.user._id}, { triggers: req.user.triggers }, {runValidators: true },callback);
+      }
+    ], function (err, result) {
       if (err) return res.send(400, err);
 
       return res.send(200, result);
     });
+
 };
 
 exports.getAll = function (req, res, next) {
@@ -68,6 +79,20 @@ exports.getById = function (req, res, next) {
 };
 
 exports.remove = function (req, res, next) {
+
+  async.waterfall([
+    function(callback) {
+      Trigger.remove({ _id: req.params.id }, callback)
+    },
+    function(result, callback) {
+      var triggers = _.without(req.user.triggers, _.find(req.user.triggers, function(t){ return t == req.params.id }));
+      User.update({_id:  req.user._id}, { triggers: triggers }, {runValidators: true },callback);
+    }
+  ], function (err, result) {
+    if (err) return res.send(400, err);
+
+    return res.send(200, result);
+  });
 
     Trigger.remove({ _id: req.params.id }, function (err, result) {
       if (err) return res.send(400, err);
