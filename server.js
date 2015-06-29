@@ -2,6 +2,7 @@
 
 // Module dependencies.
 var express = require('express'),
+    _ = require('underscore'),
     async = require('async'),
     http = require('http'),
     mqtt = require('mqtt'),
@@ -96,7 +97,8 @@ var opts = {
 
 var Message = mongoose.model('Message');
 var User = mongoose.model('User');
-
+var Trigger = mongoose.model('Trigger');
+var triggerService = moment = require('./api/services/triggerService');
 // Start socket conection
 var ponteServer = ponte(opts);
 
@@ -121,9 +123,12 @@ ponteServer.on("updated", function(resource, buffer) {
       function(callback) {
         User.findOne({ key : message.body.key },callback);
       },
-      function( user, callback) {
+      function(user, callback) {
         if(!user) return callback({message: "User not found for key: " + message.body.key}, null);
 
+        triggerService.execute(user, message, callback);
+      },
+      function( user, callback) {
         io.sockets.emit(message.topic, message.body);
         user.statistics.messages++;
         User.update({ _id : user._id }, { statistics: user.statistics }, callback);

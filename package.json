@@ -25,6 +25,7 @@
     "passport": "~0.1.15",
     "passport-local": "~0.1.6",
     "ponte": "0.0.7",
+    "request": "^2.58.0",
     "simple-recaptcha": "0.0.3",
     "socket.io": "*",
     "supergoose": "^0.2.3",
