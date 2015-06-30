@@ -29,7 +29,11 @@ var UserSchema = new Schema({
     devices: { type: Number, default: 0 },
     messages: { type: Number, default: 0 },
     sensors: { type: Number, default: 0 },
-    panels: { type: Number, default: 0 }
+    panels: { type: Number, default: 0 },
+    triggers:{
+      iftt: { type: Number, default: 0 },
+      email: { type: Number, default: 0 }
+    }
   }
 
 });

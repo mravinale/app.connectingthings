@@ -334,8 +334,8 @@ var app = angular.module('app', [
         }
     });
 
-    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
-/*
+    $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
+        /*
         if(toState.name == "app.public.dashboard") {
             $rootScope.showHeader = false;
             $rootScope.noMenuStyle =  { "padding-top": "0px", "margin-left": "-60px", "width": "105%", "background-color": "none" }
@@ -645,7 +645,7 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
 
 
         $rootScope.$on("$stateChangeSuccess", function (event, current, previous, rejection) {
-                if(_.contains(["/access/signin", "/access/signup", "/access/forgotpwd"], $location.$$url)){
+                if(_.contains(["/access/signin", "/access/signup", "/access/forgotpwd", "/access/suscription"], $location.$$url)){
                     $rootScope.enableExternal = true;
                 } else {
                     $rootScope.enableExternal = false;

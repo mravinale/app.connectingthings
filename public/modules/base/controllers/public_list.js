@@ -12,6 +12,12 @@ angular.module('app')
 						$rootScope.showHeader = false;
             $rootScope.app.settings.asideFolded = true;
 
+            $scope.$on("$destroy", function(){
+              $rootScope.showHeader = true;
+              $rootScope.app.settings.asideFolded = false;
+              $rootScope.noMenuStyle =  {}
+            });
+
 						if(psResponsive('< small')){
 							$rootScope.noMenuStyle =  { "padding-top": "0px", "width": "105%", "background-color": "none" }
 						} else{

@@ -28,31 +28,37 @@ exports.execute = function (user, message, callback) {
 
         if(message.topic !== "/" + trigger.device.name + "/" + trigger.sensor.tag ) return next();
 
-        var triggeredValue = (trigger.rule == "equals to" && parseFloat(message.body.value) == parseFloat(trigger.value)) ||
-                          (trigger.rule == "bigger than" && parseFloat(message.body.value) > parseFloat(trigger.value)) ||
-                          (trigger.rule == "lower than" && parseFloat(message.body.value) < parseFloat(trigger.value));
+        var triggeredValue =
+        (trigger.rule == "equals to" && parseFloat(message.body.value) == parseFloat(trigger.value)) ||
+        (trigger.rule == "bigger than" && parseFloat(message.body.value) > parseFloat(trigger.value)) ||
+        (trigger.rule == "lower than" && parseFloat(message.body.value) < parseFloat(trigger.value));
 
         if(triggeredValue && trigger.action == "Send email to"){
 
           var data = {
             from: from_who,
             to: user.email,
-            subject: 'Alarm'+ trigger.name+ 'triggered',
-            html: '<p>Sensor alarm '+ trigger.sensor.tag + "</br>" +
-                  'Rule: when '+trigger.value + "is "+trigger.rule+ message.body.value+"</p>"
+            subject: 'Alarm ' +trigger.name+ ' triggered',
+            html: '<p>Sensor alarm ' +trigger.sensor.tag+ '</p></br>'+
+                  '<p>Rule: when ' +trigger.value+ ' is ' +trigger.rule+ message.body.value+'</p>'
           };
 
-          mailgun.messages().send(data, function (err, body) {
-            if (err) return next(err);
+          mailgun.messages().send(data, function (error, body) {
+            if (error) return next(error);
+
+            user.statistics.triggers.email++;
             next();
           });
 
         } else if(triggeredValue && trigger.action == "Send to IFTTT") {
-          var url = 'https://maker.ifttt.com/trigger/'+ trigger.name+'/with/key/'+trigger.target;
-          var body = { "value1": trigger.value, "value2": trigger.rule,"value3": message.body.value}
+
+          var url = 'https://maker.ifttt.com/trigger/' +trigger.name+ '/with/key/' +trigger.target;
+          var body = { "value1": trigger.value, "value2": trigger.rule,"value3": message.body.value};
 
           request.post({url: url,  json: true, body: body}, function(error, response, body) {
             if (error) return next(error);
+
+            user.statistics.triggers.iftt++;
             next();
           });
         }
