@@ -5,13 +5,23 @@
     <div class="wrapper text-center">
       <strong style="color: white;">Input your email to reset your password</strong>
     </div>
-    <form name="reset" class="form-external" ng-init="isCollapsed=true">
+    <form name="form" class="form-external" ng-init="isCollapsed=true">
       <div class="list-group list-group-sm">
         <div class="list-group-item">
-          <input type="email" placeholder="Email" ng-model="email" class="form-control no-border" required>
+            <input
+                   type="email"
+                   ng-model="email"
+                   class="form-control no-border"
+                   placeholder="Email"
+                   name="email"
+                   mongoose-error>
+            <div class="error"
+                 ng-show="form.email.$error.mongoose">
+                {{ errors.email }}
+            </div>
         </div>
       </div>
-      <button type="submit" ng-disabled="reset.$invalid" class="btn btn-lg btn-primary btn-block"  ng-click="isCollapsed = !isCollapsed" >Send</button>
+      <button type="button" ng-click="sendChangePwdEmail(form)" class="btn btn-lg btn-primary btn-block" >Send</button>
     </form>
     <div collapse="isCollapsed" class="m-t">
       <div class="alert alert-success">

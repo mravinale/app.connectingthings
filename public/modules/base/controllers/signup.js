@@ -11,11 +11,9 @@ angular.module('app').controller('SignupCtrl', function ($scope,$rootScope, $loc
         //$scope.form.$setPristine();
     //},true);
 
-    $scope.register = function() {
+    $scope.register = function(form) {
         $scope.errors = {};
         $scope.submitted = true;
-
-        //if($scope.form.$invalid) return
 
         sessionService.create($scope.user)
         .success(function (response, status, headers, config) {
@@ -25,8 +23,8 @@ angular.module('app').controller('SignupCtrl', function ($scope,$rootScope, $loc
         })
         .error(function(response, status, headers, config) {
             angular.forEach(response.errors, function (error, field) {
-                $scope.form[field].$setValidity('mongoose', false);
-                $scope.errors[field] = error.type;
+              form[field].$setValidity('mongoose', false);
+              $scope.errors[field] = error.message;
               //  $scope.submitted = false;
             });
             //$scope.errors.other = response.message;

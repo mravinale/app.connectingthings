@@ -11,6 +11,14 @@ angular.module('app').service('sessionService', function ($http) {
         return $http.post('/auth/session/user', user);
     };
 
+    this.sendChangePwdEmail = function(email){
+      return $http.post('/auth/session/sendPwdEmail',{ email: email });
+    };
+
+    this.confirmPwd = function(params){
+      return $http.post('/auth/session/confirmPwd/'+params.guid,{ password: params.pwd });
+    };
+
     this.login = function (provider,user) {
         return $http.post('/auth/session', {
             provider: provider,

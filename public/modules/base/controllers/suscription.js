@@ -2,6 +2,8 @@
 
 angular.module('app').controller('SuscriptionCtrl', function ($scope,$rootScope, $location, sessionService) {
 
+    $rootScope.enableExternal = true;
+
     $scope.init = function(form) {
 
         $scope.isButtonLoginEnabled = false;

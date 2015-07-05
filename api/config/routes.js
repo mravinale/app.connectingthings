@@ -45,6 +45,8 @@ module.exports = function(app) {
     app.put('/auth/session/confirm/:userId', session.confirmUser);
 
     app.get('/auth/session/users/items',  session.getAllUsers);
+    app.post('/auth/session/sendPwdEmail',  session.sendChangePwdEmail);
+    app.post('/auth/session/confirmPwd/:guid',  session.confirmPwd);
 
 
     // Panel Routes

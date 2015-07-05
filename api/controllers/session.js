@@ -37,7 +37,7 @@ exports.signUp = function (req, res, next) {
 
     simple_recaptcha(privateKey, ip, challenge, response, function(err) {
         //{errors:{email:{type: "Check your email and confirm your registration"}}}
-        if (err) return res.send(400,{errors:{recaptcha_response_field: {type: err.message}}});
+        if (err) return res.send(400,{errors:{recaptcha_response_field: {message: err.message}}});
 
         Organization.findOrCreate({name: "Beta"}, function (error, organization, created) {
             var origin = req.headers.origin;
@@ -71,6 +71,73 @@ exports.signUp = function (req, res, next) {
             }
         });
     });
+};
+
+exports.sendChangePwdEmail = function (req, res, next) {
+  var origin = req.headers.origin;
+
+  User.findOne({email: req.body.email}, function (error, user) {
+        if (error) {
+          return res.json(400, error);
+        }
+        if(!user){
+          return res.send(200, "Ok");
+        }
+
+        User.update({ _id: user._id }, { isPasswordForgot: true }, function(err, result) {
+          if (err) {
+            return res.send(400, err);
+          }
+
+          var data = {
+            from: from_who,
+            to: user.email,
+            subject: 'Change your ConnectingThings password',
+            html: 'Change your password by clicking on the link below. <a href="'+origin+'/#/access/changepwd?guid=' + user._id + '">Click here to confirm</a>'
+          };
+          mailgun.messages().send(data, function (err, body) {
+            if (err) {
+             return res.json(400, err);
+            }
+
+            return res.send(200, "Ok");
+          });
+
+        });
+
+  });
+
+};
+
+exports.confirmPwd = function (req, res, next) {
+  var origin = req.headers.origin;
+
+  User.findById( req.params.guid, function (error, user) {
+    if (error) {
+      return res.json(400, error);
+    }
+
+    if(!user){
+      return res.json(400, {errors:{password:{message: "Password not changed"}}});
+    }
+
+    if(!req.body.password){
+      return res.json(400, {errors:{password:{message: "Password required"}}});
+    }
+
+    var hashedPassword = user.encryptPassword(req.body.password);
+    User.update({ _id: user._id }, { isPasswordForgot: true, hashedPassword: hashedPassword }, function(err, result) {
+      if (err) {
+        return res.send(400, err);
+      }
+
+      return res.send(200, "Ok");
+
+    });
+
+  });
+
+
 
 
 };

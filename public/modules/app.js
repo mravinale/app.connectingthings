@@ -290,7 +290,13 @@ var app = angular.module('app', [
             })
             .state('access.forgotpwd', {
                 url: '/forgotpwd',
-                templateUrl: 'modules/base/views/forgotpwd.html'
+                templateUrl: 'modules/base/views/forgotpwd.html',
+                controller: 'ForgotPwdCtrl'
+            })
+            .state('access.changepwd', {
+              url: '/changepwd',
+              templateUrl: 'modules/base/views/changepwd.html',
+              controller: 'ChangePwdCtrl'
             })
             .state('access.suscription', {
                 url: '/suscription',
@@ -322,6 +328,7 @@ var app = angular.module('app', [
 
             if($location.path().indexOf("/app/public/dashboard/") > -1) return;
             if($location.path().indexOf("/app/public/list") > -1) return;
+            if($location.path().indexOf("/access/changepwd") > -1) return;
 
             sessionService.getCurrentUser()
             .success(function (response, status, headers, config) {
