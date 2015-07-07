@@ -12,7 +12,7 @@ angular.module('app').controller('ForgotPwdCtrl', function ($scope,$rootScope, $
         .success(function (response, status, headers, config) {
             $rootScope.currentUser = null;
             $localStorage.$reset();
-            $location.path('/access/signin');
+            $location.path('/access/signin').search({});
         })
 
         .error(function(response, status, headers, config) {

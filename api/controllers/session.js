@@ -118,7 +118,7 @@ exports.confirmPwd = function (req, res, next) {
     }
 
     if(!user){
-      return res.json(400, {errors:{password:{message: "Password not changed"}}});
+      return res.json(400, {errors:{password:{message: "Password not changed, malformed request"}}});
     }
 
     if(!req.body.password){

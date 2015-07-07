@@ -328,7 +328,7 @@ var app = angular.module('app', [
 
             if($location.path().indexOf("/app/public/dashboard/") > -1) return;
             if($location.path().indexOf("/app/public/list") > -1) return;
-            if($location.path().indexOf("/access/changepwd") > -1) return;
+              if($location.path().indexOf("/access/changepwd") > -1) return;
 
             sessionService.getCurrentUser()
             .success(function (response, status, headers, config) {
