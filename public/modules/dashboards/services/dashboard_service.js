@@ -18,8 +18,8 @@ angular.module('app').service('dashboardService', function ($http) {
             page: params.page() -1,
             count: params.count(),
             orderBy: params.orderBy(),
-            filter: {}
-        }
+            search: params.filter().searchFilter
+        };
 
         return $http.get('/dashboards', { params : paramsToSend });
     };
