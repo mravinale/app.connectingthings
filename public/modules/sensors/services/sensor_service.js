@@ -3,12 +3,12 @@
 angular.module('app').service('sensorService', function ($http) {
 
     this.getAll = function(params) {
-        var paramsToSend ={
-            page: params.page() -1,
-            count: params.count(),
-            orderBy: params.orderBy(),
-            filter: {}
-        }
+      var paramsToSend ={
+        page: params.page() -1,
+        count: params.count(),
+        orderBy: params.sorting(),
+        search: params.filter().searchFilter
+      };
 
         return $http.get('/sensors', { params : paramsToSend });
     };

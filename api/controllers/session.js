@@ -28,12 +28,12 @@ exports.signUp = function (req, res, next) {
     newUser.admin = true;
     newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
     newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1);
-    newUser.publicUrl = origin + "/#/app/public/dashboard/" +  newUser.publicKey;
+    newUser.publicUrl = "#/app/public/dashboard/" +  newUser.publicKey;
 
     var privateKey = '6LctfAITAAAAAKpEYZS-xQKZgiy8xgdnRZyN6jGM',  // your private key here
         ip = req.ip,
-        challenge = req.body.captcha.challenge,
-        response = req.body.captcha.response;
+        challenge = req.body.captcha ? req.body.captcha.challenge : "",
+        response =  req.body.captcha ? req.body.captcha.response : "";
 
     simple_recaptcha(privateKey, ip, challenge, response, function(err) {
         //{errors:{email:{type: "Check your email and confirm your registration"}}}

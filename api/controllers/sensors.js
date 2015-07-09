@@ -31,8 +31,8 @@ exports.getAll = function (req, res, next) {
 
     Sensor
         .find({owner: req.user})
-        //.find({organization: req.user.organization})
-        .sort({name: 'asc'})
+        .or([{name: new RegExp(req.query.search, "i")}, {tag: new RegExp(req.query.search, "i")}, {description: new RegExp(req.query.search, "i") }])
+        .sort(JSON.parse(req.query.orderBy))
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
         .exec(function (error, devices) {
