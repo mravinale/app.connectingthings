@@ -3,12 +3,12 @@
 angular.module('app').service('cameraService', function ($http) {
 
     this.getAll = function(params) {
-        var paramsToSend ={
+        var paramsToSend = {
             page: params.page() -1,
             count: params.count(),
             orderBy: params.orderBy(),
-            filter: {}
-        }
+            search: params.filter().searchFilter
+        };
 
         return $http.get('/cameras', { params : paramsToSend });
     };
