@@ -7,7 +7,7 @@ angular.module('app').service('deviceService', function ($http) {
             page: params.page() -1,
             count: params.count(),
             orderBy: params.orderBy(),
-            filter: {}
+            search: params.filter().searchFilter
         }
 
         return $http.get('/devices', { params : paramsToSend });
