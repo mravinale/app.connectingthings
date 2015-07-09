@@ -35,8 +35,8 @@ exports.getAll = function (req, res, next) {
 
     Panel
         .find({owner: req.user})
-        //.find({organization: req.user.organization})
-        .sort({name: 'asc'})
+        .or([{name: new RegExp(req.query.search, "i")}, {type: new RegExp(req.query.search, "i") }, {size: new RegExp(req.query.search, "i") }])
+        .sort(JSON.parse(req.query.orderBy))
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
         .populate('sensor')

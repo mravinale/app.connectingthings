@@ -4,6 +4,7 @@ angular.module('app')
     .controller('PanelListCtrl', function ($scope, panelService, ngTableParams, $modal, $log, psResponsive,$window) {
 
     $scope.errors = {};
+    $scope.filters = {  searchFilter: '' };
 
     angular.element($window).on('resize', function () {
         $scope.tableParams.sizeFlag = psResponsive('> small');
@@ -16,7 +17,8 @@ angular.module('app')
             count: 10,          // count per page
             sorting: {
                 name: 'asc'     // initial sorting
-            }
+            },
+            filter: $scope.filters
         }, {
             total: 0,           // length of data
             getData: function ($defer, params) {
