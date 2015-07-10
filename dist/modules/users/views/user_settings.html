@@ -91,12 +91,8 @@
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Public Url</label>
-                                    <div class="col-sm-10">
-                                        <input ng-model="user.publicUrl"
-                                               class="form-control"
-                                               placeholder="Public Url"
-                                               disabled
-                                                >
+                                    <div class="col-sm-10" style="margin-top: 7px">
+                                        <a ng-href={{user.publicUrl}} target="_blank" style="color: blue; margin-top: 20px">/{{user.publicUrl}}</a>
                                     </div>
                                 </div>
 

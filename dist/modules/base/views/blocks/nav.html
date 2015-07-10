@@ -39,6 +39,12 @@
             <span class="font-bold" translate="aside.nav.SENSORS">Sensors</span>
         </a>
     </li>
+  <li ng-show="currentUser.admin">
+    <a ui-sref="app.trigger.list">
+      <i class="fa fa-exclamation-triangle fa-fw icon text-info-dker"></i>
+      <span class="font-bold" translate="aside.nav.TRIGGERS">Triggers</span>
+    </a>
+  </li>
     <li ng-show="currentUser.admin">
         <a  ui-sref="app.camera.list" >
             <i class="fa fa-video-camera icon text-info-dker"></i>

@@ -23,7 +23,6 @@ var UserSchema = new Schema({
   key: String,
   publicKey: String,
   publicUrl: String,
-  triggers: [{ type: String, ref: 'Trigger', required: true}],
   statistics:{
     cameras: { type: Number, default: 0 },
     dashboards: { type: Number, default: 0 },

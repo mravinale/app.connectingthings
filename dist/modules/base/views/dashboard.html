@@ -10,7 +10,7 @@
                 </a>
                 <div class="clear m-b">
                     <div class="m-b m-t-sm">
-                        <span class="h3 text-white">{{currentUser.username}}</span>
+                        <span class="h3 text-white">{{user.username}}</span>
                         <!--small class="m-l">London, UK</small!-->
                     </div>
                     <p class="m-b">
@@ -24,20 +24,20 @@
 
           <div class="col-sm-5">
 
-            <!--div class="pull-right pull-none-xs text-center">
+            <div class="pull-right pull-none-xs text-center">
               <a href class="m-b-md inline m">
-                <span class="h3 block font-bold text-white">250</span>
+                <span class="h3 block font-bold text-white">{{user.statistics.messages}}</span>
                 <small class="text-white">Messages</small>
               </a>
               <a href class="m-b-md inline m">
-                <span class="h3 block font-bold text-white">25</span>
+                <span class="h3 block font-bold text-white">{{user.statistics.sensors}}</span>
                 <small class="text-white">Sensors</small>
               </a>
                 <a href class="m-b-md inline m">
-                    <span class="h3 block font-bold text-white">5</span>
+                    <span class="h3 block font-bold text-white">{{user.statistics.devices}}</span>
                     <small class="text-white">Devices</small>
                 </a>
-            </div-->
+            </div>
 
           </div>
         </div>
