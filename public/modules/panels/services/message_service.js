@@ -7,7 +7,7 @@ angular.module('app').service('messageService', function ($http) {
         var paramsToSend ={
             page: params.page() -1,
             count: params.count(),
-            orderBy: params.orderBy(),
+            orderBy: params.sorting(),
             filter: {}
         }
 

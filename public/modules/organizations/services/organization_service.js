@@ -6,8 +6,8 @@ angular.module('app').service('organizationService', function ($http) {
         var paramsToSend ={
             page: params.page() -1,
             count: params.count(),
-            orderBy: params.orderBy(),
-            filter: {}
+            orderBy: params.sorting(),
+            search: params.filter().searchFilter
         };
 
         return $http.get('/organizations', { params : paramsToSend });
