@@ -109,7 +109,7 @@ exports.getAll = function (req, res, next) {
 
     User
         .find()
-        .or([{name: new RegExp(req.query.search, "i")}, {description: new RegExp(req.query.search, "i") }])
+        .or([ {username: new RegExp(req.query.search, "i")}, {email: new RegExp(req.query.search, "i")} ])
         .sort(JSON.parse(req.query.orderBy))
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
