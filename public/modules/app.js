@@ -380,7 +380,7 @@ var app = angular.module('app', [
 }])
 
 .constant('JQ_CONFIG', {
-    easyPieChart:   ['assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js'],
+  //  easyPieChart:   ['assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js'],
     sparkline:      ['assets/js/jquery/charts/sparkline/jquery.sparkline.min.js'],
     plot:           ['assets/js/jquery/charts/flot/jquery.flot.min.js',
                         'assets/js/jquery/charts/flot/jquery.flot.resize.js',

@@ -153,6 +153,7 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/lib/angular-gravatar/build/angular-gravatar.js',
                                 '<%= yeoman.app %>/lib/angular-re-captcha/angular-re-captcha.js',
                                 '<%= yeoman.app %>/lib/angular-touch/angular-touch.js',
+                                '<%= yeoman.app %>/assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js',
 
                                '<%= yeoman.app %>/modules/app.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_me.js',
