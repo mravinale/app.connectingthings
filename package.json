@@ -19,6 +19,7 @@
     "mongoose": "4.0.2",
     "mongoose-validators": "~0.1.0",
     "mqtt": "0.3.8",
+    "newrelic": "^1.21.0",
     "node-rest-client": "1.0.0",
     "node-rsa": "~0.2.23",
     "node-uuid": "1.4.x",
