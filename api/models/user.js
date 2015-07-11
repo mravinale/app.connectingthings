@@ -10,6 +10,7 @@ var UserSchema = new Schema({
   _id: { type: String },
   email: { type: String, unique: true, required: true },
   username: { type: String, unique: true, required: true },
+  description: { type: String, default: "Iot Hero" },
   hashedPassword: String,
   salt: String,
   surname: String,

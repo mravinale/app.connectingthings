@@ -166,7 +166,7 @@ exports.getAllUsers = function (req, res, next) {
                 return res.send(400, error);
             }
 
-            return  res.send(200, _.map(users, function(obj) { return _.pick(obj, 'email','publicUrl','statistics'); }));
+            return  res.send(200, _.map(users, function(obj) { return _.pick(obj, 'email', 'username', 'publicUrl','statistics','description'); }));
         });
 };
 
