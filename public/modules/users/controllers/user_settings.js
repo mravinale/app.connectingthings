@@ -1,12 +1,14 @@
 'use strict';
 angular.module('app')
-    .controller('UserSettingsCtrl', function ($scope, $routeParams, userService, $localStorage, $modalInstance, userId, organizationService) {
+    .controller('UserSettingsCtrl', function ($scope, md5Helper, $routeParams, userService, $localStorage, $modalInstance, userId, organizationService) {
 
         $scope.user = { };
+
 
         userService.getById(userId)
             .success(function (response, status, headers, config) {
                 $scope.user = response
+                $scope.user.hash = md5Helper.createHash($scope.user.email);
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

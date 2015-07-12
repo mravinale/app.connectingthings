@@ -7,7 +7,7 @@
         </div>
         <form name="form" class="form-external" novalidate>
             <div class="list-group list-group-sm">
-                <div ng-class="{'has-error': form.password.$error.mongoose}" class="list-group list-group-sm">
+                <div ng-class="{'has-error': form.username.$error.mongoose}" class="list-group list-group-sm">
                     <input type="username"
                            class="form-control"
                            placeholder="User Name"
@@ -24,6 +24,20 @@
                          ng-show="form.username.$error.required && submitted ">
                         field required
                     </div>
+                </div>
+
+                <div ng-class="{'has-error': form.description.$error.mongoose}" class="list-group list-group-sm">
+                    <input type="text"
+                               class="form-control"
+                               placeholder="A description about yourself"
+                               name="description"
+                               ng-model="user.description"
+                               mongoose-error
+                                >
+                        <div class="error"
+                             ng-show="form.description.$error.mongoose">
+                            {{ errors.description }}
+                        </div>
                 </div>
                 <div ng-class="{'has-error': form.email.$error.mongoose}" class="list-group list-group-sm">
                     <input type="text"

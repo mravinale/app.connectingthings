@@ -188,6 +188,7 @@ module.exports = function (grunt) {
                                '<%= yeoman.app %>/modules/users/controllers/user_edit.js',
                                '<%= yeoman.app %>/modules/users/controllers/user_list.js',
                                '<%= yeoman.app %>/modules/users/controllers/user_settings.js',
+                               '<%= yeoman.app %>/modules/users/factories/md5.js',
                                '<%= yeoman.app %>/modules/organizations/controllers/organization_add.js',
                                '<%= yeoman.app %>/modules/organizations/controllers/organization_edit.js',
                                '<%= yeoman.app %>/modules/organizations/controllers/organization_list.js',
