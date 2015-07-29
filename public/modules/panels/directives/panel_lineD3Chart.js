@@ -54,11 +54,13 @@ angular.module('app')
 
                         angular.forEach(response, function(message) {
                             var item = angular.fromJson(message);
-                            items.push([moment(message.createdAt).valueOf(), parseInt(item.value)]);
+                            if(item && item.value !== 0) {
+                              items.push([moment(item.createdAt).valueOf(), parseInt(item.value)]);
+                            }
                         });
 
-                        scope.values =  [ { "values": items, "key": scope.name } ];
-                        console.log("from :" + scope.topic,  scope.values);
+                        scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
+                        //console.log("from :" + scope.topic,  scope.values);
                     })
                     .error(function(response, status, headers, config) {
                         console.error( response);
@@ -72,10 +74,16 @@ angular.module('app')
 
                 socket.on(scope.topic, function (message) {
                     var item = angular.fromJson(message);
-                    items.push([moment().valueOf(),item.value]);
 
-                    scope.values =  [ { "values": items, "key": scope.name } ];
+                    if(item && item.value !== 0) {
+                      items.push([moment().valueOf(), item.value]);
+                    }
 
+                    if(items.length > 20){
+                      items = _.rest(items);
+                    }
+
+                    scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
                 });
 
             }
