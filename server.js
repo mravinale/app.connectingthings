@@ -1,5 +1,7 @@
 'use strict';
-require('newrelic');
+if(process.argv[2] == '-dist') {
+  require('newrelic');
+}
 
 // Module dependencies.
 var express = require('express'),

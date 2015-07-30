@@ -36,9 +36,11 @@ angular.module('app')
 
             publicService.getAllDashboards($state.params.id) //iL4bJVGT820
                 .success(function (response, status, headers, config) {
+                    if(!response || !response[0] ) return;
+
                     $scope.dashboards = response;
-                    $scope.user = response? response[0].owner : null;
-                    $scope.tab = response[0]? response[0].name : null;
+                    $scope.user = response[0].owner? response[0].owner : null;
+                    $scope.tab = response[0].name? response[0].name : null;
 
                 })
                 .error(function(response, status, headers, config) {
