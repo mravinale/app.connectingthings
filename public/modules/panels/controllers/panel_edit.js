@@ -18,13 +18,24 @@ angular.module('app')
         deviceService.getAllDevices()
             .success(function(response, status, headers, config) {
                 $scope.devices = response;
-                $scope.panel.device = $scope.devices[0]?  $scope.devices[0]._id : null;
             }).error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
                     form[field].$setValidity('mongoose', false);
                     $scope.errors[field] = error.message;
                 });
             });
+
+        cameraService.getAllCameras()
+          .success(function(response, status, headers, config) {
+            $scope.cameras = response;
+          })
+          .error(function(response, status, headers, config) {
+            angular.forEach(response.errors, function(error, field) {
+              form[field].$setValidity('mongoose', false);
+              $scope.errors[field] = error.message;
+            });
+          });
+
 
         $scope.save = function(form) {
             $scope.errors = {};
@@ -69,28 +80,6 @@ angular.module('app')
             }
 
         });
-
-        deviceService.getAllDevices()
-            .success(function(response, status, headers, config) {
-                $scope.devices = response;
-            })
-            .error(function(response, status, headers, config) {
-                angular.forEach(response.errors, function(error, field) {
-                    form[field].$setValidity('mongoose', false);
-                    $scope.errors[field] = error.message;
-                });
-            });
-
-        cameraService.getAllCameras()
-            .success(function(response, status, headers, config) {
-                $scope.cameras = response;
-            })
-            .error(function(response, status, headers, config) {
-                angular.forEach(response.errors, function(error, field) {
-                    form[field].$setValidity('mongoose', false);
-                    $scope.errors[field] = error.message;
-                });
-            });
 
         $scope.cancel = function() {
             $modalInstance.dismiss('cancel');
