@@ -13,6 +13,7 @@ var PanelSchema = new Schema({
   type: { type: String, required: true  },
   size: { type: String, required: true  },
   owner: { type: String, ref: 'User'},
+  isPublic: { type: Boolean,  default: true },
   organization: { type: String, ref: 'Organization' }
 });
 

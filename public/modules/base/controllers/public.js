@@ -38,7 +38,17 @@ angular.module('app')
                 .success(function (response, status, headers, config) {
                     if(!response || !response[0] ) return;
 
-                    $scope.dashboards = response;
+                    $scope.dashboards = _.each(response, function(dashboard) {
+                      dashboard.sections =  _.reject(dashboard.sections, function(section) {
+                        if( !section.isPublic ) return true;
+
+                          section.panels =  _.reject(section.panels, function(panel) {
+                            return panel.isPublic == false ;
+                          });
+                        });
+                      });
+
+
                     $scope.user = response[0].owner? response[0].owner : null;
                     $scope.tab = response[0].name? response[0].name : null;
 

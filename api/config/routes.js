@@ -57,7 +57,7 @@ module.exports = function(app) {
     app.put('/panels/:id', auth.ensureAuthenticated, panels.update);
     app.del('/panels/:id', auth.ensureAuthenticated, panels.remove);
     app.post('/panels', auth.ensureAuthenticated, panels.create);
-    app.post('/panels/command', auth.ensureAuthenticated, panels.command);
+    app.post('/panels/command',  panels.command); //TODO: We need to secure this
 
     // Device Routes
     var devices = require('../controllers/devices');
@@ -109,7 +109,7 @@ module.exports = function(app) {
     // Section Messages
     var messages = require('../controllers/messages');
     app.get('/messages', auth.ensureAuthenticated, messages.getAll);
-    app.get('/messages/items', auth.ensureAuthenticated, messages.getAllMessages);
+    app.get('/messages/items', messages.getAllMessages); //TODO: We need to secure this
 
     // Organization Routes
     var organizations = require('../controllers/organizations');

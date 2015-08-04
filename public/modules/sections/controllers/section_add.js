@@ -3,7 +3,7 @@
 angular.module('app')
     .controller('SectionAddCtrl', function ($scope, sectionService,panelService, $location, $modalInstance) {
 
-        $scope.section = { };
+        $scope.section = { isPublic: true };
 
         $scope.save = function(form) {
             $scope.errors = {};

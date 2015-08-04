@@ -11,6 +11,7 @@ var SectionSchema = new Schema({
   description: {type: String},
   panels:[{ type:String, ref: 'Panel', required: true }],
   owner: { type: String, ref: 'User'},
+  isPublic: { type: Boolean,  default: true },
   organization: { type: String, ref: 'Organization' }
 });
 

@@ -3,7 +3,7 @@
 angular.module('app')
     .controller('PanelAddCtrl', function ($scope, panelService, deviceService, cameraService, $location, $modalInstance ) {
 
-        $scope.panel = { };
+        $scope.panel = { isPublic: true };
 
         $scope.save = function(form) {
             $scope.errors = {};
