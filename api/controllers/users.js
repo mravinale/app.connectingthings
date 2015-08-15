@@ -32,17 +32,19 @@ exports.create = function (req, res, next) {
   newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1);
   newUser.publicUrl =  "#/app/public/dashboard/" +  newUser.publicKey;
 
-  var data = {
-    from: from_who,
-    to: newUser.email,
-    subject: 'Activate your ConnectingThings account',
-    html: 'Activate your new ConnectingThings account by clicking on the link below. <a href="'+origin+'/#/access/suscription?confirmation=' + newUser._id + '">Click here to confirm</a>'
-  };
 
   newUser.save(function(err) {
     if (err) return res.send(400, err);
 
-      mailgun.messages().send(data, function (err, body) {
+    var data = {
+      from: from_who,
+      to: newUser.email,
+      subject: 'Activate your ConnectingThings account',
+      html: 'Activate your new ConnectingThings account by clicking on the link below. <a href="'+origin+'/#/access/suscription?confirmation=' + newUser._id + '">Click here to confirm</a>'
+    };
+
+
+    mailgun.messages().send(data, function (err, body) {
           if (err) return res.json(400, err);
 
           res.send(200, newUser);
