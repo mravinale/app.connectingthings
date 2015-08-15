@@ -128,6 +128,10 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/assets/js/angular/ui-jq.js',
                                 '<%= yeoman.app %>/assets/js/angular/ui-validate.js',
                                 '<%= yeoman.app %>/assets/js/angular/ui-bootstrap-tpls.min.js',
+                                '<%= yeoman.app %>/assets/js/angular-ui.sorteable.js',
+                                '<%= yeoman.app %>/assets/js/screenfull.min.js',
+                                '<%= yeoman.app %>/assets/js/ps-responsive.js',
+                                '<%= yeoman.app %>/assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js',
 
                                 '<%= yeoman.app %>/lib/angular-chosen-localytics/chosen.js',
                                 '<%= yeoman.app %>/lib/angular-socket-io/socket.js',
@@ -136,9 +140,6 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/lib/angular-sanitize/angular-sanitize.js',
                                 '<%= yeoman.app %>/lib/angular-route/angular-route.js',
                                 '<%= yeoman.app %>/lib/angular-http-auth/src/http-auth-interceptor.js',
-                                '<%= yeoman.app %>/assets/js/angular-ui.sorteable.js',
-                                '<%= yeoman.app %>/assets/js/screenfull.min.js',
-                                '<%= yeoman.app %>/assets/js/ps-responsive.js',
 
                                 '<%= yeoman.app %>/lib/socket.io-client/socket.io.js',
                                 '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',
@@ -153,7 +154,7 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/lib/angular-gravatar/build/angular-gravatar.js',
                                 '<%= yeoman.app %>/lib/angular-re-captcha/angular-re-captcha.js',
                                 '<%= yeoman.app %>/lib/angular-touch/angular-touch.js',
-                                '<%= yeoman.app %>/assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js',
+                                '<%= yeoman.app %>/lib/supportkit/dist/supportkit.min.js',
 
                                '<%= yeoman.app %>/modules/app.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_me.js',
