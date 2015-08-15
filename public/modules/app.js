@@ -321,6 +321,25 @@ var app = angular.module('app', [
 
         $rootScope.currentUser = $localStorage.currentUser? $localStorage.currentUser : $rootScope.currentUser;
 
+        if($rootScope.currentUser) {
+            window.Intercom('boot', {
+                app_id: "rvvvm6rx",
+                // TODO: The current logged in user's full name
+                name: $rootScope.currentUser.username,
+                // TODO: The current logged in user's email address.
+                email: $rootScope.currentUser.email,
+                // TODO: The current logged in user's sign-up date as a Unix timestamp.
+                created_at: 1234567890
+            });
+
+            SupportKit.init({
+                appToken: 'c4petjl63pxfthtruwknea5in',
+                name: $rootScope.currentUser.username,
+                email: $rootScope.currentUser.email
+            });
+        }
+
+
         // if no currentUser and on a page that requires authorization then try to update it
         // will trigger 401s if user does not have a valid session
 
@@ -328,7 +347,7 @@ var app = angular.module('app', [
 
             if($location.path().indexOf("/app/public/dashboard/") > -1) return;
             if($location.path().indexOf("/app/public/list") > -1) return;
-              if($location.path().indexOf("/access/changepwd") > -1) return;
+            if($location.path().indexOf("/access/changepwd") > -1) return;
 
             sessionService.getCurrentUser()
             .success(function (response, status, headers, config) {
@@ -652,6 +671,8 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
 
 
         $rootScope.$on("$stateChangeSuccess", function (event, current, previous, rejection) {
+                window.Intercom('update');
+
                 if(_.contains(["/access/signin", "/access/signup", "/access/forgotpwd", "/access/suscription"], $location.$$url)){
                     $rootScope.enableExternal = true;
                 } else {
