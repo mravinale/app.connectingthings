@@ -105,7 +105,8 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/assets/css/app.css',
                                 '<%= yeoman.app %>/assets/css/app-admin.css',
                                 '<%= yeoman.app %>/assets/css/animate.css',
-                                '<%= yeoman.app %>/assets/css/simple-line-icons.css'
+                                '<%= yeoman.app %>/assets/css/simple-line-icons.css',
+                                '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.css'
                         ]
                     }
                 ]
