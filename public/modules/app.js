@@ -29,7 +29,8 @@ var app = angular.module('app', [
     'nvd3ChartDirectives',
     'localytics.directives',
     'ui.gravatar',
-    'reCAPTCHA'
+    'reCAPTCHA',
+    'oitozero.ngSweetAlert'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',

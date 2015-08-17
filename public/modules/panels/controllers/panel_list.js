@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('PanelListCtrl', function ($scope, panelService, ngTableParams, $modal, $log, psResponsive,$window) {
+    .controller('PanelListCtrl', function ($scope, panelService, ngTableParams, $modal, $log, psResponsive, $window, SweetAlert) {
 
     $scope.errors = {};
     $scope.filters = {  searchFilter: '' };
@@ -74,16 +74,28 @@ angular.module('app')
 
     $scope.delete = function (panel) {
 
-        panelService.remove(panel._id)
-        .success(function (response, status, headers, config) {
-            $scope.tableParams.reload();
-        }).error(function (response, status, headers, config) {
-            angular.forEach(response.errors, function (error, field) {
-                form[field].$setValidity('mongoose', false);
-                $scope.errors[field] = error.type;
-            });
+      SweetAlert.swal({
+          title: "Are you sure?",
+          text: "Your will not be able to recover this panel!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, delete it!",
+          cancelButtonText: "No, cancel please!"
+        },
+        function(isConfirm) {
+          if (isConfirm) {
+            panelService.remove(panel._id)
+              .success(function (response, status, headers, config) {
+                $scope.tableParams.reload();
+              }).error(function (response, status, headers, config) {
+                angular.forEach(response.errors, function (error, field) {
+                  form[field].$setValidity('mongoose', false);
+                  $scope.errors[field] = error.type;
+                });
+              });
+          }
         });
-    }
+    };
 
     $scope.initDataTable();
 

@@ -140,6 +140,9 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/lib/angular-sanitize/angular-sanitize.js',
                                 '<%= yeoman.app %>/lib/angular-route/angular-route.js',
                                 '<%= yeoman.app %>/lib/angular-http-auth/src/http-auth-interceptor.js',
+                                '<%= yeoman.app %>/lib/supportkit/dist/supportkit.min.js',
+                                '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.min.js',
+                                '<%= yeoman.app %>/lib/angular-sweetalert/SweetAlert.min.js',
 
                                 '<%= yeoman.app %>/lib/socket.io-client/socket.io.js',
                                 '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',
