@@ -1,54 +1,60 @@
 <!-- first -->
 <ul class="nav">
-  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-    <span translate="aside.nav.HEADER">Navigation</span>
-  </li>
-    <li >
+    <li style="margin-top: 20px">
         <a ui-sref="app.dashboard.me">
             <i class="fa fa-laptop fa-fw icon text-primary-dker"></i>
-            <span class="font-bold" translate="aside.nav.MYVIEW">My View</span>
+            <span class="font-bold" translate="aside.nav.HOME">Home</span>
         </a>
     </li>
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.DISPLAY">Navigation</span>
+  </li>
+
   <li ng-show="currentUser.admin">
     <a ui-sref="app.dashboard.list">
       <i class="fa fa-bar-chart-o fa-fw icon text-info-dker"></i>
-      <span class="font-bold" translate="aside.nav.DASHBOARD">Dashboard</span>
+      <span class="" translate="aside.nav.DASHBOARD">Dashboard</span>
     </a>
   </li>
   <li ng-show="currentUser.admin">
     <a ui-sref="app.section.list">
       <i class="fa fa-bars fa-fw icon text-info-dker"></i>
-      <span class="font-bold" translate="aside.nav.SECTIONS">Sections</span>
+      <span class="" translate="aside.nav.SECTIONS">Sections</span>
     </a>
   </li>
   <li ng-show="currentUser.admin">
     <a ui-sref="app.panel.list">
       <i class="fa fa-dashboard fa-fw icon text-info-dker"></i>
-      <span class="font-bold" translate="aside.nav.PANELS">Panels</span>
+      <span class="" translate="aside.nav.PANELS">Panels</span>
     </a>
   </li>
+
+    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span translate="aside.nav.CONFIGURATION">Navigation</span>
+    </li>
+
   <li ng-show="currentUser.admin">
     <a ui-sref="app.device.list">
       <i class="fa fa-keyboard-o fa-fw icon text-info-dker"></i>
-      <span class="font-bold" translate="aside.nav.DEVICES">Devices</span>
+      <span class="" translate="aside.nav.DEVICES">Devices</span>
     </a>
   </li>
     <li ng-show="currentUser.admin">
         <a ui-sref="app.sensor.list">
             <i class="fa fa-cogs fa-fw icon text-info-dker"></i>
-            <span class="font-bold" translate="aside.nav.SENSORS">Sensors</span>
+            <span class="" translate="aside.nav.SENSORS">Sensors</span>
         </a>
     </li>
   <li ng-show="currentUser.admin && currentUser.organizationName == 'admin'">
     <a ui-sref="app.trigger.list">
       <i class="fa fa-exclamation-triangle fa-fw icon text-info-dker"></i>
-      <span class="font-bold" translate="aside.nav.TRIGGERS">Triggers</span>
+      <span class="" translate="aside.nav.TRIGGERS">Triggers</span>
     </a>
   </li>
     <li ng-show="currentUser.admin">
         <a  ui-sref="app.camera.list" >
             <i class="fa fa-video-camera icon text-info-dker"></i>
-            <span class="font-bold" translate="aside.nav.CAMERAS">Cameras</span>
+            <span class="" translate="aside.nav.CAMERAS">Cameras</span>
         </a>
 
     </li>

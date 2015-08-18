@@ -7,8 +7,9 @@
     },
     "aside": {
         "nav": {
-            "HEADER": "Navigation",
-            "MYVIEW": "My View",
+            "DISPLAY": "Display",
+            "CONFIGURATION": "Configuration",
+            "HOME": "Home",
             "DASHBOARD": "Dashboard",
             "SECTIONS": "Sections",
             "PANELS": "Panels",

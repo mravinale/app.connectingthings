@@ -2,13 +2,14 @@
 
     "header": {
         "navbar": {
-            "NOTIFICATIONS": "Notifications"
+            "NOTIFICATIONS": "Notificationes"
         }
     },
     "aside": {
         "nav": {
-            "HEADER": "Navegacion",
-            "MYVIEW": "Mi Vista",
+            "DISPLAY": "Vista",
+            "CONFIGURATION": "Configuracion",
+            "HOME": "Pagina Principal",
             "DASHBOARD": "Dashboard",
             "SECTIONS": "Secciones",
             "PANELS": "Paneles",
@@ -24,9 +25,9 @@
                 },
                 "pages": {
                     "PAGES": "Paginas",
-                    "SIGNIN": "Signin",
-                    "SIGNUP": "Signup",
-                    "FORGOT_PASSWORD": "Forgot password"
+                    "SIGNIN": "Loguearse",
+                    "SIGNUP": "Suscribirse",
+                    "FORGOT_PASSWORD": "Olvido de password"
 
                 }
             },
