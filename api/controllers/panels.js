@@ -44,9 +44,7 @@ exports.getAll = function (req, res, next) {
             Panel
               .count({owner: req.user})
               .or([{name: new RegExp(req.query.search, "i")}, {type: new RegExp(req.query.search, "i") }, {size: new RegExp(req.query.search, "i") }])
-              .exec(function (error, cou
-
-               nt) {
+              .exec(function (error, count) {
                 if (error) {
                     console.log(error);
                     res.send(400, error);
