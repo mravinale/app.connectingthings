@@ -99,12 +99,15 @@ exports.getAll = function (req, res, next) {
 
     User
         .find()
-        .or([ {username: new RegExp(req.query.search, "i")}, {email: new RegExp(req.query.search, "i")} ])
+        .or([ { username: new RegExp(req.query.search, "i") }, { email: new RegExp(req.query.search, "i") } ])
         .sort(JSON.parse(req.query.orderBy))
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
         .exec(function (error, users) {
-            User.count().exec(function (error, count) {
+            User
+              .count()
+              .or([ { username: new RegExp(req.query.search, "i") }, { email: new RegExp(req.query.search, "i") } ])
+              .exec(function (error, count) {
                 if (error) {
                     console.log(error);
                     res.send(400, error);

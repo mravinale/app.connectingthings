@@ -41,7 +41,12 @@ exports.getAll = function (req, res, next) {
         .skip(req.query.count * req.query.page)
         .populate('sensor')
         .exec(function (error, panels) {
-            Panel.count().exec(function (error, count) {
+            Panel
+              .count({owner: req.user})
+              .or([{name: new RegExp(req.query.search, "i")}, {type: new RegExp(req.query.search, "i") }, {size: new RegExp(req.query.search, "i") }])
+              .exec(function (error, cou
+
+               nt) {
                 if (error) {
                     console.log(error);
                     res.send(400, error);

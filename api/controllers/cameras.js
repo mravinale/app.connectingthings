@@ -34,7 +34,10 @@ exports.getAll = function (req, res, next) {
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
         .exec(function (error, cameras) {
-            Camera.count().exec(function (error, count) {
+            Camera
+              .count({owner: req.user})
+              .or([{name: new RegExp(req.query.search, "i")}, {description: new RegExp(req.query.search, "i") }])
+              .exec(function (error, count) {
                 if (error) {
                     console.log(error);
                     res.send(400, error);

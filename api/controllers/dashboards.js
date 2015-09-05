@@ -43,7 +43,10 @@ exports.getAll = function (req, res, next) {
         .skip(req.query.count * req.query.page)
         .populate('sections')
         .exec(function (error, dashboards) {
-            Dashboard.count().exec(function (error, count) {
+            Dashboard
+              .count({owner: req.user})
+              .or([{name: new RegExp(req.query.search, "i")}, {description: new RegExp(req.query.search, "i") }])
+              .exec(function (error, count) {
                 if (error) {
                     console.log(error);
                     res.send(400, error);

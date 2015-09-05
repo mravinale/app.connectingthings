@@ -24,13 +24,16 @@ exports.getAll = function (req, res, next) {
     Trigger
         .find({owner: req.user})
         .or([{name: new RegExp(req.query.search, "i")}, {description: new RegExp(req.query.search, "i") }, {rule: new RegExp(req.query.search, "i") }, {value: new RegExp(req.query.search, "i") }])
-      .sort(JSON.parse(req.query.orderBy))
+        .sort(JSON.parse(req.query.orderBy))
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
         .populate('sensor')
         .populate('device')
         .exec(function (error, triggers) {
-            Trigger.count().exec(function (error, count) {
+            Trigger
+              .count({owner: req.user})
+              .or([{name: new RegExp(req.query.search, "i")}, {description: new RegExp(req.query.search, "i") }, {rule: new RegExp(req.query.search, "i") }, {value: new RegExp(req.query.search, "i") }])
+              .exec(function (error, count) {
                 if (error) {
                     console.log(error);
                     res.send(400, error);
