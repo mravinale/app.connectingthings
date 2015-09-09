@@ -30,7 +30,8 @@ var app = angular.module('app', [
     'localytics.directives',
     'ui.gravatar',
     'reCAPTCHA',
-    'oitozero.ngSweetAlert'
+    'oitozero.ngSweetAlert',
+    'multiStepForm'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',

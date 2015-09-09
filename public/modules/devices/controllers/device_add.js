@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $modalInstance, $location) {
+    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $location) {
 
         $scope.device = { };
 
@@ -32,8 +32,8 @@ angular.module('app')
                 });
             });
 
-        $scope.cancel = function () {
+       /* $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
-        };
+        };*/
 
     });
