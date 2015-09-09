@@ -5,15 +5,14 @@ angular.module('app')
 
     $scope.steps = [
       {
-        templateUrl: '/modules/devices/views/device_add.html',
-        hasForm: true,
-        controller: 'DeviceAddCtrl'
+        templateUrl: '/modules/base/views/modals/templates/tutorial_sensor_add.html',
+        controller: 'TutorialSensorAddCtrl'
       },
       {
-        templateUrl: '/modules/sensors/views/sensor_add.html',
-        isolatedScope: true,
-        controller: 'SensorAddCtrl'
+        templateUrl: '/modules/base/views/modals/templates/tutorial_device_add.html',
+        controller: 'TutorialDeviceAddCtrl'
       },
+
       {
         templateUrl: '/modules/panels/views/panel_add.html',
         isolatedScope: true,

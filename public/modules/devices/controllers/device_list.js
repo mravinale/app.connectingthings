@@ -98,7 +98,9 @@ angular.module('app')
               }
             });
         };
-
+          $rootScope.$on('reload-tableParams', function(event, args) {
+              $scope.tableParams.reload();
+          });
 
         $scope.initDataTable();
 
