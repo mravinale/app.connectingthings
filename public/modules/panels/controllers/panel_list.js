@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('PanelListCtrl', function ($scope, panelService, ngTableParams, $modal, $log, psResponsive, $window, SweetAlert) {
+    .controller('PanelListCtrl', function ($scope, $rootScope, panelService, ngTableParams, $modal, $log, psResponsive, $window, SweetAlert) {
 
     $scope.errors = {};
     $scope.filters = {  searchFilter: '' };
@@ -96,6 +96,11 @@ angular.module('app')
           }
         });
     };
+
+    $rootScope.$on('reload-tableParams', function(event, args) {
+      $scope.tableParams.reload();
+    });
+
 
     $scope.initDataTable();
 

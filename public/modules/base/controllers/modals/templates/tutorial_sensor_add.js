@@ -10,8 +10,8 @@ angular.module('app')
 
            sensorService.create($scope.sensor)
                 .success(function (response, status, headers, config) {
-               $rootScope.$broadcast('reload-tableParams');
-                  $scope.$nextStep()
+                  $rootScope.$broadcast('reload-tableParams');
+                  $scope.$nextStep();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {

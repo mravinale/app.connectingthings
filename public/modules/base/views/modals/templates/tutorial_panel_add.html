@@ -1,0 +1,152 @@
+
+<div id="page-wrapper">
+
+    <div class="col-lg-12">
+        <h2 class="page-header">New Panel</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12" style="padding-left: 30px">
+            <div class="panel " >
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <form class="form-horizontal" role="form" name="form">
+
+                                <div class="form-group" ng-class="{'has-error': form.name.$error.mongoose}">
+                                    <label class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="panel.name"
+                                               class="form-control"
+                                               placeholder="Panel name"
+                                               name="name"
+                                               mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.name.$error.mongoose">
+                                            {{ errors.name }}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group" ng-class="{'has-error': form.type.$error.mongoose}">
+                                    <label  class="col-sm-2 control-label">Type</label>
+                                    <div class="col-sm-10">
+                                        <select ng-model="panel.type" class="form-control" name="type" mongoose-error>
+                                            <option value="" disabled selected>Select control type</option>
+                                            <option>gauge</option>
+                                            <option>info</option>
+                                            <option>d3-chart</option>
+                                            <option>switch</option>
+                                            <option>camera</option>
+                                        </select>
+                                        <div class="error"
+                                             ng-show="form.type.$error.mongoose">
+                                            {{ errors.type }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-show="panel.type==='camera'" ng-class="{'has-error': form.camera.$error.mongoose}">
+                                    <label  class="col-sm-2 control-label">Camera</label>
+                                    <div class="col-sm-10">
+                                        <select
+                                                ng-model="panel.camera"
+                                                ng-options="camera._id as camera.name for camera in cameras"
+                                                class="form-control"
+                                                name="camera"
+                                                mongoose-error>
+                                            <option value="" >select a camera</option>
+                                        </select>
+                                        <div class="error"
+                                             ng-show="form.camera.$error.mongoose">
+                                            {{ errors.camera }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-hide="panel.type==='camera'" ng-class="{'has-error': form.device.$error.mongoose}">
+                                    <label  class="col-sm-2 control-label">Device</label>
+                                    <div class="col-sm-10">
+                                        <select
+                                                ng-model="panel.device"
+                                                ng-options="device._id as device.name for device in devices"
+                                                class="form-control"
+                                                name="device"
+                                                mongoose-error>
+                                            <option value="" disabled>select a device</option>
+                                        </select>
+                                        <div class="error"
+                                             ng-show="form.device.$error.mongoose">
+                                            {{ errors.device }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-hide="panel.type==='camera'" ng-class="{'has-error': form.sensor.$error.mongoose}">
+                                    <label  class="col-sm-2 control-label">Sensor</label>
+                                    <div class="col-sm-10">
+                                        <select
+                                                ng-model="panel.sensor"
+                                                ng-options="sensor._id as sensor.tag for sensor in sensors"
+                                                class="form-control"
+                                                name="sensor"
+                                                mongoose-error>
+                                            <option value="" disabled>select a sensor</option>
+                                        </select>
+                                        <div class="error"
+                                             ng-show="form.sensor.$error.mongoose">
+                                            {{ errors.sensor }}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group" ng-class="{'has-error': form.size.$error.mongoose}">
+                                    <label  class="col-sm-2 control-label">Size</label>
+                                    <div class="col-sm-10">
+                                        <select ng-model="panel.size" class="form-control" name="size"  mongoose-error>
+                                            <option value="" disabled selected>Select control size</option>
+                                            <option>small</option>
+                                            <option>medium</option>
+                                            <option>large</option>
+                                        </select>
+                                        <div class="error"
+                                             ng-show="form.size.$error.mongoose">
+                                            {{ errors.size }}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Public View Enabled</label>
+                                    <div class="col-sm-10">
+                                        <label class="i-switch bg-info m-t-xs m-r">
+                                            <input type="checkbox" ng-model="panel.isPublic" >
+                                            <i></i>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" style="padding-top: 30px">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button class="btn btn-primary" ng-click="save(form)" >Next</button>
+                                        <button class="btn btn-danger" ng-click="$cancel()">Cancel</button>
+                                        <button class="btn btn-success" ng-click="$finish()" ng-if="$isLast()">Finish</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

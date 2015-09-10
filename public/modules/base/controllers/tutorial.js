@@ -12,11 +12,17 @@ angular.module('app')
         templateUrl: '/modules/base/views/modals/templates/tutorial_device_add.html',
         controller: 'TutorialDeviceAddCtrl'
       },
-
       {
-        templateUrl: '/modules/panels/views/panel_add.html',
-        isolatedScope: true,
-        controller: 'PanelAddCtrl'
+        templateUrl: '/modules/base/views/modals/templates/tutorial_panel_add.html',
+        controller: 'TutorialPanelAddCtrl'
+      },
+      {
+        templateUrl: '/modules/base/views/modals/templates/tutorial_section_add.html',
+        controller: 'TutorialSectionAddCtrl'
+      },
+      {
+        templateUrl: '/modules/base/views/modals/templates/tutorial_dashboard_add.html',
+        controller: 'TutorialDashboardAddCtrl'
       }
     ];
 

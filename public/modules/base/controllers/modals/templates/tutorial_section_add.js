@@ -1,17 +1,17 @@
 'use strict';
 
 angular.module('app')
-    .controller('TutorialDeviceAddCtrl', function ($scope,$rootScope, deviceService, sensorService, $location) {
+    .controller('TutorialSectionAddCtrl', function ($scope, $rootScope, sectionService,panelService) {
 
-        $scope.device = { };
+        $scope.section = { isPublic: true };
 
         $scope.save = function(form) {
             $scope.errors = {};
 
-            deviceService.create($scope.device)
+           sectionService.create($scope.section)
                 .success(function (response, status, headers, config) {
-                  $rootScope.$broadcast('reload-tableParams');
-                  $scope.$nextStep();
+                   $rootScope.$broadcast('reload-tableParams');
+                   $scope.$nextStep();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -19,12 +19,13 @@ angular.module('app')
                         $scope.errors[field] = error.message;
                     });
                 });
-
         };
 
-        sensorService.getAllSensors()
+        panelService.getAllPanels()
             .success(function (response, status, headers, config) {
-                $scope.sensors = response;
+                $scope.panels = response;
+                console.log(response);
+
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -32,6 +33,5 @@ angular.module('app')
                     $scope.errors[field] = error.message;
                 });
             });
-
 
     });

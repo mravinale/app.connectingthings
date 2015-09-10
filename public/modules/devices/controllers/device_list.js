@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('DeviceListCtrl', function ($scope, deviceService, ngTableParams, $modal, $log, psResponsive, $window, SweetAlert) {
+    .controller('DeviceListCtrl', function ($scope, $rootScope, deviceService, ngTableParams, $modal, $log, psResponsive, $window, SweetAlert) {
 
         $scope.errors = {};
         $scope.filters = {  searchFilter: '' };

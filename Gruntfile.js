@@ -159,6 +159,7 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/lib/angular-re-captcha/angular-re-captcha.js',
                                 '<%= yeoman.app %>/lib/angular-touch/angular-touch.js',
                                 '<%= yeoman.app %>/lib/supportkit/dist/supportkit.min.js',
+                                '<%= yeoman.app %>/lib/angular-multi-step-form/dist/angular-multi-step-form.min.js',
 
                                '<%= yeoman.app %>/modules/app.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_me.js',
@@ -222,7 +223,12 @@ module.exports = function (grunt) {
                                '<%= yeoman.app %>/modules/common/factories/websocket.js',
                                '<%= yeoman.app %>/modules/common/directives/gauge.js',
                                '<%= yeoman.app %>/modules/common/directives/lineChart.js',
-                               '<%= yeoman.app %>/modules/base/services/Public.js'
+                               '<%= yeoman.app %>/modules/base/services/Public.js',
+                               '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_sensor_add.js',
+                               '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_device_add.js',
+                               '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_panel_add.js',
+                               '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_section_add.js',
+                               '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_dashboard_add.js'
                             ]
                     }
                 ]
