@@ -1,7 +1,7 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-  .controller('TutorialPanelAddCtrl', function ($scope, $rootScope,  panelService, deviceService, cameraService, $location ) {
+  .controller('TutorialPanelAddCtrl', function ($scope, $rootScope, panelService, deviceService, cameraService, $location ) {
 
     $scope.panel = { isPublic: true };
 
@@ -73,6 +73,19 @@ angular.module('app')
           $scope.errors[field] = error.message;
         });
       });
+
+    $scope.autocomplete = function() {
+
+      $scope.panel = {
+        type: "gauge",
+        name: "Panel Temperature",
+        device: $scope.devices[0]._id,
+        sensor: $scope.sensors[0]._id,
+        size: "small",
+        isPublic: true
+      }
+
+    }
 
 
   });

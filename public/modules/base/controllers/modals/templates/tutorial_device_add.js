@@ -33,5 +33,15 @@ angular.module('app')
                 });
             });
 
+            $scope.autocomplete = function(form) {
+
+              $scope.device = {
+                name: "arduino",
+                description: "Arduino Demo",
+                sensors:[$scope.sensors[0]._id]
+              }
+
+            }
+
 
     });

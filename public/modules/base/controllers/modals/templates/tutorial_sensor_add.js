@@ -22,4 +22,16 @@ angular.module('app')
 
         };
 
+    $scope.autocomplete = function(form) {
+
+      $scope.sensor = {
+        name: "Temperature",
+        tag: "temperature",
+        description:"Temperature Sensor Demo"
+      }
+
+    }
+
+
+
     });

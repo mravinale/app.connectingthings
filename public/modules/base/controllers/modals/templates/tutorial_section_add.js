@@ -34,4 +34,15 @@ angular.module('app')
                 });
             });
 
+    $scope.autocomplete = function() {
+
+      $scope.section = {
+        description: "Temperature Group Demo",
+        name: "Temperature Group",
+        panels: [$scope.panels[0]._id],
+        isPublic: true
+      }
+
+    }
+
     });
