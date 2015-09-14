@@ -1,5 +1,5 @@
 'use strict';
-angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessionService,$localStorage, $location) {
+angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessionService,$localStorage, $location,$modal) {
     $scope.errors =  {};
     $scope.submitted = false;
     $rootScope.showHeader = true;
@@ -12,9 +12,13 @@ angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessi
 
         sessionService.login('password',$scope.user)
             .success(function (response, status, headers, config) {
-                $localStorage.currentUser = response
+                $localStorage.currentUser = response;
                 $rootScope.currentUser =  $localStorage.currentUser;
                 $location.path('/');
+            debugger
+                if($rootScope.currentUser.showTutorial) {
+                  showTutorial();
+                }
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -23,6 +27,21 @@ angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessi
                 });
                 $scope.errors.other = response.message;
             });
+    };
+
+    var showTutorial = function (deviceId) {
+
+      var modalInstance = $modal.open({
+        templateUrl: '/modules/base/views/modals/tutorial.html',
+        controller: 'tutorialCtrl',
+        size: 'lg'
+      });
+
+      modalInstance.result.then(function () {
+        $log.info('editDevice ok at: ' + new Date());
+      }, function () {
+        $log.info('editDevice dismissed at: ' + new Date());
+      });
     };
 
     $scope.init();

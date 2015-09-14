@@ -209,7 +209,16 @@ exports.login = function (req, res, next) {
             if (error) {
                 return res.json(400, error);
             }
-            res.json({ '_id': user._id, 'username': user.username, 'email': user.email, 'admin': user.admin, 'organizationName': user.organization.name, 'organizationId': user.organization._id, 'key': user.key});
+            res.json({
+              '_id': user._id,
+              'username': user.username,
+              'email': user.email,
+              'admin': user.admin,
+              'organizationName': user.organization.name,
+              'organizationId': user.organization._id,
+              'key': user.key,
+              'showTutorial': user.showTutorial
+            });
 
         });
     })(req, res, next);
