@@ -5,7 +5,7 @@
 //http://www.foscam.es/descarga/ipcam_cgi_sdk.pdf
 'use strict';
 angular.module('app')
-    .directive('panelCamera', function (socket, $http) {
+    .directive('panelCamera', function (socket, $http, $interval) {
         return {
             scope:{
                 name:"@",
@@ -26,6 +26,7 @@ angular.module('app')
 
                                     '<ul class="dropdown-menu animated fadeInRight w">'+
 
+                                        '<li><a href ng-click="reload()" class="glyphicon glyphicon-refresh" > Reload</a></li>'+
                                         '<li><a href ng-mousedown="moveUp()" ng-mouseup="stopUp()" class="glyphicon glyphicon-arrow-up" > Move Up</a></li>'+
                                         '<li><a href ng-mousedown="moveDown()" ng-mouseup="stopDown()" class="glyphicon glyphicon-arrow-down" > Move Down</a></li>'+
                                         '<li><a href ng-mousedown="moveLeft()" ng-mouseup="stopLeft()" class="glyphicon glyphicon-arrow-left" > Move Left</a></li>'+
@@ -41,7 +42,31 @@ angular.module('app')
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
-                scope.stream = scope.url+"/videostream.cgi?user="+ scope.login +"&pwd="+ scope.password + '&cb=' + new Date().getTime();
+                var stream = scope.url+"/videostream.cgi?user="+ scope.login +"&pwd="+ scope.password + '&cb=' + new Date().getTime();
+
+                //pooling waiting the conversion
+                var interval = $interval(function(){
+                  scope.reload()
+                }, 2000);
+
+                scope.reload = function() {
+                  var image = new Image();
+                  image.onerror = function () {
+                    scope.stream = '/assets/img/noSignal.png';
+                  };
+                  image.onload = function () {
+                    if(interval) {
+                      $interval.cancel(interval);
+                    }
+                    scope.stream = stream;
+                  };
+                  image.src = stream;
+                };
+
+                scope.$on('$destroy', function() {
+                  if(!interval) return;
+                  $interval.cancel(interval);
+                });
 
                 scope.moveUp = function(){
                     $http.jsonp(scope.url+'/decoder_control.cgi?callback=JSON_CALLBACK&command=0&user='+ scope.login +'&pwd='+ scope.password)
