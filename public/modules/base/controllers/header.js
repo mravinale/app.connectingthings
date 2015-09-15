@@ -1,9 +1,10 @@
 'use strict';
 
-angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $modal, $localStorage, sessionService, $location, $state) {
+angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $modal, $localStorage, sessionService, $location, $state, $log) {
 
     $scope.settings = function() {
 
+      //http://blog.reactandbethankful.com/angular-multi-step-form/#/inside-modal
         var modalInstance = $modal.open({
             templateUrl: '/modules/users/views/user_settings.html',
             controller: 'UserSettingsCtrl',
@@ -14,6 +15,21 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
                 }
             }
         });
+    };
+
+    $scope.showTutorial = function (deviceId) {
+
+      var modalInstance = $modal.open({
+        templateUrl: '/modules/base/views/modals/tutorial.html',
+        controller: 'tutorialCtrl',
+        size: 'lg'
+      });
+
+      modalInstance.result.then(function () {
+        $log.info('editDevice ok at: ' + new Date());
+      }, function () {
+        $log.info('editDevice dismissed at: ' + new Date());
+      });
     };
 
     $scope.logout = function() {

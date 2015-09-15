@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('DashboardListCtrl', function ($scope, dashboardService, ngTableParams, $modal, $log, psResponsive, $window, SweetAlert) {
+    .controller('DashboardListCtrl', function ($scope, $rootScope, dashboardService, ngTableParams, $modal, $log, psResponsive, $window, SweetAlert) {
 
         $scope.errors = {};
         $scope.filters = {  searchFilter: '' };
@@ -97,7 +97,10 @@ angular.module('app')
             });
         };
 
+      $rootScope.$on('reload-tableParams', function(event, args) {
+        $scope.tableParams.reload();
+      });
 
-        $scope.initDataTable();
+      $scope.initDataTable();
 
     });

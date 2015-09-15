@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $location) {
+    .controller('TutorialDeviceAddCtrl', function ($scope,$rootScope, deviceService, sensorService, $location) {
 
         $scope.device = { };
 
@@ -10,7 +10,8 @@ angular.module('app')
 
             deviceService.create($scope.device)
                 .success(function (response, status, headers, config) {
-                    $modalInstance.close();
+                  $rootScope.$broadcast('reload-tableParams');
+                  $scope.$nextStep();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -32,8 +33,15 @@ angular.module('app')
                 });
             });
 
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
+            $scope.autocomplete = function(form) {
+
+              $scope.device = {
+                name: "arduino",
+                description: "Arduino Demo",
+                sensors:[$scope.sensors[0]._id]
+              }
+
+            }
+
 
     });

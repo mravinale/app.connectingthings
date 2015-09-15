@@ -169,8 +169,6 @@ exports.update = function (req, res, next) {
 
 	    if(req.body.password) {
             req.body.hashedPassword = user.encryptPassword(req.body.password);
-        } else {
-	          req.body.hashedPassword=  req.body.password;
         }
 
         User.update({_id: req.params.id}, req.body, { runValidators: true },function (error, panel) {

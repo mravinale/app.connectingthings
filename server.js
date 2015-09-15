@@ -122,6 +122,8 @@ ponteServer.on("updated", function(resource, buffer) {
     var message = { topic: resource, body: tryParseJson(buffer.toString())}; //https://www.npmjs.com/package/jsonschema
     if(!message.body || !message.body.value || !message.body.key) return console.log("Wrong message format");
 
+    message.topic = "/"  + message.body.key + message.topic;
+
     async.waterfall([
       function(callback) {
         User.findOne({ key : message.body.key },callback);

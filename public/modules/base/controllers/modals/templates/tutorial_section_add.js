@@ -1,16 +1,17 @@
 'use strict';
 
 angular.module('app')
-    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $location) {
+    .controller('TutorialSectionAddCtrl', function ($scope, $rootScope, sectionService,panelService) {
 
-        $scope.device = { };
+        $scope.section = { isPublic: true };
 
         $scope.save = function(form) {
             $scope.errors = {};
 
-            deviceService.create($scope.device)
+           sectionService.create($scope.section)
                 .success(function (response, status, headers, config) {
-                    $modalInstance.close();
+                   $rootScope.$broadcast('reload-tableParams');
+                   $scope.$nextStep();
                 })
                 .error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
@@ -18,12 +19,13 @@ angular.module('app')
                         $scope.errors[field] = error.message;
                     });
                 });
-
         };
 
-        sensorService.getAllSensors()
+        panelService.getAllPanels()
             .success(function (response, status, headers, config) {
-                $scope.sensors = response;
+                $scope.panels = response;
+                console.log(response);
+
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -32,8 +34,15 @@ angular.module('app')
                 });
             });
 
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
+    $scope.autocomplete = function() {
+
+      $scope.section = {
+        description: "Temperature Group Demo",
+        name: "Temperature Group",
+        panels: [$scope.panels[0]._id],
+        isPublic: true
+      }
+
+    }
 
     });
