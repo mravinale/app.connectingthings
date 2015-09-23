@@ -31,7 +31,8 @@ var app = angular.module('app', [
     'ui.gravatar',
     'reCAPTCHA',
     'oitozero.ngSweetAlert',
-    'multiStepForm'
+    'multiStepForm',
+    'dcbImgFallback'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',

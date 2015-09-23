@@ -52,7 +52,7 @@ exports.getAllDashboards = function (req, res, next) {
                                   if (error) { return res.send(400, error); }
 
                                   _.each(result,function(dashboard){
-                                    dashboard.owner = _.pick(dashboard.owner , 'email','publicUrl','statistics', 'username')
+                                    dashboard.owner = _.pick(dashboard.owner , 'email','publicUrl','statistics', 'username', 'publicAvatar')
                                   });
 
                                   return  res.send(200, result);

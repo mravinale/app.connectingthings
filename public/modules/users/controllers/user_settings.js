@@ -7,7 +7,7 @@ angular.module('app')
 
         userService.getById(userId)
             .success(function (response, status, headers, config) {
-                $scope.user = response
+                $scope.user = response;
                 $scope.user.hash = md5Helper.createHash($scope.user.email);
             })
             .error(function(response, status, headers, config) {

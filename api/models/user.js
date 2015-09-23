@@ -25,6 +25,7 @@ var UserSchema = new Schema({
   key: String,
   publicKey: String,
   publicUrl: String,
+  publicAvatar: String,
   statistics:{
     cameras: { type: Number, default: 0 },
     dashboards: { type: Number, default: 0 },
@@ -57,7 +58,16 @@ UserSchema
 UserSchema
   .virtual('user_info')
   .get(function () {
-    return { '_id': this._id, 'username': this.username, 'email': this.email, 'admin': this.admin, 'organizationName': this.organization.name, 'organizationId': this.organization._id, 'key': this.key};
+    return {
+      '_id': this._id,
+      'username': this.username,
+      'email': this.email,
+      'admin': this.admin,
+      'organizationName': this.organization.name,
+      'organizationId': this.organization._id,
+      'key': this.key,
+      'publicAvatar': this.publicAvatar
+    };
   });
 
 /**

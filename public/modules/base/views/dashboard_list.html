@@ -45,12 +45,13 @@
                     <div class="panel-body">
                     <div class="clearfix text-center m-t">
                         <div class="inline">
-                            <div ui-jq="easyPieChart" ui-options="{ percent: 100, lineWidth: 5, trackColor: '#e8eff0', barColor: '#23b7e5', scaleColor: false, color: '#3a3f51', size: 100, lineCap: 'butt', rotate: -90, animate: 1000}"
-                                 class="easyPieChart" style="width: 100px; height: 100px; line-height: 100px; margin-left: 10px">
+                            <div ui-jq="easyPieChart" ui-options="{ percent: 100, lineWidth: 5, trackColor: '#e8eff0', barColor: '#23b7e5', scaleColor: false, color: '#3a3f51', size: 90, lineCap: 'butt', rotate: -90, animate: 1000}"
+                                 class="easyPieChart" style="width: 90px; height: 90px; line-height: 90px; margin-left: 20px">
                                 <div class="thumb-xl">
-                                    <img gravatar-src="'{{user.email}}'" style="margin-right: 28px" class="img-circle" gravatar-size="90">
+                                    <img ng-src="http://avatars.io/{{user.publicAvatar}}?size=small"
+                                         style="margin-right: 38px;max-width: 90px;max-height: 90px;margin-top: -2px" class="img-circle" fallback-src="http://api.adorable.io/avatars/80/{{user.email}}">
                                 </div>
-                                <canvas width="100" height="100"></canvas></div>
+                                <canvas width="90" height="90"></canvas></div>
                             <div class="h4 m-t m-b-xs">{{user.username}}</div>
                             <small class="text-muted m-b">{{user.description}}</small>
                         </div>

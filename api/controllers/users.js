@@ -31,6 +31,8 @@ exports.create = function (req, res, next) {
   newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
   newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1);
   newUser.publicUrl =  "#/app/public/dashboard/" +  newUser.publicKey;
+  newUser.publicAvatar =  "email/" +  newUser.email;
+
 
 
   newUser.save(function(err) {
