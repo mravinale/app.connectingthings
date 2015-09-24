@@ -22,7 +22,7 @@ var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 
 exports.signUp = function (req, res, next) {
     var newUser = new User(req.body);
-    var origin = req.headers.origin;
+    var origin = req.headers.referer || req.headers.origin+"/";
     newUser.provider = 'local';
     newUser.isValidated = false;
     newUser.admin = true;
@@ -54,7 +54,7 @@ exports.signUp = function (req, res, next) {
                             from: from_who,
                             to: newUser.email,
                             subject: 'Activate your ConnectingThings account',
-                            html: 'Activate your new ConnectingThings account by clicking on the link below. <a href="'+origin+'/#/access/suscription?confirmation=' + newUser._id + '">Click here to confirm</a>'
+                            html: 'Activate your new ConnectingThings account by clicking on the link below. <a href="'+origin+'#/access/suscription?confirmation=' + newUser._id + '">Click here to confirm</a>'
                         };
                         mailgun.messages().send(data, function (err, body) {
                             if (err) {
