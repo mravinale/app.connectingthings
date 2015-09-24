@@ -5,7 +5,8 @@
       <div class="dropdown wrapper">
         <a ui-sref="app.page.profile">
           <span class="thumb-lg w-auto-folded avatar m-t-sm">
-              <img gravatar-src="'{{currentUser.email}}'" gravatar-size="100">
+              <img ng-src="{{currentUser.publicAvatar}}" fallback-src="http://api.adorable.io/avatars/80/{{currentUser.email}}"  >
+              <!--img gravatar-src="'{{currentUser.email}}'" gravatar-size="100"!-->
           </span>
         </a>
         <a href class="dropdown-toggle hidden-folded">

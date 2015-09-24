@@ -160,6 +160,7 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/lib/angular-touch/angular-touch.js',
                                 '<%= yeoman.app %>/lib/supportkit/dist/supportkit.min.js',
                                 '<%= yeoman.app %>/lib/angular-multi-step-form/dist/angular-multi-step-form.min.js',
+                                '<%= yeoman.app %>/lib/angular-img-fallback/angular.dcb-img-fallback.min.js',
 
                                '<%= yeoman.app %>/modules/app.js',
                                '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_me.js',
