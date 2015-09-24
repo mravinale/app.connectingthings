@@ -1,5 +1,5 @@
 'use strict';
-angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessionService,$localStorage, $location,$modal) {
+angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessionService,$localStorage, $location,$modal, $log) {
     $scope.errors =  {};
     $scope.submitted = false;
     $rootScope.showHeader = true;
