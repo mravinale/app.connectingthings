@@ -101,7 +101,7 @@ var opts = {
 var Message = mongoose.model('Message');
 var User = mongoose.model('User');
 var Trigger = mongoose.model('Trigger');
-var triggerService = moment = require('./api/services/triggerService');
+var triggerService = require('./api/services/triggerService');
 // Start socket conection
 var ponteServer = ponte(opts);
 
@@ -131,17 +131,23 @@ ponteServer.on("updated", function(resource, buffer) {
       function(user, callback) {
         if(!user) return callback({message: "User not found for key: " + message.body.key}, null);
 
+        //Set expiration messge and restrict interval between messages
+        message.expireAt =  user.admin? moment().add(1, 'week').toDate() : moment().add(1, 'day').toDate();
+        var ms = moment(moment.utc().format()).diff(moment(user.statistics.lastUpdate.toISOString()));
+        if(moment.duration(ms).asSeconds() < 10 ) return callback({message: "Message interval should be more than 10 seconds"}, null);
+        //TODO: add account field for apply restrictions
         triggerService.execute(user, message, callback);
       },
       function( user, callback) {
         io.sockets.emit(message.topic, message.body);
         user.statistics.messages++;
+        user.statistics.lastUpdate = new Date();
         User.update({ _id : user._id }, { statistics: user.statistics }, callback);
       },
       function(result, callback) {
         if(lastValue.topic == resource && lastValue.value ==  message.body.value) return callback(null,null);
 
-        var newMessage = new Message({ topic: resource, value: message.body.value, key: message.body.key});
+        var newMessage = new Message({ topic: resource, value: message.body.value, key: message.body.key, expireAt: message.expireAt});
         newMessage.save(callback);
       }
     ], function (err, message) {
