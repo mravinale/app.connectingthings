@@ -9,6 +9,7 @@ angular.module('app')
             scope:{
                 name:"@",
                 topic:"@",
+                key:"@",
                 label:"@"
             },
             restrict: 'E',
@@ -43,7 +44,7 @@ angular.module('app')
                 var items = [{value: 0, timestamp: Date.now()} ];
                 scope.values = { data: items, max: 3000 };
 
-                socket.on(scope.topic, function (message) {
+               socket.on("/"+scope.key+scope.topic, function (message) {
 
                     var item = angular.fromJson(message);
                     item.timestamp = Date.now();

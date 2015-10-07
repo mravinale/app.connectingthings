@@ -9,6 +9,7 @@ angular.module('app')
             scope:{
                 name:"@",
                 topic:"@",
+                key:"@",
                 label:"@",
                 min:"=",
                 max:"=",
@@ -41,7 +42,7 @@ angular.module('app')
 
                 scope.gaugeValue = scope.initValue? scope.initValue : 0;
 
-                socket.on(scope.topic, function (message) {
+                socket.on("/"+scope.key+scope.topic, function (message) {
                     scope.gaugeValue = angular.fromJson(message).value;
                 });
 

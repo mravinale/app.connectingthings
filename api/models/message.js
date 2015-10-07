@@ -9,6 +9,7 @@ var MessageSchema = new Schema({
   topic: {type: String},
   value: {type: String},
   key: { type: String},
+  createdAt: { type: Date },
   expireAt: { type: Date }
 }
 //,{ capped: 1024 }

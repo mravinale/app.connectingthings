@@ -132,10 +132,9 @@ ponteServer.on("updated", function(resource, buffer) {
         if(!user) return callback({message: "User not found for key: " + message.body.key}, null);
 
         //Set expiration messge and restrict interval between messages
-        message.expireAt =  user.admin? moment().add(1, 'week').toDate() : moment().add(1, 'day').toDate();
+        message.expireAt =  user.accountType == "Free"? moment().add(1, 'day').toDate() : moment().add(1, 'week').toDate();
         var ms = moment(moment.utc().format()).diff(moment(user.statistics.lastUpdate.toISOString()));
-        if(moment.duration(ms).asSeconds() < 10 ) return callback({message: "Message interval should be more than 10 seconds"}, null);
-        //TODO: add account field for apply restrictions
+        if(moment.duration(ms).asSeconds() < 10 &&  user.accountType == "Free") return callback({message: "Message interval should be more than 10 seconds"}, null);
         triggerService.execute(user, message, callback);
       },
       function( user, callback) {

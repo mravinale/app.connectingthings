@@ -9,6 +9,7 @@ angular.module('app')
             scope:{
                 name:"@",
                 topic:"@",
+                key:"@",
                 label:"@",
                 url:"@",
                 protocol:"@",
@@ -40,9 +41,9 @@ angular.module('app')
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
-                socket.on(scope.topic, function (message) {
-                    scope.toggleButton = angular.fromJson(message).value == "1";
-                });
+              socket.on("/"+scope.key+scope.topic, function (message) {
+                scope.toggleButton = angular.fromJson(message).value == "1";
+              });
 
                 scope.$watch('toggleButton', function(toggle) {
 
