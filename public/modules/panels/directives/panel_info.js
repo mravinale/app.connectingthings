@@ -4,7 +4,7 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelInfo', function (socket) {
+    .directive('panelInfo', function (socket, messageService) {
         return {
             scope:{
                 name:"@",
@@ -41,8 +41,25 @@ angular.module('app')
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
-                var items = [{value: 0, timestamp: Date.now()} ];
-                scope.values = { data: items, max: 3000 };
+                var items = [ ];
+
+                messageService.getAllMessages(scope.topic)
+                  .success(function (response, status, headers, config) {
+                    angular.forEach(response, function(message) {
+                      var item = angular.fromJson(message);
+                      if(item && item.value !== 0) {
+                        items.push({ timestamp: moment(item.createdAt).toDate(), value: item.value });
+                      }
+
+                    });
+
+                    scope.values = { data: _.sortBy(items, 'timestamp'), max: 3000 };
+                  })
+                  .error(function(response, status, headers, config) {
+                    console.error( response);
+                  });
+
+
 
                socket.on("/"+scope.key+scope.topic, function (message) {
 
