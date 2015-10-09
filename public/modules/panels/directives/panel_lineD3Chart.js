@@ -9,6 +9,7 @@ angular.module('app')
             scope:{
                 yrange:"@",
                 topic:"@",
+                key:"@",
                 name:"@"
             },
             restrict: 'E',
@@ -51,7 +52,6 @@ angular.module('app')
                 scope.values =[ { "values": [],"key": scope.name }];
                 messageService.getAllMessages(scope.topic)
                     .success(function (response, status, headers, config) {
-
                         angular.forEach(response, function(message) {
                             var item = angular.fromJson(message);
                             if(item && item.value !== 0) {
@@ -72,7 +72,7 @@ angular.module('app')
                     }
                 };
 
-                socket.on(scope.topic, function (message) {
+                socket.on("/"+scope.key+scope.topic, function (message) {
                     var item = angular.fromJson(message);
 
                     if(item && item.value !== 0) {

@@ -4,11 +4,12 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelGauge', function (socket) {
+    .directive('panelGauge', function (socket, messageService) {
         return {
             scope:{
                 name:"@",
                 topic:"@",
+                key:"@",
                 label:"@",
                 min:"=",
                 max:"=",
@@ -41,7 +42,25 @@ angular.module('app')
 
                 scope.gaugeValue = scope.initValue? scope.initValue : 0;
 
-                socket.on(scope.topic, function (message) {
+              var items = [ ];
+
+              messageService.getAllMessages(scope.topic)
+                .success(function (response, status, headers, config) {
+                  angular.forEach(response, function(message) {
+                    var item = angular.fromJson(message);
+                    if(item && item.value !== 0) {
+                      items.push({ timestamp: moment(item.createdAt).toDate(), value: item.value });
+                    }
+
+                  });
+
+                  scope.gaugeValue =  _.sortBy(items, 'timestamp').reverse()[0].value;
+                })
+                .error(function(response, status, headers, config) {
+                  console.error( response);
+                });
+
+                socket.on("/"+scope.key+scope.topic, function (message) {
                     scope.gaugeValue = angular.fromJson(message).value;
                 });
 

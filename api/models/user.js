@@ -26,7 +26,9 @@ var UserSchema = new Schema({
   publicKey: String,
   publicUrl: String,
   publicAvatar: String,
+  accountType: { type: String, default: "Free" },
   statistics:{
+    lastUpdate: { type: Date },
     cameras: { type: Number, default: 0 },
     dashboards: { type: Number, default: 0 },
     devices: { type: Number, default: 0 },
@@ -117,6 +119,10 @@ UserSchema.pre('save', function(next) {
         return next();
     }
 
+    if (this.statistics.lastUpdate === undefined) {
+      this.statistics.lastUpdate = new Date();
+    }
+
     if (!validatePresenceOf(this.password)) {
         next(new Error('Invalid password'));
     }
@@ -124,6 +130,7 @@ UserSchema.pre('save', function(next) {
         next();
     }
 });
+
 
 /**
  * Methods

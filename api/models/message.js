@@ -9,10 +9,13 @@ var MessageSchema = new Schema({
   topic: {type: String},
   value: {type: String},
   key: { type: String},
-  createdAt: { type: Date, expires: '6h' }
+  createdAt: { type: Date },
+  expireAt: { type: Date }
 }
 //,{ capped: 1024 }
 );
+
+MessageSchema.index({ expireAt: 1 }, { expireAfterSeconds : 0 });
 
 MessageSchema.pre('save', function (next) {
     if (this._id === undefined) {
