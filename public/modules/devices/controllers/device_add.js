@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $location) {
+    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $modalInstance) {
 
         $scope.device = { };
 

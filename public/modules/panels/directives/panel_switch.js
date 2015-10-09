@@ -4,7 +4,7 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelSwitch', function (socket, panelService) {
+    .directive('panelSwitch', function (socket, panelService, messageService) {
         return {
             scope:{
                 name:"@",
@@ -41,13 +41,32 @@ angular.module('app')
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
-              socket.on("/"+scope.key+scope.topic, function (message) {
-                scope.toggleButton = angular.fromJson(message).value == "1";
-              });
+              var items = [ ];
+              messageService.getAllMessages(scope.topic)
+                .success(function (response, status, headers, config) {
+                  angular.forEach(response, function(message) {
+                    var item = angular.fromJson(message);
+                    if(item && item.value !== 0) {
+                      items.push({ timestamp: moment(item.createdAt).toDate(), value: item.value });
+                    }
 
-                scope.$watch('toggleButton', function(toggle) {
+                  });
 
-                    var infoToSend = {topic:scope.topic, tag:scope.tag, url:scope.url, protocol:scope.protocol, message: {value: null}}
+                  scope.toggleButton =  _.sortBy(items, 'timestamp').reverse()[0].value  == "1";
+                })
+                .error(function(response, status, headers, config) {
+                  console.error( response);
+                });
+
+                socket.on("/"+scope.key+scope.topic, function (message) {
+                  scope.toggleButton = angular.fromJson(message).value == "1";
+                });
+
+                scope.$watch('toggleButton', function(toggle, lastToogle) {
+
+                    if(toggle == lastToogle) return;
+
+                    var infoToSend = {topic:scope.topic, tag:scope.tag, url:scope.url, protocol:scope.protocol, message: {value: null, key: scope.key }}
 
                     if(toggle === true){
                         infoToSend.message.value = "1"
@@ -61,10 +80,7 @@ angular.module('app')
                            console.log(response);
                         })
                         .error(function(response, status, headers, config) {
-                            angular.forEach(response.errors, function(error, field) {
-                                form[field].$setValidity('mongoose', false);
-                                $scope.errors[field] = error.type;
-                            });
+                          console.error( response);
                         });
                 });
 
