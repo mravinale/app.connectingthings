@@ -52,7 +52,7 @@ angular.module('app')
 
                   });
 
-                  scope.toggleButton =  _.sortBy(items, 'timestamp').reverse()[0].value  == "1";
+                  scope.toggleButton =  _.sortBy(items, 'timestamp').reverse()[0] ? _.sortBy(items, 'timestamp').reverse()[0] .value  == "1" : false;
                 })
                 .error(function(response, status, headers, config) {
                   console.error( response);

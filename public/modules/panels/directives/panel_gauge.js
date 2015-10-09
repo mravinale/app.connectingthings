@@ -54,7 +54,7 @@ angular.module('app')
 
                   });
 
-                  scope.gaugeValue =  _.sortBy(items, 'timestamp').reverse()[0].value;
+                  scope.gaugeValue =  _.sortBy(items, 'timestamp').reverse()[0]? _.sortBy(items, 'timestamp').reverse()[0].value : "0";
                 })
                 .error(function(response, status, headers, config) {
                   console.error( response);
