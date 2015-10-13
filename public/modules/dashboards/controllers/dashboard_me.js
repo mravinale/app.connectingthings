@@ -1,7 +1,7 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService) {
+    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope) {
 /*
         dashboardService.getMyDashboard()
             .success(function (response, status, headers, config) {
@@ -11,6 +11,7 @@ angular.module('app')
                 console.log(response);
             });
 */
+        $scope.init = function(){
             $scope.tab = null;
 
             $scope.setTab = function(id){
@@ -28,6 +29,7 @@ angular.module('app')
                     $scope.errors[field] = error.type;
                 });
             });
+      };
 
         $scope.updatePanels = function(){
 
@@ -46,11 +48,17 @@ angular.module('app')
                 });
         };
 
+        $rootScope.$on('reload-myDashboard', function(event, args) {
+          $scope.init();
+        });
+
         $scope.sortableConfig =  {
             stop: function(e, ui) {
              //   $scope.updatePanels();
             }
         };
+
+        $scope.init();
 
     });
 

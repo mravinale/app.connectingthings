@@ -144,7 +144,7 @@ ponteServer.on("updated", function(resource, buffer) {
         User.update({ _id : user._id }, { statistics: user.statistics }, callback);
       },
       function(result, callback) {
-        if(lastValue.topic == resource && lastValue.value ==  message.body.value) return callback(null,null);
+       // if(lastValue.topic == resource && lastValue.value ==  message.body.value) return callback(null,null);
 
         var newMessage = new Message({ topic: resource, value: message.body.value, key: message.body.key, expireAt: message.expireAt});
         newMessage.save(callback);

@@ -11,6 +11,7 @@ angular.module('app')
         dashboardService.create($scope.dashboard)
         .success(function (response, status, headers, config) {
             $rootScope.$broadcast('reload-tableParams');
+            $rootScope.$broadcast('reload-myDashboard');
             $scope.$finish();
         }).error(function (response, status, headers, config) {
             angular.forEach(response.errors, function (error, field) {
