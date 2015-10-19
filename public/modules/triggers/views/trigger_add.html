@@ -118,7 +118,7 @@
                                         <select ng-model="trigger.action" class="form-control" name="action" mongoose-error>
                                             <option value="" disabled selected>Select action type</option>
                                             <option>Send email to</option>
-                                            <option>Send to IFTTT</option>
+                                            <!--option>Send to IFTTT</option!-->
                                         </select>
                                         <div class="error"
                                              ng-show="form.action.$error.mongoose">
@@ -136,6 +136,31 @@
                                             {{ errors.target }}
                                         </div>
 
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-class="{'has-error': form.threshold.$error.mongoose}">
+
+                                    <label class="col-sm-2 control-label">Threshold</label>
+                                    <div class="col-sm-5">
+                                        <input ng-model="trigger.threshold"
+                                           class="form-control"
+                                           placeholder="whait 'n' seconds"
+                                           name="threshold"
+                                           type="number"
+                                           required
+                                           mongoose-error>
+                                        <div class="error"
+                                             ng-show="form.threshold.$error.mongoose">
+                                            {{ errors.threshold }}
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-1 control-label">Enabled</label>
+                                    <div class="col-sm-1">
+                                        <label class="i-switch bg-info m-t-xs m-r">
+                                            <input type="checkbox" ng-model="trigger.isEnabled" >
+                                            <i></i>
+                                        </label>
                                     </div>
                                 </div>
 

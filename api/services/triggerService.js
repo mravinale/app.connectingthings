@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
   Trigger = mongoose.model('Trigger'),
   User = mongoose.model('User'),
   Mailgun = require('mailgun-js'),
+  moment = require('moment'),
   request = require('request');
 
 var api_key = 'key-966ab673e0452234ef90349363496a34';
@@ -26,12 +27,19 @@ exports.execute = function (user, message, callback) {
 
       async.each(triggers, function(trigger, next) {
 
-        if(message.topic !== "/" + trigger.device.name + "/" + trigger.sensor.tag ) return next();
+        if(!trigger.isEnabled) return next();
+
+        if(message.topic !== "/"  + user.key +  "/" + trigger.device.name + "/" + trigger.sensor.tag ) return next();
 
         var triggeredValue =
         (trigger.rule == "equals to" && parseFloat(message.body.value) == parseFloat(trigger.value)) ||
         (trigger.rule == "bigger than" && parseFloat(message.body.value) > parseFloat(trigger.value)) ||
         (trigger.rule == "lower than" && parseFloat(message.body.value) < parseFloat(trigger.value));
+
+        if(user.statistics.triggers.last !== undefined) {
+          var ms = moment(moment.utc().format()).diff(moment(user.statistics.triggers.last.toISOString()));
+          if(moment.duration(ms).asSeconds() < trigger.threshold) return
+        }
 
         if(triggeredValue && trigger.action == "Send email to"){
 
@@ -47,6 +55,7 @@ exports.execute = function (user, message, callback) {
             if (error) return next(error);
 
             user.statistics.triggers.email++;
+            user.statistics.triggers.last = new Date();
             next();
           });
 
@@ -59,6 +68,7 @@ exports.execute = function (user, message, callback) {
             if (error) return next(error);
 
             user.statistics.triggers.iftt++;
+            user.statistics.triggers.last = new Date();
             next();
           });
         }

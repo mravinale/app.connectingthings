@@ -9,13 +9,15 @@ var TriggerSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String },
   device: { type: String, ref: 'Device', required: true },
-  sensor: { type:String, ref: 'Sensor', required: true },
+  sensor: { type: String, ref: 'Sensor', required: true },
   rule: { type: String, required: true },
   action: { type: String, required: true },
   value: { type: String, required: true },
   target: { type: String, required: true },
   owner: { type: String, ref: 'User' },
-  organization: { type: String, ref: 'Organization'}
+  organization: { type: String, ref: 'Organization'},
+  threshold: { type: Number, default: 300, required: true },
+  isEnabled: { type: Boolean, default: false }
 });
 
 TriggerSchema.pre('save', function (next) {

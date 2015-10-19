@@ -37,7 +37,8 @@ var UserSchema = new Schema({
     panels: { type: Number, default: 0 },
     triggers:{
       iftt: { type: Number, default: 0 },
-      email: { type: Number, default: 0 }
+      email: { type: Number, default: 0 },
+      last: { type: Date }
     }
   }
 
