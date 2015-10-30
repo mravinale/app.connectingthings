@@ -7,7 +7,7 @@ if(process.argv[2] == '-dist') {
 var express = require('express'),
     _ = require('underscore'),
     async = require('async'),
-    http = require('http'),
+    https = require('https'),
     mqtt = require('mqtt'),
     passport = require('passport'),
     path = require('path'),
@@ -19,7 +19,10 @@ var express = require('express'),
     moment = require('moment');
 
 
-var app = express();
+var privateKey = fs.readFileSync('sslcert/star_connectingthings_io.key');
+var certificate = fs.readFileSync('sslcert/connectingthings.io.chained.crt');
+var credentials = {key: privateKey, cert: certificate};
+var app =  express();
 
     // Connect to database
 var db = require('./api/db/mongo').db;
@@ -62,9 +65,12 @@ require('./api/config/routes')(app);
 
 // Start server
 var port = process.env.PORT || 3000;
-var server= app.listen(port, function () {
-    console.log('listening on port %d in %s mode', port, app.get('env'));
-});
+//var server= app.listen(port, function () {
+var server = https.createServer(credentials, app);
+server.listen(443);
+//var server = https.createServer(credentials, app, function () {
+//    console.log('listening on port %d in %s mode', port, app.get('env'));
+//});
 
 
 //Start socket conection
@@ -72,7 +78,6 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
     // mqttClient.publish('temperature', message);
 });
-
 
 
 var opts = {
