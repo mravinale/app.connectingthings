@@ -21,7 +21,7 @@ var express = require('express'),
 
 var privateKey = fs.readFileSync(path.join(__dirname, 'sslcert/star_connectingthings_io.key'));
 var certificate= fs.readFileSync(path.join(__dirname, 'sslcert/connectingthings.io.chained.crt'));
-var ca= fs.readFileSync(path.join(__dirname, 'connectingthings.io.chained.crt'));
+var ca= fs.readFileSync(path.join(__dirname, 'sslcert/connectingthings.io.chained.crt'));
 
 var credentials = {key: privateKey, cert: certificate,ca: ca, ciphers: [
   "ECDHE-RSA-AES128-SHA256",
