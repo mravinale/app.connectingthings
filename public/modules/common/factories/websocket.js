@@ -4,6 +4,6 @@ angular.module('app')
     .factory('socket', function (socketFactory) {
         return socketFactory({
             prefix: '',
-            ioSocket: io.connect("http://"+window.location.hostname)
+            ioSocket: io.connect("https://"+window.location.hostname)
         });
 });

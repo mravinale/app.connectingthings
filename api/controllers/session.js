@@ -218,7 +218,7 @@ exports.login = function (req, res, next) {
               'organizationId': user.organization._id,
               'key': user.key,
               'showTutorial': user.showTutorial,
-              'publicAvatar': "http://avatars.io/"+user.publicAvatar
+              'publicAvatar': "https://avatars.io/"+user.publicAvatar
             });
 
         });
