@@ -139,24 +139,27 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group" ng-class="{'has-error': form.threshold.$error.mongoose}">
 
-                                    <label class="col-sm-2 control-label">Threshold</label>
+                                <div class="form-group" ng-class="{'has-error': form.threshold.$error.mongoose}">
+                                    <label class="col-sm-2 control-label">Threshold in seconds</label>
                                     <div class="col-sm-5">
                                         <input ng-model="trigger.threshold"
-                                           class="form-control"
-                                           placeholder="whait 'n' seconds"
-                                           name="threshold"
-                                           type="number"
-                                           required
-                                           mongoose-error>
+                                               class="form-control"
+                                               placeholder="threshold value in seconds"
+                                               name="threshold"
+                                               type="number"
+                                               required
+                                               mongoose-error>
                                         <div class="error"
                                              ng-show="form.threshold.$error.mongoose">
                                             {{ errors.threshold }}
                                         </div>
                                     </div>
-                                    <label class="col-sm-1 control-label">Enabled</label>
-                                    <div class="col-sm-1">
+                                </div>
+
+                                <div class="form-group" ng-class="{'has-error': form.enabled.$error.mongoose}">
+                                    <label class="col-sm-2 control-label">Enabled</label>
+                                    <div class="col-sm-5">
                                         <label class="i-switch bg-info m-t-xs m-r">
                                             <input type="checkbox" ng-model="trigger.isEnabled" >
                                             <i></i>
