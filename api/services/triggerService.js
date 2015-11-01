@@ -56,7 +56,6 @@ exports.execute = function (user, message, callback) {
 
             user.statistics.triggers.email++;
             user.statistics.triggers.last = new Date();
-            next();
           });
 
         } else if(triggeredValue && trigger.action == "Send to IFTTT") {
@@ -69,10 +68,9 @@ exports.execute = function (user, message, callback) {
 
             user.statistics.triggers.iftt++;
             user.statistics.triggers.last = new Date();
-            next();
           });
         }
-
+        next();
       }, function(err){
         if( err ) return callback(err);
 
