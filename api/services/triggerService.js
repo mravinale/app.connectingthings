@@ -38,7 +38,7 @@ exports.execute = function (user, message, callback) {
 
         if(user.statistics.triggers.last !== undefined) {
           var ms = moment(moment.utc().format()).diff(moment(user.statistics.triggers.last.toISOString()));
-          if(moment.duration(ms).asSeconds() < trigger.threshold) return
+          if(moment.duration(ms).asSeconds() < trigger.threshold) return next();
         }
 
         if(triggeredValue && trigger.action == "Send email to"){
