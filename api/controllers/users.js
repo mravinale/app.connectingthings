@@ -13,7 +13,7 @@ var api_key = 'key-966ab673e0452234ef90349363496a34';
 var domain = 'connectingthings.io';
 
 //Your sending email address
-var from_who = 'noreply@connectingthings.io';
+var from_who = 'connectingthings@connectingthings.io';
 
 var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 
@@ -31,7 +31,7 @@ exports.create = function (req, res, next) {
   newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
   newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1);
   newUser.publicUrl =  "#/app/public/dashboard/" +  newUser.publicKey;
-  newUser.publicAvatar =  "email/" +  newUser.email;
+  newUser.publicAvatar =  "gravatar/" +  newUser.email;
 
 
 
