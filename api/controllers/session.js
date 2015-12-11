@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
     passport = require('passport'),
     User = mongoose.model('User'),
     _ = require('underscore'),
+    fs = require('fs'),
     Organization = mongoose.model('Organization'),
     Mailgun = require('mailgun-js'),
     simple_recaptcha = require('simple-recaptcha'),
@@ -29,6 +30,7 @@ exports.signUp = function (req, res, next) {
     newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
     newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1);
     newUser.publicUrl = "#/app/public/dashboard/" +  newUser.publicKey;
+    newUser.publicAvatar =  "gravatar/" +  newUser.email;
 
     var privateKey = '6LctfAITAAAAAKpEYZS-xQKZgiy8xgdnRZyN6jGM',  // your private key here
         ip = req.ip,
@@ -39,9 +41,12 @@ exports.signUp = function (req, res, next) {
         //{errors:{email:{type: "Check your email and confirm your registration"}}}
         if (err) return res.send(400,{errors:{recaptcha_response_field: {message: err.message}}});
 
-        Organization.findOrCreate({name: "Beta"}, function (error, organization, created) {
-            var origin = req.headers.origin;
+      fs.readFile('./api/templates/ActivateAccount.html', function (err, html) {
+        if (err) {
+          return res.send(400, error);
+        }
 
+        Organization.findOrCreate({name: "Beta"}, function (error, organization, created) {
             if (error) {
                 return res.send(400, error);
             } else {
@@ -53,8 +58,8 @@ exports.signUp = function (req, res, next) {
                         var data = {
                             from: from_who,
                             to: newUser.email,
-                            subject: 'Activate your ConnectingThings account',
-                            html: 'Activate your new ConnectingThings account by clicking on the link below. <a href="'+origin+'#/access/suscription?confirmation=' + newUser._id + '">Click here to confirm</a>'
+                            subject: 'Activate your ConnectingThings.io account',
+                            html: _.template(html.toString(),{confirmUrl:origin+'#/access/suscription?confirmation=' + newUser._id })
                         };
                         mailgun.messages().send(data, function (err, body) {
                             if (err) {
@@ -70,6 +75,7 @@ exports.signUp = function (req, res, next) {
                 });
             }
         });
+      });
     });
 };
 
@@ -89,20 +95,26 @@ exports.sendChangePwdEmail = function (req, res, next) {
             return res.send(400, err);
           }
 
-          var data = {
-            from: from_who,
-            to: user.email,
-            subject: 'Change your ConnectingThings password',
-            html: 'Change your password by clicking on the link below. <a href="'+origin+'/#/access/changepwd?guid=' + user._id + '">Click here to confirm</a>'
-          };
-          mailgun.messages().send(data, function (err, body) {
+          fs.readFile('./api/templates/ChangePassword.html', function (err, html) {
             if (err) {
-             return res.json(400, err);
+              return res.send(400, error);
             }
 
-            return res.send(200, "Ok");
-          });
+            var data = {
+              from: from_who,
+              to: user.email,
+              subject: 'Change your ConnectingThings password',
+              html: _.template(html.toString(),{passwordChangeUrl:+origin+'/#/access/changepwd?guid=' + user._id })
+            };
+            mailgun.messages().send(data, function (err, body) {
+              if (err) {
+               return res.json(400, err);
+              }
 
+              return res.send(200, "Ok");
+            });
+
+          });
         });
 
   });

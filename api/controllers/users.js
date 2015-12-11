@@ -3,7 +3,9 @@
 var mongoose = require('mongoose'),
   User = mongoose.model('User'),
     crypto = require('crypto'),
-    Mailgun = require('mailgun-js');
+    Mailgun = require('mailgun-js'),
+    _ = require('underscore'),
+    fs = require('fs');
 
 
 //Your api key, from Mailgun’s Control Panel
@@ -33,27 +35,34 @@ exports.create = function (req, res, next) {
   newUser.publicUrl =  "#/app/public/dashboard/" +  newUser.publicKey;
   newUser.publicAvatar =  "gravatar/" +  newUser.email;
 
+  fs.readFile('./api/templates/ActivateAccount.html', function (err, html) {
+    if (err) {
+      return res.send(400, error);
+    }
+
+    newUser.save(function(err) {
+      if (err) return res.send(400, err);
+
+      var data = {
+        from: from_who,
+        to: newUser.email,
+        subject: 'Activate your ConnectingThings.io account',
+        html: _.template(html.toString(),{confirmUrl:origin+'#/access/suscription?confirmation=' + newUser._id })
+      };
 
 
-  newUser.save(function(err) {
-    if (err) return res.send(400, err);
+      mailgun.messages().send(data, function (err, body) {
+        if (err) return res.json(400, err);
 
-    var data = {
-      from: from_who,
-      to: newUser.email,
-      subject: 'Activate your ConnectingThings account',
-      html: 'Activate your new ConnectingThings account by clicking on the link below. <a href="'+origin+'#/access/suscription?confirmation=' + newUser._id + '">Click here to confirm</a>'
-    };
-
-
-    mailgun.messages().send(data, function (err, body) {
-          if (err) return res.json(400, err);
-
-          res.send(200, newUser);
+        res.send(200, newUser);
 
       });
 
+    });
+
   });
+
+
 };
 
 /**
