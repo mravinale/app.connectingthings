@@ -37,7 +37,7 @@ exports.create = function (req, res, next) {
 
   fs.readFile('./api/templates/ActivateAccount.html', function (err, html) {
     if (err) {
-      return res.send(400, error);
+      return res.send(400, err);
     }
 
     newUser.save(function(err) {

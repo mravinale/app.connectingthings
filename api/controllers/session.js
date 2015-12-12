@@ -43,7 +43,7 @@ exports.signUp = function (req, res, next) {
 
       fs.readFile('./api/templates/ActivateAccount.html', function (err, html) {
         if (err) {
-          return res.send(400, error);
+          return res.send(400, err);
         }
 
         Organization.findOrCreate({name: "Beta"}, function (error, organization, created) {
