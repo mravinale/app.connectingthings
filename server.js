@@ -17,7 +17,10 @@ var express = require('express'),
   config = require('./api/config/config'),
   mongoose = require('mongoose'),
   ponte = require("ponte"),
-  moment = require('moment');
+  moment = require('moment'),
+  expressWinston = require('express-winston'),
+  loggly=  require('winston-loggly'),
+  winston = require('winston');
 
 var privateKey = fs.readFileSync(path.join(__dirname, 'sslcert/star_connectingthings_io.key'));
 var certificate= fs.readFileSync(path.join(__dirname, 'sslcert/connectingthings.io.chained.crt'));
@@ -69,10 +72,42 @@ app.use(express.session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+// Place the express-winston logger before the router.
+app.use(expressWinston.logger({
+  transports: [
+    new winston.transports.Console({
+      json: true,
+      colorize: true
+    }),
+    new winston.transports.Loggly({
+      subdomain: 'connthings',
+      inputToken: '80f9ead4-a224-4bb0-9ffa-f6bfdc85f3d9',
+      json: true,
+      tags: [process.argv[2] === "-dist"? "app-prod" : "app-debug"]
+    })
+  ]
+}));
+
 // Bootstrap routes
 app.use(app.router);
 require('./api/config/routes')(app);
 
+// Place the express-winston errorLogger after the router.
+app.use(expressWinston.errorLogger({
+  transports: [
+    new winston.transports.Console({
+      json: true,
+      colorize: true
+    }),
+    new winston.transports.Loggly({
+      subdomain: 'connthings',
+      inputToken: '80f9ead4-a224-4bb0-9ffa-f6bfdc85f3d9',
+      json: true,
+      tags: [process.argv[2] === "-dist"? "app-prod" : "app-debug"]
+    })
+  ]
+}));
 
 // Start server
 var port = process.env.PORT || 3000;
