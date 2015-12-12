@@ -79,12 +79,6 @@ app.use(expressWinston.logger({
     new winston.transports.Console({
       json: true,
       colorize: true
-    }),
-    new winston.transports.Loggly({
-      subdomain: 'connthings',
-      inputToken: '80f9ead4-a224-4bb0-9ffa-f6bfdc85f3d9',
-      json: true,
-      tags: [process.argv[2] === "-dist"? "app-prod" : "app-debug"]
     })
   ]
 }));
@@ -107,6 +101,11 @@ app.use(expressWinston.errorLogger({
       tags: [process.argv[2] === "-dist"? "app-prod" : "app-debug"]
     })
   ]
+}));
+
+app.use(express.errorLogger({
+  dumpExceptions: true,
+  showStack: true
 }));
 
 // Start server

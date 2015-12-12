@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
     Organization = mongoose.model('Organization'),
     Mailgun = require('mailgun-js'),
     simple_recaptcha = require('simple-recaptcha'),
+    path = require('path'),
     crypto = require('crypto');
 
 //Your api key, from Mailgun’s Control Panel
@@ -24,6 +25,7 @@ var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 exports.signUp = function (req, res, next) {
     var newUser = new User(req.body);
     var origin = req.headers.referer || req.headers.origin+"/";
+    var activatePath = path.join(__dirname, '../templates/ActivateAccount.html');
     newUser.provider = 'local';
     newUser.isValidated = false;
     newUser.admin = true;
@@ -41,7 +43,7 @@ exports.signUp = function (req, res, next) {
         //{errors:{email:{type: "Check your email and confirm your registration"}}}
         if (err) return res.send(400,{errors:{recaptcha_response_field: {message: err.message}}});
 
-      fs.readFile('./api/templates/ActivateAccount.html', function (err, html) {
+      fs.readFile(activatePath, function (err, html) {
         if (err) {
           return res.send(400, err);
         }
@@ -81,6 +83,7 @@ exports.signUp = function (req, res, next) {
 
 exports.sendChangePwdEmail = function (req, res, next) {
   var origin = req.headers.origin;
+  var changePassPath = path.join(__dirname, '../templates/ChangePassword.html');
 
   User.findOne({email: req.body.email}, function (error, user) {
         if (error) {
@@ -95,7 +98,7 @@ exports.sendChangePwdEmail = function (req, res, next) {
             return res.send(400, err);
           }
 
-          fs.readFile('./api/templates/ChangePassword.html', function (err, html) {
+          fs.readFile(changePassPath, function (err, html) {
             if (err) {
               return res.send(400, error);
             }
