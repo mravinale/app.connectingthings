@@ -76,9 +76,21 @@ app.use(passport.session());
 // Place the express-winston logger before the router.
 app.use(expressWinston.logger({
   transports: [
-    new winston.transports.Console({
-      json: true,
-      colorize: true
+    new winston.transports.File({
+      filename:         'logs.log',
+      handleExceptions: true,
+      json:             true,
+      maxsize:          5242880,
+      maxFiles:         5,
+      colorize:         false,
+      level:            'warn'
+    }),
+    new winston.transports.Loggly({
+      subdomain:        'connthings',
+      inputToken:       '80f9ead4-a224-4bb0-9ffa-f6bfdc85f3d9',
+      json:             true,
+      level:            'warn',
+      tags:             [process.argv[2] === "-dist"? "app-prod" : "app-debug"]
     })
   ]
 }));
@@ -90,23 +102,23 @@ require('./api/config/routes')(app);
 // Place the express-winston errorLogger after the router.
 app.use(expressWinston.errorLogger({
   transports: [
-    new winston.transports.Console({
-      json: true,
-      colorize: true
+    new winston.transports.File({
+      filename:         'http-logs.log',
+      handleExceptions: true,
+      json:             true,
+      maxsize:          5242880,
+      maxFiles:         5,
+      colorize:         false
     }),
     new winston.transports.Loggly({
-      subdomain: 'connthings',
-      inputToken: '80f9ead4-a224-4bb0-9ffa-f6bfdc85f3d9',
-      json: true,
-      tags: [process.argv[2] === "-dist"? "app-prod" : "app-debug"]
+      subdomain:        'connthings',
+      inputToken:       '80f9ead4-a224-4bb0-9ffa-f6bfdc85f3d9',
+      json:             true,
+      tags:             [process.argv[2] === "-dist"? "app-prod" : "app-debug"]
     })
   ]
 }));
 
-app.use(express.errorLogger({
-  dumpExceptions: true,
-  showStack: true
-}));
 
 // Start server
 var port = process.env.PORT || 3000;

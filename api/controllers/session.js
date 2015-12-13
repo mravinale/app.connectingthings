@@ -29,8 +29,8 @@ exports.signUp = function (req, res, next) {
     newUser.provider = 'local';
     newUser.isValidated = false;
     newUser.admin = true;
-    newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1);
-    newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1);
+    newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1).replace("/", "X");
+    newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1).replace("/", "X");
     newUser.publicUrl = "#/app/public/dashboard/" +  newUser.publicKey;
     newUser.publicAvatar =  "gravatar/" +  newUser.email;
 
