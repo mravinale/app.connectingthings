@@ -107,7 +107,7 @@ exports.sendChangePwdEmail = function (req, res, next) {
               from: from_who,
               to: user.email,
               subject: 'Change your ConnectingThings password',
-              html: _.template(html.toString(),{passwordChangeUrl:origin+'/#/access/changepwd?guid=' + user._id })
+              html: _.template(html.toString(),{passwordChangeUrl:origin+'#/access/changepwd?guid=' + user._id })
             };
             mailgun.messages().send(data, function (err, body) {
               if (err) {
