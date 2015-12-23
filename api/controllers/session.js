@@ -82,7 +82,7 @@ exports.signUp = function (req, res, next) {
 };
 
 exports.sendChangePwdEmail = function (req, res, next) {
-  var origin = req.headers.origin;
+  var origin = req.headers.referer || req.headers.origin+"/";
   var changePassPath = path.join(__dirname, '../templates/ChangePassword.html');
 
   User.findOne({email: req.body.email}, function (error, user) {
