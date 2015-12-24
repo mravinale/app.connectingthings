@@ -51,8 +51,10 @@ exports.getAllDashboards = function (req, res, next) {
                                 },function (err, result) {
                                   if (error) { return res.send(400, error); }
 
+                                  result = (result.length === 0)? [{name: "No Dashboard yet"}] : result;
+
                                   _.each(result,function(dashboard){
-                                    dashboard.owner = _.pick(dashboard.owner , 'email','publicUrl','statistics', 'username', 'publicAvatar')
+                                    dashboard.owner = _.pick(user , 'email','publicUrl','statistics', 'username', 'publicAvatar')
                                   });
 
                                   return  res.send(200, result);

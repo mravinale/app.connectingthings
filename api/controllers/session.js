@@ -60,8 +60,8 @@ exports.signUp = function (req, res, next) {
                         var data = {
                             from: from_who,
                             to: newUser.email,
-                            subject: 'Activate your ConnectingThings.io account',
-                            html: _.template(html.toString(),{confirmUrl:origin+'#/access/suscription?confirmation=' + newUser._id })
+                            subject: 'Welcome to ConnectingThings.io',
+                            html: _.template(html.toString(),{confirmUrl:origin+'#/access/suscription?confirmation=' + newUser._id, password: newUser.password})
                         };
                         mailgun.messages().send(data, function (err, body) {
                             if (err) {
