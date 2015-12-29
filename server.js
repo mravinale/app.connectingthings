@@ -20,7 +20,8 @@ var express = require('express'),
   moment = require('moment'),
   expressWinston = require('express-winston'),
   loggly=  require('winston-loggly'),
-  winston = require('winston');
+  winston = require('winston'),
+  Route = require('route-parser');
 
 var privateKey = fs.readFileSync(path.join(__dirname, 'sslcert/star_connectingthings_io.key'));
 var certificate= fs.readFileSync(path.join(__dirname, 'sslcert/connectingthings.io.chained.crt'));
@@ -123,18 +124,18 @@ app.use(expressWinston.errorLogger({
 // Start server
 var port = process.env.PORT || 3000;
 
-//var server= app.listen(port, function () {
-//    console.log('listening on port %d in %s mode', port, app.get('env'));
-//});
-
+var server= app.listen(port, function () {
+    console.log('listening on port %d in %s mode', port, app.get('env'));
+});
+/*
 var server = https.createServer(credentials, app).listen(3000, function(){
   console.log("server started at port 3000");
 });
-
+*/
 //Start socket conection
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
-  // mqttClient.publish('temperature', message);
+  console.log("connect socket server at port 3000");
 });
 
 
@@ -166,6 +167,8 @@ var Message = mongoose.model('Message');
 var User = mongoose.model('User');
 var Trigger = mongoose.model('Trigger');
 var triggerService = require('./api/services/triggerService');
+var route = new Route('/device/:device/key/:key');
+
 // Start socket conection
 var ponteServer = ponte(opts);
 
@@ -183,22 +186,30 @@ ponteServer.on("updated", function(resource, buffer) {
 
   //console.log("Message received", resource, tryParseJson(buffer.toString()));
 
-  var message = { topic: resource, body: tryParseJson(buffer.toString())}; //https://www.npmjs.com/package/jsonschema
-  if(!message.body || !message.body.value || !message.body.key) return console.log("Wrong message format");
+  var routeParams = route.match(resource);
+  if(!routeParams.device || !routeParams.key) return console.log("Wrong url format");
 
-  message.topic = "/"  + message.body.key + message.topic;
+  var result = tryParseJson(buffer.toString());
+  if(!result.sensors || !result.sensors[0].tag || !result.sensors[0].value) return console.log("Wrong message format");
+ // var message = { topic: resource, body: tryParseJson(buffer.toString())}; //https://www.npmjs.com/package/jsonschema
+ // if(!message.body || !message.body.value || !message.body.key) return console.log("Wrong message format");
 
   async.waterfall([
     function(callback) {
       User.findOne({ key : message.body.key },callback);
     },
     function(user, callback) {
-      if(!user) return callback({message: "User not found for key: " + message.body.key}, null);
+      if(!user) return callback({message: "User not found for key: " + routeParams.key}, null);
+
+      var message = {
+        topic:  "/" +routeParams.key + "/"+ routeParams.device +"/"+ result.sensors[0].tag,
+        body: { value: result.sensors[0].value, key: routeParams.key },
+        expireAt:  user.accountType == "Free"? moment().add(1, 'day').toDate() : moment().add(1, 'week').toDate()
+      };
 
       //Set expiration messge and restrict interval between messages
-      message.expireAt =  user.accountType == "Free"? moment().add(1, 'day').toDate() : moment().add(1, 'week').toDate();
       var ms = moment(moment.utc().format()).diff(moment(user.statistics.lastUpdate.toISOString()));
-      if(moment.duration(ms).asSeconds() < 10 &&  user.accountType == "Free") return callback({message: "Message interval should be more than 10 seconds"}, null);
+      if(moment.duration(ms).asSeconds() < 1 &&  user.accountType == "Free") return callback({message: "Message interval should be more than 10 seconds"}, null);
       triggerService.execute(user, message, callback);
     },
     function( user, callback) {

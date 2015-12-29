@@ -60,6 +60,7 @@ angular.module('app')
                   console.error( response);
                 });
 
+
                 socket.on("/"+scope.key+scope.topic, function (message) {
                     scope.gaugeValue = angular.fromJson(message).value;
                 });

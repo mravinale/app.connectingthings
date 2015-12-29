@@ -29,7 +29,7 @@ exports.execute = function (user, message, callback) {
 
         if(!trigger.isEnabled) return next();
 
-        if(message.topic !== "/"  + user.key +  "/" + trigger.device.name + "/" + trigger.sensor.tag ) return next();
+        if(message.topic !== "/"  + user.key + "/" + trigger.device.name + "/" + trigger.sensor.tag ) return next();
 
         var triggeredValue =
         (trigger.rule == "equals to" && parseFloat(message.body.value) == parseFloat(trigger.value)) ||
