@@ -4,6 +4,6 @@ angular.module('app')
     .factory('socket', function (socketFactory) {
         return socketFactory({
             prefix: '',
-            ioSocket: io.connect("http://localhost:3000")
+            ioSocket: io.connect(window.location.protocol+"//"+window.location.host)
         });
 });

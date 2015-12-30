@@ -61,7 +61,7 @@ angular.module('app')
                 });
 
 
-                socket.on("/"+scope.key+scope.topic, function (message) {
+                socket.on(scope.topic, function (message) {
                     scope.gaugeValue = angular.fromJson(message).value;
                 });
 

@@ -58,7 +58,7 @@ angular.module('app')
                   console.error( response);
                 });
 
-                socket.on("/"+scope.key+scope.topic, function (message) {
+                socket.on(scope.topic, function (message) {
                   scope.toggleButton = angular.fromJson(message).value == "1";
                 });
 
@@ -66,13 +66,13 @@ angular.module('app')
 
                     if(toggle == lastToogle) return;
 
-                    var infoToSend = {topic:scope.topic, tag:scope.tag, url:scope.url, protocol:scope.protocol, message: {value: null, key: scope.key }}
+                    var infoToSend = {topic:"/device/"+scope.topic.split("/")[2]+"/key/"+scope.key, message: {sensors: [{value: "0", tag: scope.tag }]} };
 
                     if(toggle === true){
-                        infoToSend.message.value = "1"
+                        infoToSend.message.sensors[0].value = "1"
                     }
                     else{
-                        infoToSend.message.value = "0"
+                        infoToSend.message.sensors[0].value = "0"
                     }
 
                     panelService.command(infoToSend)
