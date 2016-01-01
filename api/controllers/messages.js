@@ -28,7 +28,7 @@ exports.getAllMessages = function (req, res, next) {
 
     Message
         .find({ topic: req.query.topic })
-        .sort({createdAt: 'desc'})
+        .sort({ createdAt: 'desc' })
         .limit(20)
         .exec(function (error, messages) {
             if (error) {

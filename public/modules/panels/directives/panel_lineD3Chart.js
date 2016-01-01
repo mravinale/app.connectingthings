@@ -37,9 +37,12 @@ angular.module('app')
                                 ' showXAxis="true"'+
                                 ' height="260"'+
                                 ' showYAxis="true"'+
-                                ' useInteractiveGuideLine="true"'+
+                                ' showYAxis="true"'+
                                 ' noData="No Data Yet :( "'+
                                 ' isArea="true"'+
+                                ' tooltips="true"'+
+                                ' interactive="true"'+
+                                ' tooltipcontent="toolTipContentFunction()"'+
                                 ' >'+
                             '</nvd3-line-chart>'+
 
@@ -49,18 +52,24 @@ angular.module('app')
             link: function postLink(scope, element, attrs) {
 
                 var items = [];
+                var lastValue = null;
                 scope.values =[ { "values": [],"key": scope.name }];
                 messageService.getAllMessages(scope.topic)
                     .success(function (response, status, headers, config) {
                         angular.forEach(response, function(message) {
                             var item = angular.fromJson(message);
-                            if(item && item.value !== 0) {
-                              items.push([moment(item.createdAt).valueOf(), parseInt(item.value)]);
+                            if(!item || !item.value) return;
+
+                            if(item.value  == "0" || item.value  == "1") {
+                                if(lastValue == item.value ) return;
+                                items.push([moment(item.createdAt).add(-1, "milliseconds").valueOf(), item.value == "1" ? "0" : "1"]);
                             }
+
+                            items.push([ moment(item.createdAt).valueOf(), item.value ]);
+                            lastValue = item.value;
                         });
 
                         scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
-                        //console.log("from :" + scope.topic,  scope.values);
                     })
                     .error(function(response, status, headers, config) {
                         console.error( response);
@@ -71,19 +80,38 @@ angular.module('app')
                         return d3.time.format('%H:%M:%S')(moment(d).toDate());
                     }
                 };
+                scope.yAxisTickFormatFunction = function(){
+                    return function(d){
+                        return d;
+                    }
+                };
+                scope.toolTipContentFunction = function(){
+                    return function(key, x, y, e, graph) {
+                        return '<p><strong>Time: </strong>' +  x +'</p>'+
+                               '<p><strong>Value: </strong>' +  y +'</p>'
+                    }
+                };
 
                 socket.on(scope.topic, function (message) {
-                    var item = angular.fromJson(message);
+                        var item = angular.fromJson(message);
+                        if(!item || !item.value) return;
 
-                    if(item && item.value !== 0) {
-                      items.push([moment().valueOf(), item.value]);
-                    }
+                        var messageValue = item.value;
 
-                    if(items.length > 20){
-                      items = _.rest(items);
-                    }
+                        if(messageValue == "0" || messageValue == "1") {
+                            var lastValue = _.sortBy(items, function(o) { return o[0]; })[1] ? _.last(_.sortBy(items, function(o) { return o[0]; }))[1] : "0" ;
 
-                    scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
+                            if(lastValue == messageValue ) return;
+                            items.push([moment().add(-1, "milliseconds").valueOf(), messageValue == "1"? "0" : "1" ]);
+                        }
+
+                        items.push([ moment().valueOf(), messageValue ]);
+
+                        //if(items.length > 10){
+                        //  items = _.rest(items);
+                        //}
+
+                        scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
                 });
 
             }

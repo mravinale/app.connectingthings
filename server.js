@@ -152,15 +152,12 @@ if(process.argv[2] !== '-dist') {
     logger.log("server started at port 3000");
   });
 }
-/*
 
-*/
 //Start socket conection
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
   logger.log("connect socket server at port 3000");
 });
-
 
 
 var opts = {
@@ -210,31 +207,33 @@ ponteServer.on("updated", function(resource, buffer) {
   //console.log("Message received", resource, tryParseJson(buffer.toString()));
 
   var routeParams = route.match(resource);
-  if(!routeParams.device || !routeParams.key) return logger.error("Error: Parsing RouteParams, Wrong url format");
+  if(!routeParams.device || !routeParams.key) return logger.error("Error: Parsing RouteParams, Wrong url format, key: " + routeParams.key);
 
   var result = tryParseJson(buffer.toString());
-  if(!result || !result.sensors || !result.sensors[0].tag || !result.sensors[0].value) return logger.error("Error: Parsing buffer, Wrong message format");
+  if(!result || !result.sensors || !result.sensors[0].tag || !result.sensors[0].value) return logger.error("Error: Parsing buffer, Wrong message format, key: " + routeParams.key);
 
   async.each(result.sensors, function(sensor, next) {
 
-    if(!sensor.tag || !sensor.value) return logger.error("Error: Iterating sensors, Wrong message format");
+    if(!sensor.tag || !sensor.value) return next("Error: Iterating sensors, Wrong message format, key: " + routeParams.key);
 
     var message = {
       topic:  "/" +routeParams.key + "/"+ routeParams.device +"/"+ sensor.tag,
       body: { value: sensor.value, key: routeParams.key }
     };
 
+    //if(lastValue.topic == message.topic && lastValue.value == message.body.value) return next();
+
     async.waterfall([
       function (callback) {
         User.findOne({key: routeParams.key}, callback);
       },
       function (user, callback) {
-        if (!user) return callback({message: "Error: User validation, Not found key: " + routeParams.key}, null);
+        if (!user) return callback({message: "Error: User validation, Not found, key: " + routeParams.key}, null);
 
         //Set expiration message and restrict interval between messages
         message.expireAt = user.accountType == "Free" ? moment().add(1, 'day').toDate() : moment().add(1, 'week').toDate();
         var ms = moment(moment.utc().format()).diff(moment(user.statistics.lastUpdate.toISOString()));
-        if (moment.duration(ms).asSeconds() < 1 && user.accountType == "Free") return callback({message: "Error: Message validation, Interval should be more than 10 seconds"}, null);
+        if (moment.duration(ms).asSeconds() < 1 && user.accountType == "Free") return callback({message: "Error: Message validation, Interval should be more than 1 seconds, key: " + routeParams.key}, null);
         triggerService.execute(user, message, callback);
       },
       function (user, callback) {

@@ -59,21 +59,21 @@ angular.module('app')
                 });
 
                 socket.on(scope.topic, function (message) {
-                  scope.toggleButton = angular.fromJson(message).value == "1";
+
+                  var messageValue = angular.fromJson(message).value;
+                  if(messageValue !== "0" && messageValue !== "1" ) return;
+
+                  scope.toggleButton = messageValue == "1";
                 });
 
                 scope.$watch('toggleButton', function(toggle, lastToogle) {
 
                     if(toggle == lastToogle) return;
 
-                    var infoToSend = {topic:"/device/"+scope.topic.split("/")[2]+"/key/"+scope.key, message: {sensors: [{value: "0", tag: scope.tag }]} };
-
-                    if(toggle === true){
-                        infoToSend.message.sensors[0].value = "1"
-                    }
-                    else{
-                        infoToSend.message.sensors[0].value = "0"
-                    }
+                    var infoToSend = {
+                        topic:"/device/"+scope.topic.split("/")[2]+"/key/"+scope.key,
+                        message: {sensors: [{value: (toggle)? "1" : "0", tag: scope.tag }]}
+                    };
 
                     panelService.command(infoToSend)
                         .success(function (response, status, headers, config) {
