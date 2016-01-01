@@ -107,9 +107,9 @@ angular.module('app')
 
                         items.push([ moment().valueOf(), messageValue ]);
 
-                        //if(items.length > 10){
-                        //  items = _.rest(items);
-                        //}
+                        if(items.length > 1){
+                          items = _.rest(items);
+                        }
 
                         scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
                 });
