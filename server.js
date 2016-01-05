@@ -188,6 +188,7 @@ var User = mongoose.model('User');
 var Trigger = mongoose.model('Trigger');
 var triggerService = require('./api/services/triggerService');
 var route = new Route('/device/:device/key/:key');
+var validate = require('jsonschema').validate;
 
 // Start socket conection
 var ponteServer = ponte(opts);
@@ -205,12 +206,20 @@ var tryParseJson = function(str) {
 ponteServer.on("updated", function(resource, buffer) {
 
   //console.log("Message received", resource, tryParseJson(buffer.toString()));
-
   var routeParams = route.match(resource);
   if(!routeParams.device || !routeParams.key) return logger.error("Error: Parsing RouteParams, Wrong url format, key: " + routeParams.key);
 
   var result = tryParseJson(buffer.toString());
-  if(!result || !result.sensors || !result.sensors[0].tag || !result.sensors[0].value) return logger.error("Error: Parsing buffer, Wrong message format, key: " + routeParams.key);
+  if(!result) return logger.error("Error: Parsing schema, Wrong message format, key: " + routeParams.key);
+
+  var arrayValidation = validate(result, {"$schema":"http://json-schema.org/draft-04/schema#","id":"/","type":"object","properties":{"sensors":{"id":"sensors","type":"array","items":{"id":"0","type":"object","properties":{"tag":{"id":"tag","type":"string"},"value":{"id":"value","type":"string"}},"additionalProperties":false,"required":["tag","value"]},"additionalItems":false,"required":["0"]}},"additionalProperties":false,"required":["sensors"]});
+  var objectValidation = validate(result,{"$schema":"http://json-schema.org/draft-04/schema#","id":"/","type":"object","properties":{"tag":{"id":"tag","type":"string"},"value":{"id":"value","type":"string"}},"additionalProperties":false,"required":["tag","value"]});
+
+  if(arrayValidation.errors.length !== 0 && objectValidation.errors.length !== 0 ) return logger.error("Error: Parsing schema, Wrong message format, key: " + routeParams.key);
+
+  if(objectValidation.errors.length === 0 && arrayValidation.errors.length !== 0 ){
+    result = { sensors:[{ tag: result.tag, value:result.value }] };
+  }
 
   async.each(result.sensors, function(sensor, next) {
 
