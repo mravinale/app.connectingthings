@@ -28,6 +28,8 @@
 
                         <panel-switch style="cursor:move"  ng-if="panel.type=='switch'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}" key="{{currentUser.key}}" tag="{{panel.sensor.tag}}"> </panel-switch>
 
+                        <panel-led style="cursor:move"  ng-if="panel.type=='led'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}" key="{{currentUser.key}}" tag="{{panel.sensor.tag}}"> </panel-led>
+
                         <panel-gauge style="cursor:move"  ng-if="panel.type=='gauge'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}" key="{{currentUser.key}}" > </panel-gauge>
 
                         <panel-info style="cursor:move"  ng-if="panel.type=='info'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}" key="{{currentUser.key}}"> </panel-info>
