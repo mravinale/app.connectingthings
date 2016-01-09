@@ -223,6 +223,7 @@ module.exports = function (grunt) {
                                '<%= yeoman.app %>/modules/panels/directives/panel_info.js',
                                '<%= yeoman.app %>/modules/panels/directives/panel_switch.js',
                                '<%= yeoman.app %>/modules/panels/directives/panel_camera.js',
+                               '<%= yeoman.app %>/modules/panels/directives/panel_led.js',
                                '<%= yeoman.app %>/modules/common/vendor/gauge.js',
                                '<%= yeoman.app %>/modules/common/factories/websocket.js',
                                '<%= yeoman.app %>/modules/common/directives/gauge.js',
