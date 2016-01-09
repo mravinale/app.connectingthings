@@ -20,11 +20,12 @@ angular.module('app')
                         '<i class="fa fa-bar-chart-o fa-fw"></i> {{name}}'+
                         '<div class="pull-right">'+
                             '<div class="btn-group">'+
-                                '<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>'+
-                                '<ul class="dropdown-menu pull-right" role="menu">'+
-                                    '<li><a href="#">Action</a></li>'+
-                                    '<li class="divider"></li><li><a href="#">Separated link</a></li>'+
-                                '</ul>'+
+                                '<li type="button" class="dropdown hidden-sm" style="list-style:none;">'+
+                                '<a href class="dropdown-toggle ng-binding btn btn-default btn-xs" data-toggle="dropdown" aria-haspopup="true"  aria-haspopup="true"  aria-expanded="false"> Actions </a>'+
+                                    '<ul class="dropdown-menu animated fadeInLeft w">'+
+                                         '<li><a href ng-click="clean()" >Clean</a></li>'+
+                                    '</ul>'+
+                                '</li>'+
                             '</div>'+
                         '</div>'+
                     '</div>'+
@@ -70,6 +71,7 @@ angular.module('app')
                         });
 
                         scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
+
                     })
                     .error(function(response, status, headers, config) {
                         console.error( response);
@@ -92,7 +94,17 @@ angular.module('app')
                     }
                 };
 
+                scope.clean = function(){
+                    items = [];
+
+                    items.push([ moment().add(-1, "milliseconds").valueOf(), lastValue == "1"? "0" : "1"  ]);
+                    items.push([ moment().valueOf(), lastValue ]);
+
+                    scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
+                };
+
                 socket.on(scope.topic, function (message) {
+
                         var item = angular.fromJson(message);
                         if(!item || !item.value) return;
 
@@ -107,11 +119,12 @@ angular.module('app')
 
                         items.push([ moment().valueOf(), messageValue ]);
 
-                        if(items.length > 1){
+                       // if(items.length > 1){
                           items = _.rest(items);
-                        }
+                       // }
 
                         scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
+
                 });
 
             }

@@ -26,8 +26,17 @@ exports.getAll = function (req, res, next) {
 
 exports.getAllMessages = function (req, res, next) {
 
+    var today = moment().startOf('day')
+    var tomorrow = moment(today).add(1, 'days')
+
     Message
-        .find({ topic: req.query.topic })
+        .find({
+            topic: req.query.topic,
+            createdAt: {
+                $gte: today.toDate(),
+                $lt: tomorrow.toDate()
+            }
+        })
         .sort({ createdAt: 'desc' })
         .limit(20)
         .exec(function (error, messages) {

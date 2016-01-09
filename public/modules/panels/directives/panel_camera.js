@@ -42,12 +42,13 @@ angular.module('app')
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
 
+                scope.stream = '/assets/img/noSignal.png';
                 var stream = scope.url+"/videostream.cgi?user="+ scope.login +"&pwd="+ scope.password + '&cb=' + new Date().getTime();
 
                 //pooling waiting the conversion
                 var interval = $interval(function(){
                   scope.reload()
-                }, 2000);
+                }, 2000, 5);
 
                 scope.reload = function() {
                   var image = new Image();
