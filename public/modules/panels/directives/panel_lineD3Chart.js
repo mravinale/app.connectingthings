@@ -57,6 +57,7 @@ angular.module('app')
                 scope.values =[ { "values": [],"key": scope.name }];
                 messageService.getAllMessages(scope.topic)
                     .success(function (response, status, headers, config) {
+
                         angular.forEach(response, function(message) {
                             var item = angular.fromJson(message);
                             if(!item || !item.value) return;
@@ -69,6 +70,8 @@ angular.module('app')
                             items.push([ moment(item.createdAt).valueOf(), item.value ]);
                             lastValue = item.value;
                         });
+
+                        if(items.length === 0)  items.push([ moment().valueOf(), "0" ]);
 
                         scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
 
@@ -97,8 +100,10 @@ angular.module('app')
                 scope.clean = function(){
                     items = [];
 
-                    items.push([ moment().add(-1, "milliseconds").valueOf(), lastValue == "1"? "0" : "1"  ]);
-                    items.push([ moment().valueOf(), lastValue ]);
+                    if(lastValue  == "0" || lastValue  == "1") {
+                      items.push([ moment().add(-1, "milliseconds").valueOf(), lastValue == "1"? "0" : "1"  ]);
+                    }
+                    items.push([ moment().valueOf(), "0" ]);
 
                     scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
                 };
@@ -119,9 +124,9 @@ angular.module('app')
 
                         items.push([ moment().valueOf(), messageValue ]);
 
-                       // if(items.length > 1){
-                          items = _.rest(items);
-                       // }
+                        if(items.length > 20){
+                          items = _.rest(_.sortBy(items, function(o) { return o[0]; }));
+                        }
 
                         scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
 
