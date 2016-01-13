@@ -72,7 +72,7 @@ angular.module('app')
 
                     var infoToSend = {
                         topic:"/device/"+scope.topic.split("/")[2]+"/key/"+scope.key,
-                        message: {sensors: [{value: (toggle)? "1" : "0", tag: scope.tag }]}
+                        message: {value: (toggle)? "1" : "0", tag: scope.tag }
                     };
 
                     panelService.command(infoToSend)
