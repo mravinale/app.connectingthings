@@ -45,7 +45,7 @@ exports.execute = function (user, message, callback) {
 
           var data = {
             from: from_who,
-            to: user.email,
+            to: trigger.target,
             subject: 'Alarm ' +trigger.name+ ' triggered',
             html: '<p>Sensor alarm ' +trigger.sensor.tag+ '</p></br>'+
                   '<p>Rule: when ' +trigger.value+ ' is ' +trigger.rule+ message.body.value+'</p>'

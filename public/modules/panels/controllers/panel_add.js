@@ -25,6 +25,7 @@ angular.module('app')
             deviceService.getFullById(deviceId)
                 .success(function(response, status, headers, config) {
                     $scope.sensors = response.sensors;
+                    $scope.panel.sensor = $scope.sensors[0]? $scope.sensors[0]._id : null;
                 }).error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);

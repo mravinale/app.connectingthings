@@ -3,7 +3,7 @@
 angular.module('app')
     .controller('TriggerAddCtrl', function ($scope, triggerService, deviceService, cameraService, $location, $modalInstance ) {
 
-    $scope.trigger = { };
+    $scope.trigger = { threshold: 300 };
 
     $scope.save = function (form) {
       $scope.errors = {};
