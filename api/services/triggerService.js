@@ -13,7 +13,7 @@ var mongoose = require('mongoose'),
 
 var api_key = 'key-966ab673e0452234ef90349363496a34';
 var domain = 'connectingthings.io';
-var from_who = 'alarm@connectingthings.io';
+var from_who = 'ConnectingThings Alarm <alarm@connectingthings.io>';
 var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 var alertPath = path.join(__dirname, '../templates/Alert.html');
 

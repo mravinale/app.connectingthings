@@ -18,7 +18,7 @@ var api_key = 'key-966ab673e0452234ef90349363496a34';
 var domain = 'connectingthings.io';
 
 //Your sending email address
-var from_who = 'connectingthings@connectingthings.io';
+var from_who = 'ConnectingThings <admin@connectingthings.io>';
 
 var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 
