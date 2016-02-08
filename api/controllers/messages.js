@@ -48,4 +48,24 @@ exports.getAllMessages = function (req, res, next) {
     });
 };
 
+exports.getAllByUser = function (req, res, next) {
+
+    Message
+        .find({owner: req.user})
+        .or([{name: new RegExp(req.query.search, "i")}, {description: new RegExp(req.query.search, "i") }])
+        .sort(JSON.parse(req.query.orderBy))
+        .limit(req.query.count)
+        .skip(req.query.count * req.query.page)
+        .exec(function (error, messages) {
+            Message.count().exec(function (error, count) {
+                if (error) {
+                    console.log(error);
+                    res.send(400, error);
+                } else {
+                    res.send(200, {data:messages, count: count});
+                }
+            });
+        });
+};
+
 
