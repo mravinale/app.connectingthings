@@ -2,7 +2,9 @@
 
 var mongoose = require('mongoose'),
   async = require('async'),
-  _ = require('underscore'),
+    _ = require('underscore'),
+    path = require('path'),
+    fs = require('fs'),
   Trigger = mongoose.model('Trigger'),
   User = mongoose.model('User'),
   Mailgun = require('mailgun-js'),
@@ -11,8 +13,9 @@ var mongoose = require('mongoose'),
 
 var api_key = 'key-966ab673e0452234ef90349363496a34';
 var domain = 'connectingthings.io';
-var from_who = 'alarm@connectingthings.io';
+var from_who = 'ConnectingThings Alarm <alarm@connectingthings.io>';
 var mailgun = new Mailgun({apiKey: api_key, domain: domain});
+var alertPath = path.join(__dirname, '../templates/Alert.html');
 
 
 exports.execute = function (user, message, callback) {
@@ -32,7 +35,7 @@ exports.execute = function (user, message, callback) {
         if(message.topic !== "/"  + user.key + "/" + trigger.device.name + "/" + trigger.sensor.tag ) return next();
 
         var triggeredValue =
-        (trigger.rule == "equals to" && parseFloat(message.body.value) == parseFloat(trigger.value)) ||
+        (trigger.rule == "equals to" && message.body.value == trigger.value) ||
         (trigger.rule == "bigger than" && parseFloat(message.body.value) > parseFloat(trigger.value)) ||
         (trigger.rule == "lower than" && parseFloat(message.body.value) < parseFloat(trigger.value));
 
@@ -43,20 +46,33 @@ exports.execute = function (user, message, callback) {
 
         if(triggeredValue && trigger.action == "Send email to"){
 
-          var data = {
-            from: from_who,
-            to: trigger.target,
-            subject: 'Alarm ' +trigger.name+ ' triggered',
-            html: '<p>Sensor alarm ' +trigger.sensor.tag+ '</p></br>'+
-                  '<p>Rule: when ' +trigger.value+ ' is ' +trigger.rule+ message.body.value+'</p>'
-          };
+          fs.readFile(alertPath, function (err, html) {
+            if (err) {
+              return  next(err);
+            }
 
-          mailgun.messages().send(data, function (error, body) {
-            if (error) return next(error);
+            var data = {
+              from: from_who,
+              to: trigger.target,
+              subject: trigger.name + ' has been executed',
+              html: _.template(html.toString(), {
+                triggerName: trigger.name,
+                messageValue: message.body.value,
+                triggerRule: trigger.rule,
+                triggerValue: trigger.value,
+                userName: user.username,
+                publicUrl: user.publicUrl
+              })
+            };
 
-            user.statistics.triggers.email++;
-            user.statistics.triggers.last = new Date();
-            next();
+            mailgun.messages().send(data, function (error, body) {
+              if (error) return next(error);
+
+              user.statistics.triggers.email++;
+              user.statistics.triggers.last = new Date();
+              next();
+            });
+
           });
 
         } else if(triggeredValue && trigger.action == "Send to IFTTT") {
