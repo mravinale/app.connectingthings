@@ -1,8 +1,6 @@
 machine:
   python:
     version: 2.7.3
-  node:
-    version: 0.12.7
   services:
     - docker
 
@@ -10,12 +8,12 @@ dependencies:
   cache_directories:
     - "~/docker"
   pre:
-    - sudo apt-get -f install
-    - sudo apt-get update
     - sudo apt-get -y install software-properties-common
+    - sudo add-apt-repository ppa:chris-lea/node.js
+    - sudo apt-get update
+    - sudo apt-get install nodejs npm
     - sudo apt-get -y install build-essential nodejs python wget curl xvfb libxrender1 libfontconfig1 xorg libssl-dev fontconfig  xfonts-75dpi
     - pip install awscli
-    - npm install -g node-gyp
   override:
     - npm install
 
