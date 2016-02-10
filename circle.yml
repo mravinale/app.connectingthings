@@ -15,6 +15,7 @@ dependencies:
     - sudo apt-get -y install software-properties-common
     - sudo apt-get -y install build-essential nodejs python wget curl xvfb libxrender1 libfontconfig1 xorg libssl-dev fontconfig  xfonts-75dpi
     - pip install awscli
+    - npm install -g node-gyp
   override:
     - npm install
 
