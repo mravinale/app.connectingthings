@@ -1,0 +1,22 @@
+machine:
+  python:
+    version: 2.7.3
+  services:
+    - docker
+
+dependencies:
+  cache_directories:
+    - "~/docker"
+  pre:
+    - sudo apt-get -f install
+    - pip install awscli
+    - npm install
+
+deployment:
+  production:
+    branch: test-deploy
+    commands:
+      - docker build -t connectingthings/app.connectingthings:$CIRCLE_SHA1 .
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push connectingthings/app.connectingthings:$CIRCLE_SHA1
+      - /bin/bash scripts/EB-deploy-staging.sh $CIRCLE_SHA1
