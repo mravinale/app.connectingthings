@@ -13,7 +13,7 @@ dependencies:
     - sudo apt-get -f install
     - sudo apt-get update
     - sudo apt-get -y install software-properties-common
-    - sudo apt-get -y install build-essential nodejs python wget curl xvfb php5-curl curl libxrender1 libfontconfig1 xorg libssl-dev fontconfig libjpeg8 xfonts-75dpi libjpeg-turbo8
+    - sudo apt-get -y install build-essential nodejs python wget curl xvfb libxrender1 libfontconfig1 xorg libssl-dev fontconfig  xfonts-75dpi
     - pip install awscli
   override:
     - npm install
