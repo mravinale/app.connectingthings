@@ -9,6 +9,8 @@ machine:
 dependencies:
   cache_directories:
     - "~/docker"
+  override:
+    - npm install --dev
   pre:
     - sudo apt-get -f install
     - pip install awscli
