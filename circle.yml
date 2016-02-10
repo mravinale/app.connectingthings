@@ -12,7 +12,6 @@ dependencies:
   pre:
     - sudo apt-get -f install
     - pip install awscli
-    - npm install
 
 deployment:
   production:
