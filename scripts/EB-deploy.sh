@@ -6,10 +6,10 @@ EB_BUCKET=elasticbeanstalk-us-west-2-085850360071
 # Create new Elastic Beanstalk version
 DOCKERRUN_FILE=$SHA1-Dockerrun.aws.json
 sed "s/<TAG>/$SHA1/" < Dockerrun.aws.json > $DOCKERRUN_FILE
-aws s3 cp $DOCKERRUN_FILE s3://$EB_BUCKET/$DOCKERRUN_FILE --region eu-west-1
+aws s3 cp $DOCKERRUN_FILE s3://$EB_BUCKET/$DOCKERRUN_FILE --region us-west-2
 aws elasticbeanstalk create-application-version --application-name connectingthings \
-  --version-label $SHA1 --source-bundle S3Bucket=$EB_BUCKET,S3Key=$DOCKERRUN_FILE --region eu-west-1
+  --version-label $SHA1 --source-bundle S3Bucket=$EB_BUCKET,S3Key=$DOCKERRUN_FILE --region us-west-2
 
 # Update Elastic Beanstalk environment to new version
 aws elasticbeanstalk update-environment --environment-name app-connectingthings \
-    --version-label $SHA1 --region eu-west-1 --description 'from connectingthings'
+    --version-label $SHA1 --region us-west-2 --description 'from connectingthings'
