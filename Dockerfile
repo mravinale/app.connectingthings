@@ -34,6 +34,9 @@ RUN	        cd /var/www/node && /sbin/setuser node npm install
 COPY        ./scripts/cron/pm2-list-crontab /etc/cron.d/pm2-list-crontab
 RUN         chmod 0644 /etc/cron.d/pm2-list-crontab && crontab /etc/cron.d/pm2-list-crontab
 
+#Give execution permissions
+RUN         chmod 555 ./scripts/services/pm2.sh && chmod 555 ./scripts/cron/pm2-list-crontab
+
 # Open local port 3000
 EXPOSE	    3000
 
