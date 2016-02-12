@@ -1,5 +1,5 @@
 'use strict';
-if(process.argv[2] == '-dist') {
+if(process.env.NODE_ENV == 'prod') {
  // require('newrelic');
 }
 
@@ -69,7 +69,7 @@ var logger = new (winston.Logger)({
 app.configure( function(){
   app.use(express.errorHandler());
 
-  if(process.argv[2] == '-dist'){
+  if(process.env.NODE_ENV == 'prod') {
     app.use(express.static(__dirname + '/dist'));
   } else {
     app.use(express.static(__dirname + '/public'));
@@ -108,7 +108,7 @@ app.use(expressWinston.logger({
       inputToken:       '80f9ead4-a224-4bb0-9ffa-f6bfdc85f3d9',
       json:             true,
       level:            'warn',
-      tags:             [process.argv[2] === "-dist"? "app-prod" : "app-debug"]
+      tags:             [ "app-aws"]
     })
   ]
 }));
@@ -132,7 +132,7 @@ app.use(expressWinston.errorLogger({
       subdomain:        'connthings',
       inputToken:       '80f9ead4-a224-4bb0-9ffa-f6bfdc85f3d9',
       json:             true,
-      tags:             [process.argv[2] === "-dist"? "app-prod" : "app-debug"]
+      tags:             [ "app-aws"]
     })
   ]
 }));
@@ -142,7 +142,7 @@ app.use(expressWinston.errorLogger({
 var port = process.env.PORT || 3000;
 var server;
 
-if(process.argv[2] !== '-dist') {
+if(process.env.USE_SSL == 'false') {
   server = app.listen(port, function () {
     logger.log('listening on port %d in %s mode', port, app.get('env'));
   });
