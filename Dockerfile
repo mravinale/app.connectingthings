@@ -42,4 +42,4 @@ EXPOSE	    3000
 
 # Run PM2 as a daemon managed by runit
 RUN         mkdir /etc/service/pm2
-ADD         ./scripts/services/pm2.sh /etc/service/pm2/run
+ADD         /var/www/node/scripts/services/pm2.sh /etc/service/pm2/run
