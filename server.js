@@ -1,6 +1,6 @@
 'use strict';
 if(process.argv[2] == '-dist') {
-  require('newrelic');
+ // require('newrelic');
 }
 
 // Module dependencies.
