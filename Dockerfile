@@ -34,15 +34,9 @@ RUN	        cd /var/www/node && /sbin/setuser node npm install
 COPY        ./scripts/cron/pm2-list-crontab /etc/cron.d/pm2-list-crontab
 RUN         chmod 0644 /etc/cron.d/pm2-list-crontab && crontab /etc/cron.d/pm2-list-crontab
 
-#Give execution permissions
-RUN         chmod 555 /var/www/node/scripts/services/pm2.sh && chmod 555 /var/www/node/scripts/cron/pm2-list-crontab
-
 # Open local port 3000
 EXPOSE	    3000
 
 # Run PM2 as a daemon managed by runit
 RUN         mkdir /etc/service/pm2
-ADD        ./scripts/services/pm2.sh /etc/service/pm2/run
-
-#Give execution permissions
-RUN         chmod 555 /etc/service/pm2/run/pm2.sh
+ADD         ./scripts/services/pm2.sh /etc/service/pm2/run
