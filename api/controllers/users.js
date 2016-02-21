@@ -49,7 +49,7 @@ exports.create = function (req, res, next) {
         from: from_who,
         to: newUser.email,
         subject: 'Welcome to ConnectingThings.io',
-        html: _.template(html.toString(),{confirmUrl:origin+'#/access/signin', password: newUser.password})
+        html: _.template(html.toString(),{loginUrl:origin+'#/access/signin', password: newUser.password})
       };
 
 
