@@ -11,7 +11,10 @@
   },
   "Ports": [
     {
-      "ContainerPort": "3000"
+      "ContainerPort": "3000",
+      "ContainerPort": "3001",
+      "ContainerPort": "1884",
+      "ContainerPort": "1883"
     }
   ]
 }
