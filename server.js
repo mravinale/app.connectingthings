@@ -5,22 +5,23 @@ if(process.env.NODE_ENV == 'prod') {
 
 // Module dependencies.
 var express = require('express'),
-  _ = require('underscore'),
-  async = require('async'),
-  http = require('http'),
-  https = require('https'),
-  passport = require('passport'),
-  path = require('path'),
-  fs = require('fs'),
-  mongoStore = require('connect-mongo')(express),
-  config = require('./api/config/config'),
-  mongoose = require('mongoose'),
-  ponte = require("ponte"),
-  moment = require('moment'),
-  expressWinston = require('express-winston'),
-  loggly=  require('winston-loggly'),
-  winston = require('winston'),
-  Route = require('route-parser');
+    _ = require('underscore'),
+    async = require('async'),
+    http = require('http'),
+    https = require('https'),
+    mqtt = require('mqtt'),
+    passport = require('passport'),
+    path = require('path'),
+    fs = require('fs'),
+    mongoStore = require('connect-mongo')(express),
+    config = require('./api/config/config'),
+    mongoose = require('mongoose'),
+    ponte = require("ponte"),
+    moment = require('moment'),
+    expressWinston = require('express-winston'),
+    loggly=  require('winston-loggly'),
+    winston = require('winston'),
+    Route = require('route-parser');
 
 var privateKey = fs.readFileSync(path.join(__dirname, 'sslcert/star_connectingthings_io.key'));
 var certificate= fs.readFileSync(path.join(__dirname, 'sslcert/connectingthings.io.chained.crt'));
@@ -53,7 +54,6 @@ var logger = new (winston.Logger)({
       handleExceptions: true,
       json: true
     }),
-    new (winston.transports.File)({ filename: 'somefile.log',handleExceptions: true }),
     new (winston.transports.Loggly)({
       subdomain:        'connthings',
       handleExceptions: true,
@@ -94,21 +94,13 @@ app.use(passport.session());
 // Place the express-winston logger before the router.
 app.use(expressWinston.logger({
   transports: [
-    new winston.transports.File({
-      filename:         'logs.log',
-      handleExceptions: true,
-      json:             true,
-      maxsize:          5242880,
-      maxFiles:         5,
-      colorize:         false,
-      level:            'warn'
-    }),
+
     new winston.transports.Loggly({
       subdomain:        'connthings',
       inputToken:       '80f9ead4-a224-4bb0-9ffa-f6bfdc85f3d9',
       json:             true,
       level:            'warn',
-      tags:             [ "app-aws"]
+      tags:             [process.env.NODE_ENV == 'prod'? "app-prod" : "app-debug"]
     })
   ]
 }));
@@ -120,23 +112,15 @@ require('./api/config/routes')(app);
 // Place the express-winston errorLogger after the router.
 app.use(expressWinston.errorLogger({
   transports: [
-    new winston.transports.File({
-      filename:         'http-logs.log',
-      handleExceptions: true,
-      json:             true,
-      maxsize:          5242880,
-      maxFiles:         5,
-      colorize:         false
-    }),
+
     new winston.transports.Loggly({
       subdomain:        'connthings',
       inputToken:       '80f9ead4-a224-4bb0-9ffa-f6bfdc85f3d9',
       json:             true,
-      tags:             [ "app-aws"]
+      tags:             [process.env.NODE_ENV == 'prod'? "app-prod" : "app-debug"]
     })
   ]
 }));
-
 
 // Start server
 var port = process.env.PORT || 3000;
