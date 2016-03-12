@@ -15,12 +15,12 @@ dependencies:
   override:
     - npm install
 
-deployment:
-  production:
-    branch: test-deploy
-    commands:
-      - chmod 555 scripts/services/pm2.sh && chmod 555 scripts/cron/pm2-list-crontab
-      - docker build -t connectingthings/app.connectingthings:$CIRCLE_SHA1 .
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push connectingthings/app.connectingthings:$CIRCLE_SHA1
-      - /bin/bash scripts/EB-deploy.sh $CIRCLE_SHA1
+#deployment:
+#  production:
+#    branch: test-deploy
+#    commands:
+#      - chmod 555 scripts/services/pm2.sh && chmod 555 scripts/cron/pm2-list-crontab
+#      - docker build -t connectingthings/app.connectingthings:$CIRCLE_SHA1 .
+#      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+#      - docker push connectingthings/app.connectingthings:$CIRCLE_SHA1
+#      - /bin/bash scripts/EB-deploy.sh $CIRCLE_SHA1
