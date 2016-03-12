@@ -25,7 +25,8 @@ RUN         sudo apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 COPY	    . /var/www/node
 
 # Change owner to non-root node user and set up permissions
-RUN         sudo chmod -R 777 var/www/node /var/log/ /etc/service/pm2/run
+RUN         sudo chmod -R 777 var/www/node /var/log/
+RUN         sudo chmod -R 777 etc/service/pm2/run
 RUN         sudo useradd -m node && mkdir /var/log/nodejs && sudo chown -R node:node /var/www/node /var/log/
 
 # Install all my packages
