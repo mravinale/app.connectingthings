@@ -17,8 +17,8 @@ RUN 	    sudo apt-get -y install build-essential nodejs python wget curl \
                 && n 0.12.7 \
                 && npm install -g node-gyp \
                 && npm install -g pm2 \
-                && npm install -g grunt-cli
-                && npm install -g bower \
+                && npm install -g grunt-cli \
+                && npm install -g bower
 
 # Clean up APT when done.
 RUN         sudo apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
