@@ -19,7 +19,7 @@ deployment:
   production:
     branch: test-deploy
     commands:
-      - docker build -t connectingthings/app:$CIRCLE_SHA1 .
+      - docker build -t connectingthings/app:latest .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push connectingthings/app:$CIRCLE_SHA1
+      - docker push connectingthings/app:latest
 #      - /bin/bash scripts/EB-deploy.sh $CIRCLE_SHA1
