@@ -60,7 +60,7 @@ var logger = new (winston.Logger)({
       inputToken:       '80f9ead4-a224-4bb0-9ffa-f6bfdc85f3d9',
       json:             true,
       level:            'warn',
-      tags:             [process.argv[2] === "-dist"? "app-prod" : "app-debug"]
+      tags:             [process.env.NODE_ENV == 'prod'? "app-prod" : "app-debug"]
     })
   ]
 });
