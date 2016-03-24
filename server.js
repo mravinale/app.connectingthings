@@ -83,13 +83,13 @@ app.use(express.methodOverride());
 
 // express/mongo session storage
 app.use(express.session({
-  secret: 'MEANP', store: new mongoStore({ url: config.db.default, collection: 'sessions' })
+  secret: 'MEANP',
+  store: new mongoStore({ db: mongoose.connection.db })
 }));
 
 // Use passport session
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 // Place the express-winston logger before the router.
 app.use(expressWinston.logger({
