@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     config = require('../config/config')
 exports.mongoose = mongoose;
 
-var mongoOptions = { replset: { strategy: "ping", rs_name: 'rs1', safe: true }};;
+var mongoOptions = { replset: { strategy: "ping", rs_name: 'rs-ds025719', safe: true }};;
 
 
 
