@@ -4,7 +4,9 @@ var mongoose = require('mongoose'),
     config = require('../config/config')
 exports.mongoose = mongoose;
 
-var mongoOptions = { db: { safe: true } };
+var mongoOptions = { replset: { strategy: "ping", rs_name: 'rs1', safe: true }};;
+
+
 
 // Connect to Database
 exports.db = mongoose.connect(config.db.default, mongoOptions, function (err, res) {

@@ -77,15 +77,10 @@ app.configure( function(){
 });
 
 app.use(express.logger('dev'));
-app.use(express.cookieParser());
+app.use(express.cookieParser('MEANP'));
+app.use(express.cookieSession());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-
-// express/mongo session storage
-app.use(express.session({
-  secret: 'MEANP',
-  store: new mongoStore({ db: mongoose.connection.db })
-}));
 
 // Use passport session
 app.use(passport.initialize());

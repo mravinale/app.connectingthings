@@ -6,3 +6,5 @@ module.exports = {
   },
   masterKey:"wd40"
 };
+
+// mongodb://admin:QZi6&3fz@ds025719-a0.mlab.com:25719,ds025719-a1.mlab.com:25719/main?replicaSet=rs-ds025719
