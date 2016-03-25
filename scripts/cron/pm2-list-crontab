@@ -1,3 +1,4 @@
+
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 * * * * *  date >> /var/log/nodejs/pm2-list.log && pm2 list >> /var/log/nodejs/pm2-list.log
