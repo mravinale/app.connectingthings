@@ -20,7 +20,7 @@
 </head>
 <body ng-controller="AppCtrl" ng-class="{ 'body-external': enableExternal }">
 <div class="app" id="app"  ng-style="noMenuStyle" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}" ui-view></div>
-<!-- build:js js/app.js?v=0.0.2 -->
+<!-- build:js js/vendor.js?v=0.0.3 -->
 <script src="assets/js/jquery/jquery.min.js"></script>
 <script src="assets/js/jquery-ui-1.10.4.min.js"></script>
 
@@ -35,6 +35,7 @@
 <script src="assets/js/angular/ui-validate.js"></script>
 <script src="assets/js/angular/ui-bootstrap-tpls.min.js"></script>
 <script src="assets/js/angular-ui.sorteable.js"></script>
+
 <script src="assets/js/screenfull.min.js"></script>
 <script src="assets/js/ps-responsive.js"></script>
 <script src="assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js"></script>
@@ -49,6 +50,8 @@
 <script src="lib/angular-multi-step-form/dist/angular-multi-step-form.min.js"></script>
 <script src="lib/angular-img-fallback/angular.dcb-img-fallback.min.js"></script>
 
+<!-- endbuild -->
+<!-- build:js js/vendor2.js?v=0.0.3 -->
 <script src="lib/autofill-directive/autofill-directive.js"></script>
 <script src="lib/underscore/underscore.js"></script>
 <script src="lib/ng-table/ng-table.min.js"></script>
@@ -65,8 +68,9 @@
 <script src="lib/sweetalert/dist/sweetalert.min.js" ></script>
 <script src="lib/angular-sweetalert/SweetAlert.min.js" ></script>
 <script src="lib/angular-encode-uri/dist/angular-encode-uri.min.js"></script>
+<!-- endbuild -->
 
-
+<!-- build:js js/app.js?v=0.0.3 -->
 <script src="modules/app.js"></script>
 <script src="modules/dashboards/controllers/dashboard_me.js"></script>
 <script src="modules/base/controllers/login.js"></script>
