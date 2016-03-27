@@ -23,6 +23,11 @@ module.exports = function (grunt) {
                 '<%= yeoman.app %>/scripts/{,*/}*.js'
             ]
         },
+        karma: {
+          unit: {
+            configFile: 'test/karma.conf.js'
+          }
+        },
         express: {
             options: {
                 port: process.env.PORT || 9000
@@ -292,6 +297,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-karma');
 
     grunt.registerTask('server', [
         //  'jshint',
