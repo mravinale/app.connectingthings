@@ -1,0 +1,25 @@
+machine:
+  python:
+    version: 2.7.3
+  node:
+    version: 0.12.7
+  services:
+    - docker
+
+dependencies:
+  cache_directories:
+    - "~/docker"
+  pre:
+    - sudo apt-get -f install
+#    - pip install awscli
+  override:
+    - npm install
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - docker build -t connectingthings/app:latest .
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push connectingthings/app:latest
+#      - /bin/bash scripts/EB-deploy.sh $CIRCLE_SHA1

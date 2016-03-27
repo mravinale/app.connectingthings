@@ -1,5 +1,4 @@
- Apollo
+ ConnectingThings
 ================
-testing app
   
  

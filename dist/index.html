@@ -8,9 +8,11 @@
 <link rel="stylesheet" href="assets/css/style.css?v=0.0.2">
 </head>
 <body ng-controller="AppCtrl" ng-class="{ 'body-external': enableExternal }">
+<div class="spinner"><div class="dot1"></div><div class="dot2"></div></div>
 <div class="app" id="app"  ng-style="noMenuStyle" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}" ui-view></div>
-<script src="js/app.js?v=0.0.2"></script>
-
+<script src="js/vendor.js?v=0.0.3"></script>
+<script src="js/vendor2.js?v=0.0.3"></script>
+<script src="js/app.js?v=0.0.3"></script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -22,7 +24,8 @@ ga('send', 'pageview');
 else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l()
 {var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/rvvvm6rx';
 var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}
-else{w.addEventListener('load',l,false);}}})()
+else{w.addEventListener('load',l,false);}}})();
+$(function(){$(".spinner").remove();});
 </script>
 </body>
 </html>

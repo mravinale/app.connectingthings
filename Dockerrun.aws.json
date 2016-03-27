@@ -1,0 +1,20 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Authentication": {
+    "Bucket": "elasticbeanstalk-us-west-2-085850360071",
+    "Key": "docker/config.json"
+  },
+  "Logging": "/var/log/nodejs",
+  "Image": {
+    "Name": "connectingthings/app.connectingthings:<TAG>",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "3000",
+      "ContainerPort": "3001",
+      "ContainerPort": "1884",
+      "ContainerPort": "1883"
+    }
+  ]
+}

@@ -25,7 +25,7 @@ var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 exports.signUp = function (req, res, next) {
     var newUser = new User(req.body);
     var origin = req.headers.referer || req.headers.origin+"/";
-    var activatePath = path.join(__dirname, '../templates/ActivateAccount.html');
+    var activatePath = path.join(__dirname, '../templates/ActivateSignupAccount.html');
     newUser.provider = 'local';
     newUser.isValidated = false;
     newUser.admin = true;
@@ -61,7 +61,7 @@ exports.signUp = function (req, res, next) {
                             from: from_who,
                             to: newUser.email,
                             subject: 'Welcome to ConnectingThings.io',
-                            html: _.template(html.toString(),{confirmUrl:origin+'#/access/suscription?confirmation=' + newUser._id, password: newUser.password})
+                            html: _.template(html.toString(),{confirmUrl:origin+'#/access/suscription?confirmation=' + newUser._id})
                         };
                         mailgun.messages().send(data, function (err, body) {
                             if (err) {
@@ -141,7 +141,7 @@ exports.confirmPwd = function (req, res, next) {
     }
 
     var hashedPassword = user.encryptPassword(req.body.password);
-    User.update({ _id: user._id }, { isPasswordForgot: true, hashedPassword: hashedPassword }, function(err, result) {
+    User.update({ _id: user._id }, { isPasswordForgot: false, hashedPassword: hashedPassword }, function(err, result) {
       if (err) {
         return res.send(400, err);
       }

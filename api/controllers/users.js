@@ -28,9 +28,9 @@ var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   var origin = req.headers.referer || req.headers.origin+"/";
-  var activatePath = path.join(__dirname, '../templates/ActivateAccount.html');
+  var activatePath = path.join(__dirname, '../templates/ActivateInvitationAccount.html');
   newUser.provider = 'local';
-  newUser.isValidated = false;
+  newUser.isValidated = true;
   newUser.password =  req.body.password;
   newUser.key = crypto.randomBytes(8).toString('base64').slice(0,-1).replace("/", "X");
   newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1).replace("/", "X");
@@ -49,7 +49,7 @@ exports.create = function (req, res, next) {
         from: from_who,
         to: newUser.email,
         subject: 'Welcome to ConnectingThings.io',
-        html: _.template(html.toString(),{confirmUrl:origin+'#/access/suscription?confirmation=' + newUser._id, password: newUser.password})
+        html: _.template(html.toString(),{loginUrl:origin+'#/access/signin', password: newUser.password})
       };
 
 
