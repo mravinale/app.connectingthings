@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <title>ConnectingThings</title>
-<meta name="description" content="app,web app,iot,saas,sensors,arduino,internet of things" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <!-- build:css assets/css/style.css?v=0.0.2 -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" />
@@ -19,11 +18,11 @@
 <!-- endbuild -->
 </head>
 <body ng-controller="AppCtrl" ng-class="{ 'body-external': enableExternal }">
+<div class="spinner"><div class="dot1"></div><div class="dot2"></div></div>
 <div class="app" id="app"  ng-style="noMenuStyle" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}" ui-view></div>
 <!-- build:js js/vendor.js?v=0.0.3 -->
 <script src="assets/js/jquery/jquery.min.js"></script>
 <script src="assets/js/jquery-ui-1.10.4.min.js"></script>
-
 <script src="assets/js/angular/angular.min.js"></script>
 <script src="assets/js/angular/angular-cookies.min.js"></script>
 <script src="assets/js/angular/angular-animate.min.js"></script>
@@ -35,7 +34,6 @@
 <script src="assets/js/angular/ui-validate.js"></script>
 <script src="assets/js/angular/ui-bootstrap-tpls.min.js"></script>
 <script src="assets/js/angular-ui.sorteable.js"></script>
-
 <script src="assets/js/screenfull.min.js"></script>
 <script src="assets/js/ps-responsive.js"></script>
 <script src="assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js"></script>
@@ -49,7 +47,6 @@
 <script src="lib/angular-http-auth/src/http-auth-interceptor.js"></script>
 <script src="lib/angular-multi-step-form/dist/angular-multi-step-form.min.js"></script>
 <script src="lib/angular-img-fallback/angular.dcb-img-fallback.min.js"></script>
-
 <!-- endbuild -->
 <!-- build:js js/vendor2.js?v=0.0.3 -->
 <script src="lib/autofill-directive/autofill-directive.js"></script>
@@ -69,7 +66,6 @@
 <script src="lib/angular-sweetalert/SweetAlert.min.js" ></script>
 <script src="lib/angular-encode-uri/dist/angular-encode-uri.min.js"></script>
 <!-- endbuild -->
-
 <!-- build:js js/app.js?v=0.0.3 -->
 <script src="modules/app.js"></script>
 <script src="modules/dashboards/controllers/dashboard_me.js"></script>
@@ -172,7 +168,8 @@ ga('send', 'pageview');
 else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l()
 {var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/rvvvm6rx';
 var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}
-else{w.addEventListener('load',l,false);}}})()
+else{w.addEventListener('load',l,false);}}})();
+$(function(){$(".spinner").remove();});
 </script>
 </body>
 </html>

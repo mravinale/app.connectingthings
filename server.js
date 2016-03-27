@@ -1,6 +1,6 @@
 'use strict';
 if(process.env.NODE_ENV == 'prod') {
- // require('newrelic');
+  require('newrelic');
 }
 
 // Module dependencies.
@@ -13,7 +13,6 @@ var express = require('express'),
     passport = require('passport'),
     path = require('path'),
     fs = require('fs'),
-    mongoStore = require('connect-mongo')(express),
     config = require('./api/config/config'),
     mongoose = require('mongoose'),
     ponte = require("ponte"),
@@ -179,13 +178,11 @@ var tryParseJson = function(str) {
   }
 };
 
-//var lastValue = { topic: null, value: null, key: null };
-
 ponteServer.on("updated", function(resource, buffer) {
 
   //console.log("Message received", resource, tryParseJson(buffer.toString()));
   var routeParams = route.match(resource);
-  if(!routeParams.device || !routeParams.key) return logger.error("Error: Parsing RouteParams, Wrong url format, key: " + routeParams.key);
+  if(!routeParams.device || !routeParams.key) return console.log(resource, buffer.toString());
 
   var result = tryParseJson(buffer.toString());
   if(!result) return logger.error("Error: Parsing schema, Wrong message format, key: " + routeParams.key);
@@ -194,10 +191,7 @@ ponteServer.on("updated", function(resource, buffer) {
   var objectValidation = validate(result,{"$schema":"http://json-schema.org/draft-04/schema#","id":"/","type":"object","properties":{"tag":{"id":"tag","type":"string"},"value":{"id":"value","type":"string"}},"additionalProperties":false,"required":["tag","value"]});
 
   if(arrayValidation.errors.length !== 0 && objectValidation.errors.length !== 0 ) return logger.error("Error: Parsing schema, Wrong message format, key: " + routeParams.key);
-
-  if(objectValidation.errors.length === 0 && arrayValidation.errors.length !== 0 ){
-    result = { sensors:[{ tag: result.tag, value:result.value }] };
-  }
+  if(objectValidation.errors.length === 0 && arrayValidation.errors.length !== 0 ){ result = { sensors:[{ tag: result.tag, value:result.value }] }; }
 
   async.each(result.sensors, function(sensor, next) {
 

@@ -17,7 +17,7 @@ dependencies:
 
 deployment:
   production:
-    branch: test-deploy
+    branch: master
     commands:
       - docker build -t connectingthings/app:latest .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS

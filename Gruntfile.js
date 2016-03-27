@@ -316,15 +316,14 @@ module.exports = function (grunt) {
         'clean:dist',
         'copy:dist',
         'useminPrepare',
-
 //        'concat:lib',
         'concat:app',
         'ngAnnotate:dist',
         'uglify:dist',
         'usemin',
-        'concat:style'
-    //    'htmlbuild:dist'
-        //'cssmin:dist',
+        'concat:style',
+       // 'htmlbuild:dist',
+        'cssmin:dist'
 
     ]);
 
