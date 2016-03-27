@@ -11,15 +11,27 @@ dependencies:
     - "~/docker"
   pre:
     - sudo apt-get -f install
-#    - pip install awscli
   override:
     - npm install
+    - npm install -g grunt-cli
+    - npm install -g bower
+
+test:
+  pre:
+    - npm install -g mocha
+  override:
+    - mocha test/testRunner.js
 
 deployment:
+  dev:
+    branch: dev
+    commands:
+      - docker build -t connectingthings/app:dev .
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push connectingthings/app:dev
   production:
     branch: master
     commands:
-      - docker build -t connectingthings/app:latest .
+      - docker build -t connectingthings/app:prod .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push connectingthings/app:latest
-#      - /bin/bash scripts/EB-deploy.sh $CIRCLE_SHA1
+      - docker push connectingthings/app:prod
