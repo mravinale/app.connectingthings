@@ -21,11 +21,11 @@ RUN 	    sudo apt-get -y install build-essential nodejs python wget curl \
                 && npm install -g bower
 
 # Install new relic monitor
-RUN 	    echo deb http://apt.newrelic.com/debian/ newrelic non-free >> /etc/apt/sources.list.d/newrelic.list
-            && wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add -
-            && apt-get update
-            && apt-get install newrelic-sysmond
-            && nrsysmond-config --set license_key=2ee1720a0a13b11e1c8f46389d11af1ab2f3be29
+RUN 	    echo deb http://apt.newrelic.com/debian/ newrelic non-free >> /etc/apt/sources.list.d/newrelic.list \
+            && wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add - \
+            && apt-get update \
+            && apt-get install newrelic-sysmond \
+            && nrsysmond-config --set license_key=2ee1720a0a13b11e1c8f46389d11af1ab2f3be29 \
             && /etc/init.d/newrelic-sysmond start
 
 # Clean up APT when done.
