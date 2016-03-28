@@ -10,7 +10,7 @@ RUN	        sudo apt-get -y install software-properties-common \
                 && sudo apt-get update
 
 # Install node from repo, then install node package manager and switch version
-RUN 	    sudo apt-get -y install build-essential nodejs python wget curl \
+RUN 	    sudo apt-get -y install build-essential nodejs python ca-certificates wget curl \
                 xvfb php5-curl curl libxrender1 libfontconfig1 xorg libssl-dev \
                 fontconfig libjpeg8 xfonts-75dpi libjpeg-turbo8 \
                 && npm install -g n \
@@ -25,8 +25,7 @@ RUN 	    echo deb http://apt.newrelic.com/debian/ newrelic non-free >> /etc/apt/
             && wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add - \
             && apt-get update \
             && apt-get install newrelic-sysmond \
-            && nrsysmond-config --set license_key=2ee1720a0a13b11e1c8f46389d11af1ab2f3be29 \
-            && /etc/init.d/newrelic-sysmond start
+            && nrsysmond-config --set license_key=2ee1720a0a13b11e1c8f46389d11af1ab2f3be29
 
 # Clean up APT when done.
 RUN         sudo apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
