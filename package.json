@@ -20,7 +20,6 @@
     "node-uuid": "1.4.x",
     "passport": "~0.1.15",
     "passport-local": "~0.1.6",
-    "ponte": "0.0.11",
     "request": "^2.58.0",
     "route-parser": "0.0.4",
     "simple-recaptcha": "0.0.3",
