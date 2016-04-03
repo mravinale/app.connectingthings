@@ -38,7 +38,7 @@ RUN         sudo chmod -R 777 var/www/node /var/log/
 RUN         sudo useradd -m node && mkdir /var/log/nodejs && sudo chown -R node:node /var/www/node /var/log/
 
 # Install all my packages
-RUN	        cd /var/www/node && /sbin/setuser node npm install --force
+RUN	        cd /var/www/node && /sbin/setuser node npm install --force #refresh ponte
 
 # Setup PM2 list > log directory every minute
 COPY        ./scripts/cron/pm2-list-crontab /etc/cron.d/pm2-list-crontab
