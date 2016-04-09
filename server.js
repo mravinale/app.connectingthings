@@ -132,6 +132,11 @@ if(process.env.USE_SSL == 'false') {
 
 //Start socket conection
 var io = require('socket.io').listen(server);
+var redis = require('redis').createClient;
+var adapter = require('socket.io-redis');
+var pub = redis(10002, "lab.redistogo.com", { auth_pass: "eabb6a42a7a9700d09697e72de1240b6" });
+var sub = redis(10002, "lab.redistogo.com", { return_buffers: true, auth_pass: "eabb6a42a7a9700d09697e72de1240b6" });
+io.adapter(adapter({ pubClient: pub, subClient: sub }));
 io.sockets.on('connection', function (socket) {
   logger.log("connect socket server at port 3000");
 });
