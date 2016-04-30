@@ -68,10 +68,10 @@ var logger = new (winston.Logger)({
 app.configure( function(){
   app.use(express.errorHandler());
 
-  if(process.env.NODE_ENV == 'prod') {
-    app.use(express.static(__dirname + '/dist'));
-  } else {
+  if(!process.env.NODE_ENV ) {
     app.use(express.static(__dirname + '/public'));
+  } else {
+    app.use(express.static(__dirname + '/dist'));
   }
 });
 
@@ -120,7 +120,7 @@ app.use(expressWinston.errorLogger({
 var port = process.env.PORT || 3000;
 var server;
 
-if(process.env.USE_SSL == 'false') {
+if(process.env.USE_SSL == 'false' || !process.env.USE_SSL) {
   server = app.listen(port, function () {
     logger.log('listening on port %d in %s mode', port, app.get('env'));
   });
@@ -132,11 +132,13 @@ if(process.env.USE_SSL == 'false') {
 
 //Start socket conection
 var io = require('socket.io').listen(server);
-var redis = require('redis').createClient;
-var adapter = require('socket.io-redis');
-var pub = redis(10002, "lab.redistogo.com", { auth_pass: "eabb6a42a7a9700d09697e72de1240b6" });
-var sub = redis(10002, "lab.redistogo.com", { return_buffers: true, auth_pass: "eabb6a42a7a9700d09697e72de1240b6" });
-io.adapter(adapter({ pubClient: pub, subClient: sub }));
+if(process.env.NODE_ENV == 'prod') {
+  var redis = require('redis').createClient;
+  var adapter = require('socket.io-redis');
+  var pub = redis(10002, "lab.redistogo.com", {auth_pass: "eabb6a42a7a9700d09697e72de1240b6"});
+  var sub = redis(10002, "lab.redistogo.com", {return_buffers: true, auth_pass: "eabb6a42a7a9700d09697e72de1240b6"});
+  io.adapter(adapter({pubClient: pub, subClient: sub}));
+}
 io.sockets.on('connection', function (socket) {
   logger.log("connect socket server at port 3000");
 });
