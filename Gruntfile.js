@@ -106,7 +106,7 @@ module.exports = function (grunt) {
                         src: [
                                 '<%= yeoman.app %>/assets/css/bootstrap.min.css',
                                 '<%= yeoman.app %>/lib/nvd3/nv.d3.min.css',
-                                '<%= yeoman.app %>/lib/chosen/chosen.min.css',
+                                '<%= yeoman.app %>/lib/chosen/chosen.css',
                                 '<%= yeoman.app %>/lib/ng-table/ng-table.min.css',
                                 '<%= yeoman.app %>/assets/css/font-awesome.min.css',
                                 '<%= yeoman.app %>/assets/css/app.css',
@@ -142,7 +142,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/assets/js/screenfull.min.js',
                       '<%= yeoman.app %>/assets/js/ps-responsive.js',
                       '<%= yeoman.app %>/assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js',
-                      '<%= yeoman.app %>/lib/angular-chosen-localytics/chosen.js',
+                      '<%= yeoman.app %>/lib/angular-chosen-localytics/dist/angular-chosen.js',
                       '<%= yeoman.app %>/lib/angular-socket-io/socket.js',
                       '<%= yeoman.app %>/lib/angular-resource/angular-resource.js',
                       '<%= yeoman.app %>/lib/angular-cookies/angular-cookies.js',
@@ -164,7 +164,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',
                       '<%= yeoman.app %>/lib/underscore/underscore.js',
                       '<%= yeoman.app %>/lib/ng-table/ng-table.min.js',
-                      '<%= yeoman.app %>/lib/chosen/chosen.jquery.min.js',
+                      '<%= yeoman.app %>/lib/chosen/chosen.jquery.js',
                       '<%= yeoman.app %>/lib/momentjs/moment.js',
                       '<%= yeoman.app %>/lib/d3/d3.js',
                       '<%= yeoman.app %>/lib/nvd3/nv.d3.js',
@@ -174,8 +174,8 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/angular-re-captcha/angular-re-captcha.js',
                       '<%= yeoman.app %>/lib/angular-touch/angular-touch.js',
                       '<%= yeoman.app %>/lib/supportkit/dist/supportkit.min.js',
-                      '<%= yeoman.app %>/lib/angular-multi-step-form/dist/angular-multi-step-form.min.js',
-                      '<%= yeoman.app %>/lib/angular-img-fallback/angular.dcb-img-fallback.min.js',
+                      '<%= yeoman.app %>/lib/angular-multi-step-form/dist/browser/angular-multi-step-form.min.js',
+                      '<%= yeoman.app %>/lib/angular-img-fallback/angular.dcb-img-fallback.min.js'
 
 
                     ]

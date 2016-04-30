@@ -246,3 +246,13 @@
           -webkit-transform: scale(1.0);
       }
 }
+
+#HW_badge_cont {
+    position: absolute!important;
+    top: -2px!important;
+    left: 25px!important;
+    z-index : 2;
+}
+#HW_badge {
+
+}

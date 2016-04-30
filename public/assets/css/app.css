@@ -562,6 +562,7 @@ body {
   left: 0;
   top: 0;
   right: 0;
+  z-index: 4;
 }
 .app-header {
   z-index: 1035;

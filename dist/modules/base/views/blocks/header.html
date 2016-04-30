@@ -1,14 +1,14 @@
       <!-- navbar header -->
-<div  ng-controller="HeaderCtrl" ng-show="showHeader">
-      <div class="navbar-header {{app.settings.navbarHeaderColor}}">
+<div  ng-controller="HeaderCtrl" ng-show="showHeader" class=" ">
+      <div class="navbar-header  {{app.settings.navbarHeaderColor}}">
         <button class="pull-right visible-xs dk" ui-toggle-class="show" data-target=".navbar-collapse">
           <i class="glyphicon glyphicon-cog"></i>
         </button>
-        <button class="pull-right visible-xs" ui-toggle-class="show" data-target=".app-aside" ui-scroll="app">
+        <button class="pull-right visible-xs " ui-toggle-class="show" data-target=".app-aside" ui-scroll="app">
           <i class="glyphicon glyphicon-align-justify"></i>
         </button>
         <!-- brand -->
-        <a href="#/" class="navbar-brand text-lt">
+        <a href="#/" class="navbar-brand text-lt headway">
           <!--i class="fa fa-btc" class="hide" ></i-->
           <img src="assets/img/logo.png" alt="." >
           <span class="hidden-folded m-l-xs" style="font-size: 14px;">{{app.name}}</span>
@@ -20,11 +20,11 @@
       <!-- navbar collapse -->
       <div class="collapse navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}">
         <!-- buttons -->
-        <div class="nav navbar-nav m-l-sm hidden-xs">
+        <div class="nav navbar-nav m-l-sm hidden-xs ">
           <a href class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
             <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
           </a>
-          <a href class="btn no-shadow navbar-btn" ui-toggle-class="show" target="#aside-user">
+          <a href class="btn no-shadow navbar-btn " ui-toggle-class="show" target="#aside-user">
             <i class="icon-user fa-fw"></i>
           </a>
         </div>
