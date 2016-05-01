@@ -1,8 +1,8 @@
 module.exports = {
   port: process.env.PORT || 3000,
   db:{
-    default: process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || process.env.LOCAL_URL || 'mongodb://admin:system2610@dev.connectingthings.io/test',
-    mqtt: process.env.MONGOLAB_MQTT || process.env.MONGOHQ_MQTT || process.env.LOCAL_MQTT || 'mongodb://admin:system2610@dev.connectingthings.io/mqtt',
+    default: process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || process.env.LOCAL_URL || 'mongodb://107.170.24.133:27017',
+    mqtt: process.env.MONGOLAB_MQTT || process.env.MONGOHQ_MQTT || process.env.LOCAL_MQTT || 'mongodb://107.170.24.133:27017'
   },
   masterKey:"wd40"
 };
