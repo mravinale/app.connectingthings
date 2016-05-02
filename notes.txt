@@ -1,0 +1,28 @@
+DEV
+======
+
+docker run -d -p 80:3000 -p 443:3000 -p 3001:3001 -p 1883:1883 -p 1884:1884 -e USE_SSL='true' -e NODE_ENV='dev' --name dev.connectingthings  connectingthings/app:dev
+
+docker run -d -p 27017:27017 --name mongo  mongo:2.6
+
+docker rmi -f connectingthings/app:dev
+docker rm dev.connectingthings
+docker stop dev.connectingthings
+
+docker stop watchtower
+docker rmi -f centurylink/watchtower
+docker rm  watchtower
+
+docker run -d \
+  --name watchtower \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  centurylink/watchtower --interval "60"
+
+Update all Docker Images at once
+================================
+
+docker pull connectingthings/app:dev
+docker stop dev.connectingthings
+docker rm dev.connectingthings
+docker run -d -p 80:3000 -p 443:3000 -p 3001:3001 -p 1883:1883 -p 1884:1884 -e USE_SSL='true' -e NODE_ENV='dev' --name dev.connectingthings  connectingthings/app:dev
+
