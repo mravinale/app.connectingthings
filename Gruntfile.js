@@ -318,7 +318,7 @@ module.exports = function (grunt) {
         'bower'
     ]);
     grunt.registerTask('build', [
-        'bower',
+      //  'bower',
         'clean:dist',
         'copy:dist',
         'useminPrepare',

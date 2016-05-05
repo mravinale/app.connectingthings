@@ -364,7 +364,7 @@ var app = angular.module('app', [
         }
     });
 
-    $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
+    $rootScope.$on('$locationChangeSuccess', function (event, toState, toParams, fromState) {
         /*
         if(toState.name == "app.public.dashboard") {
             $rootScope.showHeader = false;
@@ -374,7 +374,16 @@ var app = angular.module('app', [
             $rootScope.showHeader = true;
             $rootScope.noMenuStyle =  {}
         }
+
         */
+
+        if(toState.indexOf("app/dashboard/me") > -1) {
+            setTimeout(function () {
+            if ($(".headway").length > 0) {
+                $.getScript("http://cdn.headwayapp.co/widget.js");
+            }
+            }, 5000);
+        }
     });
 
     // On catching 401 errors, redirect to the login page.

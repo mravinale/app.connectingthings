@@ -15,9 +15,9 @@
                             <form class="form-horizontal" role="form"  name="form">
 
                                 <div class="form-group" ng-class="{'has-error': form.name.$error.mongoose}">
-                                    <label class="col-sm-2 control-label">Sensor Name</label>
+                                    <label class="col-sm-2 control-label"><bold>Sensor Name</bold></label>
                                     <div class="col-sm-10">
-                                        <input ng-model="sensor.name"
+                                       <input ng-model="sensor.name"
                                                class="form-control"
                                                placeholder="Sensor name"
                                                name="name"
@@ -35,7 +35,7 @@
                                     <div class="col-sm-10">
                                         <input ng-model="sensor.tag"
                                                class="form-control"
-                                               placeholder="Sensor Tag"
+                                               placeholder="Sensor Tag (lower case)"
                                                name="tag"
                                                mongoose-error>
                                         <div class="error"

@@ -1,8 +1,12 @@
 'use strict';
 angular.module('app')
-    .controller('SensorEditCtrl', function ($scope, $routeParams, sensorService, $modalInstance, sensorId) {
+    .controller('SensorEditCtrl', function ($scope, $routeParams, sensorService, $modalInstance, sensorId, $filter) {
 
-        $scope.sensor = { };
+        $scope.sensor = { tag:"" };
+
+        $scope.$watch('sensor.tag', function() {
+          $scope.sensor.tag= $filter('lowercase')($scope.sensor.tag);
+        });
 
         sensorService.getById(sensorId)
             .success(function (response, status, headers, config) {

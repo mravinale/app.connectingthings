@@ -1,9 +1,13 @@
 'use strict';
 
 angular.module('app')
-    .controller('SensorAddCtrl', function ($scope, sensorService,$location, $modalInstance) {
+    .controller('SensorAddCtrl', function ($scope, sensorService,$location, $modalInstance, $filter) {
 
-        $scope.sensor = { };
+        $scope.sensor = { tag:"" };
+
+        $scope.$watch('sensor.tag', function() {
+          $scope.sensor.tag= $filter('lowercase')($scope.sensor.tag);
+        });
 
         $scope.save = function(form) {
             $scope.errors = {};
