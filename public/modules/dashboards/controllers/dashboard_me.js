@@ -2,15 +2,7 @@
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
     .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope) {
-/*
-        dashboardService.getMyDashboard()
-            .success(function (response, status, headers, config) {
-                $localStorage.myDashboards = response;
-            })
-            .error(function(response, status, headers, config) {
-                console.log(response);
-            });
-*/
+
         $scope.init = function(){
             $scope.tab = null;
 
@@ -52,36 +44,27 @@ angular.module('app')
           $scope.init();
         });
 
-        $scope.sortableConfig =  {
-            stop: function(e, ui) {
-             //   $scope.updatePanels();
-            }
+        $scope.gridsterOpts = {
+
+          avoid_overlapped_widgets:true,
+          colWidth: 'auto', // can be an integer or 'auto'.  'auto' uses the pixel width of the element divided by 'columns'
+          rowHeight: '280', // can be an integer or 'match'.  Match uses the colWidth, giving you square widgets.
+          resizable: {
+            enabled: true,
+            start: function(event, uiWidget, $element) {window.dispatchEvent(new Event('resize'));}, // optional callback fired when resize is started,
+            resize: function(event, uiWidget, $element) {window.dispatchEvent(new Event('resize'));}, // optional callback fired when item is resized,
+            stop: function(event, uiWidget, $element) {window.dispatchEvent(new Event('resize')); } // optional callback fired when item is finished resizing
+          },
+          draggable: {
+            enabled: true, // whether dragging items is supported
+            start: function(event, $element, widget) {}, // optional callback fired when drag is started,
+            drag: function(event, $element, widget) {}, // optional callback fired when item is moved,
+            stop: function(event, $element, widget) { } // optional callback fired when item is finished dragging
+          }
+
         };
+
 
         $scope.init();
 
     });
-
-//TODO: sections should be another kind of panel ;)
-angular.module('app').filter('orderPanel', function($localStorage) {
-    return function(input, sectionName, dashboardId) {
-        var out = [];
-/*
-        if($localStorage.myDashboards.length == 0 ){
-            out = input
-        }
-        else{
-            var dashboard = _.find($localStorage.myDashboards, function(order){ return order.dashboard == dashboardId; });
-
-            _.each(dashboard.sections, function(section){
-                 if(section.name == sectionName && input !== undefined){
-                    _.each(section.panels, function(panelId){
-                        out.push(_.find(input, function(panel){ return panelId  == panel._id; }));
-                    });
-                 }
-            });
-        }
-*/
-        return input;
-    };
-})

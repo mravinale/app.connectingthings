@@ -33,7 +33,8 @@ var app = angular.module('app', [
     'oitozero.ngSweetAlert',
     'multiStepForm',
     'dcbImgFallback',
-    'rt.encodeuri'
+    'rt.encodeuri',
+    'gridster'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',
