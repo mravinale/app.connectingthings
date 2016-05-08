@@ -64,6 +64,34 @@ angular.module('app')
 
         };
 
+      $scope.$watch('dashboards', function(newitems, olditems){
+
+        var cleanedNewItems = angular.fromJson(angular.toJson(newitems));
+        var cleanedOldItems = angular.fromJson(angular.toJson(olditems));
+
+        var delta = jsondiffpatch.diff( cleanedNewItems,  cleanedOldItems);
+
+        if(!delta || !_.first(delta) || ! _.first(delta).sections || !_.first(_.first(delta).sections).panels) return;
+
+        var sections = _.first(cleanedNewItems).sections;
+        var panels = _.first(_.first(cleanedNewItems).sections).panels;
+
+        if(!sections || !panels) return;
+
+        var panelChanged = _.first(_.first(delta).sections).panels;
+        var panelChangeKey = parseInt(_.first(_.keys(panelChanged)));
+
+        if(!panels[panelChangeKey]) return;
+
+        panelService.update(panels[panelChangeKey])
+          .success(function(response, status, headers, config) {
+            console.log(panels[panelChangeKey]);
+          }).error(function(response, status, headers, config) {
+            console.log(response);
+        });
+
+      }, true);
+
 
         $scope.init();
 
