@@ -114,7 +114,9 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/assets/css/animate.css',
                                 '<%= yeoman.app %>/assets/css/simple-line-icons.css',
                                 '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.css',
-                                '<%= yeoman.app %>/lib/angular-gridster/dist/angular-gridster.min.css'
+                                '<%= yeoman.app %>/lib/angular-gridster/dist/angular-gridster.min.css',
+                                '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js',
+                                '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js'
                         ]
                     }
                 ]

@@ -10,7 +10,6 @@ var mongoose = require('mongoose'),
 
 var client = new Client();
 
-
 exports.create = function (req, res, next) {
     var newPanel = new Panel(req.body);
     newPanel.owner = req.user;
@@ -121,7 +120,17 @@ exports.update = function (req, res, next) {
 
     Panel.update({_id: req.params.id}, req.body,{upsert: true, runValidators: false }, function (error, panel) {
         if (error) return res.json(400, error);
+/*
+      Panel
+        .find({owner: req.user})
+        .exec(function (error, panels) {
+          if (error) {
+            console.log(error);
+          }
+          mqttClient.publish("panel.update.completed", JSON.stringify(panels));
 
+        });
+*/
         return  res.json(panel);
     });
 };

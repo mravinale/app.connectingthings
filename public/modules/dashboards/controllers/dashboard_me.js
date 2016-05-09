@@ -1,7 +1,8 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope) {
+    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope,socket,$timeout) {
+
 
         $scope.init = function(){
             $scope.tab = null;
@@ -14,6 +15,7 @@ angular.module('app')
             .success(function (response, status, headers, config) {
                 $scope.dashboards = response;
                 $scope.tab = response[0]? response[0].name : null;
+
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -23,30 +25,33 @@ angular.module('app')
             });
       };
 
-        $scope.updatePanels = function(){
 
-            var dashboardsChanges = [];
-            angular.forEach($scope.dashboards, function(dashboard, index) {
-                var sections = dashboard.sections.map(function(i){ return {name: i.name, panels: i.panels.map(function(p){return p._id;})}});
-                dashboardsChanges.push({sections: sections, dashboard:dashboard._id});
-            });
 
-            dashboardService.createMyDashboard(dashboardsChanges)
-                .success(function (response) {
-                    $localStorage.myDashboards = response;
-                })
-                .error(function(response) {
-                    console.log(response);
-                });
-        };
+   //   socket.on('panel.update.completed', function (message) {
+   //     console.log(message);
+     //   testWatcher()
+     ///   $scope.init();
+
+    //   console.log(findDeep( $scope.dashboards[0].sections[0], message._id ));
+    //    $scope.dashboards[0].sections[0].panels = angular.fromJson(message);
+    //    var evens = _.filter([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+
+       // testWatcher()
+    /*    $timeout(function(){
+          testWatcher()
+        }, 3000);*/
+  //    });
+
 
         $rootScope.$on('reload-myDashboard', function(event, args) {
           $scope.init();
         });
 
         $scope.gridsterOpts = {
-
+          minColumns: 1,
+          swapping: true,
           avoid_overlapped_widgets:true,
+          width: 'auto',
           colWidth: 'auto', // can be an integer or 'auto'.  'auto' uses the pixel width of the element divided by 'columns'
           rowHeight: '280', // can be an integer or 'match'.  Match uses the colWidth, giving you square widgets.
           resizable: {
@@ -63,21 +68,44 @@ angular.module('app')
           }
 
         };
+/*
+      var toggleWatch = function(watchExpr, fn) {
+        var watchFn;
+        return function() {
+          if (watchFn) {
+            watchFn();
+            watchFn = undefined;
+            console.log("Disabled " + watchExpr);
+          } else {
+            watchFn = $scope.$watch(watchExpr, fn, true);
+            console.log("Enabled " + watchExpr);
+          }
+        };
+      };
+*/
+      //var watcher = toggleWatch('dashboards', function(newitems, olditems){
+        $scope.watch('dashboards', function(newitems, olditems){
 
-      $scope.$watch('dashboards', function(newitems, olditems){
 
         var cleanedNewItems = angular.fromJson(angular.toJson(newitems));
         var cleanedOldItems = angular.fromJson(angular.toJson(olditems));
 
         var delta = jsondiffpatch.diff( cleanedNewItems,  cleanedOldItems);
 
+      //  console.log("delta",delta);
         if(!delta || !_.first(delta) || ! _.first(delta).sections || !_.first(_.first(delta).sections).panels) return;
 
         var sections = _.first(cleanedNewItems).sections;
         var panels = _.first(_.first(cleanedNewItems).sections).panels;
 
         if(!sections || !panels) return;
+/*
+        var dashboardChanged =  _.first(delta);
+        var dashboardChangeKey = parseInt(_.first(_.keys(dashboardChanged)));
 
+        var sectionChanged =  _.first(delta).sections;
+        var sectionChangedKey = parseInt(_.first(_.keys(sectionChanged)));
+*/
         var panelChanged = _.first(_.first(delta).sections).panels;
         var panelChangeKey = parseInt(_.first(_.keys(panelChanged)));
 
@@ -90,9 +118,9 @@ angular.module('app')
             console.log(response);
         });
 
-      }, true);
+      });
 
-
-        $scope.init();
+     // watcher();
+      $scope.init();
 
     });
