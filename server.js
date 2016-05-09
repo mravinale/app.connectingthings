@@ -184,7 +184,14 @@ var tryParseJson = function(str) {
     return null;
   }
 };
-
+/*
+mqtt.createClient(1883, 'localhost')
+  .subscribe('panel.update.completed')
+  .on('message', function (topic, message) {
+    io.sockets.emit('panel.update.completed', message);
+    console.log("mqtt client:",topic, message);
+  });
+*/
 ponteServer.on("updated", function(resource, buffer) {
 
   //console.log("Message received", resource, tryParseJson(buffer.toString()));
@@ -257,13 +264,3 @@ ponteServer.on("updated", function(resource, buffer) {
 
 
 
-/*
- var mqttClient = mqtt.createClient(1883, 'localhost')
- .subscribe('temperature')
- .subscribe('humidity')
- .subscribe('smoke')
- .subscribe('relay')
- .on('message', function (topic, message) {
- console.log("mqtt client:",message);
- });
- */

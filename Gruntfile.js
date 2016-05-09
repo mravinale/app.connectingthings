@@ -113,7 +113,10 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/assets/css/app-admin.css',
                                 '<%= yeoman.app %>/assets/css/animate.css',
                                 '<%= yeoman.app %>/assets/css/simple-line-icons.css',
-                                '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.css'
+                                '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.css',
+                                '<%= yeoman.app %>/lib/angular-gridster/dist/angular-gridster.min.css',
+                                '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js',
+                                '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js'
                         ]
                     }
                 ]
@@ -175,8 +178,9 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/angular-touch/angular-touch.js',
                       '<%= yeoman.app %>/lib/supportkit/dist/supportkit.min.js',
                       '<%= yeoman.app %>/lib/angular-multi-step-form/dist/browser/angular-multi-step-form.min.js',
-                      '<%= yeoman.app %>/lib/angular-img-fallback/angular.dcb-img-fallback.min.js'
-
+                      '<%= yeoman.app %>/lib/angular-img-fallback/angular.dcb-img-fallback.min.js',
+                      '<%= yeoman.app %>/lib/javascript-detect-element-resize/jquery.resize.js',
+                      '<%= yeoman.app %>/lib/angular-gridster/dist/angular-gridster.min.js'
 
                     ]
                   },

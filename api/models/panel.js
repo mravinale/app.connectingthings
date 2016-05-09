@@ -14,7 +14,12 @@ var PanelSchema = new Schema({
   size: { type: String, required: true  },
   owner: { type: String, ref: 'User'},
   isPublic: { type: Boolean,  default: true },
-  organization: { type: String, ref: 'Organization' }
+  organization: { type: String, ref: 'Organization' },
+  sizeX: { type: Number, default: 1 },
+  sizeY: { type: Number, default: 1 },
+  row: { type: Number, default: null },
+  col: { type: Number, default: null }
+
 });
 
 PanelSchema.pre('save', function (next) {

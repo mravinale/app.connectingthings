@@ -256,3 +256,8 @@
 #HW_badge {
 
 }
+@media (min-width: 1200px) {
+    .gridster-correction{
+        margin-top: 60px;
+    }
+}
