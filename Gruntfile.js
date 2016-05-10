@@ -156,6 +156,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.min.js',
                       '<%= yeoman.app %>/lib/angular-sweetalert/SweetAlert.min.js',
                       '<%= yeoman.app %>/lib/angular-encode-uri/dist/angular-encode-uri.min.js'
+
                     ]
                   },
                   {
@@ -242,6 +243,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/organizations/services/organization_service.js',
                       '<%= yeoman.app %>/modules/common/directives/onFocus.js',
                       '<%= yeoman.app %>/modules/common/directives/mongooseError.js',
+                      '<%= yeoman.app %>/modules/common/directives/headway.js',
                       '<%= yeoman.app %>/modules/panels/directives/panel_gauge.js',
                       '<%= yeoman.app %>/modules/panels/directives/panel_lineD3Chart.js',
                       '<%= yeoman.app %>/modules/panels/directives/panel_info.js',

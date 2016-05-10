@@ -3,18 +3,20 @@
 angular.module('app')
     .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope,socket,$timeout) {
 
+        $scope.tab = null;
+
+        $scope.setTab = function(id){
+            $scope.tab = id;
+            $scope.init();
+        };
 
         $scope.init = function(){
-            $scope.tab = null;
-
-            $scope.setTab = function(id){
-                $scope.tab = id;
-            };
+         //   $scope.dashboards = [];
 
             dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
                 $scope.dashboards = response;
-                $scope.tab = response[0]? response[0].name : null;
+                $scope.tab = $scope.tab? $scope.tab : response[0].name;
 
             })
             .error(function(response, status, headers, config) {
@@ -49,7 +51,7 @@ angular.module('app')
 
         $scope.gridsterOpts = {
           minColumns: 1,
-          swapping: true,
+          swapping: false,
           avoid_overlapped_widgets:true,
           width: 'auto',
           colWidth: 'auto', // can be an integer or 'auto'.  'auto' uses the pixel width of the element divided by 'columns'
@@ -84,41 +86,48 @@ angular.module('app')
       };
 */
       //var watcher = toggleWatch('dashboards', function(newitems, olditems){
-        $scope.watch('dashboards', function(newitems, olditems){
+        $scope.$watch('dashboards', function(newitems, olditems){
 
 
-        var cleanedNewItems = angular.fromJson(angular.toJson(newitems));
-        var cleanedOldItems = angular.fromJson(angular.toJson(olditems));
+            var cleanedNewItems = angular.fromJson(angular.toJson(newitems));
+            var cleanedOldItems = angular.fromJson(angular.toJson(olditems));
 
-        var delta = jsondiffpatch.diff( cleanedNewItems,  cleanedOldItems);
+            var delta = jsondiffpatch.diff( cleanedNewItems,  cleanedOldItems);
 
-      //  console.log("delta",delta);
-        if(!delta || !_.first(delta) || ! _.first(delta).sections || !_.first(_.first(delta).sections).panels) return;
+            console.log("delta",delta);
+            //    debugger
+            if(!delta || !_.values(delta)[0] || ! _.values(delta)[0].sections || !_.values(_.values(delta)[0].sections)[0]) return;
 
-        var sections = _.first(cleanedNewItems).sections;
-        var panels = _.first(_.first(cleanedNewItems).sections).panels;
+            var sections = _.where(cleanedNewItems,{name: $scope.tab})[0].sections;
 
-        if(!sections || !panels) return;
-/*
-        var dashboardChanged =  _.first(delta);
-        var dashboardChangeKey = parseInt(_.first(_.keys(dashboardChanged)));
+            var sectionChanged =  _.values(delta)[0].sections;
+            var sectionChangedKey = parseInt(_.first(_.keys(sectionChanged)));
 
-        var sectionChanged =  _.first(delta).sections;
-        var sectionChangedKey = parseInt(_.first(_.keys(sectionChanged)));
-*/
-        var panelChanged = _.first(_.first(delta).sections).panels;
-        var panelChangeKey = parseInt(_.first(_.keys(panelChanged)));
+            var panels = sections[sectionChangedKey].panels;
 
-        if(!panels[panelChangeKey]) return;
+            if(!sections || !panels) return;
+    /*
+            var dashboardChanged =  _.first(delta);
+            var dashboardChangeKey = parseInt(_.first(_.keys(dashboardChanged)));
 
-        panelService.update(panels[panelChangeKey])
-          .success(function(response, status, headers, config) {
-            console.log(panels[panelChangeKey]);
-          }).error(function(response, status, headers, config) {
-            console.log(response);
-        });
+            var sectionChanged =  _.first(delta).sections;
+            var sectionChangedKey = parseInt(_.first(_.keys(sectionChanged)));
+    */
+            var panelChanged = _.values(_.values(delta)[0].sections)[0].panels;
+            var panelChangeKey = parseInt(_.values(_.keys(panelChanged))[0]);
 
-      });
+            if(!panels[panelChangeKey]) return;
+
+
+            panelService.update(panels[panelChangeKey])
+              .success(function(response, status, headers, config) {
+                $localStorage.myDashboards = $scope.dashboards;
+                console.log(panels[panelChangeKey]);
+              }).error(function(response, status, headers, config) {
+                console.log(response);
+            });
+
+      }, true);
 
      // watcher();
       $scope.init();

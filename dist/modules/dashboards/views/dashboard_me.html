@@ -14,9 +14,9 @@
 
     <div class="wrapper-md" >
 
-         <div draggable ng-repeat="dashboard in dashboards" ng-show="tab === '{{dashboard.name}}'">
+         <div ng-repeat="dashboard in dashboards" ng-show="tab === '{{dashboard.name}}'">
 
-             <div   >
+             <div >
                 <div class="row"  ng-repeat="section in dashboard.sections">
 
                 <div class="col-lg-12">

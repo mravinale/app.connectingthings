@@ -15,8 +15,8 @@ var PanelSchema = new Schema({
   owner: { type: String, ref: 'User'},
   isPublic: { type: Boolean,  default: true },
   organization: { type: String, ref: 'Organization' },
-  sizeX: { type: Number, default: 1 },
-  sizeY: { type: Number, default: 1 },
+  sizeX: { type: Number, default: 2 },
+  sizeY: { type: Number, default: 2 },
   row: { type: Number, default: null },
   col: { type: Number, default: null }
 

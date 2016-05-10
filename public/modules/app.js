@@ -378,13 +378,7 @@ var app = angular.module('app', [
 
         */
 
-        if(toState.indexOf("app/dashboard/me") > -1) {
-            setTimeout(function () {
-            if ($(".headway").length > 0) {
-                $.getScript("http://cdn.headwayapp.co/widget.js");
-            }
-            }, 5000);
-        }
+
     });
 
     // On catching 401 errors, redirect to the login page.
