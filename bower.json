@@ -33,7 +33,9 @@
     "simple-line-icons": "~0.1.2",
     "socket.io-client": "~1.3.5",
     "supportkit": "~0.2.25",
-    "underscore": "*"
+    "underscore": "*",
+    "jsondiffpatch": "^0.1.43",
+    "angular-gridster": "^0.13.5"
   },
   "resolutions": {
     "d3": "~3.4.1"

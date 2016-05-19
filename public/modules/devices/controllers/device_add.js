@@ -1,9 +1,14 @@
 'use strict';
 
 angular.module('app')
-    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $modalInstance) {
+    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $modalInstance, $filter) {
 
-        $scope.device = { };
+        $scope.device = { name:"" };
+
+        $scope.$watch('device.name', function() {
+          $scope.device.name = $filter('lowercase')($scope.device.name);
+        });
+
 
         $scope.save = function(form) {
             $scope.errors = {};

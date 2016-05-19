@@ -13,6 +13,7 @@
     "moment": "2.7.0",
     "mongoose": "4.0.2",
     "mongoose-validators": "~0.1.0",
+    "mongoose-reverse-populate": "1.1.0",
     "mqtt": "0.3.8",
     "newrelic": "1.20.2",
     "node-rest-client": "1.8.0",

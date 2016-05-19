@@ -15,10 +15,12 @@ angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessi
                 $localStorage.currentUser = response;
                 $rootScope.currentUser =  $localStorage.currentUser;
                 $location.path('/');
-            debugger
+
                 if($rootScope.currentUser.showTutorial) {
                   showTutorial();
                 }
+
+
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

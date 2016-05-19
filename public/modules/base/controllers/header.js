@@ -2,7 +2,7 @@
 
 angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $modal, $localStorage, sessionService, $location, $state, $log) {
 
-    $scope.settings = function() {
+  $scope.settings = function() {
 
       //http://blog.reactandbethankful.com/angular-multi-step-form/#/inside-modal
         var modalInstance = $modal.open({
@@ -18,7 +18,6 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
     };
 
     $scope.showTutorial = function (deviceId) {
-
       var modalInstance = $modal.open({
         templateUrl: '/modules/base/views/modals/tutorial.html',
         controller: 'tutorialCtrl',
@@ -34,6 +33,7 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
 
     $scope.logout = function() {
 
+
         sessionService.remove()
             .success(function (response, status) {
                 console.log("Ok:",response);
@@ -45,8 +45,8 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
 
                 $rootScope.currentUser = undefined;
                 $localStorage.$reset();
+                location.reload();
                 $state.transitionTo('access.signin');
-
             });
 
     };

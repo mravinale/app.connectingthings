@@ -33,7 +33,8 @@ var app = angular.module('app', [
     'oitozero.ngSweetAlert',
     'multiStepForm',
     'dcbImgFallback',
-    'rt.encodeuri'
+    'rt.encodeuri',
+    'gridster'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',
@@ -364,7 +365,7 @@ var app = angular.module('app', [
         }
     });
 
-    $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
+    $rootScope.$on('$locationChangeSuccess', function (event, toState, toParams, fromState) {
         /*
         if(toState.name == "app.public.dashboard") {
             $rootScope.showHeader = false;
@@ -374,7 +375,10 @@ var app = angular.module('app', [
             $rootScope.showHeader = true;
             $rootScope.noMenuStyle =  {}
         }
+
         */
+
+
     });
 
     // On catching 401 errors, redirect to the login page.

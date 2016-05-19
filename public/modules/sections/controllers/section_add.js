@@ -22,9 +22,15 @@ angular.module('app')
 
         panelService.getAllPanels()
             .success(function (response, status, headers, config) {
-                $scope.panels = response;
-                console.log(response);
+              var nonSelectedPanels = _.filter(response, function(panel){ return _.isUndefined(panel.sections) });
+              if(_.isEmpty($scope.section.panels)){
+                $scope.panels =  nonSelectedPanels;
+              } else {
+                var selectedSectionPanels = _.map($scope.section.panels, function(panelId){ return _.where(response, {_id: panelId})[0] });
+                $scope.panels =  _.union(nonSelectedPanels, selectedSectionPanels);
+              }
 
+             // console.log( $scope.panels);
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

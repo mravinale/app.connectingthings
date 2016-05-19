@@ -12,14 +12,15 @@
 <link rel="stylesheet" href="assets/css/app.css" type="text/css" />
 <link rel="stylesheet" href="assets/css/app-admin.css" type="text/css" />
 <link rel="stylesheet" href="lib/nvd3/nv.d3.min.css" type="text/css"/>
-<link rel="stylesheet" href="lib/chosen/chosen.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/chosen/chosen.css" type="text/css" />
 <link rel="stylesheet" href="lib/ng-table/ng-table.min.css" type="text/css" />
 <link rel="stylesheet" href="lib/sweetalert/dist/sweetalert.css" type="text/css" />
+<link rel="stylesheet" href="lib/angular-gridster/dist/angular-gridster.min.css"/>
 <!-- endbuild -->
 </head>
-<body ng-controller="AppCtrl" ng-class="{ 'body-external': enableExternal }">
+<body ng-controller="AppCtrl" ng-class="{ 'body-external': enableExternal } " >
 <div class="spinner"><div class="dot1"></div><div class="dot2"></div></div>
-<div class="app" id="app"  ng-style="noMenuStyle" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}" ui-view></div>
+<div class="app " id="app"  ng-style="noMenuStyle" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}" ui-view></div>
 <!-- build:js js/vendor.js?v=0.0.3 -->
 <script src="assets/js/jquery/jquery.min.js"></script>
 <script src="assets/js/jquery-ui-1.10.4.min.js"></script>
@@ -38,21 +39,25 @@
 <script src="assets/js/ps-responsive.js"></script>
 <script src="assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js"></script>
 
-<script src="lib/angular-chosen-localytics/chosen.js"></script>
+
+<script src="lib/angular-chosen-localytics/dist/angular-chosen.js"></script>
 <script src="lib/angular-socket-io/socket.js"></script>
 <script src="lib/angular-resource/angular-resource.js"></script>
 <script src="lib/angular-cookies/angular-cookies.js"></script>
 <script src="lib/angular-sanitize/angular-sanitize.js"></script>
 <script src="lib/angular-route/angular-route.js"></script>
 <script src="lib/angular-http-auth/src/http-auth-interceptor.js"></script>
-<script src="lib/angular-multi-step-form/dist/angular-multi-step-form.min.js"></script>
+<script src="lib/angular-multi-step-form/dist/browser/angular-multi-step-form.min.js"></script>
 <script src="lib/angular-img-fallback/angular.dcb-img-fallback.min.js"></script>
+<script src="lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js"></script>
+<script src="lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js"></script>
+
 <!-- endbuild -->
 <!-- build:js js/vendor2.js?v=0.0.3 -->
 <script src="lib/autofill-directive/autofill-directive.js"></script>
 <script src="lib/underscore/underscore.js"></script>
 <script src="lib/ng-table/ng-table.min.js"></script>
-<script src="lib/chosen/chosen.jquery.min.js"></script>
+<script src="lib/chosen/chosen.jquery.js"></script>
 <script src="lib/momentjs/moment.js"></script>
 <script src="lib/d3/d3.js"></script>
 <script src="lib/nvd3/nv.d3.js"></script>
@@ -133,6 +138,7 @@
 <script src="modules/organizations/services/organization_service.js"></script>
 
 <script src="modules/common/directives/onFocus.js"></script>
+<script src="modules/common/directives/headway.js"></script>
 <script src="modules/common/directives/mongooseError.js"></script>
 
 <script src="modules/panels/directives/panel_gauge.js"></script>
@@ -152,6 +158,9 @@
 <script src="modules/base/controllers/modals/templates/tutorial_panel_add.js"></script>
 <script src="modules/base/controllers/modals/templates/tutorial_section_add.js"></script>
 <script src="modules/base/controllers/modals/templates/tutorial_dashboard_add.js"></script>
+
+<script src="lib/javascript-detect-element-resize/jquery.resize.js"></script>
+<script src="lib/angular-gridster/dist/angular-gridster.min.js"></script>
 <!-- endbuild -->
 <!-- build:remove -->
 <script src="/socket.io/socket.io.js"></script>
@@ -170,6 +179,7 @@ else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i
 var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}
 else{w.addEventListener('load',l,false);}}})();
 $(function(){$(".spinner").remove();});
+var HW_config = {selector: ".headway",account: "Rxd1g7"};
 </script>
 </body>
 </html>

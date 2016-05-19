@@ -1,8 +1,12 @@
 'use strict';
 angular.module('app')
-    .controller('DeviceEditCtrl', function ($scope, $routeParams, deviceService, sensorService, $location, $modalInstance, deviceId) {
+    .controller('DeviceEditCtrl', function ($scope, $routeParams, deviceService, sensorService, $location, $modalInstance, deviceId, $filter) {
 
-        $scope.device = { };
+        $scope.device = { name:"" };
+
+        $scope.$watch('device.name', function() {
+          $scope.device.name = $filter('lowercase')($scope.device.name);
+        });
 
         deviceService.getById(deviceId)
             .success(function (response, status, headers, config) {

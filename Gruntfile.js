@@ -106,14 +106,16 @@ module.exports = function (grunt) {
                         src: [
                                 '<%= yeoman.app %>/assets/css/bootstrap.min.css',
                                 '<%= yeoman.app %>/lib/nvd3/nv.d3.min.css',
-                                '<%= yeoman.app %>/lib/chosen/chosen.min.css',
+                                '<%= yeoman.app %>/lib/chosen/chosen.css',
                                 '<%= yeoman.app %>/lib/ng-table/ng-table.min.css',
                                 '<%= yeoman.app %>/assets/css/font-awesome.min.css',
                                 '<%= yeoman.app %>/assets/css/app.css',
                                 '<%= yeoman.app %>/assets/css/app-admin.css',
                                 '<%= yeoman.app %>/assets/css/animate.css',
                                 '<%= yeoman.app %>/assets/css/simple-line-icons.css',
-                                '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.css'
+                                '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.css',
+                                '<%= yeoman.app %>/lib/angular-gridster/dist/angular-gridster.min.css'
+
                         ]
                     }
                 ]
@@ -142,7 +144,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/assets/js/screenfull.min.js',
                       '<%= yeoman.app %>/assets/js/ps-responsive.js',
                       '<%= yeoman.app %>/assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js',
-                      '<%= yeoman.app %>/lib/angular-chosen-localytics/chosen.js',
+                      '<%= yeoman.app %>/lib/angular-chosen-localytics/dist/angular-chosen.js',
                       '<%= yeoman.app %>/lib/angular-socket-io/socket.js',
                       '<%= yeoman.app %>/lib/angular-resource/angular-resource.js',
                       '<%= yeoman.app %>/lib/angular-cookies/angular-cookies.js',
@@ -152,7 +154,9 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/supportkit/dist/supportkit.min.js',
                       '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.min.js',
                       '<%= yeoman.app %>/lib/angular-sweetalert/SweetAlert.min.js',
-                      '<%= yeoman.app %>/lib/angular-encode-uri/dist/angular-encode-uri.min.js'
+                      '<%= yeoman.app %>/lib/angular-encode-uri/dist/angular-encode-uri.min.js',
+                      '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js',
+                      '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js'
                     ]
                   },
                   {
@@ -164,7 +168,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',
                       '<%= yeoman.app %>/lib/underscore/underscore.js',
                       '<%= yeoman.app %>/lib/ng-table/ng-table.min.js',
-                      '<%= yeoman.app %>/lib/chosen/chosen.jquery.min.js',
+                      '<%= yeoman.app %>/lib/chosen/chosen.jquery.js',
                       '<%= yeoman.app %>/lib/momentjs/moment.js',
                       '<%= yeoman.app %>/lib/d3/d3.js',
                       '<%= yeoman.app %>/lib/nvd3/nv.d3.js',
@@ -174,9 +178,10 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/angular-re-captcha/angular-re-captcha.js',
                       '<%= yeoman.app %>/lib/angular-touch/angular-touch.js',
                       '<%= yeoman.app %>/lib/supportkit/dist/supportkit.min.js',
-                      '<%= yeoman.app %>/lib/angular-multi-step-form/dist/angular-multi-step-form.min.js',
+                      '<%= yeoman.app %>/lib/angular-multi-step-form/dist/browser/angular-multi-step-form.min.js',
                       '<%= yeoman.app %>/lib/angular-img-fallback/angular.dcb-img-fallback.min.js',
-
+                      '<%= yeoman.app %>/lib/javascript-detect-element-resize/jquery.resize.js',
+                      '<%= yeoman.app %>/lib/angular-gridster/dist/angular-gridster.min.js'
 
                     ]
                   },
@@ -238,6 +243,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/organizations/services/organization_service.js',
                       '<%= yeoman.app %>/modules/common/directives/onFocus.js',
                       '<%= yeoman.app %>/modules/common/directives/mongooseError.js',
+                      '<%= yeoman.app %>/modules/common/directives/headway.js',
                       '<%= yeoman.app %>/modules/panels/directives/panel_gauge.js',
                       '<%= yeoman.app %>/modules/panels/directives/panel_lineD3Chart.js',
                       '<%= yeoman.app %>/modules/panels/directives/panel_info.js',
@@ -318,7 +324,7 @@ module.exports = function (grunt) {
         'bower'
     ]);
     grunt.registerTask('build', [
-        'bower',
+      //  'bower',
         'clean:dist',
         'copy:dist',
         'useminPrepare',
