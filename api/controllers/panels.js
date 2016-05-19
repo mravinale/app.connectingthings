@@ -3,10 +3,12 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     Panel = mongoose.model('Panel'),
+    Section = mongoose.model('Section'),
     mqtt = require('mqtt'),
     mqttClient = mqtt.createClient(1883, 'localhost'),
     Client = require('node-rest-client').Client,
-    User = mongoose.model('User');
+    User = mongoose.model('User'),
+    reversePopulate =require('mongoose-reverse-populate');
 
 var client = new Client();
 
@@ -57,14 +59,26 @@ exports.getAll = function (req, res, next) {
 exports.getAllPanels = function (req, res, next) {
 
     Panel
-        .find({owner: req.user})
+        .find({owner: req.user}).lean()
         //.find({organization: req.user.organization})
         .exec(function (error, panels) {
             if (error) {
-               console.log(error);
                return res.send(400, error);
             }
-            return  res.send(200, panels);
+            reversePopulate({
+              modelArray: panels,
+              storeWhere: "sections",
+              arrayPop: true,
+              mongooseModel: Section,
+              idField: "panels"
+            }, function(err, popPanels) {
+              if (error) {
+                return res.send(400, error);
+              }
+              return  res.send(200, popPanels);
+
+            });
+
     });
 }
 
