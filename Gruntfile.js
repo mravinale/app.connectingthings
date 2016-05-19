@@ -114,9 +114,8 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/assets/css/animate.css',
                                 '<%= yeoman.app %>/assets/css/simple-line-icons.css',
                                 '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.css',
-                                '<%= yeoman.app %>/lib/angular-gridster/dist/angular-gridster.min.css',
-                                '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js',
-                                '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js'
+                                '<%= yeoman.app %>/lib/angular-gridster/dist/angular-gridster.min.css'
+
                         ]
                     }
                 ]
@@ -155,8 +154,9 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/supportkit/dist/supportkit.min.js',
                       '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.min.js',
                       '<%= yeoman.app %>/lib/angular-sweetalert/SweetAlert.min.js',
-                      '<%= yeoman.app %>/lib/angular-encode-uri/dist/angular-encode-uri.min.js'
-
+                      '<%= yeoman.app %>/lib/angular-encode-uri/dist/angular-encode-uri.min.js',
+                      '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js',
+                      '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js'
                     ]
                   },
                   {

@@ -5,7 +5,7 @@ angular.module('app')
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
-        $.getScript("http://cdn.headwayapp.co/widget.js");
+        $.getScript("https://cdn.headwayapp.co/widget.js");
       }
     }
   });
