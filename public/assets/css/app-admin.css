@@ -261,3 +261,17 @@
         margin-top: 60px;
     }
 }
+
+#loading-bar .bar {
+    background: #6D03B2 !important;
+}
+#loading-bar-spinner .spinner-icon {
+    border-top-color:  #6D03B2 !important;
+    border-left-color: #6D03B2 !important;
+}
+#loading-bar .peg {
+    -moz-box-shadow: #6D03B2 1px 0 6px 1px;
+    -ms-box-shadow: #6D03B2 1px 0 6px 1px;
+    -webkit-box-shadow: #6D03B2 1px 0 6px 1px;
+    box-shadow: #6D03B2 1px 0 6px 1px;
+}

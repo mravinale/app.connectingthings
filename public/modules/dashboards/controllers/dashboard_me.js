@@ -3,6 +3,7 @@
 angular.module('app')
     .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope,socket,$timeout) {
 
+        $scope.dashboards = [];
         $scope.tab = null;
 
         $scope.setTab = function(id){
@@ -11,7 +12,9 @@ angular.module('app')
         };
 
         $scope.init = function(){
-         //   $scope.dashboards = [];
+            _.each($scope.dashboards, function(dashboard){
+                dashboard.sections.length = 0
+            });
 
             dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
