@@ -34,7 +34,8 @@ var app = angular.module('app', [
     'multiStepForm',
     'dcbImgFallback',
     'rt.encodeuri',
-    'gridster'
+    'gridster',
+    'angular-loading-bar'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',
