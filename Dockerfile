@@ -5,7 +5,8 @@ FROM        phusion/baseimage
 CMD         ["/sbin/my_init"]
 
 # Add node.js repo
-RUN	        sudo apt-get -y install software-properties-common \
+RUN	        apt-get install sudo \
+                && sudo apt-get -y install software-properties-common \
                 && sudo add-apt-repository ppa:chris-lea/node.js \
                 && sudo apt-get update
 
