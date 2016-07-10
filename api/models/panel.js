@@ -11,12 +11,11 @@ var PanelSchema = new Schema({
   camera: { type: String, ref: 'Camera', default: null },
   sensor: { type: String, ref: 'Sensor', default: null },
   type: { type: String, required: true  },
-  size: { type: String, required: true  },
   owner: { type: String, ref: 'User'},
   isPublic: { type: Boolean,  default: true },
   organization: { type: String, ref: 'Organization' },
   sizeX: { type: Number, default: 2 },
-  sizeY: { type: Number, default: 2 },
+  sizeY: { type: Number, default: 1 },
   row: { type: Number, default: null },
   col: { type: Number, default: null }
 
