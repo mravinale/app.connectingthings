@@ -63,7 +63,9 @@ angular.module('app')
             enabled: true,
             start: function(event, uiWidget, $element) {window.dispatchEvent(new Event('resize'));}, // optional callback fired when resize is started,
             resize: function(event, uiWidget, $element) {window.dispatchEvent(new Event('resize'));}, // optional callback fired when item is resized,
-            stop: function(event, uiWidget, $element) {window.dispatchEvent(new Event('resize')); } // optional callback fired when item is finished resizing
+            stop: function(event, uiWidget, $element) {window.dispatchEvent(new Event('resize'));
+
+              $scope.$broadcast("panel-height/"+$element.name.replace(/\s/g, "-"),{ height: uiWidget.context.clientHeight })} // optional callback fired when item is finished resizing
           },
           draggable: {
             enabled: true, // whether dragging items is supported

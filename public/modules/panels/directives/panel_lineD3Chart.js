@@ -4,7 +4,7 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelD3Chart', function (socket, messageService) {
+    .directive('panelD3Chart', function (socket, messageService,$rootScope) {
         return {
             scope:{
                 yrange:"@",
@@ -29,14 +29,14 @@ angular.module('app')
                             '</div>'+
                         '</div>'+
                     '</div>'+
-                    '<div class="panel-body" style="height: 233px;">'+
+                    '<div class="panel-body">'+
                         '<div class="text-center" style="margin-top: -35px;">'+
                             '<nvd3-line-chart'+
                                 ' data="values"'+
                                 ' xAxisTickFormat="xAxisTickFormatFunction()"'+
                                 ' yAxisTickFormat="yAxisTickFormatFunction()"'+
                                 ' showXAxis="true"'+
-                                ' height="260"'+
+                                ' height="{{heightValue}}"'+
                                 ' showYAxis="true"'+
                                 ' showYAxis="true"'+
                                 ' noData="No Data Yet :( "'+
@@ -54,7 +54,8 @@ angular.module('app')
 
                 var items = [];
                 var lastValue = null;
-                scope.values =[ { "values": [],"key": scope.name }];
+                scope.heightValue = "260";
+                scope.values =[ { "values": [],"key": scope.name, height: 260 }];
                 messageService.getAllMessages(scope.topic)
                     .success(function (response, status, headers, config) {
 
@@ -129,6 +130,13 @@ angular.module('app')
                         }
 
                         scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
+
+                });
+
+
+                scope.$on("panel-height/"+scope.name.replace(/\s/g, "-"), function(event, args) {
+
+                    scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name,  height: args.height } ];
 
                 });
 
