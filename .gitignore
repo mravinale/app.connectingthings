@@ -8,4 +8,4 @@ public/lib/*
 .bower-cache/
 .bower-registry/
 *.log
-lora/
+lora/node_modules/

@@ -1,0 +1,11 @@
+{
+    "name": "ct-lora-integration",
+    "version": "0.0.1",
+    "dependencies": {
+      "mqtt": "1.13.0",
+      "ttn": "1.2.0"
+    },
+    "scripts": {
+      "start": "node index"
+    }
+}
