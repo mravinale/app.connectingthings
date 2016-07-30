@@ -1,5 +1,4 @@
 'use strict';
-//http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
     .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope,socket,$timeout) {
 
@@ -30,8 +29,6 @@ angular.module('app')
             });
       };
 
-
-
    //   socket.on('panel.update.completed', function (message) {
    //     console.log(message);
      //   testWatcher()
@@ -52,6 +49,7 @@ angular.module('app')
           $scope.init();
         });
 
+
         $scope.gridsterOpts = {
           minColumns: 1,
           swapping: false,
@@ -61,11 +59,12 @@ angular.module('app')
           rowHeight: '280', // can be an integer or 'match'.  Match uses the colWidth, giving you square widgets.
           resizable: {
             enabled: true,
-            start: function(event, uiWidget, $element) {window.dispatchEvent(new Event('resize'));}, // optional callback fired when resize is started,
-            resize: function(event, uiWidget, $element) {window.dispatchEvent(new Event('resize'));}, // optional callback fired when item is resized,
-            stop: function(event, uiWidget, $element) {window.dispatchEvent(new Event('resize'));
-
-              $scope.$broadcast("panel-height/"+$element.name.replace(/\s/g, "-"),{ height: uiWidget.context.clientHeight })} // optional callback fired when item is finished resizing
+            start: function(event, uiWidget, $element) {
+            },
+            resize: function(event, uiWidget, $element) {
+            },
+            stop: function(event, uiWidget, $element) {
+            }
           },
           draggable: {
             enabled: true, // whether dragging items is supported
@@ -99,8 +98,6 @@ angular.module('app')
 
             var delta = jsondiffpatch.diff( cleanedNewItems,  cleanedOldItems);
 
-            console.log("delta",delta);
-            //    debugger
             if(!delta || !_.values(delta)[0] || ! _.values(delta)[0].sections || !_.values(_.values(delta)[0].sections)[0]) return;
 
             var sections = _.where(cleanedNewItems,{name: $scope.tab})[0].sections;

@@ -36,7 +36,6 @@ angular.module('app')
                                 ' xAxisTickFormat="xAxisTickFormatFunction()"'+
                                 ' yAxisTickFormat="yAxisTickFormatFunction()"'+
                                 ' showXAxis="true"'+
-                                ' height="{{heightValue}}"'+
                                 ' showYAxis="true"'+
                                 ' showYAxis="true"'+
                                 ' noData="No Data Yet :( "'+
@@ -54,8 +53,8 @@ angular.module('app')
 
                 var items = [];
                 var lastValue = null;
-                scope.heightValue = "260";
-                scope.values =[ { "values": [],"key": scope.name, height: 260 }];
+
+                scope.values =[ { "values": [],"key": scope.name }];
                 messageService.getAllMessages(scope.topic)
                     .success(function (response, status, headers, config) {
 
@@ -130,13 +129,6 @@ angular.module('app')
                         }
 
                         scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
-
-                });
-
-
-                scope.$on("panel-height/"+scope.name.replace(/\s/g, "-"), function(event, args) {
-
-                    scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name,  height: args.height } ];
 
                 });
 
