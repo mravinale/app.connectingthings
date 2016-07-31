@@ -4,7 +4,7 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelD3Chart', function (socket, messageService) {
+    .directive('panelD3Chart', function (socket, messageService,$rootScope) {
         return {
             scope:{
                 yrange:"@",
@@ -29,14 +29,13 @@ angular.module('app')
                             '</div>'+
                         '</div>'+
                     '</div>'+
-                    '<div class="panel-body" style="height: 233px;">'+
+                    '<div class="panel-body">'+
                         '<div class="text-center" style="margin-top: -35px;">'+
                             '<nvd3-line-chart'+
                                 ' data="values"'+
                                 ' xAxisTickFormat="xAxisTickFormatFunction()"'+
                                 ' yAxisTickFormat="yAxisTickFormatFunction()"'+
                                 ' showXAxis="true"'+
-                                ' height="260"'+
                                 ' showYAxis="true"'+
                                 ' showYAxis="true"'+
                                 ' noData="No Data Yet :( "'+
@@ -54,6 +53,7 @@ angular.module('app')
 
                 var items = [];
                 var lastValue = null;
+
                 scope.values =[ { "values": [],"key": scope.name }];
                 messageService.getAllMessages(scope.topic)
                     .success(function (response, status, headers, config) {

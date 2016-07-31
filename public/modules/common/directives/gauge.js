@@ -37,10 +37,52 @@ angular.module('app')
         scope.gauge.redraw(scope.value);
 
         scope.$watch('value', function () {
+          var height = $(element).parent().parent().parent().height();
+          var width = $(element).parent().parent().parent().width();
+
           if (scope.gauge) {
+            config.size = height < width? height - 60 : width - 60;
+            $( element ).children().remove();
+            scope.gauge = new Gauge(element[0], config);
+            scope.gauge.render();
             scope.gauge.redraw(scope.value);
           }
         });
+
+        scope.$watch(
+          function () { return $(element).parent().parent().parent().height(); },
+          function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+
+              var height = $(element).parent().parent().parent().height();
+              var width = $(element).parent().parent().parent().width();
+
+              config.size = height < width? height - 60 : width - 60;
+              $( element ).children().remove();
+              scope.gauge = new Gauge(element[0], config);
+              scope.gauge.render();
+              scope.gauge.redraw(scope.value);
+            }
+          }
+        );
+
+        scope.$watch(
+          function () { return $(element).parent().parent().parent().width(); },
+          function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+
+              var height = $(element).parent().parent().parent().height();
+              var width = $(element).parent().parent().parent().width();
+
+              config.size = height < width? height - 60 : width - 60;
+              $( element ).children().remove();
+              scope.gauge = new Gauge(element[0], config);
+              scope.gauge.render();
+              scope.gauge.redraw(scope.value);
+            }
+          }
+        );
+
       }
     };
   });
