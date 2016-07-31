@@ -28,8 +28,8 @@ angular.module('app')
                             '</div>'+
                         '</div>'+
                      '</div>'+
-                    '<div class="panel-body" style="height: 233px ;overflow-y: auto;">'+
-                        '<div class="list-group">'+
+                    '<div class="panel-body">'+
+                        '<div class="list-group"  style="overflow-y: auto;">'+
                             '<a href="#" class="list-group-item" ng-repeat="item in values.data">'+
                                 '<i class="fa fa-envelope fa-fw"></i> {{item.value}}{{label}}'+
                                 '<span class="pull-right text-muted small">'+
@@ -54,11 +54,20 @@ angular.module('app')
                     });
 
                     scope.values = { data: _.sortBy(items, 'timestamp'), max: 3000 };
+                    $(element.children()[1]).children().height( $(element).height() - 80 );
                   })
                   .error(function(response, status, headers, config) {
                     console.error( response);
                   });
 
+                scope.$watch(
+                  function () { return $(element).height(); },
+                  function (newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                      $(element.children()[1]).children().height( newValue - 80 )
+                    }
+                  }
+                );
 
 
                socket.on(scope.topic, function (message) {
