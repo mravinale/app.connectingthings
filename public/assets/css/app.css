@@ -269,7 +269,7 @@ a.list-group-item:focus {
 }
 .nav-pills > li.active > a {
   color: #fff !important;
-  background-color: #26A69A;
+  background-color: #26A69A !important;
 }
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:active {
