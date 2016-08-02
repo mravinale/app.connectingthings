@@ -54,7 +54,7 @@ angular.module('app')
                 var items = [];
                 var lastValue = null;
 
-                scope.values =[ { "values": [],"key": scope.name }];
+                scope.values =[ { "values": [],"key": scope.name, color: '#26A69A' }];
                 messageService.getAllMessages(scope.topic)
                     .success(function (response, status, headers, config) {
 
@@ -73,7 +73,7 @@ angular.module('app')
 
                         if(items.length === 0)  items.push([ moment().valueOf(), "0" ]);
 
-                        scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
+                        scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name, color: '#26A69A' } ];
 
                     })
                     .error(function(response, status, headers, config) {
@@ -105,7 +105,7 @@ angular.module('app')
                     }
                     items.push([ moment().valueOf(), "0" ]);
 
-                    scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
+                    scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name,color: '#26A69A' } ];
                 };
 
                 socket.on(scope.topic, function (message) {
@@ -128,7 +128,7 @@ angular.module('app')
                           items = _.rest(_.sortBy(items, function(o) { return o[0]; }));
                         }
 
-                        scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name } ];
+                        scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name, color: '#26A69A' } ];
 
                 });
 

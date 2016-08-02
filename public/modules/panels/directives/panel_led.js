@@ -62,6 +62,20 @@ angular.module('app')
                   scope.toggleLed = messageValue == "1";
                 });
 
+              scope.$watch(
+                function () { return $(element).height(); },
+                function (newValue, oldValue) {
+                  if (newValue !== oldValue) {
+
+                    var height =  $(element.children()[1]).children().height();
+                    var width =  $(element.children()[1]).children().width();
+
+                    debugger
+                   // config.size = height < width? height - 60 : width - 60;
+
+                  }
+                }
+              );
 
 
             }
