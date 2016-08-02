@@ -215,7 +215,7 @@
     display: inline-block;
     position: absolute;
     top: 0;
-    background-color: #1199c4;
+    background-color: #26A69A;
     border-radius: 100%;
 
     -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
@@ -263,15 +263,15 @@
 }
 
 #loading-bar .bar {
-    background: #6D03B2 !important;
+    background: #02D94A !important;
 }
 #loading-bar-spinner .spinner-icon {
-    border-top-color:  #6D03B2 !important;
-    border-left-color: #6D03B2 !important;
+    border-top-color:  #02D94A !important;
+    border-left-color: #02D94A !important;
 }
 #loading-bar .peg {
-    -moz-box-shadow: #6D03B2 1px 0 6px 1px;
-    -ms-box-shadow: #6D03B2 1px 0 6px 1px;
-    -webkit-box-shadow: #6D03B2 1px 0 6px 1px;
-    box-shadow: #6D03B2 1px 0 6px 1px;
+    -moz-box-shadow: #02D94A 1px 0 6px 1px;
+    -ms-box-shadow: #02D94A 1px 0 6px 1px;
+    -webkit-box-shadow: #02D94A 1px 0 6px 1px;
+    box-shadow: #02D94A 1px 0 6px 1px;
 }

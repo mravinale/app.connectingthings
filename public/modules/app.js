@@ -46,8 +46,8 @@ var app = angular.module('app', [
   ]
 )
 .config(
-  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider',
-    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider) {
+  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider','cfpLoadingBarProvider',
+    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider, cfpLoadingBarProvider) {
         
         // lazy controller, directive and service
         app.controller = $controllerProvider.register;
@@ -60,6 +60,8 @@ var app = angular.module('app', [
         reCAPTCHAProvider.setOptions({
             theme: 'white'
         });
+
+        cfpLoadingBarProvider.includeSpinner = false;
 
         $urlRouterProvider
             .otherwise('app/dashboard/me');

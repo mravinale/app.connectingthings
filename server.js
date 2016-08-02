@@ -211,7 +211,7 @@ ponteServer.on("updated", function(resource, buffer) {
 
     if(!sensor.tag || !sensor.value) return next("Error: Iterating sensors, Wrong message format, key: " + routeParams.key);
 
-    sensor.value = isNaN(parseInt(sensor.value)) ? 0 : parseInt(sensor.value);
+    sensor.value = isNaN(parseInt(sensor.value)) ? "0" : parseInt(sensor.value).toString();
 
     var message = {
       topic:  "/" +routeParams.key + "/"+ routeParams.device +"/"+ sensor.tag,

@@ -26,8 +26,8 @@ function Gauge(element, configuration)
         this.config.minorTicks = configuration.minorTicks || 2;
 
         this.config.greenColor 	= configuration.greenColor || "#109618";
-        this.config.yellowColor = configuration.yellowColor || "#FF9900";
-        this.config.redColor 	= configuration.redColor || "#DC3912";
+        this.config.yellowColor = configuration.yellowColor || "#ecbf52";
+        this.config.redColor 	= configuration.redColor || "#EC6952";
 
         this.config.transitionDuration = configuration.transitionDuration || 500;
     }
@@ -147,15 +147,15 @@ function Gauge(element, configuration)
             .enter()
             .append("svg:path")
             .attr("d", pointerLine)
-            .style("fill", "#dc3912")
-            .style("stroke", "#c63310")
+            .style("fill", "#ec5034")
+            .style("stroke", "#ec5034")
             .style("fill-opacity", 0.7)
 
         pointerContainer.append("svg:circle")
             .attr("cx", this.config.cx)
             .attr("cy", this.config.cy)
             .attr("r", 0.12 * this.config.raduis)
-            .style("fill", "#4684EE")
+            .style("fill", "#26A69A")
             .style("stroke", "#666")
             .style("opacity", 1);
 
