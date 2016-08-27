@@ -257,11 +257,11 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/common/directives/gauge.js',
                       '<%= yeoman.app %>/modules/common/directives/lineChart.js',
                       '<%= yeoman.app %>/modules/base/services/Public.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_sensor_add.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_device_add.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_panel_add.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_section_add.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_dashboard_add.js'
+                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_sensor_add.js',
+                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_device_add.js',
+                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_panel_add.js',
+                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_section_add.js',
+                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_dashboard_add.js'
                     ]
                   }
                 ]
