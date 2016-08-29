@@ -17,7 +17,7 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
         });
     };
 
-    $scope.showTutorial = function (deviceId) {
+    $scope.showTutorial = function () {
       var modalInstance = $modal.open({
         templateUrl: '/modules/base/views/modals/tutorial.html',
         controller: 'tutorialCtrl',
@@ -25,10 +25,24 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
       });
 
       modalInstance.result.then(function () {
-        $log.info('editDevice ok at: ' + new Date());
+        $log.info('showTutorial ok at: ' + new Date());
       }, function () {
-        $log.info('editDevice dismissed at: ' + new Date());
+        $log.info('showTutorial dismissed at: ' + new Date());
       });
+    };
+
+    $scope.payment = function () {
+        var modalInstance = $modal.open({
+            templateUrl: '/modules/base/views/modals/payment.html',
+            controller: 'paymentCtrl',
+            size: 'lg'
+        });
+
+        modalInstance.result.then(function () {
+            $log.info('editDevice ok at: ' + new Date());
+        }, function () {
+            $log.info('editDevice dismissed at: ' + new Date());
+        });
     };
 
     $scope.logout = function() {

@@ -1,0 +1,9 @@
+<div class="modal-body">
+    <multi-step-container steps="steps" on-cancel="$dismiss()" on-finish="$close()">
+        <header class="text-center">
+            <strong>Step {{$getActiveIndex()}} / {{$getSteps().length}}</strong>
+        </header>
+        <main step-container></main>
+
+    </multi-step-container>
+</div>
