@@ -35,7 +35,8 @@ var app = angular.module('app', [
     'dcbImgFallback',
     'rt.encodeuri',
     'gridster',
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'stripe.checkout'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',

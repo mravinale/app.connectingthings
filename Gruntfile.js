@@ -157,8 +157,10 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/angular-sweetalert/SweetAlert.min.js',
                       '<%= yeoman.app %>/lib/angular-encode-uri/dist/angular-encode-uri.min.js',
                       '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js',
-                      '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js'
-                    ]
+                      '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js',
+                      '<%= yeoman.app %>/lib/angular-stripe-checkout/angular-stripe-checkout.js'
+
+                ]
                   },
                   {
                     dest: 'dist/js/vendor2.js',
@@ -261,9 +263,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_device_add.js',
                       '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_panel_add.js',
                       '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_section_add.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_dashboard_add.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/payment/plan_payment.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/payment/select_plan.js'
+                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_dashboard_add.js'
                     ]
                   }
                 ]
