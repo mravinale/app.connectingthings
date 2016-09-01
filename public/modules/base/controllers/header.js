@@ -35,7 +35,12 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
         var modalInstance = $modal.open({
             templateUrl: '/modules/base/views/modals/payment.html',
             controller: 'paymentCtrl',
-            size: 'lg'
+            size: 'lg',
+            resolve: {
+                userId: function () {
+                    return $localStorage.currentUser._id;
+                }
+            }
         });
 
         modalInstance.result.then(function () {
