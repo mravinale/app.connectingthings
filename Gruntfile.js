@@ -158,7 +158,8 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/angular-encode-uri/dist/angular-encode-uri.min.js',
                       '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js',
                       '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js',
-                      '<%= yeoman.app %>/lib/angular-stripe-checkout/angular-stripe-checkout.js'
+                      '<%= yeoman.app %>/lib/angular-stripe-checkout/angular-stripe-checkout.js',
+                      '<%= yeoman.app %>/lib/ng-bootstrap-alerts/dist/index.min.js'
 
                 ]
                   },
