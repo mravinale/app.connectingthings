@@ -36,7 +36,8 @@ var app = angular.module('app', [
     'rt.encodeuri',
     'gridster',
     'angular-loading-bar',
-    'stripe.checkout'
+    'stripe.checkout',
+    'ng-bootstrap-alerts'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',

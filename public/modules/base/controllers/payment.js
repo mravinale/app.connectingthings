@@ -59,4 +59,8 @@ angular.module('app')
                 });
         };
 
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+
     });

@@ -16,7 +16,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-xs-12 col-md-3">
-                                            <div class="panel panel-info">
+                                            <div class="panel" ng-class="{'panel-default': user.accountType =='Bronze','panel-success': user.accountType !='Bronze' }">
                                                 <div class="panel-heading">
                                                     <h3 class="panel-title">Bronze</h3>
                                                 </div>
@@ -51,7 +51,7 @@
                                                     </table>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <button stripe-checkout="doBronzeCheckout"
+                                                    <button stripe-checkout="doBronzeCheckout" ng-disabled="user.accountType =='Bronze'"
                                                             data-key="pk_test_agLRPGqaMYh95gLab6nsKlwu"
                                                             data-amount="500"
                                                             data-name="ConnectingThings"
@@ -64,7 +64,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-md-3">
-                                            <div class="panel panel-default">
+                                            <div class="panel " ng-class="{'panel-default': user.accountType =='Silver','panel-info': user.accountType !='Silver' }">
 
                                                 <div class="panel-heading">
                                                     <h3 class="panel-title">Silver</h3>
@@ -99,7 +99,7 @@
                                                     </table>
                                                 </div>
                                                 <div class="panel-footer">
-                                                        <button stripe-checkout="doSilverCheckout"
+                                                        <button stripe-checkout="doSilverCheckout" ng-disabled="user.accountType =='Silver'"
                                                             data-key="pk_test_agLRPGqaMYh95gLab6nsKlwu"
                                                             data-amount="1000"
                                                             data-name="ConnectingThings"
@@ -112,7 +112,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-md-3">
-                                            <div class="panel panel-warning">
+                                            <div class="panel" ng-class="{'panel-default': user.accountType =='Gold','panel-warning': user.accountType !='Gold' }">
                                                 <div class="panel-heading">
                                                     <h3 class="panel-title">Gold</h3>
                                                 </div>
@@ -146,7 +146,7 @@
                                                     </table>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <button stripe-checkout="doGoldCheckout"
+                                                    <button stripe-checkout="doGoldCheckout" ng-disabled="user.accountType =='Gold'"
                                                             data-key="pk_test_agLRPGqaMYh95gLab6nsKlwu"
                                                             data-amount="1500"
                                                             data-name="ConnectingThings"
@@ -157,6 +157,7 @@
                                                     </button>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -168,6 +169,12 @@
 
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-10 col-sm-12">
+                <a ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
+            </div>
+
         </div>
     </div>
 

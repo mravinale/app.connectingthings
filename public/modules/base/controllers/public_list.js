@@ -9,7 +9,7 @@ angular.module('app')
                 $scope.tab = id;
             };
 
-						$rootScope.showHeader = false;
+            $rootScope.showHeader = false;
             $rootScope.app.settings.asideFolded = true;
 
             $scope.$on("$destroy", function(){
@@ -18,20 +18,20 @@ angular.module('app')
               $rootScope.noMenuStyle =  {}
             });
 
-						if(psResponsive('< small')){
-							$rootScope.noMenuStyle =  { "padding-top": "0px", "width": "105%", "background-color": "none" }
-						} else{
-							$rootScope.noMenuStyle =  { "padding-top": "0px", "margin-left": "-60px", "width": "105%", "background-color": "none" }
-						}
+            if(psResponsive('< small')){
+                $rootScope.noMenuStyle =  { "padding-top": "0px", "width": "105%", "background-color": "none" }
+            } else{
+                $rootScope.noMenuStyle =  { "padding-top": "0px", "margin-left": "-60px", "width": "105%", "background-color": "none" }
+            }
 
-						angular.element($window).on('resize', function () {
-							if(psResponsive('< small')){
-								$rootScope.noMenuStyle =  { "padding-top": "0px", "width": "105%", "background-color": "none" }
-							} else{
-								$rootScope.noMenuStyle =  { "padding-top": "0px", "margin-left": "-60px", "width": "105%", "background-color": "none" }
-							}
+            angular.element($window).on('resize', function () {
+                if(psResponsive('< small')){
+                    $rootScope.noMenuStyle =  { "padding-top": "0px", "width": "105%", "background-color": "none" }
+                } else{
+                    $rootScope.noMenuStyle =  { "padding-top": "0px", "margin-left": "-60px", "width": "105%", "background-color": "none" }
+                }
 
-						});
+            });
 
             publicService.getAllUsers()
               .success(function (response, status, headers, config) {
