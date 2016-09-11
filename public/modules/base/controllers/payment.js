@@ -22,6 +22,7 @@ angular.module('app')
 
             userService.update($scope.user)
                 .success(function (response, status, headers, config) {
+                    $rootScope.currentUser.accountType = $scope.user.accountType;
                     $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
@@ -37,6 +38,7 @@ angular.module('app')
 
             userService.update($scope.user)
                 .success(function (response, status, headers, config) {
+                    $rootScope.currentUser.accountType = $scope.user.accountType;
                     $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
@@ -52,6 +54,7 @@ angular.module('app')
 
             userService.update($scope.user)
                 .success(function (response, status, headers, config) {
+                    $rootScope.currentUser.accountType = $scope.user.accountType;
                     $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
