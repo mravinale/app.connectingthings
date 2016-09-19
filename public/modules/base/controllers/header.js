@@ -40,6 +40,7 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
                 userId: function () {
                     return $localStorage.currentUser._id;
                 }
+
             }
         });
 

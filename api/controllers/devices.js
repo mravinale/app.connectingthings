@@ -12,27 +12,36 @@ exports.create = function (req, res, next) {
     var errorMessage = "Error: Limit reached for your account";
 
     async.waterfall([
-        function(callback) {
+      function(callback) {
+        var userId = req.user._id;
 
-            switch(req.user._doc.accountType) {
+        User.findById(userId, function (err, user) {
+            if (err) {
+                return callback( {message: 'Failed to load User'}, null);
+            }
+
+            switch(user._doc.accountType) {
                 case "Free":
-                    return callback( req.user._doc.statistics.devices >= 1? {message: errorMessage} : null, null);
+                    return callback( user._doc.statistics.devices >= 1? {message: errorMessage} : null, null);
                     break;
                 case "Bronze":
-                    return callback( req.user._doc.statistics.devices >= 5? {message: errorMessage} : null, null);
+                    return callback( user._doc.statistics.devices >= 5? {message: errorMessage} : null, null);
                     break;
                 case "Silver":
-                    return callback( req.user._doc.statistics.devices >= 10? {message: errorMessage} : null, null);
+                    return callback( user._doc.statistics.devices >= 10? {message: errorMessage} : null, null);
                     break;
                 case "Gold":
-                    return callback( req.user._doc.statistics.devices >= 15? {message: errorMessage} : null, null);
+                    return callback( user._doc.statistics.devices >= 15? {message: errorMessage} : null, null);
                     break;
                 case "Full":
-                    return callback(req.user._doc.statistics.devices >= 20 ? {message: errorMessage} : null, null);
+                    return callback(user._doc.statistics.devices >= 20 ? {message: errorMessage} : null, null);
                     break;
                 default:
-                    return callback({message: "Error: not recognized accountType", detail: eq.user._doc.accountType}, null);
+                    return callback({message: "Error: not recognized accountType", detail: user._doc.accountType}, null);
             }
+
+        });
+
       },
       function(result, callback) {
         newDevice.save(callback)

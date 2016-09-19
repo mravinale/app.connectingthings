@@ -15,25 +15,36 @@ exports.create = function (req, res, next) {
     async.waterfall([
         function(callback) {
 
-            switch(req.user._doc.accountType) {
-                case "Free":
-                    return callback( req.user._doc.statistics.sensors >= 2? {message: errorMessage} : null, null);
-                    break;
-                case "Bronze":
-                    return callback( req.user._doc.statistics.sensors >= 10? {message: errorMessage} : null, null);
-                    break;
-                case "Silver":
-                    return callback( req.user._doc.statistics.sensors >= 20? {message: errorMessage} : null, null);
-                    break;
-                case "Gold":
-                    return callback( req.user._doc.statistics.sensors >= 30? {message: errorMessage} : null, null);
-                    break;
-                case "Full":
-                    return callback(req.user._doc.statistics.sensors >= 40 ? {message: errorMessage} : null, null);
-                    break;
-                default:
-                    return callback({message: "Error: not recognized accountType", detail: eq.user._doc.accountType}, null);
-            }
+            var userId = req.user._id;
+
+            User.findById(userId, function (err, user) {
+                if (err) {
+                    return callback({message: 'Failed to load User'}, null);
+                }
+
+                switch (user._doc.accountType) {
+                    case "Free":
+                        return callback(user._doc.statistics.sensors >= 2 ? {message: errorMessage} : null, null);
+                        break;
+                    case "Bronze":
+                        return callback(user._doc.statistics.sensors >= 10 ? {message: errorMessage} : null, null);
+                        break;
+                    case "Silver":
+                        return callback(user._doc.statistics.sensors >= 20 ? {message: errorMessage} : null, null);
+                        break;
+                    case "Gold":
+                        return callback(user._doc.statistics.sensors >= 30 ? {message: errorMessage} : null, null);
+                        break;
+                    case "Full":
+                        return callback(user._doc.statistics.sensors >= 40 ? {message: errorMessage} : null, null);
+                        break;
+                    default:
+                        return callback({
+                            message: "Error: not recognized accountType",
+                            detail: user._doc.accountType
+                        }, null);
+                }
+            });
         },
         function(result, callback) {
             newSensor.save(callback)

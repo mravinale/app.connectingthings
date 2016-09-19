@@ -48,8 +48,8 @@ var app = angular.module('app', [
   ]
 )
 .config(
-  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider','cfpLoadingBarProvider',
-    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider, cfpLoadingBarProvider) {
+  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider','cfpLoadingBarProvider','StripeCheckoutProvider',
+    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider, cfpLoadingBarProvider,StripeCheckoutProvider) {
         
         // lazy controller, directive and service
         app.controller = $controllerProvider.register;
@@ -58,6 +58,10 @@ var app = angular.module('app', [
         app.factory    = $provide.factory;
         app.service    = $provide.service;
         app.constant   = $provide.constant;
+
+        StripeCheckoutProvider.defaults({
+            key: "pk_test_agLRPGqaMYh95gLab6nsKlwu"
+        });
 
         reCAPTCHAProvider.setOptions({
             theme: 'white'
