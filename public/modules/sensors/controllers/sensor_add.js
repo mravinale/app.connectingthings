@@ -3,6 +3,7 @@
 angular.module('app')
     .controller('SensorAddCtrl', function ($scope, sensorService,$location, $modalInstance, $filter) {
 
+        var alert = null;
         $scope.sensor = { tag:"" };
 
         $scope.$watch('sensor.tag', function() {
@@ -17,6 +18,9 @@ angular.module('app')
                    $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
+                    if(!response.errors && response.message){
+                        alert= alerts.create(response.message, 'danger');
+                    }
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
                         $scope.errors[field] = error.message;
@@ -26,6 +30,7 @@ angular.module('app')
         };
 
         $scope.cancel = function () {
+            alerts.dismiss(alert);
             $modalInstance.dismiss('cancel');
         };
 

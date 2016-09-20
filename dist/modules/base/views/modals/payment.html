@@ -1,0 +1,182 @@
+<div class="modal-body">
+    <div id="page-wrapper">
+
+        <div class="col-lg-12">
+            <h2 class="page-header"> Select Plan </h2>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12" style="padding-left: 30px">
+                <div class="panel ">
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-11">
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-3">
+                                            <div class="panel" ng-class="{'panel-default': user.accountType =='Bronze','panel-success': user.accountType !='Bronze' }">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Bronze</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="the-price" style="text-align: center">
+                                                        <h1>$5<span class="subscript">/month</span></h1>
+                                                        <small>1 month FREE trial</small>
+                                                    </div>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>
+                                                                5 Devices
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="active">
+                                                            <td>
+                                                                1 month message storage
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                10sec messaging interval
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="active">
+                                                            <td>
+                                                                No Public dashboards
+                                                            </td>
+                                                        </tr>
+
+
+                                                    </table>
+                                                </div>
+                                                <div class="panel-footer">
+                                                    <button stripe-checkout="doBronzeCheckout" ng-disabled="user.accountType =='Bronze'"
+                                                            data-key="pk_test_agLRPGqaMYh95gLab6nsKlwu"
+                                                            data-amount="500"
+                                                            data-name="ConnectingThings"
+                                                            data-description="Bronze Plan"
+                                                            data-image="assets/img/logo.png"
+                                                            data-locale="auto">
+                                                        Pay with Card
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-3">
+                                            <div class="panel " ng-class="{'panel-default': user.accountType =='Silver','panel-info': user.accountType !='Silver' }">
+
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Silver</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="the-price" style="text-align: center">
+                                                        <h1>$10<span class="subscript">/month</span></h1>
+                                                        <small>1 month FREE trial</small>
+                                                    </div>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>
+                                                                10 Devices
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="active">
+                                                            <td>
+                                                                1 year message storage
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                5sec messaging interval
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="active">
+                                                            <td>
+                                                                Public dashboards
+                                                            </td>
+                                                        </tr>
+
+                                                    </table>
+                                                </div>
+                                                <div class="panel-footer">
+                                                        <button stripe-checkout="doSilverCheckout" ng-disabled="user.accountType =='Silver'"
+                                                            data-key="pk_test_agLRPGqaMYh95gLab6nsKlwu"
+                                                            data-amount="1000"
+                                                            data-name="ConnectingThings"
+                                                            data-description="Silver Plan"
+                                                            data-image="assets/img/logo.png"
+                                                            data-locale="auto">
+                                                        Pay with Card
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-3">
+                                            <div class="panel" ng-class="{'panel-default': user.accountType =='Gold','panel-warning': user.accountType !='Gold' }">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Gold</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="the-price" style="text-align: center">
+                                                        <h1>$15<span class="subscript">/month</span></h1>
+                                                        <small>1 month FREE trial</small>
+                                                    </div>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>
+                                                                15 Devices
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="active">
+                                                            <td>
+                                                                No limit message storage
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                1sec messaging interval
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="active">
+                                                            <td>
+                                                                Public dashboards
+                                                            </td>
+                                                        </tr>
+
+                                                    </table>
+                                                </div>
+                                                <div class="panel-footer">
+                                                    <button stripe-checkout="doGoldCheckout" ng-disabled="user.accountType =='Gold'"
+                                                            data-key="pk_test_agLRPGqaMYh95gLab6nsKlwu"
+                                                            data-amount="1500"
+                                                            data-name="ConnectingThings"
+                                                            data-description="Golden"
+                                                            data-image="assets/img/logo.png"
+                                                            data-locale="auto">
+                                                        Pay with Card
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-10 col-sm-12">
+                <a ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

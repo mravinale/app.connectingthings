@@ -275,3 +275,9 @@
     -webkit-box-shadow: #02D94A 1px 0 6px 1px;
     box-shadow: #02D94A 1px 0 6px 1px;
 }
+
+@media (min-width: 768px) {
+    .modal-lg {
+        width: 1000px !important;
+    }
+}

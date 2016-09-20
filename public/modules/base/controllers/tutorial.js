@@ -26,23 +26,23 @@ angular.module('app')
 
     $scope.steps = [
       {
-        templateUrl: '/modules/base/views/modals/templates/tutorial_sensor_add.html',
+        templateUrl: '/modules/base/views/modals/tutorial/tutorial_sensor_add.html',
         controller: 'TutorialSensorAddCtrl'
       },
       {
-        templateUrl: '/modules/base/views/modals/templates/tutorial_device_add.html',
+        templateUrl: '/modules/base/views/modals/tutorial/tutorial_device_add.html',
         controller: 'TutorialDeviceAddCtrl'
       },
       {
-        templateUrl: '/modules/base/views/modals/templates/tutorial_panel_add.html',
+        templateUrl: '/modules/base/views/modals/tutorial/tutorial_panel_add.html',
         controller: 'TutorialPanelAddCtrl'
       },
       {
-        templateUrl: '/modules/base/views/modals/templates/tutorial_section_add.html',
+        templateUrl: '/modules/base/views/modals/tutorial/tutorial_section_add.html',
         controller: 'TutorialSectionAddCtrl'
       },
       {
-        templateUrl: '/modules/base/views/modals/templates/tutorial_dashboard_add.html',
+        templateUrl: '/modules/base/views/modals/tutorial/tutorial_dashboard_add.html',
         controller: 'TutorialDashboardAddCtrl'
       }
     ];

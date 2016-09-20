@@ -10,15 +10,49 @@ exports.create = function (req, res, next) {
     var newSensor = new Sensor(req.body);
     newSensor.owner = req.user;
     newSensor.organization = req.user.organization;
+    var errorMessage = "Error: Limit reached for your account";
 
     async.waterfall([
-      function(callback) {
-        newSensor.save(callback)
-      },
-      function(sensor, result, callback) {
-        req.user.statistics.sensors++;
-        User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
-      }
+        function(callback) {
+
+            var userId = req.user._id;
+
+            User.findById(userId, function (err, user) {
+                if (err) {
+                    return callback({message: 'Failed to load User'}, null);
+                }
+
+                switch (user._doc.accountType) {
+                    case "Free":
+                        return callback(user._doc.statistics.sensors >= 2 ? {message: errorMessage} : null, null);
+                        break;
+                    case "Bronze":
+                        return callback(user._doc.statistics.sensors >= 10 ? {message: errorMessage} : null, null);
+                        break;
+                    case "Silver":
+                        return callback(user._doc.statistics.sensors >= 20 ? {message: errorMessage} : null, null);
+                        break;
+                    case "Gold":
+                        return callback(user._doc.statistics.sensors >= 30 ? {message: errorMessage} : null, null);
+                        break;
+                    case "Full":
+                        return callback(user._doc.statistics.sensors >= 40 ? {message: errorMessage} : null, null);
+                        break;
+                    default:
+                        return callback({
+                            message: "Error: not recognized accountType",
+                            detail: user._doc.accountType
+                        }, null);
+                }
+            });
+        },
+        function(result, callback) {
+            newSensor.save(callback)
+        },
+        function(sensor, result, callback) {
+            req.user.statistics.sensors++;
+            User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
+        }
     ], function (err, result) {
       if (err) return res.send(400, err);
 

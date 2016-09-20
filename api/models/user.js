@@ -20,12 +20,13 @@ var UserSchema = new Schema({
   isValidated: Boolean,
   showTutorial: {type: Boolean, default: true},
   isPasswordForgot: {type: Boolean, default: false},
-	disabled: {type: Boolean, default: false},
+  disabled: {type: Boolean, default: false},
   organization: { type: String, ref: 'Organization', required: true},
   key: String,
   publicKey: String,
   publicUrl: String,
   publicAvatar: String,
+  stripeToken: String,
   accountType: { type: String, default: "Free" },
   statistics:{
     lastUpdate: { type: Date },
@@ -69,7 +70,8 @@ UserSchema
       'organizationName': this.organization.name,
       'organizationId': this.organization._id,
       'key': this.key,
-      'publicAvatar': this.publicAvatar
+      'publicAvatar': this.publicAvatar,
+      'accountType': this.accountType
     };
   });
 

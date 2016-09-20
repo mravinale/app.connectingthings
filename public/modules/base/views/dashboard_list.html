@@ -39,7 +39,7 @@
 
     <div class="col-md-12">
 
-        <div class="col-md-3" ng-repeat="user in users">
+        <div class="col-md-3" ng-repeat="user in users | filter: filterAccounts">
             <div class="panel panel-default">
                 <a href="{{user.publicUrl}}">
                     <div class="panel-body">
