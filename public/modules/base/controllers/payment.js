@@ -6,13 +6,10 @@ angular.module('app')
         $scope.user = { };
         var alert = null;
         var handler = null;
-        StripeCheckout.load();
 
-        userService.getById(userId)
-            .success(function (response, status, headers, config) {
-                $scope.user = response;
-                console.log(response);
-
+        StripeCheckout.load()
+            .then(function(result){
+                debugger;
                 handler = StripeCheckout.configure({
                     name: "ConnectingThings",
                     image: "assets/img/logo.png",
@@ -23,9 +20,22 @@ angular.module('app')
                 });
 
             })
+            .catch(function(response, status, headers, config) {
+                console.log(response);
+                alert = alerts.create("An error has occurred, try again", 'danger');
+            });
+
+        userService.getById(userId)
+            .success(function (response, status, headers, config) {
+                $scope.user = response;
+                console.log(response);
+
+            })
             .error(function(response, status, headers, config) {
                 console.log(response);
+                alert = alerts.create("An error has occurred, try again", 'danger');
             });
+
 
         $scope.doBronzeCheckout = function() {
 
