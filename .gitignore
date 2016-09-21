@@ -1,5 +1,5 @@
 node_modules/*
-!/node_modules/pon
+!/node_modules/ponte
 .bower
 .idea
 .tmp
