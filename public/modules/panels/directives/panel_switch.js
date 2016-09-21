@@ -71,7 +71,7 @@ angular.module('app')
                     if(toggle == lastToogle) return;
 
                     var infoToSend = {
-                        topic:"/device/"+scope.topic.split("/")[2]+"/key/"+scope.key,
+                        topic:"device/"+scope.topic.split("/")[2]+"/key/"+scope.key,
                         message: {value: (toggle)? "1" : "0", tag: scope.tag }
                     };
 
