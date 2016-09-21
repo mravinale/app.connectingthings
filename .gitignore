@@ -1,5 +1,4 @@
-node_modules/*
-!/node_modules/ponte
+node_modules
 .bower
 .idea
 .tmp
