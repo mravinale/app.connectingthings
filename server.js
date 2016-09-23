@@ -171,7 +171,7 @@ var Message = mongoose.model('Message');
 var User = mongoose.model('User');
 var Trigger = mongoose.model('Trigger');
 var triggerService = require('./api/services/triggerService');
-var route = new Route('/device/:device/key/:key');
+var route = new Route('device/:device/key/:key');
 var validate = require('jsonschema').validate;
 
 // Start socket conection
