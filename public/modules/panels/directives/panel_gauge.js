@@ -4,12 +4,16 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelGauge', function (socket, messageService) {
+    .directive('panelGauge', function (socket, messageService,$modal,$log,$rootScope) {
         return {
             scope:{
                 name:"@",
                 topic:"@",
                 key:"@",
+                sensor:"@",
+                device:"@",
+                panel:"@",
+                tag:"@",
                 label:"@",
                 min:"=",
                 max:"=",
@@ -24,11 +28,14 @@ angular.module('app')
                         '<i class="fa fa-bar-chart-o fa-fw"></i> {{name}}'+
                         '<div class="pull-right">'+
                             '<div class="btn-group">'+
-                                '<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>'+
-                                '<ul class="dropdown-menu pull-right" role="menu">'+
-                                    '<li><a href="#">Action</a></li>'+
-                                    '<li class="divider"></li><li><a href="#">Separated link</a></li>'+
-                                '</ul>'+
+                                '<li type="button" class="dropdown hidden-sm" style="list-style:none;">'+
+                                    '<a href class="dropdown-toggle ng-binding" data-toggle="dropdown" aria-haspopup="true"  aria-haspopup="true"  aria-expanded="false"> <i class="fa fa-cog fa-fw"></i> </a>'+
+                                    '<ul class="dropdown-menu dropdown-menu-right animated fadeInLeft">'+
+                                        '<li><a href ng-click="editSensor()" >Edit Sensor</a></li>'+
+                                        '<li><a href ng-click="editDevice()" >Edit Device</a></li>'+
+                                        '<li><a href ng-click="editPanel()" >Edit Panel</a></li>'+
+                                    '</ul>'+
+                                '</li>'+
                             '</div>'+
                         '</div>'+
                     '</div>'+
@@ -64,6 +71,51 @@ angular.module('app')
                 socket.on(scope.topic, function (message) {
                     scope.gaugeValue = angular.fromJson(message).value;
                 });
+
+                scope.editSensor = function(){
+                     $modal.open({
+                        templateUrl: '../modules/sensors/views/sensor_edit.html',
+                        controller: 'SensorEditCtrl',
+                        size: 'lg',
+                        resolve: {
+                            sensorId: function () {
+                                return scope.sensor;
+                            }
+                        }
+                    });
+                };
+
+                scope.editDevice = function(){
+                    $modal.open({
+                        templateUrl: '../modules/devices/views/device_edit.html',
+                        controller: 'DeviceEditCtrl',
+                        size: 'lg',
+                        resolve: {
+                            deviceId: function () {
+                                return scope.device;
+                            }
+                        }
+                    });
+                };
+
+                scope.editPanel = function(){
+                    var modalInstance = $modal.open({
+                        templateUrl: '../modules/panels/views/panel_edit.html',
+                        controller: 'PanelEditCtrl',
+                        size: 'lg',
+                        resolve: {
+                            panelId: function () {
+                                return scope.panel;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function () {
+                        $rootScope.$broadcast('reload-myDashboard');
+                    }, function () {
+                        $log.info('editDashboard dismissed at: ' + new Date());
+                    });
+                };
 
             }
         };
