@@ -5,27 +5,30 @@
 //http://www.foscam.es/descarga/ipcam_cgi_sdk.pdf
 'use strict';
 angular.module('app')
-    .directive('panelCamera', function (socket, $http, $interval) {
+    .directive('panelCamera', function (socket, $http, $interval,$modal,$log,$rootScope) {
         return {
             scope:{
                 name:"@",
                 login:"@",
                 password:"@",
-                url:"@"
+                url:"@",
+                panel:"@"
             },
             restrict: 'E',
             replace: true,
             template:
                 ' <div class="panel panel-default">' +
                     '<div class="panel-heading">'+
-                        '<i class="fa fa-bar-chart-o fa-fw"></i> {{name}}'+
+                        '<i ></i> {{name}}'+
                         '<div class="pull-right">'+
                             '<div class="btn-group">'+
                                 '<li type="button" class="dropdown hidden-sm" style="list-style:none;">'+
-                                    '<a href class="dropdown-toggle ng-binding btn btn-default btn-xs" data-toggle="dropdown" aria-haspopup="true"  aria-haspopup="true"  aria-expanded="false"> Actions </a>'+
+                                    '<a href class="dropdown-toggle ng-binding" data-toggle="dropdown" aria-haspopup="true"  aria-haspopup="true"  aria-expanded="false"> <i class="fa fa-cog fa-fw"></i> </a>'+
 
-                                    '<ul class="dropdown-menu animated fadeInRight w">'+
+                                    '<ul class="dropdown-menu dropdown-menu-right animated fadeInRight">'+
 
+                                        '<li><a href ng-click="editPanel()" >Edit Panel</a></li>'+
+                                        '<li class="divider"></li>'+
                                         '<li><a href ng-click="reload()" class="glyphicon glyphicon-refresh" > Reload</a></li>'+
                                         '<li><a href ng-mousedown="moveUp()" ng-mouseup="stopUp()" class="glyphicon glyphicon-arrow-up" > Move Up</a></li>'+
                                         '<li><a href ng-mousedown="moveDown()" ng-mouseup="stopDown()" class="glyphicon glyphicon-arrow-down" > Move Down</a></li>'+
@@ -147,6 +150,26 @@ angular.module('app')
                     .error(function(response, status, headers, config) {
                         console.log(response)
                     });
+                };
+
+                scope.editPanel = function(){
+                    var modalInstance = $modal.open({
+                        templateUrl: '../modules/panels/views/panel_edit.html',
+                        controller: 'PanelEditCtrl',
+                        size: 'lg',
+                        resolve: {
+                            panelId: function () {
+                                return scope.panel;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function () {
+                        $rootScope.$broadcast('reload-myDashboard');
+                    }, function () {
+                        $log.info('editDashboard dismissed at: ' + new Date());
+                    });
+
                 };
 
 
