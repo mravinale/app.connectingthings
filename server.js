@@ -68,7 +68,7 @@ var logger = new (winston.Logger)({
 app.configure( function(){
   app.use(express.errorHandler());
 
-  if(_.isUndefined(process.env.NODE_ENV) || _.isNull(process.env.NODE_ENV)) {
+  if(_.isUndefined(process.env.NODE_ENV) || _.isNull(process.env.NODE_ENV) || process.env.NODE_ENV == "dev") {
     app.use(express.static(__dirname + '/public'));
   } else {
     app.use(express.static(__dirname + '/dist'));
