@@ -9,7 +9,7 @@ angular.module('app')
                 $scope.tab = id;
             };
 
-						$rootScope.showHeader = false;
+            $rootScope.showHeader = false;
             $rootScope.app.settings.asideFolded = true;
 
             $scope.$on("$destroy", function(){
@@ -18,27 +18,36 @@ angular.module('app')
               $rootScope.noMenuStyle =  {}
             });
 
-						if(psResponsive('< small')){
-							$rootScope.noMenuStyle =  { "padding-top": "0px", "width": "105%", "background-color": "none" }
-						} else{
-							$rootScope.noMenuStyle =  { "padding-top": "0px", "margin-left": "-60px", "width": "105%", "background-color": "none" }
-						}
+            if(psResponsive('< small')){
+                $rootScope.noMenuStyle =  { "padding-top": "0px", "width": "105%", "background-color": "none" }
+            } else{
+                $rootScope.noMenuStyle =  { "padding-top": "0px", "margin-left": "-60px", "width": "105%", "background-color": "none" }
+            }
 
-						angular.element($window).on('resize', function () {
-							if(psResponsive('< small')){
-								$rootScope.noMenuStyle =  { "padding-top": "0px", "width": "105%", "background-color": "none" }
-							} else{
-								$rootScope.noMenuStyle =  { "padding-top": "0px", "margin-left": "-60px", "width": "105%", "background-color": "none" }
-							}
+            angular.element($window).on('resize', function () {
+                if(psResponsive('< small')){
+                    $rootScope.noMenuStyle =  { "padding-top": "0px", "width": "105%", "background-color": "none" }
+                } else{
+                    $rootScope.noMenuStyle =  { "padding-top": "0px", "margin-left": "-60px", "width": "105%", "background-color": "none" }
+                }
 
-						});
+            });
+
+            $scope.filterAccounts = function (user) {
+                return user.accountType !== 'Free';
+            };
 
             publicService.getAllUsers()
               .success(function (response, status, headers, config) {
-                  $scope.users = response;
-                  $scope.devices = _.reduce(response, function(memo, user){ return memo + user.statistics.devices; }, 0);
-                  $scope.messages = _.reduce(response, function(memo, user){ return memo + user.statistics.messages; }, 0);
-                  $scope.sensors = _.reduce(response, function(memo, user){ return memo + user.statistics.sensors; }, 0);
+                  //$scope.users = response;
+
+                  $scope.users  = _.reject(response, function (user) {
+                      return user.accountType == 'Free';
+                  });
+
+                  $scope.devices = _.reduce( $scope.users, function(memo, user){ return memo + user.statistics.devices; }, 0);
+                  $scope.messages = _.reduce( $scope.users, function(memo, user){ return memo + user.statistics.messages; }, 0);
+                  $scope.sensors = _.reduce( $scope.users, function(memo, user){ return memo + user.statistics.sensors; }, 0);
               })
               .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

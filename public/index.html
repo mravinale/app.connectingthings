@@ -53,6 +53,7 @@
 <script src="lib/angular-img-fallback/angular.dcb-img-fallback.min.js"></script>
 <script src="lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js"></script>
 <script src="lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js"></script>
+<script src="lib/angular-stripe-checkout/angular-stripe-checkout.js"></script>
 
 <!-- endbuild -->
 <!-- build:js js/vendor2.js?v=0.0.4 -->
@@ -87,6 +88,7 @@
 <script src="modules/base/controllers/public.js"></script>
 <script src="modules/base/controllers/public_list.js"></script>
 <script src="modules/base/controllers/tutorial.js"></script>
+<script src="modules/base/controllers/payment.js"></script>
 
 <script src="modules/dashboards/controllers/dashboard_add.js"></script>
 <script src="modules/dashboards/controllers/dashboard_edit.js"></script>
@@ -156,14 +158,17 @@
 <script src="modules/common/directives/gauge.js"></script>
 <script src="modules/common/directives/lineChart.js"></script>
 
-<script src="modules/base/controllers/modals/templates/tutorial_sensor_add.js"></script>
-<script src="modules/base/controllers/modals/templates/tutorial_device_add.js"></script>
-<script src="modules/base/controllers/modals/templates/tutorial_panel_add.js"></script>
-<script src="modules/base/controllers/modals/templates/tutorial_section_add.js"></script>
-<script src="modules/base/controllers/modals/templates/tutorial_dashboard_add.js"></script>
+<script src="modules/base/controllers/modals/tutorial/tutorial_sensor_add.js"></script>
+<script src="modules/base/controllers/modals/tutorial/tutorial_device_add.js"></script>
+<script src="modules/base/controllers/modals/tutorial/tutorial_panel_add.js"></script>
+<script src="modules/base/controllers/modals/tutorial/tutorial_section_add.js"></script>
+<script src="modules/base/controllers/modals/tutorial/tutorial_dashboard_add.js"></script>
 
 <script src="lib/javascript-detect-element-resize/jquery.resize.js"></script>
 <script src="lib/angular-gridster/dist/angular-gridster.min.js"></script>
+
+<script src="lib/ng-bootstrap-alerts/dist/index.min.js"></script>
+
 <!-- endbuild -->
 <!-- build:remove -->
 <script src="/socket.io/socket.io.js"></script>

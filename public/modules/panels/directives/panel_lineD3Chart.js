@@ -4,13 +4,16 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelD3Chart', function (socket, messageService,$rootScope) {
+    .directive('panelD3Chart', function (socket, messageService, $modal,$log,$rootScope) {
         return {
             scope:{
                 yrange:"@",
                 topic:"@",
                 key:"@",
-                name:"@"
+                name:"@",
+                sensor:"@",
+                device:"@",
+                panel:"@"
             },
             restrict: 'E',
             replace: true,
@@ -21,9 +24,11 @@ angular.module('app')
                         '<div class="pull-right">'+
                             '<div class="btn-group">'+
                                 '<li type="button" class="dropdown hidden-sm" style="list-style:none;">'+
-                                '<a href class="dropdown-toggle ng-binding btn btn-default btn-xs" data-toggle="dropdown" aria-haspopup="true"  aria-haspopup="true"  aria-expanded="false"> Actions </a>'+
-                                    '<ul class="dropdown-menu animated fadeInLeft w">'+
-                                         '<li><a href ng-click="clean()" >Clean</a></li>'+
+                                    '<a href class="dropdown-toggle ng-binding" data-toggle="dropdown" aria-haspopup="true"  aria-haspopup="true"  aria-expanded="false"> <i class="fa fa-cog fa-fw"></i> </a>'+
+                                    '<ul class="dropdown-menu dropdown-menu-right animated fadeInLeft">'+
+                                        '<li><a href ng-click="editSensor()" >Edit Sensor</a></li>'+
+                                        '<li><a href ng-click="editDevice()" >Edit Device</a></li>'+
+                                        '<li><a href ng-click="editPanel()" >Edit Panel</a></li>'+
                                     '</ul>'+
                                 '</li>'+
                             '</div>'+
@@ -131,6 +136,51 @@ angular.module('app')
                         scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name, color: '#26A69A' } ];
 
                 });
+
+                scope.editSensor = function(){
+                    $modal.open({
+                        templateUrl: '../modules/sensors/views/sensor_edit.html',
+                        controller: 'SensorEditCtrl',
+                        size: 'lg',
+                        resolve: {
+                            sensorId: function () {
+                                return scope.sensor;
+                            }
+                        }
+                    });
+                };
+
+                scope.editDevice = function(){
+                    $modal.open({
+                        templateUrl: '../modules/devices/views/device_edit.html',
+                        controller: 'DeviceEditCtrl',
+                        size: 'lg',
+                        resolve: {
+                            deviceId: function () {
+                                return scope.device;
+                            }
+                        }
+                    });
+                };
+
+                scope.editPanel = function(){
+                    var modalInstance = $modal.open({
+                        templateUrl: '../modules/panels/views/panel_edit.html',
+                        controller: 'PanelEditCtrl',
+                        size: 'lg',
+                        resolve: {
+                            panelId: function () {
+                                return scope.panel;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function () {
+                        $rootScope.$broadcast('reload-myDashboard');
+                    }, function () {
+                        $log.info('editDashboard dismissed at: ' + new Date());
+                    });
+                };
 
             }
         };

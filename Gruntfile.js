@@ -30,7 +30,7 @@ module.exports = function (grunt) {
         },
         express: {
             options: {
-                port: process.env.PORT || 9000
+                port: process.env.PORT || 3000
             },
             dev: {
                 options: {
@@ -157,8 +157,11 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/angular-sweetalert/SweetAlert.min.js',
                       '<%= yeoman.app %>/lib/angular-encode-uri/dist/angular-encode-uri.min.js',
                       '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js',
-                      '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js'
-                    ]
+                      '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js',
+                      '<%= yeoman.app %>/lib/angular-stripe-checkout/angular-stripe-checkout.js',
+                      '<%= yeoman.app %>/lib/ng-bootstrap-alerts/dist/index.min.js'
+
+                ]
                   },
                   {
                     dest: 'dist/js/vendor2.js',
@@ -190,7 +193,6 @@ module.exports = function (grunt) {
                   {
                     dest: 'dist/js/app.js',
                     src: [
-
                       '<%= yeoman.app %>/modules/app.js',
                       '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_me.js',
                       '<%= yeoman.app %>/modules/base/controllers/login.js',
@@ -203,6 +205,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/base/controllers/public.js',
                       '<%= yeoman.app %>/modules/base/controllers/public_list.js',
                       '<%= yeoman.app %>/modules/base/controllers/tutorial.js',
+                      '<%= yeoman.app %>/modules/base/controllers/payment.js',
                       '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_add.js',
                       '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_edit.js',
                       '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_list.js',
@@ -257,11 +260,11 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/common/directives/gauge.js',
                       '<%= yeoman.app %>/modules/common/directives/lineChart.js',
                       '<%= yeoman.app %>/modules/base/services/Public.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_sensor_add.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_device_add.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_panel_add.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_section_add.js',
-                      '<%= yeoman.app %>/modules/base/controllers/modals/templates/tutorial_dashboard_add.js'
+                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_sensor_add.js',
+                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_device_add.js',
+                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_panel_add.js',
+                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_section_add.js',
+                      '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_dashboard_add.js'
                     ]
                   }
                 ]
@@ -309,7 +312,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server', [
         //  'jshint',
-        'bower',
+        //'bower',
         'express:dev',
         'open',
         'watch'

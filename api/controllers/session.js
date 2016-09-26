@@ -181,7 +181,7 @@ exports.getAllUsers = function (req, res, next) {
                 return res.send(400, error);
             }
 
-            return  res.send(200, _.map(users, function(obj) { return _.pick(obj, 'email', 'username', 'publicUrl','statistics','description','publicAvatar'); }));
+            return  res.send(200, _.map(users, function(obj) { return _.pick(obj, 'email', 'username', 'publicUrl','statistics','description','publicAvatar', 'accountType'); }));
         });
 };
 
@@ -233,7 +233,8 @@ exports.login = function (req, res, next) {
               'organizationId': user.organization._id,
               'key': user.key,
               'showTutorial': user.showTutorial,
-              'publicAvatar': "https://avatars.io/"+user.publicAvatar
+              'publicAvatar': "https://avatars.io/"+user.publicAvatar,
+              'accountType': user.accountType
             });
 
         });

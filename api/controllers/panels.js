@@ -5,12 +5,11 @@ var mongoose = require('mongoose'),
     Panel = mongoose.model('Panel'),
     Section = mongoose.model('Section'),
     mqtt = require('mqtt'),
-    mqttClient = mqtt.createClient(1883, 'localhost'),
+    mqttClient = mqtt.connect({ port: 1883, host: 'localhost'}),
     Client = require('node-rest-client').Client,
     User = mongoose.model('User'),
-    reversePopulate =require('mongoose-reverse-populate');
-
-var client = new Client();
+    reversePopulate =require('mongoose-reverse-populate'),
+    client = new Client();
 
 exports.create = function (req, res, next) {
     var newPanel = new Panel(req.body);

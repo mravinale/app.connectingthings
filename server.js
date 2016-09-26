@@ -68,7 +68,7 @@ var logger = new (winston.Logger)({
 app.configure( function(){
   app.use(express.errorHandler());
 
-  if(_.isUndefined(process.env.NODE_ENV) || _.isNull(process.env.NODE_ENV)) {
+  if(_.isUndefined(process.env.NODE_ENV) || _.isNull(process.env.NODE_ENV) || process.env.NODE_ENV == "dev") {
     app.use(express.static(__dirname + '/public'));
   } else {
     app.use(express.static(__dirname + '/dist'));
@@ -171,7 +171,7 @@ var Message = mongoose.model('Message');
 var User = mongoose.model('User');
 var Trigger = mongoose.model('Trigger');
 var triggerService = require('./api/services/triggerService');
-var route = new Route('/device/:device/key/:key');
+var route = new Route('device/:device/key/:key');
 var validate = require('jsonschema').validate;
 
 // Start socket conection
@@ -227,10 +227,32 @@ ponteServer.on("updated", function(resource, buffer) {
       function (user, callback) {
         if (!user) return callback({message: "Error: User validation, Not found, key: " + routeParams.key}, null);
 
-        //Set expiration message and restrict interval between messages
-        message.expireAt = user.accountType == "Free" ? moment().add(1, 'day').toDate() : moment().add(1, 'week').toDate();
         var ms = moment(moment.utc().format()).diff(moment(user.statistics.lastUpdate.toISOString()));
-        if (moment.duration(ms).asSeconds() < 1 && user.accountType == "Free") return callback({message: "Error: Message validation, Interval should be more than 1 seconds, key: " + routeParams.key}, null);
+
+        switch(user.accountType) {
+          case "Free":
+            message.expireAt =  moment().add(1, 'day').toDate();
+            if (moment.duration(ms).asSeconds() < 15) return callback({message: "Error: Interval should be more than 15 seconds, key: " + routeParams.key}, null);
+            break;
+          case "Bronze":
+            message.expireAt =  moment().add(1, 'week').toDate();
+            if (moment.duration(ms).asSeconds() < 10 ) return callback({message: "Error: Interval should be more than 10 seconds, key: " + routeParams.key}, null);
+            break;
+          case "Silver":
+            message.expireAt =  moment().add(1, 'month').toDate();
+            if (moment.duration(ms).asSeconds() < 5 ) return callback({message: "Error: Interval should be more than 5 seconds, key: " + routeParams.key}, null);
+            break;
+          case "Gold":
+            message.expireAt =  moment().add(1, 'year').toDate();
+            if (moment.duration(ms).asSeconds() < 1 ) return callback({message: "Error: Interval should be more than 1 seconds, key: " + routeParams.key}, null);
+            break;
+          case "Full":
+            message.expireAt =  moment().add(1, 'year').toDate();
+            break;
+          default:
+          //default code block
+        }
+
         triggerService.execute(user, message, callback);
       },
       function (user, callback) {

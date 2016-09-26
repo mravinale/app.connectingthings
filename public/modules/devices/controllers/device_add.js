@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('app')
-    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $modalInstance, $filter) {
+    .controller('DeviceAddCtrl', function ($scope, deviceService, sensorService, $modalInstance, $filter,alerts) {
 
+        var alert = null;
         $scope.device = { name:"" };
 
         $scope.$watch('device.name', function() {
@@ -18,6 +19,9 @@ angular.module('app')
                     $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {
+                    if(!response.errors && response.message){
+                        alert= alerts.create(response.message, 'danger');
+                    }
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
                         $scope.errors[field] = error.message;
@@ -38,6 +42,7 @@ angular.module('app')
             });
 
         $scope.cancel = function () {
+            alerts.dismiss(alert);
             $modalInstance.dismiss('cancel');
         };
 

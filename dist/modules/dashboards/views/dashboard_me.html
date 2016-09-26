@@ -26,17 +26,71 @@
                 <div class="panels"  ng-model="section.panels" gridster="gridsterOpts">
                     <div ng-repeat="panel in section.panels" >
                         <div class="gridster-correction">
-                            <panel-switch gridster-item="panel" style="cursor:move;min-width: 230px"  ng-if="panel.type=='switch'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}" key="{{currentUser.key}}" tag="{{panel.sensor.tag}}"> </panel-switch>
+                            <panel-switch gridster-item="panel" style="cursor:move;min-width: 230px"
+                                          ng-if="panel.type=='switch'"
+                                          name="{{panel.name}}" url="{{panel.device.url}}"
+                                          topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}" key="{{currentUser.key}}"
+                                          tag="{{panel.sensor.tag}}"
+                                          panel="{{panel._id}}"
+                                          device="{{panel.device._id}}"
+                                          sensor="{{panel.sensor._id}}">
+                            </panel-switch>
 
-                            <panel-led gridster-item="panel" style="cursor:move;min-width: 230px;"  ng-if="panel.type=='led'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}" key="{{currentUser.key}}" tag="{{panel.sensor.tag}}"> </panel-led>
+                            <panel-led gridster-item="panel" style="cursor:move;min-width: 230px;"
+                                       ng-if="panel.type=='led'"
+                                       name="{{panel.name}}"
+                                       url="{{panel.device.url}}"
+                                       topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}" key="{{currentUser.key}}"
+                                       tag="{{panel.sensor.tag}}"
+                                       panel="{{panel._id}}"
+                                       device="{{panel.device._id}}"
+                                       sensor="{{panel.sensor._id}}">
+                            </panel-led>
 
-                            <panel-gauge gridster-item="panel" style="cursor:move;min-width: 230px;"  ng-if="panel.type=='gauge'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}" key="{{currentUser.key}}" > </panel-gauge>
+                            <panel-gauge gridster-item="panel" style="cursor:move;min-width: 230px;"
+                                         ng-if="panel.type=='gauge'"
+                                         name="{{panel.name}}"
+                                         url="{{panel.device.url}}"
+                                         topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}"
+                                         key="{{currentUser.key}}"
+                                         tag="{{panel.sensor.tag}}"
+                                         panel="{{panel._id}}"
+                                         device="{{panel.device._id}}"
+                                         sensor="{{panel.sensor._id}}">
+                            </panel-gauge>
 
-                            <panel-info gridster-item="panel" style="cursor:move;min-width: 230px"  ng-if="panel.type=='info'" name="{{panel.name}}" url="{{panel.device.url}}" topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}" key="{{currentUser.key}}"> </panel-info>
+                            <panel-info gridster-item="panel" style="cursor:move;min-width: 230px"
+                                        ng-if="panel.type=='info'"
+                                        name="{{panel.name}}"
+                                        url="{{panel.device.url}}"
+                                        topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}"
+                                        key="{{currentUser.key}}"
+                                        tag="{{panel.sensor.tag}}"
+                                        panel="{{panel._id}}"
+                                        device="{{panel.device._id}}"
+                                        sensor="{{panel.sensor._id}}">
+                            </panel-info>
 
-                            <panel-d3-chart gridster-item="panel" style="cursor:move;min-width: 230px"  ng-if="panel.type=='d3-chart'" name="{{panel.name}}" url="{{panel.device.url}}"  topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}" key="{{currentUser.key}}"  > </panel-d3-chart>
+                            <panel-d3-chart gridster-item="panel" style="cursor:move;min-width: 230px"
+                                            ng-if="panel.type=='d3-chart'"
+                                            name="{{panel.name}}"
+                                            url="{{panel.device.url}}"
+                                            topic="/{{currentUser.key}}/{{panel.device.name}}/{{panel.sensor.tag}}"
+                                            key="{{currentUser.key}}"
+                                            tag="{{panel.sensor.tag}}"
+                                            panel="{{panel._id}}"
+                                            device="{{panel.device._id}}"
+                                            sensor="{{panel.sensor._id}}">
+                            </panel-d3-chart>
 
-                            <panel-camera gridster-item="panel" style="cursor:move;min-width: 230px"  ng-if="panel.type=='camera'" name="{{panel.name}}" url="{{panel.camera.url}}" login="{{panel.camera.login}}" password="{{panel.camera.password}}"  > </panel-camera>
+                            <panel-camera gridster-item="panel" style="cursor:move;min-width: 230px"
+                                          ng-if="panel.type=='camera'"
+                                          name="{{panel.name}}"
+                                          url="{{panel.camera.url}}"
+                                          login="{{panel.camera.login}}"
+                                          password="{{panel.camera.password}}"
+                                          panel="{{panel._id}}">
+                            </panel-camera>
                         </div>
 
                 </div>
