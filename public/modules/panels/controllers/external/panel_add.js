@@ -10,7 +10,7 @@ angular.module('app')
 
             panelService.create($scope.panel)
                 .success(function(response, status, headers, config) {
-                    $modalInstance.close();
+                    $scope.$cancel()
                 }).error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);

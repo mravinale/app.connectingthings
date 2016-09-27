@@ -40,8 +40,8 @@ angular.module('app')
 
     $scope.newPanel = function () {
         var modalInstance = $modal.open({
-            templateUrl: 'panel_add',
-            controller: 'PanelAddCtrl',
+            templateUrl: 'modules/panels/views/panel_add_container.html',
+            controller: 'PanelAddContainerCtrl',
             size: 'lg'
         });
 

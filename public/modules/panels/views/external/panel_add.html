@@ -116,6 +116,7 @@
                                                 mongoose-error>
                                             <option value="" disabled>select a sensor</option>
                                         </select>
+                                        <button type="button" ng-click="$nextStep()" class="btn btn-primary">next</button>
                                         <div class="error"
                                              ng-show="form.sensor.$error.mongoose">
                                             {{ errors.sensor }}
@@ -156,7 +157,7 @@
                                 <div class="form-group" style="padding-top: 30px">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <button type="button" ng-click="save(form)" class="btn btn-primary">Submit</button>
-                                        <a ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
+                                        <a ng-click="$cancel()" class="btn btn-danger" role="button">Cancel</a>
                                     </div>
                                 </div>
 
