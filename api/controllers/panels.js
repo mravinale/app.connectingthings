@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
     async = require('async'),
+    _ = require('underscore'),
     Panel = mongoose.model('Panel'),
     Dashboard = mongoose.model('Dashboard'),
     mqtt = require('mqtt'),
@@ -64,6 +65,7 @@ exports.getAllPanels = function (req, res, next) {
             if (error) {
                return res.send(400, error);
             }
+
             reversePopulate({
               modelArray: panels,
               storeWhere: "dashboards",
@@ -120,10 +122,7 @@ exports.update = function (req, res, next) {
     if(req.body.type === "camera" && !req.body.camera){
       result.errors.camera = {message: 'Path `camera` is required.'}
     }
-    if(req.body.type === "section" && !req.body.section){
-        result.errors.camera = {message: 'Path `section` is required.'}
-    }
-    if(req.body.type !== "camera" && req.body.type !== "section" && !req.body.device){
+    if(req.body.type !== "camera" && !req.body.device){
       result.errors.device = {message: 'Path `device` is required.'}
     }
     if(req.body.type !== "camera" && req.body.type !== "section" && !req.body.sensor){
