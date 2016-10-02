@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     Panel = mongoose.model('Panel'),
-    Section = mongoose.model('Section'),
+    Dashboard = mongoose.model('Dashboard'),
     mqtt = require('mqtt'),
     mqttClient = mqtt.connect({ port: 1883, host: 'localhost'}),
     Client = require('node-rest-client').Client,
@@ -66,9 +66,9 @@ exports.getAllPanels = function (req, res, next) {
             }
             reversePopulate({
               modelArray: panels,
-              storeWhere: "sections",
+              storeWhere: "dashboards",
               arrayPop: true,
-              mongooseModel: Section,
+              mongooseModel: Dashboard,
               idField: "panels"
             }, function(err, popPanels) {
               if (error) {

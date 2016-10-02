@@ -44,23 +44,23 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group" ng-class="{'has-error': form.sections.$error.mongoose}">
-                                    <label class="col-sm-2 control-label">Sections</label>
+                                <div class="form-group" ng-class="{'has-error': form.panels.$error.mongoose}">
+                                    <label class="col-sm-2 control-label">Panels</label>
                                     <div class="col-sm-10">
                                         <select multiple
                                                 chosen
-                                                data-placeholder="Select a Section"
-                                                no-results-text="'No Sections yet'"
-                                                ng-model="dashboard.sections"
-                                                ng-options="section._id as section.name for section in sections"
+                                                data-placeholder="Select a Panel"
+                                                no-results-text="'No Panels yet'"
+                                                ng-model="dashboard.panels"
+                                                ng-options="panel._id as panel.name for panel in panels"
                                                 class="form-control"
-                                                name="sections"
+                                                name="panels"
                                                 mongoose-error>
                                             <option value=""></option>
                                         </select>
                                         <div class="error"
-                                             ng-show="form.sections.$error.mongoose">
-                                            {{ errors.sections }}
+                                             ng-show="form.panels.$error.mongoose">
+                                            {{ errors.panels }}
                                         </div>
                                     </div>
                                 </div>

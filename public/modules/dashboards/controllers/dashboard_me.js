@@ -11,10 +11,10 @@ angular.module('app')
         };
 
         $scope.init = function(){
-            _.each($scope.dashboards, function(dashboard){
+           /* _.each($scope.dashboards, function(dashboard){
                 dashboard.sections.length = 0
             });
-
+            */
             dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
                 $scope.dashboards = response;
@@ -89,6 +89,7 @@ angular.module('app')
         };
       };
 */
+
       //var watcher = toggleWatch('dashboards', function(newitems, olditems){
         $scope.$watch('dashboards', function(newitems, olditems){
 
@@ -98,8 +99,8 @@ angular.module('app')
 
             var delta = jsondiffpatch.diff( cleanedNewItems,  cleanedOldItems);
 
-            if(!delta || !_.values(delta)[0] || ! _.values(delta)[0].sections || !_.values(_.values(delta)[0].sections)[0]) return;
-
+            if(!delta || !_.values(delta)[0] || ! _.values(delta)[0].panels) return;
+/*
             var sections = _.where(cleanedNewItems,{name: $scope.tab})[0].sections;
 
             var sectionChanged =  _.values(delta)[0].sections;
@@ -108,6 +109,7 @@ angular.module('app')
             var panels = sections[sectionChangedKey].panels;
 
             if(!sections || !panels) return;
+ */
     /*
             var dashboardChanged =  _.first(delta);
             var dashboardChangeKey = parseInt(_.first(_.keys(dashboardChanged)));
@@ -115,16 +117,20 @@ angular.module('app')
             var sectionChanged =  _.first(delta).sections;
             var sectionChangedKey = parseInt(_.first(_.keys(sectionChanged)));
     */
-            var panelChanged = _.values(_.values(delta)[0].sections)[0].panels;
-            var panelChangeKey = parseInt(_.values(_.keys(panelChanged))[0]);
 
-            if(!panels[panelChangeKey]) return;
+            var panels = _.where(cleanedNewItems,{name: $scope.tab})[0].panels;
+            if(!panels) return;
+
+            var panelChanged = _.values(delta)[0].panels;
+            var panelChangedKey = parseInt(_.first(_.keys(panelChanged))    );
+
+            if(!panels[panelChangedKey]) return;
 
 
-            panelService.update(panels[panelChangeKey])
+            panelService.update(panels[panelChangedKey])
               .success(function(response, status, headers, config) {
                 $localStorage.myDashboards = $scope.dashboards;
-                console.log(panels[panelChangeKey]);
+                console.log(panels[panelChangedKey]);
               }).error(function(response, status, headers, config) {
                 console.log(response);
             });
