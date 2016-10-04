@@ -56,7 +56,7 @@ angular.module('app')
           avoid_overlapped_widgets:true,
           width: 'auto',
           colWidth: 'auto', // can be an integer or 'auto'.  'auto' uses the pixel width of the element divided by 'columns'
-          rowHeight: '280', // can be an integer or 'match'.  Match uses the colWidth, giving you square widgets.
+          rowHeight: '80', // can be an integer or 'match'.  Match uses the colWidth, giving you square widgets.
           resizable: {
             enabled: true,
             start: function(event, uiWidget, $element) {

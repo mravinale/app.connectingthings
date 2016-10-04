@@ -16,13 +16,7 @@
 
          <div ng-repeat="dashboard in dashboards" ng-show="tab === '{{dashboard.name}}'">
 
-             <div >
-                <!--div class="row"  ng-repeat="section in dashboard.sections"!-->
-
-                <!--div class="col-lg-12">
-                    <h3 class="row-header" style="cursor:move" >{{section.name}}</h3>
-                </div!-->
-
+             <div>
                 <div class="panels"  ng-model="dashboard.panels" gridster="gridsterOpts">
                     <div ng-repeat="panel in dashboard.panels" >
                         <div class="gridster-correction">
@@ -91,10 +85,15 @@
                                           password="{{panel.camera.password}}"
                                           panel="{{panel._id}}">
                             </panel-camera>
-                        </div>
 
+                            <panel-section gridster-item="panel" style="cursor:move;min-width: 230px;"
+                                          ng-if="panel.type=='section'"
+                                          name="{{panel.name}}"
+                                          panel="{{panel._id}}">
+                            </panel-section>
+                        </div>
+                    </div>
                 </div>
-            </div>
              </div>
 
          </div>

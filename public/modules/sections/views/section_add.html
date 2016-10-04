@@ -42,27 +42,6 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group" ng-class="{'has-error': form.panels.$error.mongoose}">
-                                    <label class="col-sm-2 control-label">Panels</label>
-                                    <div class="col-sm-10">
-                                        <select multiple
-                                                chosen
-                                                data-placeholder="selected panel"
-                                                no-results-text="'No panel yet'"
-                                                ng-model="section.panels"
-                                                ng-options="panel._id as panel.name for panel in panels"
-                                                class="form-control"
-                                                name="panels"
-                                                mongoose-error>
-                                            <option value="" disabled>select a panel</option>
-                                        </select>
-                                        <div class="error"
-                                             ng-show="form.panels.$error.mongoose">
-                                            {{ errors.panels }}
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="form-group" ng-hide="currentUser.accountType == 'Free'">
                                     <label class="col-sm-2 control-label">Public View Enabled</label>
                                     <div class="col-sm-10">

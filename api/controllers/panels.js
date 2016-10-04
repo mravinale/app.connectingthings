@@ -120,10 +120,13 @@ exports.update = function (req, res, next) {
     if(req.body.type === "camera" && !req.body.camera){
       result.errors.camera = {message: 'Path `camera` is required.'}
     }
-    if(req.body.type !== "camera" && !req.body.device){
+    if(req.body.type === "section" && !req.body.section){
+        result.errors.camera = {message: 'Path `section` is required.'}
+    }
+    if(req.body.type !== "camera" && req.body.type !== "section" && !req.body.device){
       result.errors.device = {message: 'Path `device` is required.'}
     }
-    if(req.body.type !== "camera" && !req.body.sensor){
+    if(req.body.type !== "camera" && req.body.type !== "section" && !req.body.sensor){
       result.errors.sensor = {message: 'Path `sensor` is required.'}
     }
 
