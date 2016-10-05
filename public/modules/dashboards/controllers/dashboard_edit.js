@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app')
-    .controller('DashboardEditCtrl', function ($scope, $routeParams, dashboardService, panelService, $location, $modalInstance, dashboardId) {
+    .controller('DashboardEditCtrl', function ($scope, $routeParams, dashboardService, sectionService, panelService, $location, $modalInstance, dashboardId) {
 
         $scope.dashboard = { };
 
@@ -41,6 +41,18 @@ angular.module('app')
                 }
 
                 // console.log( $scope.panels);
+            })
+            .error(function(response, status, headers, config) {
+                angular.forEach(response.errors, function(error, field) {
+                    form[field].$setValidity('mongoose', false);
+                    $scope.errors[field] = error.message;
+                });
+            });
+
+        sectionService.getAllSections()
+            .success(function (response, status, headers, config) {
+                debugger
+                $scope.sections =  response;
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

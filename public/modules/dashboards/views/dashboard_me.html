@@ -17,8 +17,8 @@
          <div ng-repeat="dashboard in dashboards" ng-show="tab === '{{dashboard.name}}'">
 
              <div>
-                <div class="panels"  ng-model="dashboard.panels" gridster="gridsterOpts">
-                    <div ng-repeat="panel in dashboard.panels" >
+                <div class="panels"  ng-model="dashboard.items" gridster="gridsterOpts">
+                    <div ng-repeat="panel in dashboard.items" >
                         <div class="gridster-correction">
                             <panel-switch gridster-item="panel" style="cursor:move;min-width: 230px"
                                           ng-if="panel.type=='switch'"

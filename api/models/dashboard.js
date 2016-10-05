@@ -9,6 +9,7 @@ var DashboardSchema = new Schema({
   name: { type: String, required: true },
   description:{ type: String },
   panels: [{ type:String, ref: 'Panel', required: true }],
+  sections: [{ type:String, ref: 'Section', required: true }],
   owner: { type: String, ref: 'User' },
   organization: { type: String, ref: 'Organization' }
 });

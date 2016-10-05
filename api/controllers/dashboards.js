@@ -42,6 +42,7 @@ exports.getAll = function (req, res, next) {
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
         .populate('panels')
+        .populate('sections')
         .exec(function (error, dashboards) {
             Dashboard
               .count({owner: req.user})
@@ -63,6 +64,7 @@ exports.getAllDashboards = function (req, res, next) {
         .find({owner: req.user})
         //.find({organization: req.user.organization})
         .populate('panels')
+        .populate('sections')
         .populate('owner')
         .lean()
         .exec(function (error, dashboards) {
@@ -86,16 +88,7 @@ exports.getAllDashboards = function (req, res, next) {
                         },function (err) {
                             if (error) { return res.send(400, error); }
 
-                            Section.populate(dashboards, {
-                                path: 'panels.section',
-                                model: 'Section'
-                            },function (err) {
-                                if (error) { return res.send(400, error); }
-
-                                return  res.send(200, dashboards);
-                            });
-
-
+                            return  res.send(200, dashboards);
                         });
 
                     });
@@ -109,6 +102,7 @@ exports.getFullById = function (req, res, next) {
     Dashboard
         .findOne({_id: req.params.id})
         .populate('panels')
+        .populate('sections')
         .exec(function (error, dashboard) {
             if (error) {
                 console.log(error);

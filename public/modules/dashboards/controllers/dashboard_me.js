@@ -3,6 +3,7 @@ angular.module('app')
     .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope,socket,$timeout) {
 
         $scope.dashboards = [];
+        $scope.items = [];
         $scope.tab = null;
 
         $scope.setTab = function(id){
@@ -18,6 +19,10 @@ angular.module('app')
             dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
                 $scope.dashboards = response;
+                _.each( $scope.dashboards, function(dashboard){
+                    dashboard.items = _.union(dashboard.panels, dashboard.sections);
+                });
+debugger
                 $scope.tab = $scope.tab? $scope.tab : response[0].name;
 
             })

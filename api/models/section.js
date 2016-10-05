@@ -11,7 +11,12 @@ var SectionSchema = new Schema({
   description: {type: String},
   owner: { type: String, ref: 'User'},
   isPublic: { type: Boolean,  default: true },
-  organization: { type: String, ref: 'Organization' }
+  organization: { type: String, ref: 'Organization' },
+    type: { type: String, default: "section"  },
+    sizeX: { type: Number, default: 6 },
+    sizeY: { type: Number, default: 1 },
+    row: { type: Number, default: null },
+    col: { type: Number, default: null }
 });
 
 SectionSchema.pre('save', function (next) {
