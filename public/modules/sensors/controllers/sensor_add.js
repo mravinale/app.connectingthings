@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('SensorAddCtrl', function ($scope, sensorService,$location, $modalInstance, $filter) {
+    .controller('SensorAddCtrl', function ($scope, sensorService,$location, $modalInstance, $filter, alerts) {
 
         var alert = null;
         $scope.sensor = { tag:"" };
