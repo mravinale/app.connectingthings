@@ -24,7 +24,7 @@ exports.create = function (req, res, next) {
 
                 switch (user._doc.accountType) {
                     case "Free":
-                        return callback(user._doc.statistics.sensors >= 2 ? {message: errorMessage} : null, null);
+                        return callback(user._doc.statistics.sensors >= 4 ? {message: errorMessage} : null, null);
                         break;
                     case "Bronze":
                         return callback(user._doc.statistics.sensors >= 10 ? {message: errorMessage} : null, null);
