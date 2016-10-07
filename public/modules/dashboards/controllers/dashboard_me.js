@@ -22,7 +22,6 @@ angular.module('app')
                 _.each( $scope.dashboards, function(dashboard){
                     dashboard.items = _.union(dashboard.panels, dashboard.sections);
                 });
-debugger
                 $scope.tab = $scope.tab? $scope.tab : response[0].name;
 
             })
@@ -33,22 +32,6 @@ debugger
                 });
             });
       };
-
-   //   socket.on('panel.update.completed', function (message) {
-   //     console.log(message);
-     //   testWatcher()
-     ///   $scope.init();
-
-    //   console.log(findDeep( $scope.dashboards[0].sections[0], message._id ));
-    //    $scope.dashboards[0].sections[0].panels = angular.fromJson(message);
-    //    var evens = _.filter([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
-
-       // testWatcher()
-    /*    $timeout(function(){
-          testWatcher()
-        }, 3000);*/
-  //    });
-
 
         $rootScope.$on('reload-myDashboard', function(event, args) {
           $scope.init();
@@ -64,36 +47,19 @@ debugger
           rowHeight: '80', // can be an integer or 'match'.  Match uses the colWidth, giving you square widgets.
           resizable: {
             enabled: true,
-            start: function(event, uiWidget, $element) {
-            },
-            resize: function(event, uiWidget, $element) {
-            },
-            stop: function(event, uiWidget, $element) {
-            }
+            start: function(event, uiWidget, $element) {},
+            resize: function(event, uiWidget, $element) {},
+            stop: function(event, uiWidget, $element) {}
           },
           draggable: {
             enabled: true, // whether dragging items is supported
             start: function(event, $element, widget) {}, // optional callback fired when drag is started,
             drag: function(event, $element, widget) {}, // optional callback fired when item is moved,
-            stop: function(event, $element, widget) { } // optional callback fired when item is finished dragging
+            stop: function(event, $element, widget) {} // optional callback fired when item is finished dragging
           }
 
         };
-/*
-      var toggleWatch = function(watchExpr, fn) {
-        var watchFn;
-        return function() {
-          if (watchFn) {
-            watchFn();
-            watchFn = undefined;
-            console.log("Disabled " + watchExpr);
-          } else {
-            watchFn = $scope.$watch(watchExpr, fn, true);
-            console.log("Enabled " + watchExpr);
-          }
-        };
-      };
-*/
+
 
       //var watcher = toggleWatch('dashboards', function(newitems, olditems){
         $scope.$watch('dashboards', function(newitems, olditems){
@@ -104,45 +70,75 @@ debugger
 
             var delta = jsondiffpatch.diff( cleanedNewItems,  cleanedOldItems);
 
-            if(!delta || !_.values(delta)[0] || ! _.values(delta)[0].panels) return;
-/*
+            if(!delta || !_.values(delta)[0] || ! _.values(delta)[0].items ) return;
+
             var sections = _.where(cleanedNewItems,{name: $scope.tab})[0].sections;
+            if(!sections) return;
 
-            var sectionChanged =  _.values(delta)[0].sections;
+            var sectionChanged = _.values(delta)[0].sections;
             var sectionChangedKey = parseInt(_.first(_.keys(sectionChanged)));
 
-            var panels = sections[sectionChangedKey].panels;
-
-            if(!sections || !panels) return;
- */
-    /*
-            var dashboardChanged =  _.first(delta);
-            var dashboardChangeKey = parseInt(_.first(_.keys(dashboardChanged)));
-
-            var sectionChanged =  _.first(delta).sections;
-            var sectionChangedKey = parseInt(_.first(_.keys(sectionChanged)));
-    */
+            if(sections[sectionChangedKey]) {
+                sectionService.update(sections[sectionChangedKey])
+                    .success(function(response, status, headers, config) {
+                        $localStorage.myDashboards = $scope.dashboards;
+                        //console.log(sections[sectionChangedKey]);
+                    }).error(function(response, status, headers, config) {
+                    console.log(response);
+                });
+            }
 
             var panels = _.where(cleanedNewItems,{name: $scope.tab})[0].panels;
             if(!panels) return;
 
             var panelChanged = _.values(delta)[0].panels;
-            var panelChangedKey = parseInt(_.first(_.keys(panelChanged))    );
+            var panelChangedKey = parseInt(_.first(_.keys(panelChanged)));
 
-            if(!panels[panelChangedKey]) return;
-
-
-            panelService.update(panels[panelChangedKey])
-              .success(function(response, status, headers, config) {
-                $localStorage.myDashboards = $scope.dashboards;
-                console.log(panels[panelChangedKey]);
-              }).error(function(response, status, headers, config) {
-                console.log(response);
-            });
+            if(panels[panelChangedKey]) {
+                panelService.update(panels[panelChangedKey])
+                  .success(function(response, status, headers, config) {
+                    $localStorage.myDashboards = $scope.dashboards;
+                    //console.log(panels[panelChangedKey]);
+                  }).error(function(response, status, headers, config) {
+                    console.log(response);
+                });
+            }
 
       }, true);
 
      // watcher();
       $scope.init();
+
+        /* TODO: realtime dashboard items update
+         var toggleWatch = function(watchExpr, fn) {
+            var watchFn;
+            return function() {
+                if (watchFn) {
+                    watchFn();
+                    watchFn = undefined;
+                    console.log("Disabled " + watchExpr);
+                } else {
+                    watchFn = $scope.$watch(watchExpr, fn, true);
+                    console.log("Enabled " + watchExpr);
+                }
+            };
+         };
+
+
+         socket.on('panel.update.completed', function (message) {
+            console.log(message);
+            testWatcher()
+            $scope.init();
+
+            console.log(findDeep( $scope.dashboards[0].sections[0], message._id ));
+            $scope.dashboards[0].sections[0].panels = angular.fromJson(message);
+            var evens = _.filter([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+
+            //testWatcher()
+            $timeout(function(){
+            testWatcher()
+            }, 3000);
+         });
+         */
 
     });

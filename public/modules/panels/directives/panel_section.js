@@ -4,7 +4,7 @@ angular.module('app')
         return {
             scope:{
                 name:"@",
-                panel:"@"
+                section:"@"
             },
             restrict: 'E',
             replace: true,
@@ -16,19 +16,14 @@ angular.module('app')
                 '</div>',
             link: function postLink(scope, element, attrs) {
 
-                scope.$on('$destroy', function() {
-                  if(!interval) return;
-                  $interval.cancel(interval);
-                });
-
                 scope.editPanel = function(){
                     var modalInstance = $modal.open({
-                        templateUrl: '../modules/panels/views/panel_edit.html',
-                        controller: 'PanelEditCtrl',
+                        templateUrl: '../modules/sections/views/section_edit.html',
+                        controller: 'SectionEditCtrl',
                         size: 'lg',
                         resolve: {
                             panelId: function () {
-                                return scope.panel;
+                                return scope.section;
                             }
                         }
                     });
