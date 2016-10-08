@@ -41,6 +41,7 @@ exports.getAll = function (req, res, next) {
         .sort(JSON.parse(req.query.orderBy))
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
+        .populate('panels')
         .populate('sections')
         .exec(function (error, dashboards) {
             Dashboard
@@ -62,42 +63,37 @@ exports.getAllDashboards = function (req, res, next) {
     Dashboard
         .find({owner: req.user})
         //.find({organization: req.user.organization})
+        .populate('panels')
         .populate('sections')
         .populate('owner')
         .lean()
         .exec(function (error, dashboards) {
             if (error) { return res.send(400, error); }
 
-            Panel.populate(dashboards, {
-                path: 'sections.panels',
-                model: 'Panel'
-            },function (err) {
-                if (error) { return res.send(400, error); }
-
                 Sensor.populate(dashboards, {
-                    path: 'sections.panels.sensor',
+                    path: 'panels.sensor',
                     model: 'Sensor'
                 },function (err) {
                     if (error) { return res.send(400, error); }
 
                     Device.populate(dashboards, {
-                        path: 'sections.panels.device',
+                        path: 'panels.device',
                         model: 'Device'
                     },function (err) {
                         if (error) { return res.send(400, error); }
 
                         Camera.populate(dashboards, {
-                            path: 'sections.panels.camera',
+                            path: 'panels.camera',
                             model: 'Camera'
-                        },function (err, result) {
+                        },function (err) {
                             if (error) { return res.send(400, error); }
 
-                            return  res.send(200, result);
+                            return  res.send(200, dashboards);
                         });
 
                     });
                 });
-            });
+
         });
 }
 
@@ -105,6 +101,7 @@ exports.getFullById = function (req, res, next) {
 
     Dashboard
         .findOne({_id: req.params.id})
+        .populate('panels')
         .populate('sections')
         .exec(function (error, dashboard) {
             if (error) {
@@ -150,7 +147,7 @@ exports.remove = function (req, res, next) {
 
 exports.update = function (req, res, next) {
     delete req.body._id;
-	  req.body.sections = req.body.sections.length == 0? null : req.body.sections;
+	  req.body.panels = req.body.panels.length == 0? null : req.body.panels;
 
     Dashboard.update({_id: req.params.id}, req.body,{ runValidators: true }, function (error, dashboard) {
         if (error) return res.json(400, error);

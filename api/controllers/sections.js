@@ -44,25 +44,11 @@ exports.getAllSections = function (req, res, next) {
 
     Section
         .find({owner: req.user})
-        .populate({path: 'panels'})
-        .exec(function (error, docs) {
+        .exec(function (error, sections) {
             if (error) { return res.send(400, error); }
-
-            Sensor.populate(docs, {
-                path: 'panels.sensor',
-                model: 'Sensor'
-            },function (err, result) {
-                if (error) { return res.send(400, error); }
-
-                Sensor.populate(docs, {
-                    path: 'panels.device',
-                    model: 'Device'
-                },function (err, result) {
-                    if (error) { return res.send(400, error); }
-                    return  res.send(200, result);
-                });
-            });
+            return  res.send(200, sections);
         });
+
 };
 
 
@@ -91,7 +77,7 @@ exports.remove = function (req, res, next) {
 exports.update = function (req, res, next) {
 
 	delete req.body._id;
-	req.body.panels = req.body.panels.length == 0? null : req.body.panels;
+	//req.body.panels = req.body.panels.length == 0? null : req.body.panels;
 
 	Section.update({_id: req.params.id}, req.body, { runValidators: true }, function (error, section) {
 		if (error) return res.send(400, error);

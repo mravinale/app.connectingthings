@@ -3096,6 +3096,9 @@ a.text-black:hover {
 .wrapper-md {
   padding: 20px;
 }
+.wrapper-md-special{
+  margin-top: -40px;
+}
 .wrapper-lg {
   padding: 30px;
 }
