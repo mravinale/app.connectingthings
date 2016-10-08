@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app')
-    .controller('DashboardEditCtrl', function ($scope, $routeParams, dashboardService, sectionService, $location, $modalInstance, dashboardId) {
+    .controller('DashboardEditCtrl', function ($scope, $routeParams, dashboardService, sectionService, panelService, $location, $modalInstance, dashboardId) {
 
         $scope.dashboard = { };
 
@@ -30,9 +30,29 @@ angular.module('app')
                 });
         };
 
+        panelService.getAllPanels()
+            .success(function (response, status, headers, config) {
+                var nonSelectedPanels = _.filter(response, function(panel){ return _.isUndefined(panel.dashboards) });
+                if(_.isEmpty($scope.dashboard.panels)){
+                    $scope.panels =  nonSelectedPanels;
+                } else {
+                    var selectedDashboardPanels = _.map($scope.dashboard.panels, function(panelId){ return _.where(response, {_id: panelId})[0] });
+                    $scope.panels =  _.union(nonSelectedPanels, selectedDashboardPanels);
+                }
+
+                // console.log( $scope.panels);
+            })
+            .error(function(response, status, headers, config) {
+                angular.forEach(response.errors, function(error, field) {
+                    form[field].$setValidity('mongoose', false);
+                    $scope.errors[field] = error.message;
+                });
+            });
+
         sectionService.getAllSections()
             .success(function (response, status, headers, config) {
-                $scope.sections = response;
+                debugger
+                $scope.sections =  response;
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

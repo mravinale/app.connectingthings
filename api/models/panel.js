@@ -7,15 +7,16 @@ var mongoose = require('mongoose'),
 var PanelSchema = new Schema({
   _id: { type: String },
   name: { type: String, required: true },
+  sensor: { type: String, ref: 'Sensor', default: null },
   device: { type: String, ref: 'Device', default: null },
   camera: { type: String, ref: 'Camera', default: null },
-  sensor: { type: String, ref: 'Sensor', default: null },
+  section: { type: String, ref: 'Section', default: null },
   type: { type: String, required: true  },
   owner: { type: String, ref: 'User'},
   isPublic: { type: Boolean,  default: true },
   organization: { type: String, ref: 'Organization' },
   sizeX: { type: Number, default: 2 },
-  sizeY: { type: Number, default: 1 },
+  sizeY: { type: Number, default: 4 },
   row: { type: Number, default: null },
   col: { type: Number, default: null }
 
@@ -35,12 +36,16 @@ PanelSchema.path('camera').validate(function(camera){
     if(this && this.type === "camera" && !camera) return false;
 }, 'Path `camera` is required.');
 
+PanelSchema.path('section').validate(function(section){
+    if(this && this.type === "section" && !section) return false;
+}, 'Path `section` is required.');
+
 PanelSchema.path('device').validate(function(device){
-    if(this && this.type !== "camera" && !device) return false;
+    if(this && (this.type !== "camera" && this.type !== "section") && !device) return false;
 }, 'Path `device` is required.');
 
 PanelSchema.path('sensor').validate(function(sensor){
-    if(this && this.type !== "camera" && !sensor) return false;
+    if(this && (this.type !== "camera" && this.type !== "section") && !sensor) return false;
 }, 'Path `sensor` is required.');
 
 mongoose.model('Panel', PanelSchema);
