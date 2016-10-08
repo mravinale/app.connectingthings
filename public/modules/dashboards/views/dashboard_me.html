@@ -3,16 +3,36 @@
 </div-->
 
 <div id="page-wrapper" >
-    <div class="wrapper bg-white b-b">
-        <ul class="nav nav-pills nav-sm">
-            <li ng-repeat="dashboard in dashboards" ng-class="{ active:tab === '{{dashboard.name}}' }">
-                <a href ng-click="setTab(dashboard.name)"> {{dashboard.name}}</a>
-            </li>
-        </ul>
+    <div class="wrapper bg-white b-b" style="height: 60px" ng-mouseover="showOptions=true" ng-mouseleave="showOptions=false">
+        <div style="float:left;">
+            <ul class="nav nav-pills nav-sm">
+
+                <li ng-repeat="dashboard in dashboards" ng-class="{ active:tab.name === '{{dashboard.name}}' }">
+                    <a href ng-click="setTab(dashboard)"> {{dashboard.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="dashboard_options" style="float:left; padding: 3px 10px;font-size: 20px" ng-show="showOptions" >
+            <div class="btn-group" >
+                <li type="button" class="dropdown hidden-sm" style="list-style:none;">
+                    <a href class="dropdown-toggle ng-binding" data-toggle="dropdown" aria-haspopup="true" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-cog fa-fw"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-left animated fadeInRight">
+                        <li>
+                            <a href ng-click="addDashboard()" >Add Dashboard</a>
+                        </li>
+                        <li>
+                            <a href ng-click="editDashboard()" >Edit Dashboard</a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
     </div>
 
     <div class="wrapper-md-special" >
-         <div ng-repeat="dashboard in dashboards" ng-show="tab === '{{dashboard.name}}'">
+         <div ng-repeat="dashboard in dashboards" ng-show="tab.name === '{{dashboard.name}}'">
              <div ng-model="dashboard.items" gridster="gridsterOpts">
                     <div ng-repeat="item in dashboard.items" >
                         <div class="gridster-correction">

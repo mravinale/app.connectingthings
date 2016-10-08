@@ -1,14 +1,21 @@
 'use strict';
 angular.module('app')
-    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope,socket,$timeout) {
+    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope,$modal,$timeout) {
 
         $scope.dashboards = [];
         $scope.items = [];
-        $scope.tab = null;
+        $scope.tab = {name:null,id:null};
+        $scope.showOptions = false;
 
-        $scope.setTab = function(id){
-            $scope.tab = id;
+        $scope.setTab = function(dashboard){
+            $scope.tab.name = dashboard.name;
+            $scope.tab.id = dashboard._id;
             $scope.init();
+        };
+
+        $scope.toggleView = function(){
+            console.log($scope.showOptions)
+            $scope.showOptions = !$scope.showOptions;
         };
 
         $scope.init = function(){
@@ -22,7 +29,8 @@ angular.module('app')
                 _.each( $scope.dashboards, function(dashboard){
                     dashboard.items = _.union(dashboard.panels, dashboard.sections);
                 });
-                $scope.tab = $scope.tab? $scope.tab : response[0].name;
+                $scope.tab.name = $scope.tab.name? $scope.tab.name : response[0].name;
+                $scope.tab.id = $scope.tab.id? $scope.tab.id : response[0]._id;
 
             })
             .error(function(response, status, headers, config) {
@@ -72,7 +80,7 @@ angular.module('app')
 
             if(!delta || !_.values(delta)[0] || ! _.values(delta)[0].items ) return;
 
-            var sections = _.where(cleanedNewItems,{name: $scope.tab})[0].sections;
+            var sections = _.where(cleanedNewItems,{name: $scope.tab.name})[0].sections;
             if(!sections) return;
 
             var sectionChanged = _.values(delta)[0].sections;
@@ -88,7 +96,7 @@ angular.module('app')
                 });
             }
 
-            var panels = _.where(cleanedNewItems,{name: $scope.tab})[0].panels;
+            var panels = _.where(cleanedNewItems,{name: $scope.tab.name})[0].panels;
             if(!panels) return;
 
             var panelChanged = _.values(delta)[0].panels;
@@ -105,6 +113,43 @@ angular.module('app')
             }
 
       }, true);
+
+
+    $scope.editDashboard = function(){
+        var modalInstance = $modal.open({
+            templateUrl: '../modules/dashboards/views/dashboard_edit.html',
+            controller: 'DashboardEditCtrl',
+            size: 'lg',
+            resolve: {
+                dashboardId: function () {
+                    return $scope.tab.id;
+                }
+            }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.init();
+        }, function () {
+            $log.info('editDashboard dismissed at: ' + new Date());
+        });
+
+    };
+
+        $scope.addDashboard = function(){
+            var modalInstance = $modal.open({
+                templateUrl: '../modules/dashboards/views/dashboard_add.html',
+                controller: 'DashboardAddCtrl',
+                size: 'lg'
+            });
+
+            modalInstance.result.then(function () {
+                $scope.init();
+            }, function () {
+                $log.info('addDashboard dismissed at: ' + new Date());
+            });
+
+        };
+
 
      // watcher();
       $scope.init();

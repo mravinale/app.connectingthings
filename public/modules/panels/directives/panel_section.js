@@ -10,10 +10,10 @@ angular.module('app')
             replace: true,
             template:
                 '<div class="row" >'+
-                    '<div class="col-lg-12">'+
-                        '<h3 class="row-header" style="cursor:move" >{{name }}'+
-                            '<span class="section_options" style="display: none;margin-left: 20px">'+
-                                '<div class="btn-group">'+
+                    '<div class="col-lg-12" ng-mouseover="showOptions=true" ng-mouseleave="showOptions=false">'+
+                        '<h3 class="row-header" style="cursor:move" >{{name}}'+
+                            '<span class="section_options" ng-show="showOptions"  style="margin-left: 20px" >'+
+                                '<div class="btn-group" style="font-size: 20px" >'+
                                     '<li type="button" class="dropdown hidden-sm" style="list-style:none;">'+
                                         '<a href class="dropdown-toggle ng-binding" data-toggle="dropdown" aria-haspopup="true" aria-haspopup="true" aria-expanded="false"> ' +
                                             '<i class="fa fa-cog fa-fw"></i>'+
@@ -31,6 +31,7 @@ angular.module('app')
                 '</div>',
             link: function postLink(scope, element, attrs) {
 
+                scope.showOptions = false;
                 scope.editSection = function(){
                     var modalInstance = $modal.open({
                         templateUrl: '../modules/sections/views/section_edit.html',
@@ -50,15 +51,6 @@ angular.module('app')
                     });
 
                 };
-
-                $(element).hover(
-                    function() {
-                        $( ".section_options" ).css("display","");
-                    }, function() {
-                        $( ".section_options" ).css("display","none");;
-                    }
-                );
-
 
             }
         };
