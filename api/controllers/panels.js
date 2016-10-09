@@ -23,7 +23,11 @@ exports.create = function (req, res, next) {
       },
       function(panel, result, callback) {
         req.user.statistics.panels++;
-        User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
+        User.update({_id: req.user._id}, { statistics: req.user.statistics }, function(err, result){
+            if (err) return callback(err);
+
+            callback(null, panel)
+        });
       }
     ], function (err, result) {
       if (err) return res.send(400, err);
@@ -125,7 +129,7 @@ exports.update = function (req, res, next) {
     if(req.body.type !== "camera" && !req.body.device){
       result.errors.device = {message: 'Path `device` is required.'}
     }
-    if(req.body.type !== "camera" && req.body.type !== "section" && !req.body.sensor){
+    if(req.body.type !== "camera" && !req.body.sensor){
       result.errors.sensor = {message: 'Path `sensor` is required.'}
     }
 

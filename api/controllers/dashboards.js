@@ -23,7 +23,11 @@ exports.create = function (req, res, next) {
       },
       function(dashboard, result, callback) {
         req.user.statistics.dashboards++;
-        User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
+        User.update({_id: req.user._id}, { statistics: req.user.statistics }, function(err, result){
+            if (err) return callback(err);
+
+            callback(null, dashboard)
+        });
       }
     ], function (err, result) {
       if (err) return res.send(400, err);

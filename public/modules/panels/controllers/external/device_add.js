@@ -1,16 +1,19 @@
 'use strict';
 
 angular.module('app')
-    .controller('PanelSensorAddCtrl', function ($scope, sensorService,$location) {
+    .controller('PanelDeviceAddCtrl', function ($scope,$rootScope, deviceService, sensorService, $filter,$location) {
 
         var alert = null;
-        $scope.sensor = { };
+        $scope.device = { name:"" };
 
+        $scope.$watch('device.name', function() {
+            $scope.device.name = $filter('lowercase')($scope.device.name);
+        });
 
         $scope.save = function(form) {
             $scope.errors = {};
 
-            sensorService.create($scope.sensor)
+            deviceService.create($scope.device)
                 .success(function (response, status, headers, config) {
                     $location.path('/app/panel/list').search('id', 1);
                 })
@@ -26,9 +29,19 @@ angular.module('app')
 
         };
 
+        sensorService.getAllSensors()
+            .success(function (response, status, headers, config) {
+                $scope.sensors = response;
+            })
+            .error(function(response, status, headers, config) {
+                angular.forEach(response.errors, function(error, field) {
+                    form[field].$setValidity('mongoose', false);
+                    $scope.errors[field] = error.message;
+                });
+            });
+
         $scope.goBack = function(){
             $location.path('/app/panel/list').search('id', 1);
         }
-
 
     });

@@ -1,8 +1,10 @@
 
+
 <div id="page-wrapper">
 
     <div class="col-lg-12">
-        <h2 class="page-header">New Dashboard</h2>
+        <h2 class="page-header">Create a new device</h2>
+        <alert-list></alert-list>
     </div>
 
     <div class="row">
@@ -17,9 +19,9 @@
                                 <div class="form-group" ng-class="{'has-error': form.name.$error.mongoose}">
                                     <label class="col-sm-2 control-label">Name</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="dashboard.name"
+                                        <input ng-model="device.name"
                                                class="form-control"
-                                               placeholder="Dashboard name"
+                                               placeholder="Device name"
                                                name="name"
                                                mongoose-error>
                                         <div class="error"
@@ -32,9 +34,9 @@
                                 <div class="form-group" ng-class="{'has-error': form.description.$error.mongoose}">
                                     <label class="col-sm-2 control-label">Description</label>
                                     <div class="col-sm-10">
-                                        <input ng-model="dashboard.description"
+                                        <input ng-model="device.description"
                                                class="form-control"
-                                               placeholder="Dashboard description"
+                                               placeholder="Device description"
                                                name="description"
                                                mongoose-error>
                                         <div class="error"
@@ -44,51 +46,51 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group" ng-class="{'has-error': form.panels.$error.mongoose}">
-                                    <label class="col-sm-2 control-label">Panels</label>
+                                <!--div class="form-group">
+                                    <label class="col-sm-2 control-label">Protocol</label>
+                                    <div class="col-sm-10">
+                                        <select  ng-model="device.protocol" class="form-control" >
+                                            <option disabled="disabled" value="">Select a Protocol</option>
+                                            <option value="mqtt">MQTT</option>
+                                            <option value="http">HTTP</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div ng-show="device.protocol=='http'" class="form-group">
+                                    <label class="col-sm-2 control-label">Url</label>
+                                    <div class="col-sm-10">
+                                        <input ng-model="device.url" class="form-control" placeholder="Url">
+                                    </div>
+                                </div-->
+
+
+                                <div class="form-group" ng-class="{'has-error': form.sensors.$error.mongoose}">
+                                    <label class="col-sm-2 control-label">Sensors</label>
                                     <div class="col-sm-10">
                                         <select multiple
                                                 chosen
-                                                data-placeholder="Select a Panel"
-                                                no-results-text="'No Panels yet'"
-                                                ng-model="dashboard.panels"
-                                                ng-options="panel._id as panel.name for panel in panels"
+                                                data-placeholder="Select a Sensor"
+                                                no-results-text="'No Sensors yet'"
+                                                ng-model="device.sensors"
+                                                ng-options="sensor._id as sensor.name for sensor in sensors"
                                                 class="form-control"
-                                                name="panels"
-                                                mongoose-error>
+                                                name="sensors"
+                                                mongoose-error
+                                                >
                                             <option value=""></option>
                                         </select>
                                         <div class="error"
-                                             ng-show="form.panels.$error.mongoose">
-                                            {{ errors.panels }}
+                                             ng-show="form.sensors.$error.mongoose">
+                                            {{ errors.sensors }}
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group" ng-class="{'has-error': form.sections.$error.mongoose}">
-                                    <label class="col-sm-2 control-label">Sections</label>
-                                    <div class="col-sm-10">
-                                        <select multiple
-                                                chosen
-                                                data-placeholder="Select a Section"
-                                                no-results-text="'No Sections yet'"
-                                                ng-model="dashboard.sections"
-                                                ng-options="section._id as section.name for section in sections"
-                                                class="form-control"
-                                                name="sections"
-                                                mongoose-error>
-                                            <option value=""></option>
-                                        </select>
-                                        <div class="error"
-                                             ng-show="form.sections.$error.mongoose">
-                                            {{ errors.sections }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group"  style="padding-top: 20px">
+                                <div class="form-group" style="padding-top: 30px">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="button" ng-click="save(form)" class="btn btn-primary">Submit</button>
-                                        <a  ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
+                                        <button class="btn btn-primary" ng-click="save(form)" >Save and go back</button>
+                                        <button class="btn btn-danger" ng-click="goBack()">Back</button>
                                     </div>
                                 </div>
 

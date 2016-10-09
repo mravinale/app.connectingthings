@@ -1,16 +1,24 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-    .controller('PanelAddCtrl', function ($scope, panelService, deviceService, cameraService, sectionService, $location, $modalInstance ) {
+    .controller('PanelAddCtrl', function ($scope, panelService, deviceService, cameraService, $location) {
 
         $scope.panel = { isPublic: true };
+
+        $scope.addSensor = function(){
+            $location.path('/app/panel/list').search('id', 2);
+        };
+
+        $scope.addDevice = function(){
+            $location.path('/app/panel/list').search('id', 3);
+        };
 
         $scope.save = function(form) {
             $scope.errors = {};
 
             panelService.create($scope.panel)
                 .success(function(response, status, headers, config) {
-                    $scope.$cancel()
+                    $scope.cancel()
                 }).error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
@@ -42,16 +50,6 @@ angular.module('app')
                 $scope.panel.sensor = null;
                 $scope.panel.device = null;
                 $scope.panel.section = null;
-            }
-
-        });
-
-        $scope.$watch('panel.section', function(section) {
-
-            if(section) {
-                $scope.panel.sensor = null;
-                $scope.panel.device = null;
-                $scope.panel.camera = null;
             }
 
         });
@@ -88,19 +86,6 @@ angular.module('app')
                 });
             });
 
-        sectionService.getAllSections()
-            .success(function(response, status, headers, config) {
-                $scope.sections = response;
-            })
-            .error(function(response, status, headers, config) {
-                angular.forEach(response.errors, function(error, field) {
-                    form[field].$setValidity('mongoose', false);
-                    $scope.errors[field] = error.message;
-                });
-            });
 
-        $scope.cancel = function() {
-            $modalInstance.dismiss('cancel');
-        };
 
     });

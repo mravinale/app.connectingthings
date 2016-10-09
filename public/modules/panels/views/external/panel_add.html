@@ -42,7 +42,6 @@
                                             <option>switch</option>
                                             <option>camera</option>
                                             <option>led</option>
-                                            <option>section</option>
                                         </select>
                                         <div class="error"
                                              ng-show="form.type.$error.mongoose">
@@ -89,15 +88,20 @@
 
                                 <div class="form-group" ng-hide="panel.type==='camera' || panel.type==='section'" ng-class="{'has-error': form.device.$error.mongoose}">
                                     <label  class="col-sm-2 control-label">Device</label>
-                                    <div class="col-sm-10">
-                                        <select
-                                                ng-model="panel.device"
-                                                ng-options="device._id as device.name for device in devices"
-                                                class="form-control"
-                                                name="device"
-                                                mongoose-error>
-                                            <option value="" disabled>select a device</option>
-                                        </select>
+                                    <div >
+                                        <div class="col-sm-9 pull-left">
+                                            <select
+                                                    ng-model="panel.device"
+                                                    ng-options="device._id as device.name for device in devices"
+                                                    class="form-control"
+                                                    name="device"
+                                                    mongoose-error>
+                                                <option value="" disabled>select a device</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-1 pull-left">
+                                            <button type="button" ng-click="addDevice()" class="btn btn-primary">+</button>
+                                        </div>
                                         <div class="error"
                                              ng-show="form.device.$error.mongoose">
                                             {{ errors.device }}
@@ -107,16 +111,20 @@
 
                                 <div class="form-group" ng-hide="panel.type==='camera' || panel.type==='section'" ng-class="{'has-error': form.sensor.$error.mongoose}">
                                     <label  class="col-sm-2 control-label">Sensor</label>
-                                    <div class="col-sm-10">
-                                        <select
-                                                ng-model="panel.sensor"
-                                                ng-options="sensor._id as sensor.tag for sensor in sensors"
-                                                class="form-control"
-                                                name="sensor"
-                                                mongoose-error>
-                                            <option value="" disabled>select a sensor</option>
-                                        </select>
-                                        <button type="button" ng-click="$nextStep()" class="btn btn-primary">next</button>
+                                    <div >
+                                        <div class="col-sm-9 pull-left">
+                                            <select
+                                                    ng-model="panel.sensor"
+                                                    ng-options="sensor._id as sensor.tag for sensor in sensors"
+                                                    class="form-control"
+                                                    name="sensor"
+                                                    mongoose-error>
+                                                <option value="" disabled>select a sensor</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-1 pull-left">
+                                            <button type="button" ng-click="addSensor()" class="btn btn-primary">+</button>
+                                        </div>
                                         <div class="error"
                                              ng-show="form.sensor.$error.mongoose">
                                             {{ errors.sensor }}

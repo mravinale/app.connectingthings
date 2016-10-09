@@ -12,6 +12,7 @@ angular.module('app')
         };
 
 
+
         $scope.steps = [
             {
                 templateUrl: '/modules/panels/views/external/panel_add.html',
@@ -20,6 +21,10 @@ angular.module('app')
             {
                 templateUrl: '/modules/panels/views/external/sensor_add.html',
                 controller: 'PanelSensorAddCtrl'
+            },
+            {
+                templateUrl: '/modules/panels/views/external/device_add.html',
+                controller: 'PanelDeviceAddCtrl'
             }
 
         ];
