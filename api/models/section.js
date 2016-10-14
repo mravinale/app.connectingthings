@@ -12,6 +12,7 @@ var SectionSchema = new Schema({
   owner: { type: String, ref: 'User'},
   isPublic: { type: Boolean,  default: true },
   organization: { type: String, ref: 'Organization' },
+  dashboard: { type: String, ref: 'Dashboard', default: null },
     type: { type: String, default: "section"  },
     sizeX: { type: Number, default: 6 },
     sizeY: { type: Number, default: 1 },

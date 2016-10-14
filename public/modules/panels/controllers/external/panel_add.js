@@ -1,9 +1,9 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-    .controller('PanelAddCtrl', function ($scope, panelService, deviceService, cameraService, $location) {
+    .controller('PanelAddCtrl', function ($scope, panelService, deviceService, cameraService, dashboardService, $location, $localStorage) {
 
-        $scope.panel = { isPublic: true };
+        $scope.panel = { isPublic: true, dashboard: $localStorage.currentDashboard.id };
 
         $scope.addSensor = function(){
             $location.path('/app/panel/list').search('id', 2);
@@ -18,7 +18,7 @@ angular.module('app')
 
             panelService.create($scope.panel)
                 .success(function(response, status, headers, config) {
-                    $scope.cancel()
+                    $scope.$finish();
                 }).error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
@@ -86,6 +86,16 @@ angular.module('app')
                 });
             });
 
+        dashboardService.getAllDashboards()
+            .success(function(response, status, headers, config) {
+                $scope.dashboards = response;
+            })
+            .error(function(response, status, headers, config) {
+                angular.forEach(response.errors, function(error, field) {
+                    form[field].$setValidity('mongoose', false);
+                    $scope.errors[field] = error.message;
+                });
+            });
 
 
     });

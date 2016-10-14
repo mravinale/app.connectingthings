@@ -21,6 +21,24 @@ exports.create = function (req, res, next) {
       function(callback) {
         newDashboard.save(callback)
       },
+      function(dashboard, callback) {
+        async.each(req.body.panels, function(panelId, next) {
+          Panel.update({_id: panelId}, { $set: { dashboard:  dashboard._id } },{ runValidators: true }, next)
+        }, function(err){
+          if( err ) return callback(err);
+
+          callback(null, dashboard);
+      });
+      },
+      function(dashboard,callback) {
+        async.each(req.body.sections, function(sectionId, next) {
+          Section.update({_id: sectionId}, { $set: { dashboard: dashboard._id  } },{ runValidators: true }, next)
+        }, function(err){
+          if( err ) return callback(err);
+
+          callback(null, dashboard);
+        });
+      },
       function(dashboard, result, callback) {
         req.user.statistics.dashboards++;
         User.update({_id: req.user._id}, { statistics: req.user.statistics }, function(err, result){
@@ -153,9 +171,56 @@ exports.update = function (req, res, next) {
     delete req.body._id;
 	  req.body.panels = req.body.panels.length == 0? null : req.body.panels;
 
-    Dashboard.update({_id: req.params.id}, req.body,{ runValidators: true }, function (error, dashboard) {
-        if (error) return res.json(400, error);
+    async.waterfall([
+      function(callback) {
+        async.each(req.body.removedPanels, function(panelId, next) {
+          Panel.update({_id: panelId}, { $set: { dashboard: null } },{ runValidators: true }, next)
+        }, function(err){
+            if( err ) return callback(err);
 
-        return  res.json(dashboard);
+            callback();
+        });
+      },
+      function(callback) {
+        async.each(req.body.addedPanels, function(panelId, next) {
+          Panel.update({_id: panelId}, { $set: { dashboard:  req.params.id } },{ runValidators: true }, next)
+        }, function(err){
+          if( err ) return callback(err);
+
+          callback();
+        });
+      },
+      function(callback) {
+        async.each(req.body.removedSections, function(sectionId, next) {
+          Section.update({_id: sectionId}, { $set: { dashboard: null } },{ runValidators: true }, next)
+        }, function(err){
+          if( err ) return callback(err);
+
+          callback();
+        });
+      },
+      function(callback) {
+        async.each(req.body.addedSections, function(sectionId, next) {
+          Section.update({_id: sectionId}, { $set: { dashboard: req.params.id  } },{ runValidators: true }, next)
+        }, function(err){
+          if( err ) return callback(err);
+
+          callback();
+        });
+      },
+      function(callback) {
+        Dashboard.update({_id: req.params.id}, req.body,{ runValidators: true }, function (err, dashboard) {
+          if (err) return callback(err);
+
+          callback(null, dashboard);
+        });
+      }
+    ], function (err, result) {
+      if (err) return res.send(400, err);
+
+      return res.send(200, result);
     });
+
+
+
 };

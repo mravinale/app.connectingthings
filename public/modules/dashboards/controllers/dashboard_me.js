@@ -31,6 +31,7 @@ angular.module('app')
                 });
                 $scope.tab.name = $scope.tab.name? $scope.tab.name : response[0].name;
                 $scope.tab.id = $scope.tab.id? $scope.tab.id : response[0]._id;
+                $localStorage.currentDashboard = $scope.tab;
 
             })
             .error(function(response, status, headers, config) {

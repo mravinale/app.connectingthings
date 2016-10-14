@@ -10,7 +10,7 @@ var PanelSchema = new Schema({
   sensor: { type: String, ref: 'Sensor', default: null },
   device: { type: String, ref: 'Device', default: null },
   camera: { type: String, ref: 'Camera', default: null },
-  section: { type: String, ref: 'Section', default: null },
+  dashboard: { type: String, ref: 'Dashboard', default: null },
   type: { type: String, required: true  },
   owner: { type: String, ref: 'User'},
   isPublic: { type: Boolean,  default: true },
@@ -36,9 +36,9 @@ PanelSchema.path('camera').validate(function(camera){
     if(this && this.type === "camera" && !camera) return false;
 }, 'Path `camera` is required.');
 
-PanelSchema.path('section').validate(function(section){
-    if(this && this.type === "section" && !section) return false;
-}, 'Path `section` is required.');
+PanelSchema.path('dashboard').validate(function(dashboard){
+    if(this && this.type === "dashboard" && !dashboard) return false;
+}, 'Path `dashboard` is required.');
 
 PanelSchema.path('device').validate(function(device){
     if(this && (this.type !== "camera" && this.type !== "section") && !device) return false;

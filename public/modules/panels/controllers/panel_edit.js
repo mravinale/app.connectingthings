@@ -1,13 +1,14 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-    .controller('PanelEditCtrl', function ($scope, $routeParams, panelService, deviceService, sectionService, cameraService, $location, $modalInstance , panelId) {
+    .controller('PanelEditCtrl', function ($scope, $routeParams, panelService, dashboardService, deviceService, cameraService, $location, $modalInstance , $localStorage, panelId) {
 
         $scope.panel = { };
 
         panelService.getById(panelId)
             .success(function(response, status, headers, config) {
                 $scope.panel = response
+                $scope.panel.dashboard = $localStorage.currentDashboard.id
             }).error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
                     form[field].$setValidity('mongoose', false);
@@ -36,17 +37,16 @@ angular.module('app')
             });
           });
 
-        sectionService.getAllSections()
-            .success(function(response, status, headers, config) {
-                $scope.sections = response;
-            })
-            .error(function(response, status, headers, config) {
-                angular.forEach(response.errors, function(error, field) {
-                    form[field].$setValidity('mongoose', false);
-                    $scope.errors[field] = error.message;
-                });
-            });
-
+      dashboardService.getAllDashboards()
+        .success(function(response, status, headers, config) {
+          $scope.dashboards = response;
+        })
+        .error(function(response, status, headers, config) {
+          angular.forEach(response.errors, function(error, field) {
+            form[field].$setValidity('mongoose', false);
+            $scope.errors[field] = error.message;
+          });
+        });
 
         $scope.save = function(form) {
             $scope.errors = {};
@@ -80,17 +80,6 @@ angular.module('app')
             if(camera) {
                 $scope.panel.sensor = null;
                 $scope.panel.device = null;
-                $scope.panel.section = null;
-            }
-
-        });
-
-        $scope.$watch('panel.section', function(section) {
-
-            if(section) {
-                $scope.panel.sensor = null;
-                $scope.panel.device = null;
-                $scope.panel.camera = null;
             }
 
         });
@@ -99,7 +88,6 @@ angular.module('app')
 
             if(sensor) {
                 $scope.panel.camera = null;
-                $scope.panel.section = null;
             }
 
         });

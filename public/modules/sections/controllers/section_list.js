@@ -71,7 +71,7 @@ angular.module('app')
             });
         };
 
-        $scope.delete =  function(device){
+        $scope.delete =  function(section){
 
           SweetAlert.swal({
               title: "Are you sure?",
@@ -83,7 +83,7 @@ angular.module('app')
             },
             function(isConfirm) {
               if (isConfirm) {
-                sectionService.remove(device._id)
+                sectionService.remove(section._id)
                   .success(function (response, status, headers, config) {
                     $scope.tableParams.reload();
                   })
