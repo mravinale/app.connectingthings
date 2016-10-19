@@ -124,17 +124,19 @@ exports.remove = function (req, res, next) {
         Panel.remove({ _id: req.params.id }, callback)
       },
       function(result, callback) {
+        req.user.statistics.panels--;
+        User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
+      },
+      function(result, callback) {
+        if(!panelToRemove.dashboard) callback({message: "No dashboard relation for panel "+panelToRemove._id});
         Dashboard.findOne({ _id: panelToRemove.dashboard }).lean().exec(callback);
       },
       function(dashboard, callback) {
         delete dashboard._id;
         dashboard.panels = _.reject(dashboard.panels, function(panelId){ return panelToRemove._id == panelId });
         Dashboard.update({_id: panelToRemove.dashboard}, dashboard,{ runValidators: true }, callback);
-      },
-      function(result, callback) {
-        req.user.statistics.panels--;
-        User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
       }
+
     ], function (err, result) {
       if (err) return res.send(400, err);
 

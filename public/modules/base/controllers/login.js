@@ -46,5 +46,6 @@ angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessi
       });
     };
 
+
     $scope.init();
 });

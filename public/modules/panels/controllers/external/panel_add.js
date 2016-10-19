@@ -5,12 +5,14 @@ angular.module('app')
 
         $scope.panel = { isPublic: true, dashboard: $localStorage.currentDashboard.id };
 
+        var params =  $location.search();
+
         $scope.addSensor = function(){
-            $location.path('/app/panel/list').search('id', 2);
+            $location.search({id: 2, deviceId: $scope.panel.device });
         };
 
         $scope.addDevice = function(){
-            $location.path('/app/panel/list').search('id', 3);
+            $location.search('id', 3);
         };
 
         $scope.save = function(form) {
@@ -35,7 +37,7 @@ angular.module('app')
             deviceService.getFullById(deviceId)
                 .success(function(response, status, headers, config) {
                     $scope.sensors = response.sensors;
-                    $scope.panel.sensor = $scope.sensors[0]? $scope.sensors[0]._id : null;
+                    $scope.panel.sensor = params.sensorId? params.sensorId : ($scope.sensors[0] ? $scope.sensors[0]._id : null);
                 }).error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
@@ -66,7 +68,7 @@ angular.module('app')
         deviceService.getAllDevices()
             .success(function(response, status, headers, config) {
                 $scope.devices = response;
-                $scope.panel.device = $scope.devices[0]?  $scope.devices[0]._id : null;
+                $scope.panel.device = params.deviceId? params.deviceId : ($scope.devices[0] ? $scope.devices[0]._id : null);
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {

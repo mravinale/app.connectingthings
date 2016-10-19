@@ -5,7 +5,7 @@
 //http://www.foscam.es/descarga/ipcam_cgi_sdk.pdf
 'use strict';
 angular.module('app')
-    .directive('panelCamera', function (socket, $http, $interval,$modal,$log,$rootScope) {
+    .directive('panelCamera', function (socket, $http, $interval, $modal, $log, $rootScope, SweetAlert, panelService) {
         return {
             scope:{
                 name:"@",
@@ -28,6 +28,7 @@ angular.module('app')
                                     '<ul class="dropdown-menu dropdown-menu-right animated fadeInRight">'+
 
                                         '<li><a href ng-click="editPanel()" >Edit Panel</a></li>'+
+                                        '<li><a href ng-click="deletePanel()" >Delete Panel</a></li>'+
                                         '<li class="divider"></li>'+
                                         '<li><a href ng-click="reload()" class="glyphicon glyphicon-refresh" > Reload</a></li>'+
                                         '<li><a href ng-mousedown="moveUp()" ng-mouseup="stopUp()" class="glyphicon glyphicon-arrow-up" > Move Up</a></li>'+
@@ -171,7 +172,26 @@ angular.module('app')
                     });
 
                 };
-
+                scope.deletePanel = function(){
+                    SweetAlert.swal({
+                          title: "Are you sure?",
+                          text: "Your will not be able to recover this panel!",
+                          type: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, delete it!",
+                          cancelButtonText: "No, cancel please!"
+                      },
+                      function(isConfirm) {
+                          if (isConfirm) {
+                              panelService.remove(scope.panel)
+                                .success(function (response, status, headers, config) {
+                                    $rootScope.$broadcast('reload-myDashboard');
+                                }).error(function (response, status, headers, config) {
+                                  $log.info('error deleting the panel');
+                              });
+                          }
+                      });
+                };
 
             }
         };

@@ -22,10 +22,11 @@ DashboardSchema.pre('save', function (next) {
     next();
 });
 
+/*
 DashboardSchema.path('panels').validate(function(panels){
     if(!panels) return false;
     return panels.length !== 0;
 }, 'Required at least one element');
-
+*/
 
 mongoose.model('Dashboard', DashboardSchema);

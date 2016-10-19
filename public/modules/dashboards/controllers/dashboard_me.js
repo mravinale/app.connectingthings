@@ -1,10 +1,10 @@
 'use strict';
 angular.module('app')
-    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope,$modal,$timeout) {
+    .controller('MyDashboardCtrl', function ($scope, panelService, sectionService, $localStorage, dashboardService, $rootScope, $modal, $log, SweetAlert) {
 
         $scope.dashboards = [];
         $scope.items = [];
-        $scope.tab = {name:null,id:null};
+        $scope.tab = { name:null, id:null };
         $scope.showOptions = false;
 
         $scope.setTab = function(dashboard){
@@ -26,8 +26,10 @@ angular.module('app')
             dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
                 $scope.dashboards = response;
+
                 _.each( $scope.dashboards, function(dashboard){
-                    dashboard.items = _.union(dashboard.panels, dashboard.sections);
+                    var items = _.union(dashboard.panels, dashboard.sections);
+                    dashboard.items = items.length <= 0?  [{}] : items;
                 });
                 $scope.tab.name = $scope.tab.name? $scope.tab.name : response[0].name;
                 $scope.tab.id = $scope.tab.id? $scope.tab.id : response[0]._id;
@@ -116,25 +118,25 @@ angular.module('app')
       }, true);
 
 
-    $scope.editDashboard = function(){
-        var modalInstance = $modal.open({
-            templateUrl: '../modules/dashboards/views/dashboard_edit.html',
-            controller: 'DashboardEditCtrl',
-            size: 'lg',
-            resolve: {
-                dashboardId: function () {
-                    return $scope.tab.id;
+        $scope.editDashboard = function(){
+            var modalInstance = $modal.open({
+                templateUrl: '../modules/dashboards/views/dashboard_edit.html',
+                controller: 'DashboardEditCtrl',
+                size: 'lg',
+                resolve: {
+                    dashboardId: function () {
+                        return $scope.tab.id;
+                    }
                 }
-            }
-        });
+            });
 
-        modalInstance.result.then(function () {
-            $scope.init();
-        }, function () {
-            $log.info('editDashboard dismissed at: ' + new Date());
-        });
+            modalInstance.result.then(function () {
+                $scope.init();
+            }, function () {
+                $log.info('editDashboard dismissed at: ' + new Date());
+            });
 
-    };
+        };
 
         $scope.addDashboard = function(){
             var modalInstance = $modal.open({
@@ -151,9 +153,62 @@ angular.module('app')
 
         };
 
+        $scope.addPanel = function () {
+          var modalInstance = $modal.open({
+            templateUrl: '../modules/panels/views/panel_add_container.html',
+            controller: 'PanelAddContainerCtrl',
+            size: 'lg'
+          });
 
-     // watcher();
-      $scope.init();
+          modalInstance.result.then(function () {
+            $scope.init();
+          }, function () {
+            $log.info('newDashboard dismissed at: ' + new Date());
+          });
+        };
+
+      $scope.addSection = function () {
+        var modalInstance = $modal.open({
+          templateUrl: '../modules/sections/views/section_add.html',
+          controller: 'SectionAddCtrl',
+          size: 'lg'
+        });
+
+        modalInstance.result.then(function () {
+          $scope.init();
+        }, function () {
+          $log.info('newSection dismissed at: ' + new Date());
+        });
+      };
+
+
+      $scope.deleteDashboard = function(){
+        SweetAlert.swal({
+            title: "Are you sure?",
+            text: "Your will not be able to recover this dashboard!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel please!"
+          },
+          function(isConfirm) {
+            if (isConfirm) {
+
+              dashboardService.remove($scope.tab.id)
+                .success(function (response, status, headers, config) {
+                  $scope.setTab($scope.dashboards[0]);
+                  $scope.init();
+                })
+                .error(function (response, status, headers, config) {
+                  $log.info('deleted dashboard dismissed at: ' + new Date());
+                });
+            }
+          });
+
+      };
+
+       // watcher();
+        $scope.init();
 
         /* TODO: realtime dashboard items update
          var toggleWatch = function(watchExpr, fn) {

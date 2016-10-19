@@ -21,7 +21,7 @@ exports.create = function (req, res, next) {
       function(callback) {
         newDashboard.save(callback)
       },
-      function(dashboard, callback) {
+      function(dashboard, result, callback) {
         async.each(req.body.panels, function(panelId, next) {
           Panel.update({_id: panelId}, { $set: { dashboard:  dashboard._id } },{ runValidators: true }, next)
         }, function(err){
@@ -30,7 +30,7 @@ exports.create = function (req, res, next) {
           callback(null, dashboard);
       });
       },
-      function(dashboard,callback) {
+      function(dashboard, callback) {
         async.each(req.body.sections, function(sectionId, next) {
           Section.update({_id: sectionId}, { $set: { dashboard: dashboard._id  } },{ runValidators: true }, next)
         }, function(err){
@@ -39,7 +39,7 @@ exports.create = function (req, res, next) {
           callback(null, dashboard);
         });
       },
-      function(dashboard, result, callback) {
+      function(dashboard, callback) {
         req.user.statistics.dashboards++;
         User.update({_id: req.user._id}, { statistics: req.user.statistics }, function(err, result){
             if (err) return callback(err);

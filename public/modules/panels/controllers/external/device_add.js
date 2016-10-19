@@ -15,7 +15,7 @@ angular.module('app')
 
             deviceService.create($scope.device)
                 .success(function (response, status, headers, config) {
-                    $location.path('/app/panel/list').search('id', 1);
+                    $location.search( {id: 1, deviceId: response._id} );
                 })
                 .error(function(response, status, headers, config) {
                     if(!response.errors && response.message){
@@ -29,19 +29,9 @@ angular.module('app')
 
         };
 
-        sensorService.getAllSensors()
-            .success(function (response, status, headers, config) {
-                $scope.sensors = response;
-            })
-            .error(function(response, status, headers, config) {
-                angular.forEach(response.errors, function(error, field) {
-                    form[field].$setValidity('mongoose', false);
-                    $scope.errors[field] = error.message;
-                });
-            });
 
         $scope.goBack = function(){
-            $location.path('/app/panel/list').search('id', 1);
+            $location.search('id', 1);
         }
 
     });

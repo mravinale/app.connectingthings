@@ -23,7 +23,7 @@ exports.create = function (req, res, next) {
         },
         function(dashboard, callback) {
             delete dashboard._id;
-            dashboard.panels.push(newSection._id);
+            dashboard.sections.push(newSection._id);
             Dashboard.update({_id: newSection.dashboard}, dashboard,{ runValidators: true }, callback);
         }
     ], function (err, result) {
@@ -69,7 +69,6 @@ exports.getAllSections = function (req, res, next) {
 
 };
 
-
 exports.getById = function (req, res, next) {
 
     Section.findOne({_id: req.params.id})
@@ -93,6 +92,7 @@ exports.remove = function (req, res, next) {
             Section.remove({ _id: req.params.id },callback);
         },
         function(result, callback) {
+            if(!sectionToRemove.dashboard) callback({message: "No dashboard relation for section "+sectionToRemove._id});
             Dashboard.findOne({ _id: sectionToRemove.dashboard }).lean().exec(callback);
         },
         function(dashboard, callback) {
