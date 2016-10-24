@@ -21,7 +21,6 @@ angular.module('app')
                                         '<ul class="dropdown-menu dropdown-menu-right animated fadeInLeft">'+
                                             '<li>' +
                                                 '<a href ng-click="editSection()" >Edit Section</a>' +
-
                                             '</li>'+
                                             '<li><a href ng-click="deleteSection()" >Delete Section</a></li>'+
                                         '</ul>'+
@@ -34,6 +33,7 @@ angular.module('app')
             link: function postLink(scope, element, attrs) {
 
                 scope.showOptions = false;
+
                 scope.editSection = function(){
                     var modalInstance = $modal.open({
                         templateUrl: '../modules/sections/views/section_edit.html',

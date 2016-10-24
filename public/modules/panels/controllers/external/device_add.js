@@ -6,6 +6,8 @@ angular.module('app')
         var alert = null;
         $scope.device = { name:"" };
 
+        var params =  $location.search();
+
         $scope.$watch('device.name', function() {
             $scope.device.name = $filter('lowercase')($scope.device.name);
         });
@@ -15,7 +17,9 @@ angular.module('app')
 
             deviceService.create($scope.device)
                 .success(function (response, status, headers, config) {
-                    $location.search( {id: 1, deviceId: response._id} );
+                    params.id = 1;
+                    params.deviceId = response._id;
+                    $location.search( params );
                 })
                 .error(function(response, status, headers, config) {
                     if(!response.errors && response.message){
@@ -30,8 +34,8 @@ angular.module('app')
         };
 
 
-        $scope.goBack = function(){
-            $location.search('id', 1);
-        }
+          $scope.goBack = function(){
+              $location.search('id', 1);
+          }
 
     });

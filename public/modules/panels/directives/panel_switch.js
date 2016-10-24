@@ -118,22 +118,22 @@ angular.module('app')
                 };
 
                 scope.editPanel = function(){
-                    var modalInstance = $modal.open({
-                        templateUrl: '../modules/panels/views/panel_edit.html',
-                        controller: 'PanelEditCtrl',
-                        size: 'lg',
-                        resolve: {
-                            panelId: function () {
-                                return scope.panel;
-                            }
-                        }
-                    });
+                  var modalInstance = $modal.open({
+                    templateUrl: '../modules/panels/views/panel_edit_container.html',
+                    controller: 'PanelEditContainerCtrl',
+                    size: 'lg',
+                    resolve: {
+                      panelId: function () {
+                        return scope.panel;
+                      }
+                    }
+                  });
 
-                    modalInstance.result.then(function () {
-                        $rootScope.$broadcast('reload-myDashboard');
-                    }, function () {
-                        $log.info('editDashboard dismissed at: ' + new Date());
-                    });
+                  modalInstance.result.then(function () {
+                    $rootScope.$broadcast('reload-myDashboard');
+                  }, function () {
+                    $log.info('editPanel dismissed at: ' + new Date());
+                  });
                 };
 
               scope.deletePanel = function(){

@@ -155,8 +155,8 @@ angular.module('app')
 
                 scope.editPanel = function(){
                     var modalInstance = $modal.open({
-                        templateUrl: '../modules/panels/views/panel_edit.html',
-                        controller: 'PanelEditCtrl',
+                        templateUrl: '../modules/panels/views/panel_edit_container.html',
+                        controller: 'PanelEditContainerCtrl',
                         size: 'lg',
                         resolve: {
                             panelId: function () {
@@ -168,10 +168,10 @@ angular.module('app')
                     modalInstance.result.then(function () {
                         $rootScope.$broadcast('reload-myDashboard');
                     }, function () {
-                        $log.info('editDashboard dismissed at: ' + new Date());
+                        $log.info('editPanel dismissed at: ' + new Date());
                     });
-
                 };
+
                 scope.deletePanel = function(){
                     SweetAlert.swal({
                           title: "Are you sure?",

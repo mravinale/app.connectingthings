@@ -55,8 +55,8 @@ angular.module('app')
     $scope.editPanel = function (panelId) {
 
         var modalInstance = $modal.open({
-            templateUrl: 'panel_edit',
-            controller: 'PanelEditCtrl',
+            templateUrl: '../modules/panels/views/panel_edit_container.html',
+            controller: 'PanelEditContainerCtrl',
             size: 'lg',
             resolve: {
                 panelId: function () {
