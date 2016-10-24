@@ -48,7 +48,11 @@ exports.create = function (req, res, next) {
       },
       function(device, result, callback) {
         req.user.statistics.devices++;
-        User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
+        User.update({_id: req.user._id}, { statistics: req.user.statistics },  function(err, result){
+            if (err) return callback(err);
+
+            callback(null, device)
+        });
       }
     ], function (err, result) {
       if (err) return res.send(400, err);

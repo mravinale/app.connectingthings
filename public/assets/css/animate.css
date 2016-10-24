@@ -1096,3 +1096,48 @@
 	backface-visibility: visible !important;
 	animation-name: flipInY;
 }
+
+.sliding-steps main,
+.sliding-steps main .well {
+	margin: 0;
+}
+.sliding-steps main {
+	position: relative;
+	margin-bottom: 1rem;
+	overflow: hidden;
+}
+
+.sliding-steps main .well {
+	position: absolute;
+	width: 100%;
+}
+
+.sliding-steps .form-step.ng-enter, .sliding-steps .form-step.ng-leave {
+	-webkit-transition: transform .3s ease-in-out;
+	transition: transform .3s ease-in-out;
+}
+.sliding-steps .step-forward .form-step.ng-enter {
+	transform: translateX(100%);
+}
+.sliding-steps .step-forward .form-step.ng-enter.ng-enter-active {
+	transform: translateX(0);
+}
+.sliding-steps .step-forward .form-step.ng-leave {
+	/*transform: translateX(100%);*/
+}
+.sliding-steps .step-forward .form-step.ng-leave.ng-leave-active {
+	transform: translateX(-100%);
+}
+
+.sliding-steps .step-backward .form-step.ng-enter {
+	transform: translateX(-100%);
+}
+.sliding-steps .step-backward .form-step.ng-enter.ng-enter-active {
+	transform: translateX(0);
+}
+.sliding-steps .step-backward .form-step.ng-leave {
+	/*transform: translateX(100%);*/
+}
+.sliding-steps .step-backward .form-step.ng-leave.ng-leave-active {
+	transform: translateX(100%);
+}

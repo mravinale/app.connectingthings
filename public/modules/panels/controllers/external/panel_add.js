@@ -1,16 +1,26 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-    .controller('PanelAddCtrl', function ($scope, panelService, deviceService, cameraService, sectionService, $location, $modalInstance ) {
+    .controller('PanelAddCtrl', function ($scope, panelService, deviceService, cameraService, dashboardService, $location, $localStorage) {
 
-        $scope.panel = { isPublic: true };
+        $scope.panel = { isPublic: true, dashboard: $localStorage.currentDashboard.id };
+
+        var params =  $location.search();
+
+        $scope.addSensor = function(){
+            $location.search({id: 2, deviceId: $scope.panel.device });
+        };
+
+        $scope.addDevice = function(){
+            $location.search('id', 3);
+        };
 
         $scope.save = function(form) {
             $scope.errors = {};
 
             panelService.create($scope.panel)
                 .success(function(response, status, headers, config) {
-                    $modalInstance.close();
+                    $scope.$finish();
                 }).error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
@@ -27,7 +37,7 @@ angular.module('app')
             deviceService.getFullById(deviceId)
                 .success(function(response, status, headers, config) {
                     $scope.sensors = response.sensors;
-                    $scope.panel.sensor = $scope.sensors[0]? $scope.sensors[0]._id : null;
+                    $scope.panel.sensor = params.sensorId? params.sensorId : ($scope.sensors[0] ? $scope.sensors[0]._id : null);
                 }).error(function(response, status, headers, config) {
                     angular.forEach(response.errors, function(error, field) {
                         form[field].$setValidity('mongoose', false);
@@ -46,16 +56,6 @@ angular.module('app')
 
         });
 
-        $scope.$watch('panel.section', function(section) {
-
-            if(section) {
-                $scope.panel.sensor = null;
-                $scope.panel.device = null;
-                $scope.panel.camera = null;
-            }
-
-        });
-
         $scope.$watch('panel.sensor', function(sensor) {
 
             if(sensor) {
@@ -68,7 +68,7 @@ angular.module('app')
         deviceService.getAllDevices()
             .success(function(response, status, headers, config) {
                 $scope.devices = response;
-                $scope.panel.device = $scope.devices[0]?  $scope.devices[0]._id : null;
+                $scope.panel.device = params.deviceId? params.deviceId : ($scope.devices[0] ? $scope.devices[0]._id : null);
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -88,9 +88,9 @@ angular.module('app')
                 });
             });
 
-        sectionService.getAllSections()
+        dashboardService.getAllDashboards()
             .success(function(response, status, headers, config) {
-                $scope.sections = response;
+                $scope.dashboards = response;
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -99,8 +99,5 @@ angular.module('app')
                 });
             });
 
-        $scope.cancel = function() {
-            $modalInstance.dismiss('cancel');
-        };
 
     });

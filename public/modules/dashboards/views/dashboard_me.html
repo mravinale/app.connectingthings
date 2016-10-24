@@ -16,14 +16,31 @@
             <div class="btn-group" >
                 <li type="button" class="dropdown hidden-sm" style="list-style:none;">
                     <a href class="dropdown-toggle ng-binding" data-toggle="dropdown" aria-haspopup="true" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-plus fa-fw"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-left animated fadeInRight">
+                        <li>
+                            <a href ng-click="addPanel()" >Add Panel</a>
+                        </li>
+                        <li>
+                            <a href ng-click="addSection()" >Add Section</a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+        <div class="dashboard_options" style="float:left; padding: 3px 3px;font-size: 20px" ng-show="showOptions" >
+            <div class="btn-group" >
+                <li type="button" class="dropdown hidden-sm" style="list-style:none;">
+                    <a href class="dropdown-toggle ng-binding" data-toggle="dropdown" aria-haspopup="true" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-cog fa-fw"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-left animated fadeInRight">
                         <li>
-                            <a href ng-click="addDashboard()" >Add Dashboard</a>
+                            <a href ng-click="editDashboard()" >Edit Current Dashboard</a>
                         </li>
                         <li>
-                            <a href ng-click="editDashboard()" >Edit Dashboard</a>
+                            <a href ng-click="deleteDashboard()" >Delete Current Dashboard</a>
                         </li>
                     </ul>
                 </li>

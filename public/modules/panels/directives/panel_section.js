@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app')
-    .directive('panelSection', function (socket, $http, $interval, $modal, $log, $rootScope) {
+    .directive('panelSection', function (socket, $http, $interval, $modal, $log, $rootScope, SweetAlert, sectionService) {
         return {
             scope:{
                 name:"@",
@@ -22,6 +22,7 @@ angular.module('app')
                                             '<li>' +
                                                 '<a href ng-click="editSection()" >Edit Section</a>' +
                                             '</li>'+
+                                            '<li><a href ng-click="deleteSection()" >Delete Section</a></li>'+
                                         '</ul>'+
                                     '</li>'+
                                 '</div>'+
@@ -32,6 +33,7 @@ angular.module('app')
             link: function postLink(scope, element, attrs) {
 
                 scope.showOptions = false;
+
                 scope.editSection = function(){
                     var modalInstance = $modal.open({
                         templateUrl: '../modules/sections/views/section_edit.html',
@@ -50,6 +52,27 @@ angular.module('app')
                         $log.info('editDashboard dismissed at: ' + new Date());
                     });
 
+                };
+
+                scope.deleteSection = function(){
+                    SweetAlert.swal({
+                          title: "Are you sure?",
+                          text: "Your will not be able to recover this section!",
+                          type: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, delete it!",
+                          cancelButtonText: "No, cancel please!"
+                      },
+                      function(isConfirm) {
+                          if (isConfirm) {
+                              sectionService.remove(scope.section)
+                                .success(function (response, status, headers, config) {
+                                    $rootScope.$broadcast('reload-myDashboard');
+                                }).error(function (response, status, headers, config) {
+                                  $log.info('error deleting the panel');
+                              });
+                          }
+                      });
                 };
 
             }

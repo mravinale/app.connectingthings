@@ -2,11 +2,16 @@
 angular.module('app')
     .controller('DashboardEditCtrl', function ($scope, $routeParams, dashboardService, sectionService, panelService, $location, $modalInstance, dashboardId) {
 
-        $scope.dashboard = { };
+        $scope.dashboard = { addedPanels:[],removedPanels:[], addedSections:[], removedSections:[] };
+        var originalPanels = [];
+        var originalSections = [];
+
 
         dashboardService.getById(dashboardId)
             .success(function (response, status, headers, config) {
-                $scope.dashboard = response
+                $scope.dashboard = _.extend(response, $scope.dashboard);
+                originalPanels = angular.copy($scope.dashboard.panels);
+                originalSections = angular.copy($scope.dashboard.panels)
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -18,16 +23,23 @@ angular.module('app')
         $scope.save = function(form){
             $scope.errors = {};
 
+            $scope.dashboard.addedPanels = _.filter($scope.dashboard.panels, function(panel){ return !(_.contains(originalSections, panel));});
+            $scope.dashboard.removedPanels = _.filter(originalPanels, function(panel){ return !(_.contains($scope.dashboard.panels, panel));});
+
+            $scope.dashboard.addedSections = _.filter($scope.dashboard.sections, function(section){ return !(_.contains(originalSections, section));});
+            $scope.dashboard.removedSections = _.filter(originalSections, function(section){ return !(_.contains($scope.dashboard.panels, section));});
+
             dashboardService.update($scope.dashboard)
-                .success(function (response, status, headers, config) {
-                    $modalInstance.close();
-                })
-                .error(function(response, status, headers, config) {
-                    angular.forEach(response.errors, function(error, field) {
-                        form[field].$setValidity('mongoose', false);
-                        $scope.errors[field] = error.message;
-                    });
-                });
+                  .success(function (response, status, headers, config) {
+                      $modalInstance.close();
+                  })
+                  .error(function(response, status, headers, config) {
+                      angular.forEach(response.errors, function(error, field) {
+                          form[field].$setValidity('mongoose', false);
+                          $scope.errors[field] = error.message;
+                      });
+                  });
+
         };
 
         panelService.getAllPanels()
@@ -51,7 +63,7 @@ angular.module('app')
 
         sectionService.getAllSections()
             .success(function (response, status, headers, config) {
-                debugger
+
                 $scope.sections =  response;
             })
             .error(function(response, status, headers, config) {

@@ -71,4 +71,21 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
 
     };
 
+
+    $scope.addDashboard = function(){
+      var modalInstance = $modal.open({
+        templateUrl: '/modules/dashboards/views/dashboard_add.html',
+        controller: 'DashboardAddCtrl',
+        size: 'lg'
+      });
+
+      modalInstance.result.then(function () {
+        $rootScope.$broadcast('reload-myDashboard');
+      }, function () {
+        $log.info('addDashboard dismissed at: ' + new Date());
+      });
+
+    };
+
+
 });

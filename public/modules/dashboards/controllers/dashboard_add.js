@@ -3,7 +3,8 @@
 angular.module('app')
     .controller('DashboardAddCtrl', function ($scope, dashboardService, panelService, sectionService, $location, $modalInstance) {
 
-    $scope.dashboard = { };
+    $scope.dashboard = {  };
+
 
     $scope.save = function (form) {
         $scope.errors = {};
@@ -20,7 +21,7 @@ angular.module('app')
 
     };
 
-    panelService.getAllPanels()
+    panelService.getAllPanels() //TODO: use backedn filtering
         .success(function (response, status, headers, config) {
             var nonSelectedPanels = _.filter(response, function(panel){ return _.isUndefined(panel.dashboards) });
             if(_.isEmpty($scope.dashboard.panels)){
@@ -40,10 +41,9 @@ angular.module('app')
         });
 
 
-    sectionService.getAllSections()
+    sectionService.getAllSections()//TODO: use backedn filtering
         .success(function (response, status, headers, config) {
-            debugger
-         $scope.sections =  response;
+            $scope.sections =  response;
         })
         .error(function(response, status, headers, config) {
             angular.forEach(response.errors, function(error, field) {
@@ -51,8 +51,6 @@ angular.module('app')
                 $scope.errors[field] = error.message;
             });
         });
-
-
 
         $scope.cancel = function () {
         $modalInstance.dismiss('cancel');

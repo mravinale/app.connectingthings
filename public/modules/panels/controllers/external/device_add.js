@@ -1,18 +1,25 @@
 'use strict';
 
 angular.module('app')
-    .controller('TutorialSensorAddCtrl', function ($scope,$rootScope, sensorService) {
+    .controller('PanelDeviceAddCtrl', function ($scope,$rootScope, deviceService, sensorService, $filter,$location) {
 
         var alert = null;
-        $scope.sensor = { };
+        $scope.device = { name:"" };
+
+        var params =  $location.search();
+
+        $scope.$watch('device.name', function() {
+            $scope.device.name = $filter('lowercase')($scope.device.name);
+        });
 
         $scope.save = function(form) {
             $scope.errors = {};
 
-           sensorService.create($scope.sensor)
+            deviceService.create($scope.device)
                 .success(function (response, status, headers, config) {
-                  $rootScope.$broadcast('reload-tableParams');
-                  $scope.$nextStep();
+                    params.id = 1;
+                    params.deviceId = response._id;
+                    $location.search( params );
                 })
                 .error(function(response, status, headers, config) {
                     if(!response.errors && response.message){
@@ -26,16 +33,9 @@ angular.module('app')
 
         };
 
-    $scope.autocomplete = function(form) {
 
-      $scope.sensor = {
-        name: "Temperature",
-        tag: "temperature",
-        description:"Temperature Sensor Demo"
-      }
-
-    }
-
-
+          $scope.goBack = function(){
+              $location.search('id', 1);
+          }
 
     });

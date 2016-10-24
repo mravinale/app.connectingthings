@@ -1,8 +1,11 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+    _ = require('underscore'),
+    async = require('async'),
     Section = mongoose.model('Section'),
-    Sensor = mongoose.model('Sensor')
+    Sensor = mongoose.model('Sensor'),
+    Dashboard = mongoose.model('Dashboard')
 
 
 exports.create = function (req, res, next) {
@@ -10,11 +13,26 @@ exports.create = function (req, res, next) {
     newSection.owner = req.user;
     newSection.organization = req.user.organization;
 
-    newSection.save(function(error, section) {
-        if (error) { return res.send(400, error); }
+    async.waterfall([
 
-        return res.send(200, section);
+        function(callback) {
+            newSection.save(callback)
+        },
+        function(section, result, callback) {
+            Dashboard.findOne({ _id: newSection.dashboard }).lean().exec(callback);
+        },
+        function(dashboard, callback) {
+            delete dashboard._id;
+            dashboard.sections.push(newSection._id);
+            Dashboard.update({_id: newSection.dashboard}, dashboard,{ runValidators: true }, callback);
+        }
+    ], function (err, result) {
+        if (err) return res.send(400, err);
+
+        return res.send(200, newSection);
     });
+
+
 };
 
 exports.getAll = function (req, res, next) {
@@ -51,7 +69,6 @@ exports.getAllSections = function (req, res, next) {
 
 };
 
-
 exports.getById = function (req, res, next) {
 
     Section.findOne({_id: req.params.id})
@@ -64,20 +81,37 @@ exports.getById = function (req, res, next) {
 
 exports.remove = function (req, res, next) {
 
-    Section.remove({ _id: req.params.id }, function (error) { // TODO remove seems fussy
-        if (error) {
-            log.error(error);
-            res.send(400, error);
-        } else {
-            res.send(200);
+    var sectionToRemove = null;
+    async.waterfall([
+
+        function(callback) {
+            Section.findOne({ _id: req.params.id }).lean().exec(callback);
+        },
+        function(section, callback) {
+            sectionToRemove = section;
+            Section.remove({ _id: req.params.id },callback);
+        },
+        function(result, callback) {
+            if(!sectionToRemove.dashboard) callback({message: "No dashboard relation for section "+sectionToRemove._id});
+            Dashboard.findOne({ _id: sectionToRemove.dashboard }).lean().exec(callback);
+        },
+        function(dashboard, callback) {
+            delete dashboard._id;
+            dashboard.sections = _.reject(dashboard.sections, function(sectionId){ return sectionToRemove._id == sectionId });
+            Dashboard.update({_id: sectionToRemove.dashboard}, dashboard,{ runValidators: true }, callback);
         }
+    ], function (err, result) {
+        if (err) return res.send(400, err);
+
+        return res.send(200, sectionToRemove);
     });
+
+
 };
 
 exports.update = function (req, res, next) {
 
 	delete req.body._id;
-	//req.body.panels = req.body.panels.length == 0? null : req.body.panels;
 
 	Section.update({_id: req.params.id}, req.body, { runValidators: true }, function (error, section) {
 		if (error) return res.send(400, error);

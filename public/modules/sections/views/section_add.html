@@ -42,6 +42,27 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group"  ng-class="{'has-error': form.dashboard.$error.mongoose}">
+                                    <label  class="col-sm-2 control-label">Dashboard</label>
+                                    <div class="col-sm-10 pull-left">
+                                        <div >
+                                            <select
+                                                    ng-model="section.dashboard"
+                                                    ng-options="dashboard._id as dashboard.name for dashboard in dashboards"
+                                                    class="form-control"
+                                                    name="dashboard"
+                                                    mongoose-error>
+                                                <option value="" disabled>select a dashboard</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="error"
+                                             ng-show="form.dashboard.$error.mongoose">
+                                            {{ errors.dashboard }}
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="form-group" ng-hide="currentUser.accountType == 'Free'">
                                     <label class="col-sm-2 control-label">Public View Enabled</label>
                                     <div class="col-sm-10">
