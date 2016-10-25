@@ -5,7 +5,7 @@ angular.module('app')
         $scope.dashboards = [];
         $scope.items = [];
         $scope.tab = { name:null, id:null };
-        $scope.showOptions = false;
+        $scope.dashStyle = {color:'rgba(0,0,0,.075)'};
 
         $scope.setTab = function(dashboard){
             $scope.tab.name = dashboard.name;

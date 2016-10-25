@@ -10,12 +10,12 @@ angular.module('app')
             replace: true,
             template:
                 '<div class="row" >'+
-                    '<div class="col-lg-12" ng-mouseover="showOptions=true" ng-mouseleave="showOptions=false">'+
+                    '<div class="col-lg-12" ng-mouseover="panelStyle=dark" ng-mouseleave="panelStyle=grey">'+
                         '<h3 class="row-header" style="cursor:move" >{{name}}'+
-                            '<span class="section_options" ng-show="showOptions"  style="margin-left: 20px" >'+
+                            '<span class="section_options"  style="margin-left: 20px" >'+
                                 '<div class="btn-group" style="font-size: 20px" >'+
-                                    '<li type="button" class="dropdown hidden-sm" style="list-style:none;">'+
-                                        '<a href class="dropdown-toggle ng-binding" data-toggle="dropdown" aria-haspopup="true" aria-haspopup="true" aria-expanded="false"> ' +
+                                    '<li type="button" class="dropdown hidden-sm">'+
+                                        '<a href class="dropdown-toggle ng-binding" ng-style="panelStyle" data-toggle="dropdown" aria-haspopup="true" aria-haspopup="true" aria-expanded="false"> ' +
                                             '<i class="fa fa-cog fa-fw"></i>'+
                                         '</a>'+
                                         '<ul class="dropdown-menu dropdown-menu-right animated fadeInLeft">'+
@@ -32,7 +32,11 @@ angular.module('app')
                 '</div>',
             link: function postLink(scope, element, attrs) {
 
-                scope.showOptions = false;
+                scope.panelStyle = {color:'rgba(0,0,0,0)'};
+
+                scope.grey= {color:'rgba(0,0,0, 0)'};
+                scope.dark= {color:'rgba(0,0,0,.35)'};
+
 
                 scope.editSection = function(){
                     var modalInstance = $modal.open({
