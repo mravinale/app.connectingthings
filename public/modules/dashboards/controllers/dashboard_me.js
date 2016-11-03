@@ -5,7 +5,8 @@ angular.module('app')
         $scope.dashboards = [];
         $scope.items = [];
         $scope.tab = { name:null, id:null };
-        $scope.showOptions = false;
+        $scope.dashStyle = {color:'rgba(0,0,0,.075)'};
+        $scope.areOptionsEnabled = true;
 
         $scope.setTab = function(dashboard){
             $scope.tab.name = dashboard.name;
@@ -14,15 +15,11 @@ angular.module('app')
         };
 
         $scope.toggleView = function(){
-            console.log($scope.showOptions)
             $scope.showOptions = !$scope.showOptions;
         };
 
         $scope.init = function(){
-           /* _.each($scope.dashboards, function(dashboard){
-                dashboard.sections.length = 0
-            });
-            */
+
             dashboardService.getAllDashboards()
             .success(function (response, status, headers, config) {
                 $scope.dashboards = response;

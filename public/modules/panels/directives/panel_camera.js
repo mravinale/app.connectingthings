@@ -17,13 +17,13 @@ angular.module('app')
             restrict: 'E',
             replace: true,
             template:
-                ' <div class="panel panel-default">' +
+                ' <div class="panel panel-default" ng-mouseover="panelCogStyle=dark" ng-mouseleave="panelCogStyle=grey">' +
                     '<div class="panel-heading">'+
                         '<i ></i> {{name}}'+
-                        '<div class="pull-right">'+
+                        '<div class="pull-right" ng-if="areOptionsEnabled">'+
                             '<div class="btn-group">'+
                                 '<li type="button" class="dropdown hidden-sm" style="list-style:none;">'+
-                                    '<a href class="dropdown-toggle ng-binding" data-toggle="dropdown" aria-haspopup="true"  aria-haspopup="true"  aria-expanded="false"> <i class="fa fa-cog fa-fw"></i> </a>'+
+                                    '<a href class="dropdown-toggle ng-binding" data-toggle="dropdown" ng-style="panelCogStyle" aria-haspopup="true"  aria-haspopup="true"  aria-expanded="false"> <i class="fa fa-cog fa-fw"></i> </a>'+
 
                                     '<ul class="dropdown-menu dropdown-menu-right animated fadeInRight">'+
 
@@ -45,6 +45,10 @@ angular.module('app')
                     '</div>'+
                 '</div>' ,
             link: function postLink(scope, element, attrs) {
+
+                scope.panelCogStyle = {color:'rgba(0,0,0,0)'};
+                scope.grey= {color:'rgba(0,0,0, 0)'};
+                scope.dark= {color:'rgba(0,0,0,.35)'};
 
                 scope.stream = '/assets/img/noSignal.png';
                 var stream = scope.url+"/videostream.cgi?user="+ scope.login +"&pwd="+ scope.password + '&cb=' + new Date().getTime();
