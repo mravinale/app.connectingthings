@@ -13,7 +13,7 @@ angular.module('app')
                     '<div class="col-lg-12" ng-mouseover="panelStyle=dark" ng-mouseleave="panelStyle=grey">'+
                         '<h3 class="row-header" style="cursor:move" >{{name}}'+
                             '<span class="section_options"  style="margin-left: 20px" >'+
-                                '<div class="btn-group" style="font-size: 20px" >'+
+                                '<div class="btn-group" style="font-size: 20px" ng-if="areOptionsEnabled">'+
                                     '<li type="button" class="dropdown hidden-sm">'+
                                         '<a href class="dropdown-toggle ng-binding" ng-style="panelStyle" data-toggle="dropdown" aria-haspopup="true" aria-haspopup="true" aria-expanded="false"> ' +
                                             '<i class="fa fa-cog fa-fw"></i>'+

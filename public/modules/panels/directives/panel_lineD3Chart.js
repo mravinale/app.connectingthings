@@ -18,13 +18,13 @@ angular.module('app')
             restrict: 'E',
             replace: true,
             template:
-                ' <div class="panel panel-default">' +
+                ' <div class="panel panel-default" ng-mouseover="panelCogStyle=dark" ng-mouseleave="panelCogStyle=grey">' +
                     '<div class="panel-heading">'+
                         '<i class="fa fa-bar-chart-o fa-fw"></i> {{name}}'+
-                        '<div class="pull-right">'+
+                        '<div class="pull-right" ng-if="areOptionsEnabled">'+
                             '<div class="btn-group">'+
                                 '<li type="button" class="dropdown hidden-sm" style="list-style:none;">'+
-                                    '<a href class="dropdown-toggle ng-binding" data-toggle="dropdown" aria-haspopup="true"  aria-haspopup="true"  aria-expanded="false"> <i class="fa fa-cog fa-fw"></i> </a>'+
+                                    '<a href class="dropdown-toggle ng-binding" ng-style="panelCogStyle" data-toggle="dropdown" aria-haspopup="true"  aria-haspopup="true"  aria-expanded="false"> <i class="fa fa-cog fa-fw"></i> </a>'+
                                     '<ul class="dropdown-menu dropdown-menu-right animated fadeInLeft">'+
                                         '<li><a href ng-click="editSensor()" >Edit Sensor</a></li>'+
                                         '<li><a href ng-click="editDevice()" >Edit Device</a></li>'+
@@ -59,6 +59,10 @@ angular.module('app')
 
                 var items = [];
                 var lastValue = null;
+
+                scope.panelCogStyle = {color:'rgba(0,0,0,0)'};
+                scope.grey= {color:'rgba(0,0,0, 0)'};
+                scope.dark= {color:'rgba(0,0,0,.35)'};
 
                 scope.values =[ { "values": [],"key": scope.name, color: '#26A69A' }];
                 messageService.getAllMessages(scope.topic)

@@ -3,7 +3,7 @@
 </div-->
 
 <div id="page-wrapper" >
-    <div class="wrapper bg-white b-b" style="height: 60px" ng-mouseover="dashStyle={color:'black'}" ng-mouseleave="dashStyle={color:'rgba(0,0,0,.075)'}">
+    <div class="wrapper bg-white b-b" ng-show="dashboards.length > 0" style="height: 60px" ng-mouseover="dashStyle={color:'black'}" ng-mouseleave="dashStyle={color:'rgba(0,0,0,.075)'}">
         <div style="float:left;">
             <ul class="nav nav-pills nav-sm">
 
@@ -12,7 +12,7 @@
                 </li>
             </ul>
         </div>
-        <div class="dashboard_options" style="float:left; padding: 2px 2px 1px 15px;font-size: 20px"  >
+        <div class="dashboard_options" style="float:left; padding: 2px 2px 1px 15px;font-size: 20px" ng-if="areOptionsEnabled" >
             <div class="btn-group" >
                 <li type="button" class="dropdown hidden-sm" style="list-style:none;">
                     <a href class="dropdown-toggle ng-binding" ng-style="dashStyle" data-toggle="dropdown" aria-haspopup="true" aria-haspopup="true" aria-expanded="false">
@@ -29,7 +29,7 @@
                 </li>
             </div>
         </div>
-        <div class="dashboard_options" style="float:left; padding: 2px 2px 6px 0px;font-size: 20px" >
+        <div class="dashboard_options" style="float:left; padding: 2px 2px 6px 0px;font-size: 20px" ng-if="areOptionsEnabled" >
             <div class="btn-group" >
                 <li type="button" class="dropdown hidden-sm" style="list-style:none;">
                     <a href class="dropdown-toggle ng-binding" ng-style="dashStyle" data-toggle="dropdown" aria-haspopup="true" aria-haspopup="true" aria-expanded="false">
