@@ -4,7 +4,7 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelGauge', function (socket, messageService, $modal, $log, $rootScope, SweetAlert, panelService) {
+    .directive('panelGauge', function (socket, messageService, $modal, $log, $rootScope, SweetAlert, panelService, $location) {
         return {
             scope:{
                 name:"@",
@@ -52,6 +52,7 @@ angular.module('app')
               scope.dark= {color:'rgba(0,0,0,.35)'};
 
               scope.gaugeValue = scope.initValue? scope.initValue : 0;
+              scope.areOptionsEnabled = $location.path() === "/app/dashboard/me";
 
               var items = [ ];
 

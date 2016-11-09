@@ -4,7 +4,7 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelInfo', function (socket, messageService, $modal, $log, $rootScope, SweetAlert, panelService) {
+    .directive('panelInfo', function (socket, messageService, $modal, $log, $rootScope, SweetAlert, panelService, $location) {
         return {
             scope:{
                 name:"@",
@@ -53,6 +53,7 @@ angular.module('app')
                 scope.panelCogStyle = {color:'rgba(0,0,0,0)'};
                 scope.grey= {color:'rgba(0,0,0, 0)'};
                 scope.dark= {color:'rgba(0,0,0,.35)'};
+                scope.areOptionsEnabled = $location.path() === "/app/dashboard/me";
 
                 messageService.getAllMessages(scope.topic)
                   .success(function (response, status, headers, config) {

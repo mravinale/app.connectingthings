@@ -5,7 +5,7 @@
 //http://www.foscam.es/descarga/ipcam_cgi_sdk.pdf
 'use strict';
 angular.module('app')
-    .directive('panelCamera', function (socket, $http, $interval, $modal, $log, $rootScope, SweetAlert, panelService) {
+    .directive('panelCamera', function (socket, $http, $interval, $modal, $log, $rootScope, SweetAlert, panelService, $location) {
         return {
             scope:{
                 name:"@",
@@ -50,6 +50,7 @@ angular.module('app')
                 scope.grey= {color:'rgba(0,0,0, 0)'};
                 scope.dark= {color:'rgba(0,0,0,.35)'};
 
+                scope.areOptionsEnabled = $location.path() === "/app/dashboard/me";
                 scope.stream = '/assets/img/noSignal.png';
                 var stream = scope.url+"/videostream.cgi?user="+ scope.login +"&pwd="+ scope.password + '&cb=' + new Date().getTime();
 

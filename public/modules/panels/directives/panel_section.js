@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app')
-    .directive('panelSection', function (socket, $http, $interval, $modal, $log, $rootScope, SweetAlert, sectionService) {
+    .directive('panelSection', function (socket, $http, $interval, $modal, $log, $rootScope, SweetAlert, sectionService, $location) {
         return {
             scope:{
                 name:"@",
@@ -36,7 +36,7 @@ angular.module('app')
 
                 scope.grey= {color:'rgba(0,0,0, 0)'};
                 scope.dark= {color:'rgba(0,0,0,.35)'};
-
+                scope.areOptionsEnabled = $location.path() === "/app/dashboard/me";
 
                 scope.editSection = function(){
                     var modalInstance = $modal.open({
