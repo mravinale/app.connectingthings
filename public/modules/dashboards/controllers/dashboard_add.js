@@ -23,15 +23,14 @@ angular.module('app')
 
     panelService.getAllPanels() //TODO: use backedn filtering
         .success(function (response, status, headers, config) {
-            var nonSelectedPanels = _.filter(response, function(panel){ return _.isUndefined(panel.dashboards) });
+
+            var nonSelectedPanels = _.filter(response, function(panel){ return _.isUndefined(panel.dashboard) });
             if(_.isEmpty($scope.dashboard.panels)){
                 $scope.panels =  nonSelectedPanels;
             } else {
                 var selectedDashboardPanels = _.map($scope.dashboard.panels, function(panelId){ return _.where(response, {_id: panelId})[0] });
                 $scope.panels =  _.union(nonSelectedPanels, selectedDashboardPanels);
             }
-
-            // console.log( $scope.panels);
         })
         .error(function(response, status, headers, config) {
             angular.forEach(response.errors, function(error, field) {
@@ -43,7 +42,14 @@ angular.module('app')
 
     sectionService.getAllSections()//TODO: use backedn filtering
         .success(function (response, status, headers, config) {
-            $scope.sections =  response;
+            var nonSelectedSections = _.filter(response, function(section){ return _.isUndefined(section.dashboard) });
+            if(_.isEmpty($scope.dashboard.sections)){
+                $scope.sections =  nonSelectedSections;
+            } else {
+                var selectedDashboardSections = _.map($scope.dashboard.sections, function(sectionId){ return _.where(response, {_id: sectionId})[0] });
+                $scope.sections =  _.union(nonSelectedSections, selectedDashboardSections);
+            }
+            
         })
         .error(function(response, status, headers, config) {
             angular.forEach(response.errors, function(error, field) {
