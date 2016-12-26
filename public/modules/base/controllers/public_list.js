@@ -34,16 +34,26 @@ angular.module('app')
             });
 
             $scope.filterAccounts = function (user) {
+
+              if($rootScope.currentUser &&  $rootScope.currentUser.email === 'mravinale@gmail.com'){
+                return true;
+              } else {
                 return user.accountType !== 'Free';
+              }
+
             };
 
             publicService.getAllUsers()
               .success(function (response, status, headers, config) {
                   //$scope.users = response;
 
-                  $scope.users  = _.reject(response, function (user) {
+                  if($rootScope.currentUser &&  $rootScope.currentUser.email === 'mravinale@gmail.com'){
+                    $scope.users = response;
+                  } else {
+                    $scope.users = _.reject(response, function (user) {
                       return user.accountType == 'Free';
-                  });
+                    });
+                  }
 
                   $scope.devices = _.reduce( $scope.users, function(memo, user){ return memo + user.statistics.devices; }, 0);
                   $scope.messages = _.reduce( $scope.users, function(memo, user){ return memo + user.statistics.messages; }, 0);

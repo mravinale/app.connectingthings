@@ -4,7 +4,7 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelInfo', function (socket, messageService, $modal, $log, $rootScope, SweetAlert, panelService, $location) {
+    .directive('panelInfo', function (socket, messageService, $modal, $log, $rootScope, SweetAlert, panelService, $location,psResponsive) {
         return {
             scope:{
                 name:"@",
@@ -36,7 +36,7 @@ angular.module('app')
                         '</div>'+
                      '</div>'+
                     '<div class="panel-body">'+
-                        '<div class="list-group"  style="overflow-y: auto;">'+
+                        '<div class="list-group"  style="overflow-y: auto;min-height: 228px">'+
                             '<a href="#" class="list-group-item" ng-repeat="item in values.data">'+
                                 '<i class="fa fa-envelope fa-fw"></i> {{item.value}}{{label}}'+
                                 '<span class="pull-right text-muted small">'+
@@ -75,7 +75,8 @@ angular.module('app')
                 scope.$watch(
                   function () { return $(element).height(); },
                   function (newValue, oldValue) {
-                    if (newValue !== oldValue) {
+
+                    if (psResponsive('> small') && newValue !== oldValue) {
                       $(element.children()[1]).children().height( newValue - 80 )
                     }
                   }

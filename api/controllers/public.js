@@ -20,7 +20,7 @@ exports.getAllDashboards = function (req, res, next) {
 
 
           Dashboard
-            .find({owner: req.user})
+            .find({owner: user._id})
             //.find({organization: req.user.organization})
             .populate('panels')
             .populate('sections')
