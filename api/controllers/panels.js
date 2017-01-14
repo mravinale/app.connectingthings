@@ -195,8 +195,8 @@ exports.command = function (req, res, next) {
 
    // if(req.body.protocol == "mqtt"){
 
-        mqttClient.publish(req.body.topic, JSON.stringify(req.body.message), {retain: true});
-        return res.json({result: "ok"});
+   //     mqttClient.publish(req.body.topic, JSON.stringify(req.body.message), {retain: true});
+        return res.json({result: "no action, try mqtt"});
 
  //   }
 };

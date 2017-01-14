@@ -3,10 +3,142 @@
 angular.module('app')
     .controller('paymentCtrl', function ($scope, $rootScope, $modalInstance, userService, userId, alerts, StripeCheckout) {
 
+// https://developer.paypal.com/developer/accounts/
+        // https://github.com/paypal/paypal-checkout/blob/master/demo/angular.htm
+        $scope.bronzeOpts = {
+            env: 'sandbox',
+            client: {
+                sandbox:    'AYyvy0l6m77P_7kxM8WTRtoG3iEysrBU_IPfkNptk8fJOfoOAo0ndKCYm4nEKPsqJHZgkSeWst_zVN2W',
+                production: 'AYASyoowgmSMw064-bNvk6wTS6PafxrJmkvPmLTAqeMFKVUXg_BPEuW3XoJtRUl5sZxooWUDwagRZvds'
+            },
+            payment: function() {
+                var env    = this.props.env;
+                var client = this.props.client;
+                return paypal.rest.payment.create(env, client, {
+                    transactions: [
+                        {
+                            amount: { total: '5.00', currency: 'USD' }
+                        }
+                    ]
+                });
+            },
+            commit: true, // Optional: show a 'Pay Now' button in the checkout flow
+            onAuthorize: function(data, actions) {
+                // Optional: display a confirmation page here
+               // console.log(data);
+               // console.log(actions)
+                return actions.payment.execute().then(function() {
+                    console.log("Got payment token: " + data.paymentToken);
+
+                    $scope.user.stripeToken = data.paymentID;
+                    $scope.user.accountType = "Bronze";
+
+                    userService.update($scope.user)
+                    .success(function (response, status, headers, config) {
+                        $rootScope.currentUser.accountType = $scope.user.accountType;
+                        $modalInstance.close();
+                    })
+                    .error(function(response, status, headers, config) {
+                        console.log(response);
+                    });
+                });
+            }
+        };
+
+        $scope.silverOpts = {
+            env: 'sandbox',
+            client: {
+                sandbox:    'AYyvy0l6m77P_7kxM8WTRtoG3iEysrBU_IPfkNptk8fJOfoOAo0ndKCYm4nEKPsqJHZgkSeWst_zVN2W',
+                production: 'AYASyoowgmSMw064-bNvk6wTS6PafxrJmkvPmLTAqeMFKVUXg_BPEuW3XoJtRUl5sZxooWUDwagRZvds'
+            },
+            payment: function() {
+                var env    = this.props.env;
+                var client = this.props.client;
+                return paypal.rest.payment.create(env, client, {
+                    transactions: [
+                        {
+                            amount: { total: '10.00', currency: 'USD' }
+                        }
+                    ]
+                });
+            },
+            commit: true, // Optional: show a 'Pay Now' button in the checkout flow
+            onAuthorize: function(data, actions) {
+                // Optional: display a confirmation page here
+
+                // console.log(data);
+                // console.log(actions)
+                return actions.payment.execute().then(function() {
+                    console.log("Got payment token: " + data.paymentToken);
+
+                    $scope.user.stripeToken = data.paymentID;
+                    $scope.user.accountType = "Silver";
+
+                    userService.update($scope.user)
+                        .success(function (response, status, headers, config) {
+                            $rootScope.currentUser.accountType = $scope.user.accountType;
+                            $modalInstance.close();
+                        })
+                        .error(function(response, status, headers, config) {
+                            console.log(response);
+                        });
+                });
+
+            }
+        };
+
+
+        $scope.goldOpts = {
+            env: 'sandbox',
+            client: {
+                sandbox:    'AYyvy0l6m77P_7kxM8WTRtoG3iEysrBU_IPfkNptk8fJOfoOAo0ndKCYm4nEKPsqJHZgkSeWst_zVN2W',
+                production: 'AYASyoowgmSMw064-bNvk6wTS6PafxrJmkvPmLTAqeMFKVUXg_BPEuW3XoJtRUl5sZxooWUDwagRZvds'
+            },
+            payment: function() {
+                var env    = this.props.env;
+                var client = this.props.client;
+                return paypal.rest.payment.create(env, client, {
+                    transactions: [
+                        {
+                            amount: { total: '15.00', currency: 'USD' }
+                        }
+                    ]
+                });
+            },
+            commit: true, // Optional: show a 'Pay Now' button in the checkout flow
+            onAuthorize: function(data, actions) {
+                // Optional: display a confirmation page here
+                //console.log(data);
+                //console.log(actions)
+                return actions.payment.execute().then(function() {
+
+                    console.log("Got payment token: " + data.paymentToken);
+
+                    $scope.user.stripeToken = data.paymentID;
+                    $scope.user.accountType = "Silver";
+
+                    userService.update($scope.user)
+                        .success(function (response, status, headers, config) {
+                            $rootScope.currentUser.accountType = $scope.user.accountType;
+                            $modalInstance.close();
+                        })
+                        .error(function(response, status, headers, config) {
+                            console.log(response);
+                        });
+                });
+
+            }
+        };
+
+
+
+
         $scope.user = { };
         var alert = null;
         var handler = null;
 
+
+/*
         StripeCheckout.load()
             .then(function(result){
                 debugger;
@@ -24,7 +156,7 @@ angular.module('app')
                 console.log(response);
                 alert = alerts.create("An error has occurred, try again", 'danger');
             });
-
+*/
         userService.getById(userId)
             .success(function (response, status, headers, config) {
                 $scope.user = response;

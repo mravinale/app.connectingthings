@@ -37,7 +37,8 @@
     "angular-gridster": "^0.13.5",
     "angular-loading-bar": "^0.9.0",
     "angular-stripe-checkout": "^5.0.0",
-    "ng-bootstrap-alerts": "^1.1.1"
+    "ng-bootstrap-alerts": "^1.1.1",
+    "angular-mqtt": "^1.0.1"
   },
   "resolutions": {
     "d3": "~3.4.1",

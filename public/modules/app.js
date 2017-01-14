@@ -37,7 +37,9 @@ var app = angular.module('app', [
     'gridster',
     'angular-loading-bar',
     'stripe.checkout',
-    'ng-bootstrap-alerts'
+    'ng-bootstrap-alerts',
+    'paypal-button',
+    'ngMQTT'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',
@@ -48,8 +50,8 @@ var app = angular.module('app', [
   ]
 )
 .config(
-  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider','cfpLoadingBarProvider','StripeCheckoutProvider',
-    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider, cfpLoadingBarProvider,StripeCheckoutProvider) {
+  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider','cfpLoadingBarProvider','StripeCheckoutProvider','MQTTProvider',
+    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider, cfpLoadingBarProvider,StripeCheckoutProvider, MQTTProvider) {
         
         // lazy controller, directive and service
         app.controller = $controllerProvider.register;
@@ -58,6 +60,8 @@ var app = angular.module('app', [
         app.factory    = $provide.factory;
         app.service    = $provide.service;
         app.constant   = $provide.constant;
+
+        MQTTProvider.setHref('ws://'+window.location.host.split( ':' )[0]+':3001');
 
         StripeCheckoutProvider.defaults({
             key: "pk_test_agLRPGqaMYh95gLab6nsKlwu"
