@@ -141,7 +141,6 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/assets/js/angular/ui-bootstrap-tpls.min.js',
                       '<%= yeoman.app %>/assets/js/angular-ui.sorteable.js',
                       '<%= yeoman.app %>/assets/js/screenfull.min.js',
-                      '<%= yeoman.app %>/assets/js/angular-mqtt/src/browserMqtt.js',
 
                       '<%= yeoman.app %>/assets/js/screenfull.min.js',
                       '<%= yeoman.app %>/assets/js/ps-responsive.js',
@@ -160,15 +159,16 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js',
                       '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js',
                       '<%= yeoman.app %>/lib/angular-stripe-checkout/angular-stripe-checkout.js',
-                      '<%= yeoman.app %>/lib/ng-bootstrap-alerts/dist/index.min.js'
+                      '<%= yeoman.app %>/lib/ng-bootstrap-alerts/dist/index.min.js',
+                      '<%= yeoman.app %>/lib/angular-mqtt/src/browserMqtt.js',
+                      '<%= yeoman.app %>/modules/common/directives/angular-MQTT.js',
+                      '<%= yeoman.app %>/assets/js/paypal.js'
 
                 ]
                   },
                   {
                     dest: 'dist/js/vendor2.js',
                     src: [
-
-
                       '<%= yeoman.app %>/lib/socket.io-client/socket.io.js',
                       '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',
                       '<%= yeoman.app %>/lib/underscore/underscore.js',
@@ -188,7 +188,6 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/javascript-detect-element-resize/jquery.resize.js',
                       '<%= yeoman.app %>/lib/angular-gridster/dist/angular-gridster.min.js',
                       '<%= yeoman.app %>/lib/angular-loading-bar/build/loading-bar.min.js'
-
                     ]
                   },
                   {
@@ -265,7 +264,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/common/factories/websocket.js',
                       '<%= yeoman.app %>/modules/common/directives/gauge.js',
                       '<%= yeoman.app %>/modules/common/directives/lineChart.js',
-                      '<%= yeoman.app %>/modules/common/directives/angular-MQTT.js',
+
                       '<%= yeoman.app %>/modules/base/services/Public.js',
                       '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_sensor_add.js',
                       '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_device_add.js',
