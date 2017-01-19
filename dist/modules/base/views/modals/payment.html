@@ -57,11 +57,9 @@
                                                     </table>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <paypal-button env="bronzeOpts.env" client="bronzeOpts.client" payment="bronzeOpts.payment" commit="bronzeOpts.commit" on-authorize="bronzeOpts.onAuthorize"></paypal-button>
-
-                                                    <!--button ng-click="doBronzeCheckout()" ng-disabled="user.accountType =='Silver'" >
+                                                    <button ng-click="doBronzeCheckout()" ng-disabled="user.accountType =='Silver'" >
                                                         Pay with Card
-                                                    </button!-->
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,10 +99,10 @@
                                                     </table>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <paypal-button env="silverOpts.env" client="silverOpts.client" payment="silverOpts.payment" commit="silverOpts.commit" on-authorize="silverOpts.onAuthorize" ></paypal-button>
-                                                    <!--button ng-click="doSilverCheckout()" ng-disabled="user.accountType =='Silver'" >
+
+                                                    <button ng-click="doSilverCheckout()" ng-disabled="user.accountType =='Silver'" >
                                                         Pay with Card
-                                                    </button!-->
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -143,11 +141,10 @@
                                                     </table>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <paypal-button env="goldOpts.env" client="goldOpts.client" payment="goldOpts.payment" commit="goldOpts.commit" on-authorize="goldOpts.onAuthorize"></paypal-button>
-                                                  
-                                                    <!--button ng-click="doGoldCheckout()" ng-disabled="user.accountType =='Gold'">
+
+                                                    <button ng-click="doGoldCheckout()" ng-disabled="user.accountType =='Gold'">
                                                         Pay with Card
-                                                    </button!-->
+                                                    </button>
 
                                                 </div>
                                             </div>
