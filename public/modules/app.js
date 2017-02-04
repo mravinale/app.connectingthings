@@ -63,8 +63,10 @@ var app = angular.module('app', [
         MQTTProvider.setHref('ws://'+window.location.host.split( ':' )[0]+':3001');
 
         StripeCheckoutProvider.defaults({
+            //key:"pk_test_agLRPGqaMYh95gLab6nsKlwu"
             key: "pk_live_HUDm43LunKfEDyG1tdspWixx"
         });
+
 
         reCAPTCHAProvider.setOptions({
             theme: 'white'

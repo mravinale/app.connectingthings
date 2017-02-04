@@ -26,7 +26,8 @@ var UserSchema = new Schema({
   publicKey: String,
   publicUrl: String,
   publicAvatar: String,
-  stripeToken: String,
+  subscription: String,
+  customerId: String,
   accountType: { type: String, default: "Free" },
   statistics:{
     lastUpdate: { type: Date },
