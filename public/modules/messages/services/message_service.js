@@ -2,19 +2,20 @@
 
 angular.module('app').service('messageService', function ($http) {
 
-    this.getAll = function(params) {
+    this.getAll = function(params){
         var paramsToSend ={
             page: params.page() -1,
             count: params.count(),
             orderBy: params.sorting(),
-            search: params.filter().searchFilter
+            filter: {}
         }
 
-        return $http.get('/messages', { params : paramsToSend });
+        return $http.get('/messages', { params: paramsToSend });
     };
 
-    this.getAllMessages = function(){
-        return $http.get('/messages/items');
+    this.getAllMessages = function(param){
+
+        return $http.get('/messages/items', { params : {topic: param } });
     };
 
     this.getById = function(panelId){

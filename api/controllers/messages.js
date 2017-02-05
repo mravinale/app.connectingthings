@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose'),
     Message = mongoose.model('Message'),
+    async = require('async'),
+  User = mongoose.model('User'),
     moment = require('moment');
 
 
@@ -68,4 +70,22 @@ exports.getAllByUser = function (req, res, next) {
         });
 };
 
+
+exports.remove = function (req, res, next) {
+
+    async.waterfall([
+        function(callback) {
+            Message.remove({ _id: req.params.id }, callback)
+        },
+        function(result, callback) {
+            req.user.statistics.messages--;
+            User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
+        }
+    ], function (err, result) {
+        if (err) return res.send(400, err);
+
+        return res.send(200, result);
+    });
+
+};
 

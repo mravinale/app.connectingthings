@@ -256,6 +256,17 @@ var app = angular.module('app', [
                 controller: 'UserListCtrl'
             })
 
+            //message
+            .state('app.message', {
+                url: '/message',
+                template: '<div ui-view class="fade-in-right"></div>'
+            })
+            .state('app.message.list', {
+                url:'/list',
+                templateUrl: 'modules/messages/views/message_list.html',
+                controller: 'MessageListCtrl'
+            })
+
             //organization
             .state('app.organization', {
                 url: '/organization',
