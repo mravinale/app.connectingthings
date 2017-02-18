@@ -14,7 +14,7 @@ RUN 	    sudo apt-get -y install build-essential nodejs python ca-certificates w
                 xvfb php5-curl curl libxrender1 libfontconfig1 xorg libssl-dev \
                 fontconfig libjpeg8 xfonts-75dpi libjpeg-turbo8 git-all \
                 && npm install -g n \
-                && n 0.10.26 \
+                && n 0.10.36 \
                 && npm install -g node-gyp \
                 && npm install pm2 -g --no-optional \
                 && npm install -g grunt-cli \
