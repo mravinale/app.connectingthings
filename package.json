@@ -21,7 +21,7 @@
     "node-uuid": "1.4.x",
     "passport": "~0.1.15",
     "passport-local": "~0.1.6",
-    "ponte": "0.0.16",
+    "ponte": "git+https://mravinale:system1407@github.com/mravinale/ponte.git",
     "redis": "^2.6.0-1",
     "request": "^2.58.0",
     "route-parser": "0.0.4",

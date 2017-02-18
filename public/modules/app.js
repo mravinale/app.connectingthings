@@ -60,7 +60,7 @@ var app = angular.module('app', [
         app.service    = $provide.service;
         app.constant   = $provide.constant;
 
-        MQTTProvider.setHref('ws://'+window.location.host.split( ':' )[0]+':3001');
+        MQTTProvider.setHref('wss://'+window.location.host.split( ':' )[0]+':3001');
 
         StripeCheckoutProvider.defaults({
             //key:"pk_test_agLRPGqaMYh95gLab6nsKlwu"

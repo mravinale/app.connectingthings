@@ -10,8 +10,9 @@ var mongoose = require('mongoose'),
 exports.getAll = function (req, res, next) {
 
     Message
-        .find({topic: req.query.topic})
-        .sort({name: 'asc'})
+        .find({key: req.user.key})
+        .or([{topic: new RegExp(req.query.search, "i")}, {value: new RegExp(req.query.search, "i") }])
+        .sort(JSON.parse(req.query.orderBy))
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
         .exec(function (error, messages) {

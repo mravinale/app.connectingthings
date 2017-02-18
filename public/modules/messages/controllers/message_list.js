@@ -15,7 +15,7 @@ angular.module('app')
                 page: 1,            // show first page
                 count: 10,          // count per page
                 sorting: {
-                    name: 'asc'     // initial sorting
+                    topic: 'asc'     // initial sorting
                 },
                 filter: $scope.filters
             },{
