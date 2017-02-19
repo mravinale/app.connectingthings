@@ -38,7 +38,8 @@ var app = angular.module('app', [
     'angular-loading-bar',
     'stripe.checkout',
     'ng-bootstrap-alerts',
-    'ngMQTT'
+    'ngMQTT',
+    'ngTableToCsv'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',

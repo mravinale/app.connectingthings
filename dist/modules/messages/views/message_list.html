@@ -17,9 +17,15 @@
                                   </span>
                         </div>
                     </div>
-                    <div class="col-sm-6 m-b-xs">
-                    </div>
+                    <div class="col-sm-7 m-b-xs">
 
+                    </div>
+                    <div class="col-sm-1 m-b-xs">
+                        <a class="btn" title="Export Table" ng-click='csv.generate()' ng-href="{{ csv.link() }}"
+                           download="myTable.csv">
+                            <i class="glyphicon glyphicon-new-window"></i> &#160;Export
+                        </a>
+                    </div>
                 </div>
             </form>
         </div>
@@ -28,7 +34,8 @@
                     <div class="table-responsive" loading-container="tableParams.settings().$loading">
                         <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
 
-                            <table  ng-table="tableParams" class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+
+                            <table  ng-table="tableParams" export-csv="csv" separator=";" class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
                                 <tbody>
                                     <tr ng-repeat="message in $data" >
                                         <td data-title="'Topic'" sortable="'topic'">{{message.topic}}</td>
