@@ -12,9 +12,9 @@ RUN	        sudo apt-get -y install software-properties-common \
 # Install node from repo, then install node package manager and switch version
 RUN 	    sudo apt-get -y install build-essential nodejs python ca-certificates wget curl \
                 xvfb php5-curl curl libxrender1 libfontconfig1 xorg libssl-dev \
-                fontconfig libjpeg8 xfonts-75dpi libjpeg-turbo8 \
+                fontconfig libjpeg8 xfonts-75dpi libjpeg-turbo8 git-all \
                 && npm install -g n \
-                && n 0.10.26 \
+                && n 0.12.18 \
                 && npm install -g node-gyp \
                 && npm install pm2 -g --no-optional \
                 && npm install -g grunt-cli \

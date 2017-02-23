@@ -3096,6 +3096,9 @@ a.text-black:hover {
 .wrapper-md {
   padding: 20px;
 }
+.wrapper-md-special{
+  margin-top: -40px;
+}
 .wrapper-lg {
   padding: 30px;
 }
@@ -3896,4 +3899,23 @@ a.text-black:hover {
 
 .error{
     color:#f05050
+}
+
+.panel-selected {
+  border-color: #bce8f1;
+  opacity: 0.4;
+}
+.panel-selected > .panel-heading {
+  color: #cfdadd;
+  border-color: #cfdadd;
+}
+.panel-selected > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #bce8f1;
+}
+.panel-selected > .panel-heading .badge {
+  color: #d9edf7;
+  background-color: grey;
+}
+.panel-selected > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #bce8f1;
 }

@@ -110,6 +110,7 @@ module.exports = function(app) {
     var messages = require('../controllers/messages');
     app.get('/messages', auth.ensureAuthenticated, messages.getAll);
     app.get('/messages/items', messages.getAllMessages); //TODO: We need to secure this
+    app.del('/messages/:id', auth.ensureAuthenticated, messages.remove);
 
     // Organization Routes
     var organizations = require('../controllers/organizations');

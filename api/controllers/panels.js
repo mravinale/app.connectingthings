@@ -2,13 +2,13 @@
 
 var mongoose = require('mongoose'),
     async = require('async'),
+    _ = require('underscore'),
     Panel = mongoose.model('Panel'),
-    Section = mongoose.model('Section'),
+    Dashboard = mongoose.model('Dashboard'),
     mqtt = require('mqtt'),
     mqttClient = mqtt.connect({ port: 1883, host: 'localhost'}),
     Client = require('node-rest-client').Client,
     User = mongoose.model('User'),
-    reversePopulate =require('mongoose-reverse-populate'),
     client = new Client();
 
 exports.create = function (req, res, next) {
@@ -17,17 +17,26 @@ exports.create = function (req, res, next) {
     newPanel.organization = req.user.organization;
 
     async.waterfall([
+
       function(callback) {
         newPanel.save(callback)
       },
       function(panel, result, callback) {
+        Dashboard.findOne({ _id: newPanel.dashboard }).lean().exec(callback);
+      },
+      function(dashboard, callback) {
+        delete dashboard._id;
+        dashboard.panels.push(newPanel._id);
+        Dashboard.update({_id: newPanel.dashboard}, dashboard,{ runValidators: true }, callback);
+      },
+      function(result, callback) {
         req.user.statistics.panels++;
         User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
       }
     ], function (err, result) {
       if (err) return res.send(400, err);
 
-      return res.send(200, result);
+      return res.send(200, newPanel);
     });
 };
 
@@ -40,6 +49,7 @@ exports.getAll = function (req, res, next) {
         .limit(req.query.count)
         .skip(req.query.count * req.query.page)
         .populate('sensor')
+        .populate('dashboard')
         .exec(function (error, panels) {
             Panel
               .count({owner: req.user})
@@ -58,29 +68,36 @@ exports.getAll = function (req, res, next) {
 exports.getAllPanels = function (req, res, next) {
 
     Panel
-        .find({owner: req.user}).lean()
+        .find({owner: req.user})
+        .lean()
         //.find({organization: req.user.organization})
         .exec(function (error, panels) {
             if (error) {
                return res.send(400, error);
             }
-            reversePopulate({
-              modelArray: panels,
-              storeWhere: "sections",
-              arrayPop: true,
-              mongooseModel: Section,
-              idField: "panels"
-            }, function(err, popPanels) {
-              if (error) {
-                return res.send(400, error);
-              }
-              return  res.send(200, popPanels);
 
-            });
+            return  res.send(200, panels);
+
+        });
+}
+
+
+exports.getAllNotAssignedPanels = function (req, res, next) {
+
+  Panel
+    .find({owner: req.user})
+    .find({dashboard: null})
+    .lean()
+    //.find({organization: req.user.organization})
+    .exec(function (error, panels) {
+      if (error) {
+        return res.send(400, error);
+      }
+
+      return  res.send(200, panels);
 
     });
 }
-
 
 exports.getById = function (req, res, next) {
 
@@ -97,18 +114,33 @@ exports.getById = function (req, res, next) {
 
 exports.remove = function (req, res, next) {
 
+  var panelToRemove = null;
     async.waterfall([
       function(callback) {
+        Panel.findOne({ _id: req.params.id }).lean().exec(callback);
+      },
+      function(panel, callback) {
+        panelToRemove = panel;
         Panel.remove({ _id: req.params.id }, callback)
       },
       function(result, callback) {
         req.user.statistics.panels--;
         User.update({_id: req.user._id}, { statistics: req.user.statistics }, callback);
+      },
+      function(result, callback) {
+        if(!panelToRemove.dashboard) callback({message: "No dashboard relation for panel "+panelToRemove._id});
+        Dashboard.findOne({ _id: panelToRemove.dashboard }).lean().exec(callback);
+      },
+      function(dashboard, callback) {
+        delete dashboard._id;
+        dashboard.panels = _.reject(dashboard.panels, function(panelId){ return panelToRemove._id == panelId });
+        Dashboard.update({_id: panelToRemove.dashboard}, dashboard,{ runValidators: true }, callback);
       }
+
     ], function (err, result) {
       if (err) return res.send(400, err);
 
-      return res.send(200, result);
+      return res.send(200, panelToRemove);
     });
 
 };
@@ -163,8 +195,8 @@ exports.command = function (req, res, next) {
 
    // if(req.body.protocol == "mqtt"){
 
-        mqttClient.publish(req.body.topic, JSON.stringify(req.body.message), {retain: true});
-        return res.json({result: "ok"});
+   //     mqttClient.publish(req.body.topic, JSON.stringify(req.body.message), {retain: true});
+        return res.json({result: "no action, try mqtt"});
 
  //   }
 };

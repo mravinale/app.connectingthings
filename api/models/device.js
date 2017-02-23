@@ -22,9 +22,11 @@ DeviceSchema.pre('save', function (next) {
     next();
 });
 
+/*
 DeviceSchema.path('sensors').validate(function(sensors){
     if(!sensors) return false;
     return sensors.length !== 0;
 }, 'Required at least one element');
+*/
 
 mongoose.model('Device', DeviceSchema);

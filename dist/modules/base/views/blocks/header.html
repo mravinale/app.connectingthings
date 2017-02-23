@@ -21,11 +21,14 @@
       <div class="collapse navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}">
         <!-- buttons -->
         <div class="nav navbar-nav m-l-sm hidden-xs ">
-          <a href class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+          <a href class="btn no-shadow navbar-qºbtn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
             <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
           </a>
           <a href class="btn no-shadow navbar-btn " ui-toggle-class="show" target="#aside-user">
             <i class="icon-user fa-fw"></i>
+          </a>
+          <a href class="btn no-shadow navbar-btn " ng-click="addDashboard()">
+            <i class="fa fa-plus fa-fw"></i>
           </a>
         </div>
         <!-- / buttons -->
@@ -66,9 +69,9 @@
               <li>
                 <a ng-click="payment()"><span>Billing</span> </a>
               </li>
-                <li>
+                <!--li>
                     <a ng-click="showTutorial()"><span>Tutorial</span> </a>
-                </li>
+                </li!-->
 
               <li>
                 <a target="_blank" href="https://connectingthings.readme.io/">Docs</a>

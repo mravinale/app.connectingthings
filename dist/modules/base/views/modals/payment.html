@@ -1,4 +1,9 @@
-<div class="modal-body">
+
+
+
+
+
+<div class="modal-body" >
     <div id="page-wrapper">
 
         <div class="col-lg-12">
@@ -7,7 +12,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-12" style="padding-left: 30px">
+            <div class="col-lg-12" style="padding-left: 0px">
                 <div class="panel ">
 
                     <div class="panel-body">
@@ -16,8 +21,50 @@
 
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-xs-12 col-md-3">
-                                            <div class="panel" ng-class="{'panel-default': user.accountType =='Bronze','panel-success': user.accountType !='Bronze' }">
+                                        <div class="col-xs-12 col-md-2" style="width: 240px;">
+                                            <div class="panel" ng-class="{'panel-selected': user.accountType =='free','panel-danger': user.accountType !='free' }">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Free</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="the-price" style="text-align: center">
+                                                        <h1>$0<span class="subscript">/month</span></h1>
+                                                        <small>No trial</small>
+                                                    </div>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>
+                                                                1 Device
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="active">
+                                                            <td>
+                                                                0 month message storage
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                30sec messaging interval
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="active">
+                                                            <td>
+                                                                No Public dashboards
+                                                            </td>
+                                                        </tr>
+
+
+                                                    </table>
+                                                </div>
+                                                <div class="panel-footer">
+                                                    <button ng-click="doFreeCheckout()" ng-disabled="user.accountType =='free'" >
+                                                        remove subscription
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-2" style="width: 240px;">
+                                            <div class="panel" ng-class="{'panel-selected': user.accountType =='bronze','panel-success': user.accountType !='bronze' }">
                                                 <div class="panel-heading">
                                                     <h3 class="panel-title">Bronze</h3>
                                                 </div>
@@ -52,14 +99,14 @@
                                                     </table>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <button ng-click="doBronzeCheckout()" ng-disabled="user.accountType =='Bronze'">
+                                                    <button ng-click="doBronzeCheckout()" ng-disabled="user.accountType =='bronze'" >
                                                         Pay with Card
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-md-3">
-                                            <div class="panel " ng-class="{'panel-default': user.accountType =='Silver','panel-info': user.accountType !='Silver' }">
+                                        <div class="col-xs-12 col-md-2" style="width: 240px;">
+                                            <div class="panel " ng-class="{'panel-selected': user.accountType =='silver','panel-info': user.accountType !='silver' }">
 
                                                 <div class="panel-heading">
                                                     <h3 class="panel-title">Silver</h3>
@@ -94,14 +141,15 @@
                                                     </table>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <button ng-click="doSilverCheckout()" ng-disabled="user.accountType =='Silver'" >
+
+                                                    <button ng-click="doSilverCheckout()" ng-disabled="user.accountType =='silver'" >
                                                         Pay with Card
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-md-3">
-                                            <div class="panel" ng-class="{'panel-default': user.accountType =='Gold','panel-warning': user.accountType !='Gold' }">
+                                        <div class="col-xs-12 col-md-2" style="width: 240px;">
+                                            <div class="panel" ng-class="{'panel-selected': user.accountType =='gold','panel-warning': user.accountType !='gold' }">
                                                 <div class="panel-heading">
                                                     <h3 class="panel-title">Gold</h3>
                                                 </div>
@@ -135,9 +183,11 @@
                                                     </table>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <button ng-click="doGoldCheckout()" ng-disabled="user.accountType =='Gold'">
+
+                                                    <button ng-click="doGoldCheckout()" ng-disabled="user.accountType =='gold'">
                                                         Pay with Card
                                                     </button>
+
                                                 </div>
                                             </div>
 

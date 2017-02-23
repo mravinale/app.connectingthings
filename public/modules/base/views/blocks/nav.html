@@ -56,9 +56,13 @@
             <i class="fa fa-video-camera icon text-info-dker"></i>
             <span class="" translate="aside.nav.CAMERAS">Cameras</span>
         </a>
-
     </li>
- 
+    <li ng-show="currentUser.admin">
+        <a ui-sref="app.message.list" >
+            <i class="fa fa-pencil icon text-info-dker"></i>
+            <span class="" >Messages</span>
+        </a>
+    </li>
 
   <!--li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
     <span translate="aside.nav.components.COMPONENTS">Components</span>

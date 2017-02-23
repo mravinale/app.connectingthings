@@ -1,7 +1,13 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+    async = require('async'),
+    Device = mongoose.model('Device'),
+    Panel = mongoose.model('Panel'),
     User = mongoose.model('User'),
+    Sensor = mongoose.model('Sensor'),
+    Section = mongoose.model('Section'),
+    Dashboard = mongoose.model('Dashboard'),
     crypto = require('crypto'),
     Mailgun = require('mailgun-js'),
     _ = require('underscore'),
@@ -36,34 +42,133 @@ exports.create = function (req, res, next) {
   newUser.publicKey = crypto.randomBytes(8).toString('base64').slice(0,-1).replace("/", "X");
   newUser.publicUrl =  "#/app/public/dashboard/" +  newUser.publicKey;
   newUser.publicAvatar =  "gravatar/" +  newUser.email;
+  var newSensor=null, newDevice=null, newPanel1=null, newPanel2=null, newSection=null, newDashboard=null;
 
-  fs.readFile(activatePath, function (err, html) {
-    if (err) {
-      return res.send(400, err);
-    }
 
-    newUser.save(function(err) {
-      if (err) return res.send(400, err);
-
+  async.waterfall([
+    function (callback) {
+      newUser.save(callback);
+    },
+    function (user, result, callback) {
+      fs.readFile(activatePath, callback);
+    },
+    function (buffer, callback) {
       var data = {
-        from: from_who,
-        to: newUser.email,
-        subject: 'Welcome to ConnectingThings.io',
-        html: _.template(html.toString(),{loginUrl:origin+'#/access/signin', password: newUser.password})
+        from: from_who, to: newUser.email, subject: 'Welcome to ConnectingThings.io',
+        html: _.template(buffer.toString(),{loginUrl:origin+'#/access/signin', password: newUser.password})
       };
 
-
       mailgun.messages().send(data, function (err, body) {
-        if (err) return res.json(400, err);
-
-        res.send(200, newUser);
-
+        callback(err, body);
+      })
+    },
+    function (body, callback) {
+      newSensor = new Sensor({
+        name: "Temperature",
+        tag: "temperature",
+        description:"Temperature Sensor Demo",
+        owner: newUser._id,
+        organization: newUser.organization
       });
 
-    });
+      newSensor.save( function (err, sensor) {
+        callback(err, sensor);
+      })
+    },
+    function (sensor, callback) {
+      newDevice = new Device({
+        name: "arduino",
+        description: "Demo device",
+        sensors:[newSensor._id],
+        owner: newUser._id,
+        organization: newUser.organization
+      });
 
+      newDevice.save( function (err, device) {
+        callback(err, device);
+      })
+    },
+    function (device, callback) {
+      newSection = new Section({
+        description: "Temperature Section",
+        name: "Temperature Section",
+        isPublic: true,
+        owner: newUser._id,
+        col: 0,
+        row: 0,
+        organization: newUser.organization
+      });
+
+      newSection.save( function (err, section) {
+        callback(err, section);
+      })
+    },
+    function (section, callback) {
+      newPanel1 = new Panel({
+        type: "gauge",
+        name: "Temperature Gauge",
+        device: newDevice._id,
+        sensor: newSensor._id,
+        size: "small",
+        col: 0,
+        row: 1,
+        isPublic: true,
+        owner: newUser._id,
+        organization: newUser.organization
+      });
+
+      newPanel1.save( function (err, result) {
+        callback(err, result);
+      })
+    },
+    function (section, callback) {
+      newPanel2 = new Panel({
+        type: "d3-chart",
+        name: "Temperature Chart",
+        device: newDevice._id,
+        sensor: newSensor._id,
+        size: "small",
+        col: 2,
+        row: 1,
+        sizeX: 4,
+        isPublic: true,
+        owner: newUser._id,
+        organization: newUser.organization
+      });
+
+      newPanel2.save( function (err, result) {
+        callback(err, result);
+      })
+    },
+    function (panel, callback) {
+      newDashboard = new Dashboard({
+        description: "Demo Dashboard",
+        name: "Demo",
+        sections: [newSection._id],
+        panels: [newPanel1._id, newPanel2._id],
+        isPublic: true,
+        owner: newUser._id,
+        organization: newUser.organization
+      });
+
+      newDashboard.save( function (err, result) {
+        callback(err, result);
+      })
+    },
+    function (dashboard, callback) {
+      Section.update({_id: newSection._id}, { $set: { dashboard: newDashboard._id  } },{ runValidators: true }, callback);
+    },
+    function (result, callback) {
+      Panel.update({_id: newPanel1._id}, { $set: { dashboard:  newDashboard._id } },{ runValidators: true }, callback);
+    },
+    function (result, callback) {
+      Panel.update({_id: newPanel2._id}, { $set: { dashboard:  newDashboard._id } },{ runValidators: true }, callback);
+    }
+  ], function (err, result) {
+    if (err) return res.send(400, err);
+
+    return res.send(200, newUser);
   });
-
 
 };
 

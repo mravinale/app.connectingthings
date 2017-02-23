@@ -1,8 +1,14 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+  async = require('async'),
     passport = require('passport'),
+    Device = mongoose.model('Device'),
+    Panel = mongoose.model('Panel'),
     User = mongoose.model('User'),
+    Sensor = mongoose.model('Sensor'),
+    Section = mongoose.model('Section'),
+    Dashboard = mongoose.model('Dashboard'),
     _ = require('underscore'),
     fs = require('fs'),
     Organization = mongoose.model('Organization'),
@@ -43,41 +49,142 @@ exports.signUp = function (req, res, next) {
         //{errors:{email:{type: "Check your email and confirm your registration"}}}
         if (err) return res.send(400,{errors:{recaptcha_response_field: {message: err.message}}});
 
-      fs.readFile(activatePath, function (err, html) {
-        if (err) {
-          return res.send(400, err);
-        }
 
-        Organization.findOrCreate({name: "Beta"}, function (error, organization, created) {
-            if (error) {
-                return res.send(400, error);
-            } else {
-                newUser.organization = organization;
-                newUser.save(function(err) {
-                    if (err) {
-                        return res.send(400, err);
-                    } else {
-                        var data = {
-                            from: from_who,
-                            to: newUser.email,
-                            subject: 'Welcome to ConnectingThings.io',
-                            html: _.template(html.toString(),{confirmUrl:origin+'#/access/suscription?confirmation=' + newUser._id})
-                        };
-                        mailgun.messages().send(data, function (err, body) {
-                            if (err) {
-                                res.json(400, err);
-                                console.log("got an error: ", err);
-                            }
-                            else {
-                                res.send(200, newUser);
-                                console.log(body);
-                            }
-                        });
-                    }
-                });
-            }
-        });
+      var newSensor=null, newDevice=null, newPanel1=null, newPanel2=null, newSection=null, newDashboard=null;
+
+
+      async.waterfall([
+        function (callback) {
+          Organization.findOrCreate({name: "Beta"}, function (error, organization, created) {
+            return callback(error, organization);
+          });
+        },
+        function (organization, callback) {
+          newUser.organization = organization;
+          newUser.save(callback);
+        },
+        function (user, result, callback) {
+          fs.readFile(activatePath, callback);
+        },
+        function (buffer, callback) {
+          var data = {
+            from: from_who, to: newUser.email, subject: 'Welcome to ConnectingThings.io',
+            html: _.template(buffer.toString(),{confirmUrl:origin+'#/access/suscription?confirmation=' + newUser._id})
+          };
+
+          mailgun.messages().send(data, function (err, body) {
+            callback(err, body);
+          })
+        },
+        function (body, callback) {
+          newSensor = new Sensor({
+            name: "Temperature",
+            tag: "temperature",
+            description:"Temperature Sensor Demo",
+            owner: newUser._id,
+            organization: newUser.organization
+          });
+
+          newSensor.save( function (err, sensor) {
+            callback(err, sensor);
+          })
+        },
+        function (sensor, callback) {
+          newDevice = new Device({
+            name: "arduino",
+            description: "Demo device",
+            sensors:[newSensor._id],
+            owner: newUser._id,
+            organization: newUser.organization
+          });
+
+          newDevice.save( function (err, device) {
+            callback(err, device);
+          })
+        },
+        function (device, callback) {
+          newSection = new Section({
+            description: "Temperature Section",
+            name: "Temperature Section",
+            isPublic: true,
+            owner: newUser._id,
+            col: 0,
+            row: 0,
+            organization: newUser.organization
+          });
+
+          newSection.save( function (err, section) {
+            callback(err, section);
+          })
+        },
+        function (section, callback) {
+          newPanel1 = new Panel({
+            type: "gauge",
+            name: "Temperature Gauge",
+            device: newDevice._id,
+            sensor: newSensor._id,
+            size: "small",
+            col: 0,
+            row: 1,
+            isPublic: true,
+            owner: newUser._id,
+            organization: newUser.organization
+          });
+
+          newPanel1.save( function (err, result) {
+            callback(err, result);
+          })
+        },
+        function (section, callback) {
+          newPanel2 = new Panel({
+            type: "d3-chart",
+            name: "Temperature Chart",
+            device: newDevice._id,
+            sensor: newSensor._id,
+            size: "small",
+            col: 2,
+            row: 1,
+            sizeX: 4,
+            isPublic: true,
+            owner: newUser._id,
+            organization: newUser.organization
+          });
+
+          newPanel2.save( function (err, result) {
+            callback(err, result);
+          })
+        },
+        function (panel, callback) {
+          newDashboard = new Dashboard({
+            description: "Demo Dashboard",
+            name: "Demo",
+            sections: [newSection._id],
+            panels: [newPanel1._id, newPanel2._id],
+            isPublic: true,
+            owner: newUser._id,
+            organization: newUser.organization
+          });
+
+          newDashboard.save( function (err, result) {
+            callback(err, result);
+          })
+        },
+        function (dashboard, callback) {
+          Section.update({_id: newSection._id}, { $set: { dashboard: newDashboard._id  } },{ runValidators: true }, callback);
+        },
+        function (result, callback) {
+          Panel.update({_id: newPanel1._id}, { $set: { dashboard:  newDashboard._id } },{ runValidators: true }, callback);
+        },
+        function (result, callback) {
+          Panel.update({_id: newPanel2._id}, { $set: { dashboard:  newDashboard._id } },{ runValidators: true }, callback);
+        }
+      ], function (err, result) {
+        if (err) return res.send(400, err);
+
+        return res.send(200, newUser);
       });
+
+
     });
 };
 

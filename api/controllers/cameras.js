@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+  var mongoose = require('mongoose'),
     async = require('async'),
     Camera = mongoose.model('Camera'),
     User = mongoose.model('User');

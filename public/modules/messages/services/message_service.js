@@ -1,6 +1,5 @@
 'use strict';
 
-/* Services */
 angular.module('app').service('messageService', function ($http) {
 
     this.getAll = function(params){
@@ -8,7 +7,7 @@ angular.module('app').service('messageService', function ($http) {
             page: params.page() -1,
             count: params.count(),
             orderBy: params.sorting(),
-            filter: {}
+            search: params.filter().searchFilter
         }
 
         return $http.get('/messages', { params: paramsToSend });
@@ -19,5 +18,12 @@ angular.module('app').service('messageService', function ($http) {
         return $http.get('/messages/items', { params : {topic: param } });
     };
 
+    this.getById = function(panelId){
+        return $http.get('/messages/'+panelId);
+    };
+
+    this.remove = function (messageId) {
+        return $http.delete('/messages/'+messageId);
+    };
 
 });

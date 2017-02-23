@@ -26,3 +26,8 @@ docker stop dev.connectingthings
 docker rm dev.connectingthings
 docker run -d -p 80:3000 -p 443:3000 -p 3001:3001 -p 1883:1883 -p 1884:1884 -e USE_SSL='true' -e NODE_ENV='dev' --name dev.connectingthings  connectingthings/app:dev
 
+Stripe
+https://stripe.com/docs
+https://github.com/tobyn/angular-stripe-checkout
+https://www.airpair.com/javascript/integrating-stripe-into-angular-app
+https://github.com/laurihy/angular-payments

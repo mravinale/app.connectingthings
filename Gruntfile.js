@@ -159,15 +159,16 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-full.min.js',
                       '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js',
                       '<%= yeoman.app %>/lib/angular-stripe-checkout/angular-stripe-checkout.js',
-                      '<%= yeoman.app %>/lib/ng-bootstrap-alerts/dist/index.min.js'
+                      '<%= yeoman.app %>/lib/ng-bootstrap-alerts/dist/index.min.js',
+                      '<%= yeoman.app %>/lib/angular-mqtt/src/browserMqtt.js',
+                      '<%= yeoman.app %>/modules/common/directives/angular-MQTT.js',
+                      '<%= yeoman.app %>/lib/ng-table-to-csv/dist/ng-table-to-csv.js'
 
                 ]
                   },
                   {
                     dest: 'dist/js/vendor2.js',
                     src: [
-
-
                       '<%= yeoman.app %>/lib/socket.io-client/socket.io.js',
                       '<%= yeoman.app %>/lib/autofill-directive/autofill-directive.js',
                       '<%= yeoman.app %>/lib/underscore/underscore.js',
@@ -187,7 +188,6 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/javascript-detect-element-resize/jquery.resize.js',
                       '<%= yeoman.app %>/lib/angular-gridster/dist/angular-gridster.min.js',
                       '<%= yeoman.app %>/lib/angular-loading-bar/build/loading-bar.min.js'
-
                     ]
                   },
                   {
@@ -212,9 +212,13 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/sections/controllers/section_add.js',
                       '<%= yeoman.app %>/modules/sections/controllers/section_edit.js',
                       '<%= yeoman.app %>/modules/sections/controllers/section_list.js',
-                      '<%= yeoman.app %>/modules/panels/controllers/panel_add.js',
-                      '<%= yeoman.app %>/modules/panels/controllers/panel_edit.js',
                       '<%= yeoman.app %>/modules/panels/controllers/panel_list.js',
+                      '<%= yeoman.app %>/modules/panels/controllers/panel_add_container.js',
+                      '<%= yeoman.app %>/modules/panels/controllers/panel_edit_container.js',
+                      '<%= yeoman.app %>/modules/panels/controllers/external/panel_add.js',
+                      '<%= yeoman.app %>/modules/panels/controllers/external/panel_edit.js',
+                      '<%= yeoman.app %>/modules/panels/controllers/external/sensor_add.js',
+                      '<%= yeoman.app %>/modules/panels/controllers/external/device_add.js',
                       '<%= yeoman.app %>/modules/devices/controllers/device_add.js',
                       '<%= yeoman.app %>/modules/devices/controllers/device_edit.js',
                       '<%= yeoman.app %>/modules/devices/controllers/device_list.js',
@@ -224,6 +228,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/cameras/controllers/camera_add.js',
                       '<%= yeoman.app %>/modules/cameras/controllers/camera_edit.js',
                       '<%= yeoman.app %>/modules/cameras/controllers/camera_list.js',
+                      '<%= yeoman.app %>/modules/messages/controllers/message_list.js',
                       '<%= yeoman.app %>/modules/users/controllers/user_add.js',
                       '<%= yeoman.app %>/modules/users/controllers/user_edit.js',
                       '<%= yeoman.app %>/modules/users/controllers/user_list.js',
@@ -244,7 +249,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/sensors/services/sensor_service.js',
                       '<%= yeoman.app %>/modules/sections/services/section_service.js',
                       '<%= yeoman.app %>/modules/dashboards/services/dashboard_service.js',
-                      '<%= yeoman.app %>/modules/panels/services/message_service.js',
+                      '<%= yeoman.app %>/modules/messages/services/message_service.js',
                       '<%= yeoman.app %>/modules/organizations/services/organization_service.js',
                       '<%= yeoman.app %>/modules/common/directives/onFocus.js',
                       '<%= yeoman.app %>/modules/common/directives/mongooseError.js',
@@ -255,10 +260,12 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/panels/directives/panel_switch.js',
                       '<%= yeoman.app %>/modules/panels/directives/panel_camera.js',
                       '<%= yeoman.app %>/modules/panels/directives/panel_led.js',
+                      '<%= yeoman.app %>/modules/panels/directives/panel_section.js',
                       '<%= yeoman.app %>/modules/common/vendor/gauge.js',
                       '<%= yeoman.app %>/modules/common/factories/websocket.js',
                       '<%= yeoman.app %>/modules/common/directives/gauge.js',
                       '<%= yeoman.app %>/modules/common/directives/lineChart.js',
+
                       '<%= yeoman.app %>/modules/base/services/Public.js',
                       '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_sensor_add.js',
                       '<%= yeoman.app %>/modules/base/controllers/modals/tutorial/tutorial_device_add.js',

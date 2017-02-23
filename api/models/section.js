@@ -9,10 +9,15 @@ var SectionSchema = new Schema({
   _id: { type: String },
   name: { type: String, required: true },
   description: {type: String},
-  panels:[{ type:String, ref: 'Panel', required: true }],
   owner: { type: String, ref: 'User'},
   isPublic: { type: Boolean,  default: true },
-  organization: { type: String, ref: 'Organization' }
+  organization: { type: String, ref: 'Organization' },
+  dashboard: { type: String, ref: 'Dashboard', default: null },
+    type: { type: String, default: "section"  },
+    sizeX: { type: Number, default: 6 },
+    sizeY: { type: Number, default: 1 },
+    row: { type: Number, default: null },
+    col: { type: Number, default: null }
 });
 
 SectionSchema.pre('save', function (next) {
@@ -22,11 +27,5 @@ SectionSchema.pre('save', function (next) {
 
     next();
 });
-
-
-SectionSchema.path('panels').validate(function(panels){
-    if(!panels) return false;
-    return panels.length !== 0;
-}, 'required at least one element');
 
 mongoose.model('Section', SectionSchema);

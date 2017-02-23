@@ -37,7 +37,9 @@ var app = angular.module('app', [
     'gridster',
     'angular-loading-bar',
     'stripe.checkout',
-    'ng-bootstrap-alerts'
+    'ng-bootstrap-alerts',
+    'ngMQTT',
+    'ngTableToCsv'
   ])
 .run(
   [ '$rootScope', '$state', '$stateParams',
@@ -48,8 +50,8 @@ var app = angular.module('app', [
   ]
 )
 .config(
-  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider','cfpLoadingBarProvider','StripeCheckoutProvider',
-    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider, cfpLoadingBarProvider,StripeCheckoutProvider) {
+  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider','cfpLoadingBarProvider','StripeCheckoutProvider','MQTTProvider',
+    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider, cfpLoadingBarProvider,StripeCheckoutProvider, MQTTProvider) {
         
         // lazy controller, directive and service
         app.controller = $controllerProvider.register;
@@ -59,9 +61,13 @@ var app = angular.module('app', [
         app.service    = $provide.service;
         app.constant   = $provide.constant;
 
+        MQTTProvider.setHref('wss://'+window.location.host.split( ':' )[0]+':3001');
+
         StripeCheckoutProvider.defaults({
-            key: "pk_test_agLRPGqaMYh95gLab6nsKlwu"
+            //key:"pk_test_agLRPGqaMYh95gLab6nsKlwu"
+            key: "pk_live_HUDm43LunKfEDyG1tdspWixx"
         });
+
 
         reCAPTCHAProvider.setOptions({
             theme: 'white'
@@ -249,6 +255,17 @@ var app = angular.module('app', [
                 url:'/list',
                 templateUrl: 'modules/users/views/user_list.html',
                 controller: 'UserListCtrl'
+            })
+
+            //message
+            .state('app.message', {
+                url: '/message',
+                template: '<div ui-view class="fade-in-right"></div>'
+            })
+            .state('app.message.list', {
+                url:'/list',
+                templateUrl: 'modules/messages/views/message_list.html',
+                controller: 'MessageListCtrl'
             })
 
             //organization

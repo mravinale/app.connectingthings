@@ -148,8 +148,9 @@ var opts = {
   logger: {
     level: 'info'
   },
-  http: {
-    port: 3001 // http
+  https: {
+    port: 3001, // https
+    credentials: credentials
   },
   mqtt: {
     port: 1883 // tcp

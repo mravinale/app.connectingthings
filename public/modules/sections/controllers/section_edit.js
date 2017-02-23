@@ -1,12 +1,13 @@
 'use strict';
 angular.module('app')
-    .controller('SectionEditCtrl', function ($scope, $routeParams, sectionService, $location, panelService, $modalInstance, sectionId) {
+    .controller('SectionEditCtrl', function ($scope, $routeParams, sectionService, dashboardService, $location, $localStorage, panelService, $modalInstance, sectionId) {
 
-        $scope.section = { };
+      $scope.section = {  };
 
         sectionService.getById(sectionId)
             .success(function (response, status, headers, config) {
-                $scope.section = response
+                $scope.section = response;
+                $scope.section.dashboard = $localStorage.currentDashboard.id
             })
             .error(function(response, status, headers, config) {
                 angular.forEach(response.errors, function(error, field) {
@@ -30,27 +31,19 @@ angular.module('app')
                 });
         };
 
-        panelService.getAllPanels()
-            .success(function (response, status, headers, config) {
-              var nonSelectedPanels = _.filter(response, function(panel){ return _.isUndefined(panel.sections) });
-              if(_.isEmpty($scope.section.panels)){
-                $scope.panels =  nonSelectedPanels;
-              } else {
-                var selectedSectionPanels = _.map($scope.section.panels, function(panelId){ return _.where(response, {_id: panelId})[0] });
-                $scope.panels =  _.union(nonSelectedPanels, selectedSectionPanels);
-              }
-
-           //   console.log( $scope.panels);
-            })
-            .error(function(response, status, headers, config) {
-                angular.forEach(response.errors, function(error, field) {
-                    form[field].$setValidity('mongoose', false);
-                    $scope.errors[field] = error.message;
-                });
-            });
-
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
+
+        dashboardService.getAllDashboards()
+          .success(function(response, status, headers, config) {
+            $scope.dashboards = response;
+          })
+          .error(function(response, status, headers, config) {
+            angular.forEach(response.errors, function(error, field) {
+              form[field].$setValidity('mongoose', false);
+              $scope.errors[field] = error.message;
+            });
+          });
 
     });

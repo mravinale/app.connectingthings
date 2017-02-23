@@ -3,29 +3,14 @@
 angular.module('app')
     .controller('publicCtrl', function ($scope, $rootScope, panelService, sectionService, $localStorage, publicService, $routeParams, $state, $route, psResponsive, $window) {
 
-
-            $scope.gridsterOpts = {
-                minColumns: 1,
-                swapping: false,
-                avoid_overlapped_widgets:true,
-                width: 'auto',
-                colWidth: 'auto',
-                rowHeight: '280',
-                resizable: {
-                    enabled: false
-                },
-                draggable: {
-                    enabled: false
-                }
-            };
-
             $scope.dashboards = [];
-            $scope.tab = null;
+            $scope.tab = { name:null, id:null };
+            $scope.areOptionsEnabled = false;
 
-            $scope.setTab = function(id){
-
-                $scope.tab = id;
-                $scope.init();
+            $scope.setTab = function(dashboard){
+              $scope.tab.name = dashboard.name;
+              $scope.tab.id = dashboard._id;
+              $scope.init();
             };
 
             $rootScope.showHeader = false;
@@ -52,30 +37,46 @@ angular.module('app')
 
             });
 
+            $scope.gridsterOpts = {
+              minColumns: 1,
+              swapping: false,
+              avoid_overlapped_widgets:true,
+              width: 'auto',
+              colWidth: 'auto', // can be an integer or 'auto'.  'auto' uses the pixel width of the element divided by 'columns'
+              rowHeight: '80', // can be an integer or 'match'.  Match uses the colWidth, giving you square widgets.
+              resizable: {
+                enabled: false,
+                start: function(event, uiWidget, $element) {},
+                resize: function(event, uiWidget, $element) {},
+                stop: function(event, uiWidget, $element) {}
+              },
+              draggable: {
+                enabled: false, // whether dragging items is supported
+                start: function(event, $element, widget) {}, // optional callback fired when drag is started,
+                drag: function(event, $element, widget) {}, // optional callback fired when item is moved,
+                stop: function(event, $element, widget) {} // optional callback fired when item is finished dragging
+              }
+
+            };
+
             $scope.init = function() {
-                _.each($scope.dashboards, function (dashboard) {
-                    dashboard.sections.length = 0
-                });
+
                 publicService.getAllDashboards($state.params.id) //iL4bJVGT820
                     .success(function (response, status, headers, config) {
+                        $scope.dashboards = response;
                         if (!response || !response[0] ) return;
 
-
                         $scope.user = response[0].owner ? response[0].owner : null;
-                        $scope.tab = $scope.tab? $scope.tab : response[0].name;
+                        if ($rootScope.currentUser &&  $rootScope.currentUser.email !== 'mravinale@gmail.com' && (!$scope.user || $scope.user.accountType == 'Free')) return;
 
-                        if ($scope.user.accountType == 'Free') return;
-
-
-                        $scope.dashboards = _.each(response, function (dashboard) {
-                            dashboard.sections = _.reject(dashboard.sections, function (section) {
-                                if (!section.isPublic) return true;
-
-                                section.panels = _.reject(section.panels, function (panel) {
-                                    return panel.isPublic == false;
-                                });
-                            });
+                        _.each( $scope.dashboards, function(dashboard){
+                          var items = _.union(dashboard.panels, dashboard.sections);
+                          dashboard.items = items.length <= 0?  [{}] : items;
                         });
+
+                        $scope.tab.name = $scope.tab.name? $scope.tab.name : response[0].name;
+                        $scope.tab.id = $scope.tab.id? $scope.tab.id : response[0]._id;
+                        $localStorage.currentDashboard = $scope.tab;
 
 
                     })
