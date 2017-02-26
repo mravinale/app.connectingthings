@@ -21,19 +21,19 @@ exports.create = function (req, res, next) {
             }
 
             switch(user._doc.accountType) {
-                case "Free":
+                case "free":
                     return callback( user._doc.statistics.devices >= 2? {message: errorMessage} : null, null);
                     break;
-                case "Bronze":
+                case "bronze":
                     return callback( user._doc.statistics.devices >= 5? {message: errorMessage} : null, null);
                     break;
-                case "Silver":
+                case "silver":
                     return callback( user._doc.statistics.devices >= 10? {message: errorMessage} : null, null);
                     break;
-                case "Gold":
+                case "gold":
                     return callback( user._doc.statistics.devices >= 15? {message: errorMessage} : null, null);
                     break;
-                case "Full":
+                case "full":
                     return callback(user._doc.statistics.devices >= 20 ? {message: errorMessage} : null, null);
                     break;
                 default:

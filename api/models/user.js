@@ -28,7 +28,7 @@ var UserSchema = new Schema({
   publicAvatar: String,
   subscription: String,
   customerId: String,
-  accountType: { type: String, default: "Free" },
+  accountType: { type: String, default: "free" },
   statistics:{
     lastUpdate: { type: Date },
     cameras: { type: Number, default: 0 },

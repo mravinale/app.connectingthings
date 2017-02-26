@@ -38,7 +38,7 @@ angular.module('app')
               if($rootScope.currentUser &&  $rootScope.currentUser.email === 'mravinale@gmail.com'){
                 return true;
               } else {
-                return user.accountType !== 'Free';
+                return user.accountType !== 'free';
               }
 
             };
@@ -51,7 +51,7 @@ angular.module('app')
                     $scope.users = response;
                   } else {
                     $scope.users = _.reject(response, function (user) {
-                      return user.accountType == 'Free';
+                      return user.accountType == 'free';
                     });
                   }
 

@@ -231,23 +231,23 @@ ponteServer.on("updated", function(resource, buffer) {
         var ms = moment(moment.utc().format()).diff(moment(user.statistics.lastUpdate.toISOString()));
 
         switch(user.accountType) {
-          case "Free":
+          case "free":
             message.expireAt =  moment().add(1, 'day').toDate();
             if (moment.duration(ms).asSeconds() < 15) return callback({message: "Error: Interval should be more than 15 seconds, key: " + routeParams.key}, null);
             break;
-          case "Bronze":
+          case "bronze":
             message.expireAt =  moment().add(1, 'week').toDate();
             if (moment.duration(ms).asSeconds() < 10 ) return callback({message: "Error: Interval should be more than 10 seconds, key: " + routeParams.key}, null);
             break;
-          case "Silver":
+          case "silver":
             message.expireAt =  moment().add(1, 'month').toDate();
             if (moment.duration(ms).asSeconds() < 5 ) return callback({message: "Error: Interval should be more than 5 seconds, key: " + routeParams.key}, null);
             break;
-          case "Gold":
+          case "gold":
             message.expireAt =  moment().add(1, 'year').toDate();
             if (moment.duration(ms).asSeconds() < 1 ) return callback({message: "Error: Interval should be more than 1 seconds, key: " + routeParams.key}, null);
             break;
-          case "Full":
+          case "full":
             message.expireAt =  moment().add(1, 'year').toDate();
             break;
           default:

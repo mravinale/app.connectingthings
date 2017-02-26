@@ -23,19 +23,19 @@ exports.create = function (req, res, next) {
                 }
 
                 switch (user._doc.accountType) {
-                    case "Free":
-                        return callback(user._doc.statistics.sensors >= 4 ? {message: errorMessage} : null, null);
+                    case "free":
+                        return callback(user._doc.statistics.sensors >= 5 ? {message: errorMessage} : null, null);
                         break;
-                    case "Bronze":
+                    case "bronze":
                         return callback(user._doc.statistics.sensors >= 10 ? {message: errorMessage} : null, null);
                         break;
-                    case "Silver":
+                    case "silver":
                         return callback(user._doc.statistics.sensors >= 20 ? {message: errorMessage} : null, null);
                         break;
-                    case "Gold":
+                    case "gold":
                         return callback(user._doc.statistics.sensors >= 30 ? {message: errorMessage} : null, null);
                         break;
-                    case "Full":
+                    case "full":
                         return callback(user._doc.statistics.sensors >= 40 ? {message: errorMessage} : null, null);
                         break;
                     default:
