@@ -40,7 +40,7 @@
     <div class="wrapper-md-special" >
          <div ng-repeat="dashboard in dashboards" ng-show="tab.name === '{{dashboard.name}}'">
              <div ng-model="dashboard.items" gridster="gridsterOpts">
-                    <div ng-repeat="item in dashboard.items" >
+                    <div ng-repeat="item in dashboard.items | orderBy:'row'" >
                         <div class="gridster-correction">
                             <panel-switch gridster-item="item" style="cursor:move;min-width: 230px"
                                           ng-if="item.type=='switch'"
