@@ -86,8 +86,8 @@ angular.module('app')
                     if(toggle == lastToogle) return;
 
                     var infoToSend = {
-                        topic:"device/"+scope.topic.split("/")[2]+"/key/"+scope.key,
-                        message: {value: (toggle)? "1" : "0", tag: scope.tag }
+                        topic:"key/"+scope.key+"/device/"+scope.topic.split("/")[2]+"/tag/"+scope.tag,
+                        message: {value: (toggle)? "1" : "0"}
                     };
 
                  // MQTTService.send(infoToSend.topic,infoToSend.message);

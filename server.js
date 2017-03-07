@@ -172,7 +172,7 @@ var Message = mongoose.model('Message');
 var User = mongoose.model('User');
 var Trigger = mongoose.model('Trigger');
 var triggerService = require('./api/services/triggerService');
-var route = new Route('device/:device/key/:key');
+var route = new Route('key/:key/device/:device/tag/:tag');
 var validate = require('jsonschema').validate;
 
 // Start socket conection
@@ -197,93 +197,80 @@ ponteServer.on("updated", function(resource, buffer) {
 
   //console.log("Message received", resource, tryParseJson(buffer.toString()));
   var routeParams = route.match(resource);
-  if(!routeParams.device || !routeParams.key) return console.log(resource, buffer.toString());
+  if(!routeParams.device || !routeParams.key || !routeParams.tag) return console.log(resource, buffer.toString());
 
   var result = tryParseJson(buffer.toString());
-  if(!result) return logger.error("Error: Parsing schema, Wrong message format, key: " + routeParams.key);
+  if(!result || !result.value) return logger.error("Error: Parsing schema, Wrong message format, key: " + routeParams.key);
 
-  var arrayValidation = validate(result, {"$schema":"http://json-schema.org/draft-04/schema#","id":"/","type":"object","properties":{"sensors":{"id":"sensors","type":"array","items":{"id":"0","type":"object","properties":{"tag":{"id":"tag","type":"string"},"value":{"id":"value","type":"string"}},"additionalProperties":false,"required":["tag","value"]},"additionalItems":false,"required":["0"]}},"additionalProperties":false,"required":["sensors"]});
-  var objectValidation = validate(result,{"$schema":"http://json-schema.org/draft-04/schema#","id":"/","type":"object","properties":{"tag":{"id":"tag","type":"string"},"value":{"id":"value","type":"string"}},"additionalProperties":false,"required":["tag","value"]});
+  var objectValidation = validate(result,{"$schema":"http://json-schema.org/draft-04/schema#","type":"object","properties":{"value":{"type":"string"}},"required":["value"]});
+  if(objectValidation.errors.length !== 0 ) return logger.error("Error: Parsing schema, Wrong message format, key: " + routeParams.key);
 
-  if(arrayValidation.errors.length !== 0 && objectValidation.errors.length !== 0 ) return logger.error("Error: Parsing schema, Wrong message format, key: " + routeParams.key);
-  if(objectValidation.errors.length === 0 && arrayValidation.errors.length !== 0 ){ result = { sensors:[{ tag: result.tag, value:result.value }] }; }
+  var value = isNaN(parseInt(result.value)) ? "0" : parseInt(result.value).toString();
 
-  async.each(result.sensors, function(sensor, next) {
+  var message = {
+    topic:  "/" +routeParams.key + "/"+ routeParams.device +"/"+ routeParams.tag,
+    body: { value: value, key: routeParams.key }
+  };
+  
+  async.waterfall([
+    function (callback) {
+      User.findOne({key: routeParams.key}, callback);
+    },
+    function (user, callback) {
+      if (!user) return callback({message: "Error: User validation, Not found, key: " + routeParams.key}, null);
 
-    if(!sensor.tag || !sensor.value) return next("Error: Iterating sensors, Wrong message format, key: " + routeParams.key);
+      var ms = moment(moment.utc().format()).diff(moment(user.statistics.lastUpdate.toISOString()));
 
-    sensor.value = isNaN(parseInt(sensor.value)) ? "0" : parseInt(sensor.value).toString();
-
-    var message = {
-      topic:  "/" +routeParams.key + "/"+ routeParams.device +"/"+ sensor.tag,
-      body: { value: sensor.value, key: routeParams.key }
-    };
-
-    //if(lastValue.topic == message.topic && lastValue.value == message.body.value) return next();
-
-    async.waterfall([
-      function (callback) {
-        User.findOne({key: routeParams.key}, callback);
-      },
-      function (user, callback) {
-        if (!user) return callback({message: "Error: User validation, Not found, key: " + routeParams.key}, null);
-
-        var ms = moment(moment.utc().format()).diff(moment(user.statistics.lastUpdate.toISOString()));
-
-        switch(user.accountType) {
-          case "free":
-            message.expireAt =  moment().add(1, 'day').toDate();
-            if (moment.duration(ms).asSeconds() < 15) return callback({message: "Error: Interval should be more than 15 seconds, key: " + routeParams.key}, null);
-            break;
-          case "bronze":
-            message.expireAt =  moment().add(1, 'week').toDate();
-            if (moment.duration(ms).asSeconds() < 10 ) return callback({message: "Error: Interval should be more than 10 seconds, key: " + routeParams.key}, null);
-            break;
-          case "silver":
-            message.expireAt =  moment().add(1, 'month').toDate();
-            if (moment.duration(ms).asSeconds() < 5 ) return callback({message: "Error: Interval should be more than 5 seconds, key: " + routeParams.key}, null);
-            break;
-          case "gold":
-            message.expireAt =  moment().add(1, 'year').toDate();
-            if (moment.duration(ms).asSeconds() < 1 ) return callback({message: "Error: Interval should be more than 1 seconds, key: " + routeParams.key}, null);
-            break;
-          case "full":
-            message.expireAt =  moment().add(1, 'year').toDate();
-            break;
-          default:
-          //default code block
-        }
-
-        triggerService.execute(user, message, callback);
-      },
-      function (user, callback) {
-        io.sockets.emit(message.topic, message.body);
-        user.statistics.messages++;
-        user.statistics.lastUpdate = new Date();
-        User.update({_id: user._id}, {statistics: user.statistics}, callback);
-      },
-      function (result, callback) {
-        // if(lastValue.topic == resource && lastValue.value ==  message.body.value) return callback(null,null);
-
-        var newMessage = new Message({
-          topic: message.topic,
-          value: message.body.value,
-          key: message.body.key,
-          expireAt: message.expireAt
-        });
-        newMessage.save(callback);
+      switch(user.accountType) {
+        case "free":
+          message.expireAt =  moment().add(1, 'day').toDate();
+          if (moment.duration(ms).asSeconds() < 15) return callback({message: "Error: Interval should be more than 15 seconds, key: " + routeParams.key}, null);
+          break;
+        case "bronze":
+          message.expireAt =  moment().add(1, 'week').toDate();
+          if (moment.duration(ms).asSeconds() < 10 ) return callback({message: "Error: Interval should be more than 10 seconds, key: " + routeParams.key}, null);
+          break;
+        case "silver":
+          message.expireAt =  moment().add(1, 'month').toDate();
+          if (moment.duration(ms).asSeconds() < 5 ) return callback({message: "Error: Interval should be more than 5 seconds, key: " + routeParams.key}, null);
+          break;
+        case "gold":
+          message.expireAt =  moment().add(1, 'year').toDate();
+          if (moment.duration(ms).asSeconds() < 1 ) return callback({message: "Error: Interval should be more than 1 seconds, key: " + routeParams.key}, null);
+          break;
+        case "full":
+          message.expireAt =  moment().add(1, 'year').toDate();
+          break;
+        default:
+        //default code block
       }
-    ], function (err, message) {
-      if (err) return next(err.code, err.message);
 
-      //if (message) { lastValue = message.toObject(); }
-      next();
-    });
+      triggerService.execute(user, message, callback);
+    },
+    function (user, callback) {
+      io.sockets.emit(message.topic, message.body);
+      user.statistics.messages++;
+      user.statistics.lastUpdate = new Date();
+      User.update({_id: user._id}, {statistics: user.statistics}, callback);
+    },
+    function (result, callback) {
+      // if(lastValue.topic == resource && lastValue.value ==  message.body.value) return callback(null,null);
 
-  }, function(err){
-    if( err ) return logger.error(err);
+      var newMessage = new Message({
+        topic: message.topic,
+        value: message.body.value,
+        key: message.body.key,
+        expireAt: message.expireAt
+      });
+      newMessage.save(callback);
+    }
+  ], function (err, message) {
+    if (err) return logger.error(err.code, err.message);
+
+    //if (message) { lastValue = message.toObject(); }
 
   });
+
 
 });
 

@@ -86,7 +86,7 @@ angular.module('app')
 
             handler.open({
                 description: "Bronze Plan",
-                amount: 500
+                amount: 100
             })
             .then(function(result) {
                 //console.log("Got Stripe token: " + result[0].id);
@@ -183,7 +183,7 @@ angular.module('app')
 
             handler.open({
                 description: "Silver Plan",
-                amount: 1000
+                amount: 500
             })
             .then(function(result) {
                 //console.log("Got Stripe token: " + result[0].id);
@@ -282,7 +282,7 @@ angular.module('app')
 
             handler.open({
                 description: "Golden Plan",
-                amount: 1500
+                amount: 1000
             })
             .then(function(result) {
                 //console.log("Got Stripe token: " + result[0].id);
