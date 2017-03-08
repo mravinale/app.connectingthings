@@ -211,7 +211,7 @@ ponteServer.on("updated", function(resource, buffer) {
     topic:  "/" +routeParams.key + "/"+ routeParams.device +"/"+ routeParams.tag,
     body: { value: value, key: routeParams.key }
   };
-  
+
   async.waterfall([
     function (callback) {
       User.findOne({key: routeParams.key}, callback);
