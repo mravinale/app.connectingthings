@@ -163,21 +163,49 @@ exports.update = function (req, res, next) {
       return res.json(400, result);
     }
 
-    Panel.update({_id: req.params.id}, req.body,{upsert: true, runValidators: false }, function (error, panel) {
-        if (error) return res.json(400, error);
-/*
-      Panel
-        .find({owner: req.user})
-        .exec(function (error, panels) {
-          if (error) {
-            console.log(error);
-          }
-          mqttClient.publish("panel.update.completed", JSON.stringify(panels));
+  var originalPanel= null;
 
-        });
-*/
-        return  res.json(panel);
-    });
+  async.waterfall([
+
+    function(callback) {
+      //get the original panel
+      Panel.findOne({ _id: req.params.id }).lean().exec(callback);
+    },
+    function(panel, callback) {
+      //get the dashboard from the origianl panel
+      originalPanel = panel;
+      if(!panel.dashboard ) callback({message: "No dashboard relation for panel "+panel._id});
+      Dashboard.findOne({ _id: originalPanel.dashboard }).lean().exec(callback);
+    },
+    function(dashboard, callback) {
+      //remove the relacionship between both
+      if(!dashboard.panels ) callback({message: "No dashboard relation for panel "+req.params.id});
+      dashboard.panels =  _.reject(dashboard.panels, function(panelId){ return req.params.id == panelId });
+      Dashboard.update({_id: originalPanel.dashboard}, dashboard,{ runValidators: true }, callback);
+    },
+    function(dashboard, callback) {
+      //get the new realtionship
+      Dashboard.findOne({ _id: req.body.dashboard }).lean().exec(callback);
+    },
+    function(dashboard, callback) {
+      //add the new relationship
+      if(!dashboard.panels ) callback({message: "No dashboard relation for panel "+req.params.id});
+
+      dashboard.panels.push(req.params.id);
+      Dashboard.update({_id: dashboard._id}, dashboard,{ runValidators: true }, callback);
+    },
+    function(dashboard, callback) {
+      Panel.update({_id: req.params.id}, req.body,{upsert: true, runValidators: false },callback);
+
+    }
+  ], function (error, result) {
+    if (error) return res.send(400, error);
+
+    return  res.json(result);
+  });
+
+
+
 };
 
 exports.command = function (req, res, next) {

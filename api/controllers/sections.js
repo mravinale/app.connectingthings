@@ -112,12 +112,46 @@ exports.remove = function (req, res, next) {
 exports.update = function (req, res, next) {
 
 	delete req.body._id;
+    var originalSection= null;
 
-	Section.update({_id: req.params.id}, req.body, { runValidators: true }, function (error, section) {
-		if (error) return res.send(400, error);
+    async.waterfall([
 
-		return  res.json(section);
-	});
+        function(callback) {
+            //get the original section
+            Section.findOne({ _id: req.params.id }).lean().exec(callback);
+        },
+        function(section, callback) {
+            //get the dashboard from the origianl section
+            originalSection = section;
+            if(!section.dashboard ) callback({message: "No dashboard relation for section "+section._id});
+            Dashboard.findOne({ _id: originalSection.dashboard }).lean().exec(callback);
+        },
+        function(dashboard, callback) {
+            //remove the relacionship between both
+            if(!dashboard.sections ) callback({message: "No dashboard relation for section "+req.params.id});
+            dashboard.sections =  _.reject(dashboard.sections, function(sectionId){ return req.params.id == sectionId });
+            Dashboard.update({_id: originalSection.dashboard}, dashboard,{ runValidators: true }, callback);
+        },
+        function(dashboard, callback) {
+            //get the new realtionship
+            Dashboard.findOne({ _id: req.body.dashboard }).lean().exec(callback);
+        },
+        function(dashboard, callback) {
+            //add the new relationship
+            if(!dashboard.sections ) callback({message: "No dashboard relation for section "+req.params.id});
+
+            dashboard.sections.push(req.params.id);
+            Dashboard.update({_id: dashboard._id}, dashboard,{ runValidators: true }, callback);
+        },
+        function(dashboard, callback) {
+            Section.update({_id: req.params.id}, req.body, { runValidators: true },callback);
+
+        }
+    ], function (error, result) {
+        if (error) return res.send(400, error);
+
+        return  res.json(result);
+    });
 
 
 };
