@@ -113,6 +113,7 @@ module.exports = function (grunt) {
                                 '<%= yeoman.app %>/assets/css/app-admin.css',
                                 '<%= yeoman.app %>/assets/css/animate.css',
                                 '<%= yeoman.app %>/assets/css/simple-line-icons.css',
+                                '<%= yeoman.app %>/assets/css/highlight.css',
                                 '<%= yeoman.app %>/lib/sweetalert/dist/sweetalert.css',
                                 '<%= yeoman.app %>/lib/angular-gridster/dist/angular-gridster.min.css',
                                 '<%= yeoman.app %>/lib/angular-loading-bar/build/loading-bar.min.css'
@@ -141,8 +142,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/assets/js/angular/ui-bootstrap-tpls.min.js',
                       '<%= yeoman.app %>/assets/js/angular-ui.sorteable.js',
                       '<%= yeoman.app %>/assets/js/screenfull.min.js',
-
-                      '<%= yeoman.app %>/assets/js/screenfull.min.js',
+                      '<%= yeoman.app %>/assets/js/highlight.js',
                       '<%= yeoman.app %>/assets/js/ps-responsive.js',
                       '<%= yeoman.app %>/assets/js/jquery/charts/easypiechart/jquery.easy-pie-chart.js',
                       '<%= yeoman.app %>/lib/angular-chosen-localytics/dist/angular-chosen.js',
@@ -162,7 +162,8 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/ng-bootstrap-alerts/dist/index.min.js',
                       '<%= yeoman.app %>/lib/angular-mqtt/src/browserMqtt.js',
                       '<%= yeoman.app %>/modules/common/directives/angular-MQTT.js',
-                      '<%= yeoman.app %>/lib/ng-table-to-csv/dist/ng-table-to-csv.js'
+                      '<%= yeoman.app %>/lib/ng-table-to-csv/dist/ng-table-to-csv.js',
+                      '<%= yeoman.app %>/lib/angular-highlightjs/angular-highlightjs.min.js'
 
                 ]
                   },
@@ -213,6 +214,7 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/modules/sections/controllers/section_edit.js',
                       '<%= yeoman.app %>/modules/sections/controllers/section_list.js',
                       '<%= yeoman.app %>/modules/panels/controllers/panel_list.js',
+                      '<%= yeoman.app %>/modules/panels/controllers/panel_code.js',
                       '<%= yeoman.app %>/modules/panels/controllers/panel_add_container.js',
                       '<%= yeoman.app %>/modules/panels/controllers/panel_edit_container.js',
                       '<%= yeoman.app %>/modules/panels/controllers/external/panel_add.js',

@@ -58,6 +58,7 @@ angular.module('app')
 
                 };
 
+
                 scope.deleteSection = function(){
                     SweetAlert.swal({
                           title: "Are you sure?",

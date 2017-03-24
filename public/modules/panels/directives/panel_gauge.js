@@ -35,6 +35,8 @@ angular.module('app')
                                         '<li><a href ng-click="editDevice()" >Edit Device</a></li>'+
                                         '<li><a href ng-click="editPanel()" >Edit Panel</a></li>'+
                                         '<li><a href ng-click="deletePanel()" >Delete Panel</a></li>'+
+                                        '<li class="divider"></li>'+
+                                        '<li><a href ng-click="showCode()" >Show Code Example</a></li>'+
                                     '</ul>'+
                                 '</li>'+
                             '</div>'+
@@ -76,6 +78,25 @@ angular.module('app')
                 socket.on(scope.topic, function (message) {
                     scope.gaugeValue = angular.fromJson(message).value;
                 });
+
+                scope.showCode = function(){
+                  $modal.open({
+                    templateUrl: '../modules/panels/views/panel_code.html',
+                    controller: 'PanelCodeCtrl',
+                    size: 'lg',
+                    resolve: {
+                      host: function () {
+                        return "app.connectingthings.io";
+                      },
+                      topic: function () {
+                        return "key/"+scope.topic.split("/")[1]+"/device/"+scope.topic.split("/")[2]+"/sensor/"+scope.topic.split("/")[3];
+                      },
+                      value: function () {
+                        return  "12";
+                      }
+                    }
+                  });
+                };
 
                 scope.editSensor = function(){
                      $modal.open({

@@ -1,0 +1,198 @@
+
+
+<div id="page-wrapper">
+
+    <div class="col-lg-12">
+        <h2 class="page-header">Code example</h2>
+        <alert-list></alert-list>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12" style="padding-left: 30px">
+            <div class="panel " >
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-11" style="margin-left: 40px"  >
+                            <ul class="nav nav-tabs">
+                                <li ng-class="{ active:tab === 'cURL' }"><a href ng-click="setTab('cURL')" >cURL</a></li>
+                                <li ng-class="{ active:tab === 'Javascript' }"><a href ng-click="setTab('Javascript')" >Javascript</a></li>
+                                <li ng-class="{ active:tab === 'C#' }"><a href ng-click="setTab('C#')" >C# </a></li>
+                                <li ng-class="{ active:tab === 'Arduino' }"><a href ng-click="setTab('Arduino')" >Arduino </a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div ng-show="tab === 'cURL'">
+                                    <h3>cURL</h3>
+                                    <p hljs hljs-interpolate="true">
+curl --include \
+    --request PUT \
+    --header "Content-Type: application/json" \
+    --data-binary "{\"value\": \"{{value}}\"}" \
+    'https://{{host}}/resources/{{topic}}'
+                                    </p>
+                                </div>
+                                <div ng-show="tab === 'Javascript'">
+                                    <h3>HTTP</h3>
+                                    <p  hljs hljs-language="javascript" hljs-interpolate="true">
+var request = require('request');
+
+request({
+    method: 'PUT',
+    url: 'https://{{host}}/resources/{{topic}}',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: '{\"value\": \"{{value}}\"}'
+}, function (error, response, body) {
+    console.log('Status:', response.statusCode);
+    console.log('Headers:', JSON.stringify(response.headers));
+    console.log('Response:', body);
+});
+                                    </p>
+                                    <h3>MQTT</h3>
+                                    <p  hljs hljs-language="javascript" hljs-interpolate="true">
+//Download library from https://www.npmjs.com/package/mqtt
+
+var mqtt    = require('mqtt');
+var client  = mqtt.connect('mqtt://app.connectingthings.io');
+
+client.on('connect', function () {
+    client.publish('{{topic}}','{\"value\": \"{{value}}\"}',{retain: true});
+});
+                                    </p>
+                                </div>
+                                <div   ng-show="tab === 'C#'">
+                                    <h3>HTTP</h3>
+                                    <p hljs hljs-language="csharp" hljs-interpolate="true">
+//Be sure to run "Install-Package Microsoft.Net.Http" from your nuget command line.
+using System;
+using System.Net.Http;
+
+var baseAddress = new Uri("https://app.connectingthings.io:3001/resources/{{topic}}");
+
+using (var httpClient = new HttpClient{ BaseAddress = baseAddress })
+{
+    using (var content = new StringContent("{\"value\": \"{{value}}\"}", System.Text.Encoding.Default, "application/json"))
+    {
+        using (var response = await httpClient.PutAsync("users/self", content))
+        {
+            string responseData = await response.Content.ReadAsStringAsync();
+        }
+    }
+}
+                                    </p>
+                                    <h3>MQTT</h3>
+                                    <p hljs hljs-language="csharp" hljs-interpolate="true">
+//Download library from https://m2mqtt.codeplex.com
+
+...
+
+// create client instance
+MqttClient client = new MqttClient(IPAddress.Parse("mqtt://app.connectingthings.io"));
+
+string clientId = Guid.NewGuid().ToString();
+client.Connect(clientId);
+
+string strValue = Convert.ToString(value);
+client.Publish("{{topic}}", Encoding.UTF8.GetBytes("{\"value\": \"{{value}}\"}"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE,true);
+
+...
+                                    </p>
+                                </div>
+
+                                <div   ng-show="tab === 'Arduino'">
+                                    <h3>HTTP</h3>
+                                    <p hljs hljs-language="c" hljs-interpolate="true">
+#include Ethernet.h
+#include SPI.h
+
+byte mac[] = { 0x00, 0xAA, 0xBB, 0xCC, 0xDE, 0x01 }; // RESERVED MAC ADDRESS
+EthernetClient client;
+String data;
+
+void setup() {
+    Serial.begin(115200);
+
+    if (Ethernet.begin(mac) == 0) {
+        Serial.println("Failed to configure Ethernet using DHCP");
+    }
+
+    delay(10000); // GIVE THE SENSOR SOME TIME TO START
+}
+
+void loop(){
+
+    data = "value={{value}}";
+
+    if (client.connect("https://app.connectingthings.io:3001/resources/{{topic}}")) {
+        client.println("Content-Type: application/json");
+        client.print("Content-Length: ");
+        client.println(data.length());
+        client.println();
+        client.print(data);
+    }
+
+    if (client.connected()) {
+        client.stop();  // DISCONNECT FROM THE SERVER
+    }
+
+    delay(300000); // WAIT FIVE MINUTES BEFORE SENDING AGAIN
+}
+
+                                    </p>
+                                    <h3>MQTT</h3>
+                                    <p hljs hljs-language="c" hljs-interpolate="true">
+#include SPI.h
+#include Ethernet.h
+#include PubSubClient.h
+
+// Update these with values suitable for your network.
+byte mac[] = {  0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
+IPAddress ip(172, 16, 0, 100);//your local ip
+IPAddress server(52, 204, 74, 204); //connectingthings broker ip
+
+// Callback function header
+void callback(char* topic, byte* payload, unsigned int length);
+
+EthernetClient ethClient;
+PubSubClient client(server, 1883, callback, ethClient);
+
+// Callback function
+void callback(char* topic, byte* payload, unsigned int length) {
+}
+
+void setup()
+{
+    Ethernet.begin(mac, ip);
+    if (client.connect("arduinoClient")) {
+        client.publish("{{topic}}","{  \"value\": \"{{value}}\"}", true);
+    }
+}
+
+void loop()
+{
+    client.loop();
+}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group" style="padding-top: 30px">
+                            <div class="col-sm-offset-10 col-sm-10">
+
+                                <a ng-click="cancel()" class="btn btn-danger" role="button">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
