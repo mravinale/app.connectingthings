@@ -155,7 +155,7 @@ angular.module('app')
                                 return "app.connectingthings.io";
                             },
                             topic: function () {
-                                return "key/"+scope.topic.split("/")[1]+"/device/"+scope.topic.split("/")[2]+"/sensor/"+scope.topic.split("/")[3];
+                                return "key/"+scope.topic.split("/")[1]+"/device/"+scope.topic.split("/")[2]+"/tag/"+scope.topic.split("/")[3];
                             },
                             value: function () {
                                 return  "12";
