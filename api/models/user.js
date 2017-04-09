@@ -17,7 +17,7 @@ var UserSchema = new Schema({
   admin: Boolean,
   guest: Boolean,
   provider: String,
-  isValidated: Boolean,
+  isValidated: {type: Boolean, required: false},
   showTutorial: {type: Boolean, default: false},
   isPasswordForgot: {type: Boolean, default: false},
   disabled: {type: Boolean, default: false},
