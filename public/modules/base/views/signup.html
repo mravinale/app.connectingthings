@@ -110,11 +110,11 @@
                 </div-->
             </div>
 
-            <div ng-class="{'has-error': form.isValidated.$error.mongoose}" class="list-group list-group-sm">
+            <div ng-class="{'has-error': form.hasAcceptedTermsAndConditions.$error.mongoose}" class="list-group list-group-sm">
                 <div class="checkbox m-b-md m-t-none" style="padding-left: 0;margin-bottom: 0">
                     <label class="i-checks" style="color: white;">
                         <input type="checkbox"
-                               ng-model="user.isValidated"
+                               ng-model="user.hasAcceptedTermsAndConditions"
                                name="isValidated"
                                required
                                mongoose-error
@@ -123,7 +123,7 @@
                     </label>
                 </div>
                 <div class="error"
-                     ng-show="form.isValidated.$error.required && submitted ">
+                     ng-show="form.hasAcceptedTermsAndConditions.$error.required && submitted ">
                     field required
                 </div>
             </div>
