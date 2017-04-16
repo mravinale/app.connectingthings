@@ -342,7 +342,8 @@ exports.login = function (req, res, next) {
               'key': user.key,
               'showTutorial': user.showTutorial,
               'publicAvatar': "https://avatars.io/"+user.publicAvatar,
-              'accountType': user.accountType
+              'accountType': user.accountType,
+              'iftt': user.iftt
             });
 
         });

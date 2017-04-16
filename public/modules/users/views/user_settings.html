@@ -118,6 +118,23 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">IFTT Maker Key</label>
+                                    <div class="col-sm-10">
+                                        <input  mongoose-error
+                                                autofill
+                                                name="iftt"
+                                                ng-model="user.iftt"
+                                                class="form-control"
+                                                placeholder="IFFT Maker Key"
+                                        >
+                                        <div class="error"
+                                             ng-show="form.iftt.$error.mongoose">
+                                            {{ errors.iftt }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">Public Avatar</label>
                                     <div class="col-sm-2" style="padding-top: 7px;">
                                         <a ng-href="https://avatars.io/" target="_blank" style="color: blue; margin-top: 20px">https://avatars.io/</a>
@@ -136,6 +153,8 @@
                                         <a ng-href={{user.publicUrl}} target="_blank" style="color: blue; margin-top: 20px">/{{user.publicUrl}}</a>
                                     </div>
                                 </div>
+
+
 
 
                                 <!--div class="form-group">

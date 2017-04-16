@@ -1,7 +1,7 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-    .controller('TriggerEditCtrl', function ($scope, $routeParams, triggerService, deviceService, cameraService, $location, $modalInstance , triggerId) {
+    .controller('TriggerEditCtrl', function ($scope, $rootScope, $routeParams, triggerService, deviceService, cameraService, $location, $modalInstance , triggerId) {
 
         $scope.trigger = { };
 
@@ -50,6 +50,17 @@ angular.module('app')
                         $scope.errors[field] = error.message;
                     });
                 });
+        });
+
+
+        $scope.$watch('trigger.action', function (action) {
+            if(action=='Send email to') {
+                $scope.trigger.target = $rootScope.currentUser.email;
+            }
+            else if(action=='Send to IFTTT'){
+                $scope.trigger.target = $rootScope.currentUser.iftt;
+            }
+
         });
 
         deviceService.getAllDevices()

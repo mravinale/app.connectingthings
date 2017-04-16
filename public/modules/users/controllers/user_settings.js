@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app')
-    .controller('UserSettingsCtrl', function ($scope, md5Helper, $routeParams, userService, $localStorage, $modalInstance, userId, organizationService) {
+    .controller('UserSettingsCtrl', function ($scope, $rootScope, md5Helper, $routeParams, userService, $localStorage, $modalInstance, userId, organizationService) {
 
         $scope.user = { };
 
@@ -22,6 +22,9 @@ angular.module('app')
 
             userService.update($scope.user)
                 .success(function (response, status, headers, config) {
+                    $rootScope.username = $scope.user.username;
+                    $rootScope.iftt = $scope.user.iftt;
+                    $rootScope.publicAvatar = "https://avatars.io/"+$scope.user.publicAvatar;
                     $modalInstance.close();
                 })
                 .error(function(response, status, headers, config) {

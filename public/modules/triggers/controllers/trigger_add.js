@@ -1,7 +1,7 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-    .controller('TriggerAddCtrl', function ($scope, triggerService, deviceService, cameraService, $location, $modalInstance ) {
+    .controller('TriggerAddCtrl', function ($scope, $rootScope, triggerService, deviceService, cameraService, $location, $modalInstance ) {
 
     $scope.trigger = { threshold: 300 };
 
@@ -24,6 +24,7 @@ angular.module('app')
       deviceService.getFullById(deviceId)
         .success(function (response, status, headers, config) {
           $scope.sensors = response.sensors;
+          $scope.trigger.sensor = response.sensors[0]._id;
         }).error(function (response, status, headers, config) {
           angular.forEach(response.errors, function (error, field) {
             form[field].$setValidity('mongoose', false);
@@ -31,6 +32,15 @@ angular.module('app')
           });
         });
     });
+
+      $scope.$watch('trigger.action', function (action) {
+        if(action=='Send email to') {
+          $scope.trigger.target = $rootScope.currentUser.email;
+        }else if(action=='Send to IFTTT'){
+            $scope.trigger.target = $rootScope.currentUser.iftt;
+          }
+
+      });
 
     deviceService.getAllDevices()
       .success(function (response, status, headers, config) {

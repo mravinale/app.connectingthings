@@ -24,6 +24,7 @@ var UserSchema = new Schema({
   disabled: {type: Boolean, default: false},
   organization: { type: String, ref: 'Organization', required: true},
   key: String,
+  iftt: String,
   publicKey: String,
   publicUrl: String,
   publicAvatar: String,
