@@ -1,9 +1,13 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-    .controller('TriggerEditCtrl', function ($scope, $rootScope, $routeParams, triggerService, deviceService, cameraService, $location, $modalInstance , triggerId) {
+    .controller('TriggerEditCtrl', function ($scope, $rootScope, $filter, $routeParams, triggerService, deviceService, cameraService, $location, $modalInstance , triggerId) {
 
         $scope.trigger = { };
+
+        $scope.$watch('trigger.name', function() {
+            $scope.trigger.name= $filter('lowercase')($scope.trigger.name);
+        });
 
         triggerService.getById(triggerId)
             .success(function(response, status, headers, config) {

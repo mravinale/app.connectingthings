@@ -1,9 +1,14 @@
 'use strict';
 //http://tympanus.net/Tutorials/CSS3ButtonSwitches/index.html
 angular.module('app')
-    .controller('TriggerAddCtrl', function ($scope, $rootScope, triggerService, deviceService, cameraService, $location, $modalInstance ) {
+    .controller('TriggerAddCtrl', function ($scope, $rootScope,$filter, triggerService, deviceService, cameraService, $location, $modalInstance ) {
 
     $scope.trigger = { threshold: 300 };
+
+      $scope.$watch('trigger.name', function() {
+        $scope.trigger.name= $filter('lowercase')($scope.trigger.name);
+      });
+
 
     $scope.save = function (form) {
       $scope.errors = {};
