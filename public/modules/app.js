@@ -51,8 +51,8 @@ var app = angular.module('app', [
   ]
 )
 .config(
-  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider','cfpLoadingBarProvider','StripeCheckoutProvider','MQTTProvider','hljsServiceProvider',
-    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider, cfpLoadingBarProvider,StripeCheckoutProvider, MQTTProvider, hljsServiceProvider) {
+  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider','cfpLoadingBarProvider','StripeCheckoutProvider','MQTTProvider','hljsServiceProvider', '$httpProvider',
+    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider, cfpLoadingBarProvider,StripeCheckoutProvider, MQTTProvider, hljsServiceProvider, $httpProvider) {
         
         // lazy controller, directive and service
         app.controller = $controllerProvider.register;
@@ -61,6 +61,8 @@ var app = angular.module('app', [
         app.factory    = $provide.factory;
         app.service    = $provide.service;
         app.constant   = $provide.constant;
+
+        $httpProvider.interceptors.push('authInterceptor');
 
         hljsServiceProvider.setOptions({
             // replace tab with 4 spaces

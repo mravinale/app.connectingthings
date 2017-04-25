@@ -1,5 +1,5 @@
 'use strict';
-angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessionService,$localStorage, $location,$modal, $log) {
+angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,authService,$localStorage, $location,$modal, $log) {
     $scope.errors =  {};
     $scope.submitted = false;
     $rootScope.showHeader = true;
@@ -10,15 +10,12 @@ angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,sessi
         $scope.submitted = true;
         if(form.email.$error.required) return;
 
-        sessionService.login('password',$scope.user)
-            .success(function (response, status, headers, config) {
-                $localStorage.currentUser = response;
+      authService.login($scope.user)
+            .then(function (response, status, headers, config) {
+                var params = authService.parseToken(response.data.token);
+                $localStorage.currentUser = params.user;
                 $rootScope.currentUser =  $localStorage.currentUser;
                 $location.path('/');
-
-                if($rootScope.currentUser.showTutorial) {
-                  showTutorial();
-                }
 
 
             })

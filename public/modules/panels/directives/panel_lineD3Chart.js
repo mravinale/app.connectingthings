@@ -2,6 +2,7 @@
  * Modified copy of https://github.com/lithiumtech/angular_and_d3/blob/master/step5/custom/gauges.js
  */
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
+//Slider-> http://angular-slider.github.io/angularjs-slider/
 'use strict';
 angular.module('app')
     .directive('panelD3Chart', function (socket, messageService, $modal, $log, $rootScope, SweetAlert, panelService, $location) {

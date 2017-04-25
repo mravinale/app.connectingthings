@@ -307,7 +307,7 @@ exports.session = function (req, res) {
  */
 exports.logout = function (req, res) {
     if (req.user) {
-        req.logout();
+        //req.logout();
         res.send(200);
     } else {
         res.send(400, "Not logged in");

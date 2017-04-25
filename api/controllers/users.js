@@ -1,6 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+    jwt = app.meanSeed.dependencies.jwt,
+    secretKey = require('../config/config').secretKey,
     async = require('async'),
     Device = mongoose.model('Device'),
     Panel = mongoose.model('Panel'),
@@ -168,7 +170,11 @@ exports.create = function (req, res, next) {
   ], function (err, result) {
     if (err) return res.send(400, err);
 
-    return res.send(200, newUser);
+    var response = { user: newUser, exp: Math.round(new Date().setDate(new Date().getDate() + 1) / 1000) };
+    var token = jwt.sign(response, secretKey, {  expiresInMinutes: 1440 });
+
+    return res.json(200, { token: token, message: 'User created.' });
+
   });
 
 };
