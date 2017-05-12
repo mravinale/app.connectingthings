@@ -5,12 +5,13 @@ if(process.env.NODE_ENV == 'prod') {
 
 // Module dependencies.
 var express = require('express'),
+    modulepath = require('app-module-path'),
+    jwt = require('jsonwebtoken'),
     _ = require('underscore'),
     async = require('async'),
     http = require('http'),
     https = require('https'),
     mqtt = require('mqtt'),
-    passport = require('passport'),
     path = require('path'),
     fs = require('fs'),
     config = require('./api/config/config'),
@@ -45,7 +46,6 @@ var db = require('./api/db/mongo').db;
 var modelsPath = path.join(__dirname, 'api/models');
 fs.readdirSync(modelsPath).forEach( function (file) { require(modelsPath + '/' + file); });
 
-var pass = require('./api/config/passport');
 
 var logger = new (winston.Logger)({
   transports: [
@@ -81,9 +81,6 @@ app.use(express.cookieSession());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 
-// Use passport session
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Place the express-winston logger before the router.
 app.use(expressWinston.logger({

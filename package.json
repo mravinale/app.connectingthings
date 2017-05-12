@@ -31,7 +31,8 @@
     "winston": "^2.1.1",
     "winston-loggly": "^1.2.0",
     "yargs": "^3.1.0",
-    "jsonwebtoken": "5.0.2"
+    "jsonwebtoken": "5.0.2",
+    "app-module-path": "^0.3.2-beta"
   },
   "engines": {
     "node": ">=0.8.0"

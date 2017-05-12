@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    jwt = app.meanSeed.dependencies.jwt,
+    jwt = require('jsonwebtoken'),
     secretKey = require('../config/config').secretKey,
     async = require('async'),
     Device = mongoose.model('Device'),

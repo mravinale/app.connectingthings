@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  jwt = require('jwt'),
+  jwt = require('jsonwebtoken'),
   secretKey = require('../config/config').secretKey;
 
   /**

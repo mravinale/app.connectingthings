@@ -5,7 +5,7 @@ module.exports = {
     mqtt: process.env.MONGOLAB_MQTT || process.env.MONGOHQ_MQTT || process.env.LOCAL_MQTT || 'mongodb://admin:system2610@ds059215.mlab.com:59215/connectingthings'
   },
   masterKey:"wd40",
-  secretKey:""
+  secretKey:"joaquin"
 };
 
 // mongodb://admin:QZi6&3fz@ds025719-a0.mlab.com:25719,ds025719-a1.mlab.com:25719/main?replicaSet=rs-ds025719

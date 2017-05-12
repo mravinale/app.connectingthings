@@ -6,7 +6,7 @@ module.exports = function(app) {
 
     // Auth & Session Routes
     var session = require('../controllers/session');
-    var auth = require('base/controllers/auth')(app);
+    var auth = require('../controllers/auth');
     app.post('/auth/session', auth.authenticate);
     app.post('/auth/session/user', session.signUp);
     app.del('/auth/session', session.logout);

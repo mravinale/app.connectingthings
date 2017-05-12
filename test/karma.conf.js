@@ -21,9 +21,7 @@ module.exports = function(config) {
       'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'public/lib/angular-http-auth/src/http-auth-interceptor.js',
       'test/app-test.js',
-      'public/modules/base/**/*.js',
-      'public/modules/blogs/**/*.js',
-      'test/spec/**/*.js'
+      'public/modules/base/**/*.js'
     ],
 
     // list of files / patterns to exclude

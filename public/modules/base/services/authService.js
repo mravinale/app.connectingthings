@@ -16,7 +16,7 @@ angular.module('app').factory('authService', ['$http', '$window', function ($htt
 
   // Login - Make a request to the api for authenticating
   authService.login = function (credentials) {
-    return $http.post('/auth/', credentials);
+    return $http.post('/auth/session', credentials);
   };
 
   // Logout

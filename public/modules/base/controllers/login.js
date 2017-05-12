@@ -11,8 +11,8 @@ angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,authS
         if(form.email.$error.required) return;
 
       authService.login($scope.user)
-            .then(function (response, status, headers, config) {
-                var params = authService.parseToken(response.data.token);
+            .success(function (response, status, headers, config) {
+                var params = authService.parseToken(response.token);
                 $localStorage.currentUser = params.user;
                 $rootScope.currentUser =  $localStorage.currentUser;
                 $location.path('/');
