@@ -9,7 +9,7 @@
   "containerDefinitions": [
     {
       "name": "node-app",
-      "image": "mravinale/connectingthings:dev",
+      "image": "connectingthings/app:dev",
       "essential": true,
       "memory": 300,
       "portMappings": [
