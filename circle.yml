@@ -33,7 +33,7 @@ deployment:
     branch: eb-test
     commands:
       - docker build -t connectingthings/app:dev .
-      - docker login -e $DOCKER_DEV_EMAIL -u $DOCKER_DEV_USER -p $DOCKER_DEV_PASS
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push connectingthings/app:dev
       - /bin/bash scripts/EB-deploy.sh $CIRCLE_SHA1
   production:
