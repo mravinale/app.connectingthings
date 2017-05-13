@@ -29,6 +29,13 @@ deployment:
       - docker build -t mravinale/connectingthings:dev .
       - docker login -e $DOCKER_DEV_EMAIL -u $DOCKER_DEV_USER -p $DOCKER_DEV_PASS
       - docker push mravinale/connectingthings:dev
+  staging:
+    branch: eb-test
+    commands:
+      - docker build -t connectingthings/app:dev .
+      - docker login -e $DOCKER_DEV_EMAIL -u $DOCKER_DEV_USER -p $DOCKER_DEV_PASS
+      - docker push connectingthings/app:dev
+      - /bin/bash scripts/EB-deploy.sh $CIRCLE_SHA1
   production:
     branch: master
     commands:

@@ -1,20 +1,47 @@
 {
-  "AWSEBDockerrunVersion": "1",
+  "AWSEBDockerrunVersion": 2,
   "Authentication": {
-    "Bucket": "elasticbeanstalk-us-west-2-085850360071",
+    "Bucket": "elasticbeanstalk-us-est-1-085850360071",
     "Key": "docker/config.json"
   },
-  "Logging": "/var/log/nodejs",
-  "Image": {
-    "Name": "connectingthings/app.connectingthings:<TAG>",
-    "Update": "true"
-  },
-  "Ports": [
+  "volumes": [
+  ],
+  "containerDefinitions": [
     {
-      "ContainerPort": "3000",
-      "ContainerPort": "3001",
-      "ContainerPort": "1884",
-      "ContainerPort": "1883"
+      "name": "node-app",
+      "image": "mravinale/connectingthings:dev",
+      "essential": true,
+      "memory": 300,
+      "portMappings": [
+        {
+          "hostPort": 3000,
+          "containerPort": 3000
+        },
+        {
+        "hostPort": 3001,
+        "containerPort": 3001
+        },
+        {
+        "hostPort": 1884,
+        "containerPort": 1884
+        },
+        {
+        "hostPort": 1883,
+        "containerPort": 1883
+        }
+      ],
+      "command": [
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "node-log",
+          "containerPath": "/var/log/nodejs"
+        },
+        {
+        "sourceVolume": "node-app",
+        "containerPath": "/var/www/node"
+        }
+      ]
     }
   ]
 }
