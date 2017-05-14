@@ -34,10 +34,6 @@
       ],
       "mountPoints": [
         {
-          "sourceVolume": "node-log",
-          "containerPath": "/var/log/nodejs"
-        },
-        {
         "sourceVolume": "node-app",
         "containerPath": "/var/www/node"
         }
