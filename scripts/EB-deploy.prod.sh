@@ -11,5 +11,5 @@ aws elasticbeanstalk create-application-version --application-name connectingthi
   --version-label $SHA1 --source-bundle S3Bucket=$EB_BUCKET,S3Key=$DOCKERRUN_FILE --region us-east-1
 
 # Update Elastic Beanstalk environment to new version
-aws elasticbeanstalk update-environment --environment-name dev-connectingthings \
+aws elasticbeanstalk update-environment --environment-name connectingthings-prod \
     --version-label $SHA1 --region us-east-1 --description 'from connectingthings'

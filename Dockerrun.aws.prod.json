@@ -1,8 +1,8 @@
 {
   "AWSEBDockerrunVersion": 2,
-  "Authentication": {
+  "authentication": {
     "bucket": "elasticbeanstalk-us-east-1-085850360071",
-    "key": "docker/config.json"
+    "key": "config.json"
   },
   "volumes": [
     {
@@ -15,34 +15,34 @@
   "containerDefinitions": [
     {
       "name": "node-app",
-      "image": "connectingthings/app:dev",
+      "image": "connectingthings/app:prod",
       "essential": true,
-      "memory": 300,
+      "memory": 500,
       "portMappings": [
         {
-          "hostPort": 3000,
+          "hostPort": 80,
           "containerPort": 3000
         },
         {
-        "hostPort": 3001,
-        "containerPort": 3001
+          "hostPort": 443,
+          "containerPort": 3000
         },
         {
-        "hostPort": 1884,
-        "containerPort": 1884
+          "hostPort": 3001,
+          "containerPort": 3001
         },
         {
-        "hostPort": 1883,
-        "containerPort": 1883
+          "hostPort": 1884,
+          "containerPort": 1884
+        },
+        {
+          "hostPort": 1883,
+          "containerPort": 1883
         }
       ],
       "command": [
       ],
       "mountPoints": [
-        {
-        "sourceVolume": "node-app",
-        "containerPath": "/var/www/node"
-        }
       ]
     }
   ]
