@@ -56,4 +56,4 @@ ADD         ./scripts/services/pm2.sh /etc/service/pm2/run
 RUN         sudo chmod -R 777 /etc/service/pm2
 
 # Run New relic sys monitor
-RUN         /etc/init.d/newrelic-sysmond start
+RUN         sudo /etc/init.d/newrelic-sysmond start

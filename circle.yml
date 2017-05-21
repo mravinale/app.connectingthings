@@ -26,16 +26,17 @@ deployment:
   dev:
     branch: dev
     commands:
-      - docker build -t mravinale/connectingthings:dev .
-      - docker login -e $DOCKER_DEV_EMAIL -u $DOCKER_DEV_USER -p $DOCKER_DEV_PASS
-      - docker push mravinale/connectingthings:dev
+      - docker build -t connectingthings/app:dev .
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push connectingthings/app:dev
+      - /bin/bash scripts/EB-deploy.dev.sh $CIRCLE_SHA1
   staging:
     branch: test
     commands:
-      - docker build -t connectingthings/app:prod .
+      - docker build -t connectingthings/app:dev .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push connectingthings/app:prod
-      - /bin/bash scripts/EB-deploy.prod.sh $CIRCLE_SHA1
+      - docker push connectingthings/app:dev
+      - /bin/bash scripts/EB-deploy.dev.sh $CIRCLE_SHA1
   production:
     branch: master
     commands:
