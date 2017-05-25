@@ -11,10 +11,13 @@ dependencies:
     - "~/docker"
   pre:
     - sudo apt-get -f install
+    - sudo apt-get install build-essential
+
   override:
-    - npm install
     - npm install -g grunt-cli
     - npm install -g bower
+    - npm install -g node-gyp
+    - npm install
 
 test:
   pre:

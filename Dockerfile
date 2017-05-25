@@ -45,10 +45,7 @@ COPY        ./scripts/cron/pm2-list-crontab /etc/cron.d/pm2-list-crontab
 RUN         chmod 0644 /etc/cron.d/pm2-list-crontab && crontab /etc/cron.d/pm2-list-crontab
 
 # Open local port 3000
-EXPOSE	    3000
-EXPOSE	    3001
-EXPOSE	    1883
-EXPOSE	    1884
+EXPOSE	    3000 3001 1883 1884
 
 # Run PM2 as a daemon managed by runit
 RUN         mkdir /etc/service/pm2 && sudo chmod -R 777 /etc/service/pm2
