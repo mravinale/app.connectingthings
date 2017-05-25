@@ -160,8 +160,6 @@ module.exports = function (grunt) {
                       '<%= yeoman.app %>/lib/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js',
                       '<%= yeoman.app %>/lib/angular-stripe-checkout/angular-stripe-checkout.js',
                       '<%= yeoman.app %>/lib/ng-bootstrap-alerts/dist/index.min.js',
-                      '<%= yeoman.app %>/lib/angular-mqtt/src/browserMqtt.js',
-                      '<%= yeoman.app %>/modules/common/directives/angular-MQTT.js',
                       '<%= yeoman.app %>/lib/ng-table-to-csv/dist/ng-table-to-csv.js',
                       '<%= yeoman.app %>/lib/angular-highlightjs/angular-highlightjs.min.js'
 

@@ -4,7 +4,7 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelSwitch', function (socket, panelService, messageService, $modal, $log, $rootScope, SweetAlert, $location,MQTTService,$http) {
+    .directive('panelSwitch', function (socket, panelService, messageService, $modal, $log, $rootScope, SweetAlert, $location,$http) {
         return {
             scope:{
                 name:"@",
@@ -57,8 +57,6 @@ angular.module('app')
               scope.dark= {color:'rgba(0,0,0,.35)'};
               scope.areOptionsEnabled = $location.path() === "/app/dashboard/me";
 
-
-
               messageService.getAllMessages(scope.topic)
                 .success(function (response, status, headers, config) {
                   angular.forEach(response, function(message) {
@@ -92,7 +90,6 @@ angular.module('app')
                         message: {value: (toggle)? "1" : "0"}
                     };
 
-                 // MQTTService.send(infoToSend.topic,infoToSend.message);
 
                   $http.put(window.location.protocol+"//"+window.location.hostname+':3001/resources/'+infoToSend.topic, infoToSend.message)
                   .success(function (response, status, headers, config) {
