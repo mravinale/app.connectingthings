@@ -8,14 +8,14 @@ module.exports = function(app) {
     var session = require('../controllers/session');
     var auth = require('../controllers/auth');
     app.post('/auth/session', auth.authenticate);
-    app.post('/auth/session/user', session.signUp);
     app.del('/auth/session', session.logout);
-    app.put('/auth/session/confirm/:userId', session.confirmUser);
-    app.get('/auth/session', auth.verifySignature, session.session);
-
+    app.post('/auth/session/user', session.signUp);
     app.get('/auth/session/users/items',  session.getAllUsers);
+    app.put('/auth/session/confirm/:userId', session.confirmUser);
     app.post('/auth/session/sendPwdEmail',  session.sendChangePwdEmail);
     app.post('/auth/session/confirmPwd/:guid',  session.confirmPwd);
+
+    app.get('/auth/session', auth.verifySignature, session.session);
 
     // Dashboard Routes
     var myDashboard = require('../controllers/myDashboard');
