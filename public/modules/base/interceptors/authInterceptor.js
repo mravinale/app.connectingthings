@@ -30,7 +30,14 @@ angular.module('app').factory('authInterceptor', ['$q', '$injector', function ($
       }
 
       return res;
-    }
+    },
+
+    // Automatically attach Authorization header
+    responseError: function (rejection) {
+
+      return $q.reject(rejection);
+
+    },
   };
 
 }]);

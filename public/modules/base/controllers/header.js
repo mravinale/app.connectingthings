@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $modal, $localStorage, sessionService, $location, $state, $log) {
+angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $modal, $localStorage, sessionService, $location, $state, $log, authService) {
 
   $scope.settings = function() {
 
@@ -53,9 +53,9 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
 
     $scope.logout = function() {
      // authService.logout();
-
+      authService.logout();
       $rootScope.currentUser = undefined;
-      $localStorage.$reset();
+      //$localStorage.$reset();
       location.reload();
       $state.transitionTo('access.signin');
 

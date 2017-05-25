@@ -7,7 +7,6 @@ angular.module('app').controller('LoginCtrl', function ($scope, $rootScope,authS
     $scope.init = function(form) { };
 
     $scope.login = function(form) {
-      debugger
         $scope.submitted = true;
         if(form.email.$error.required) return;
 

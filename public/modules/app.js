@@ -16,7 +16,6 @@ var app = angular.module('app', [
     'app.services',
     'app.directives',
     'app.controllers',
-
     'ui.sortable',
     'ngResource',
     'ngSanitize',
@@ -379,7 +378,6 @@ var app = angular.module('app', [
 
         // if no currentUser and on a page that requires authorization then try to update it
         // will trigger 401s if user does not have a valid session
-debugger
         if (!$rootScope.currentUser && (['/logout', '/access/signin', '/access/signup', '/access/suscription'].indexOf($location.path()) == -1 )) {
 
             if($location.path().indexOf("/app/public/dashboard/") > -1) return;

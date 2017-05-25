@@ -71,7 +71,7 @@ var mongoose = require('mongoose'),
     // If there is no token then return an error
     if (!token) {
 
-      return res.json(403, { message: 'No token provided.' });
+      return res.json(401, { message: 'No token provided.' });
 
     } else {
 
@@ -85,6 +85,7 @@ var mongoose = require('mongoose'),
         } else {
           // If everything goes right, save the request for use in other routes
           req.decoded = decodedToken;
+          req.user = decodedToken.user._id;
           next();
         }
       });
