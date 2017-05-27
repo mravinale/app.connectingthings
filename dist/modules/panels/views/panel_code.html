@@ -29,7 +29,7 @@ curl --include \
     --request PUT \
     --header "Content-Type: application/json" \
     --data-binary "{\"value\": \"{{value}}\"}" \
-    'https://{{host}}/resources/{{topic}}'
+    'https://{{host}}:3001/resources/{{topic}}'
                                     </p>
                                 </div>
                                 <div ng-show="tab === 'Javascript'">
@@ -39,7 +39,7 @@ var request = require('request');
 
 request({
     method: 'PUT',
-    url: 'https://{{host}}/resources/{{topic}}',
+    url: 'https://{{host}}:3001/resources/{{topic}}',
     headers: {
         'Content-Type': 'application/json'
     },
