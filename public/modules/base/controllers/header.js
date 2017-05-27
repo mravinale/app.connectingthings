@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $modal, $localStorage, sessionService, $location, $state, $log) {
+angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $modal, $localStorage, sessionService, $location, $state, $log, authService) {
 
   $scope.settings = function() {
 
@@ -52,22 +52,13 @@ angular.module('app').controller('HeaderCtrl', function ($scope,  $rootScope, $m
     };
 
     $scope.logout = function() {
+     // authService.logout();
+      authService.logout();
+      $rootScope.currentUser = undefined;
+      //$localStorage.$reset();
+      location.reload();
+      $state.transitionTo('access.signin');
 
-
-        sessionService.remove()
-            .success(function (response, status) {
-                console.log("Ok:",response);
-            })
-            .error(function(response, status) {
-                console.log("Error:",response);
-            })
-            .finally(function() {
-
-                $rootScope.currentUser = undefined;
-                $localStorage.$reset();
-                location.reload();
-                $state.transitionTo('access.signin');
-            });
 
     };
 
