@@ -9,7 +9,8 @@ angular.module('app').factory('authInterceptor', ['$q', '$injector', function ($
       var AuthService = $injector.get('authService');
       var token = AuthService.getToken();
 
-      if (token) {
+      var isCommand = config.url.search("/resources/") != -1;
+      if (token && !isCommand) {
         config.headers['x-access-token'] = token;
       }
 
