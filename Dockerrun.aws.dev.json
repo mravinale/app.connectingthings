@@ -17,7 +17,7 @@
       "name": "node-app",
       "image": "connectingthings/app:dev",
       "essential": true,
-      "memory": 250,
+      "memoryReservation": 250,
       "portMappings": [
         {
           "hostPort": 80,
