@@ -18,6 +18,8 @@ dependencies:
     - npm install -g bower
     - npm install -g node-gyp
     - npm install
+    - bower install
+    - grunt build
 
 test:
   pre:

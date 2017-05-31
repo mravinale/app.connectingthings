@@ -3,6 +3,8 @@ node_modules
 .idea
 .tmp
 public/lib/*
+public/_lib/*
+public/__lib/*
 !/public/lib/angularjs-nvd3-directives
 .bower-cache/
 .bower-registry/

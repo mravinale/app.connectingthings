@@ -52,5 +52,8 @@ RUN         mkdir /etc/service/pm2 && sudo chmod -R 777 /etc/service/pm2
 ADD         ./scripts/services/pm2.sh /etc/service/pm2/run
 RUN         sudo chmod -R 777 /etc/service/pm2
 
-# Run New relic sys monitor
-#CMD         ["/etc/init.d/newrelic-sysmond","start"]
+# Run newrelic as a daemon managed by runit
+RUN         mkdir /etc/service/newrelic && sudo chmod -R 777 /etc/service/newrelic
+ADD         ./scripts/services/newrelic.sh /etc/service/newrelic/run
+RUN         sudo chmod -R 777 /etc/service/newrelic
+

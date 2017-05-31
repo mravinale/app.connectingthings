@@ -16,7 +16,6 @@ var app = angular.module('app', [
     'app.services',
     'app.directives',
     'app.controllers',
-
     'ui.sortable',
     'ngResource',
     'ngSanitize',
@@ -38,7 +37,6 @@ var app = angular.module('app', [
     'angular-loading-bar',
     'stripe.checkout',
     'ng-bootstrap-alerts',
-    'ngMQTT',
     'ngTableToCsv',
     'hljs'
   ])
@@ -51,8 +49,8 @@ var app = angular.module('app', [
   ]
 )
 .config(
-  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider','cfpLoadingBarProvider','StripeCheckoutProvider','MQTTProvider','hljsServiceProvider',
-    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider, cfpLoadingBarProvider,StripeCheckoutProvider, MQTTProvider, hljsServiceProvider) {
+  [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', 'reCAPTCHAProvider','cfpLoadingBarProvider','StripeCheckoutProvider','hljsServiceProvider', '$httpProvider',
+    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide, reCAPTCHAProvider, cfpLoadingBarProvider,StripeCheckoutProvider, hljsServiceProvider, $httpProvider) {
         
         // lazy controller, directive and service
         app.controller = $controllerProvider.register;
@@ -62,12 +60,13 @@ var app = angular.module('app', [
         app.service    = $provide.service;
         app.constant   = $provide.constant;
 
+        $httpProvider.interceptors.push('authInterceptor');
+
         hljsServiceProvider.setOptions({
             // replace tab with 4 spaces
             tabReplace: '  '
         });
 
-        MQTTProvider.setHref('wss://'+window.location.host.split( ':' )[0]+':3001');
 
         StripeCheckoutProvider.defaults({
             //key:"pk_test_agLRPGqaMYh95gLab6nsKlwu"
@@ -379,7 +378,6 @@ var app = angular.module('app', [
 
         // if no currentUser and on a page that requires authorization then try to update it
         // will trigger 401s if user does not have a valid session
-
         if (!$rootScope.currentUser && (['/logout', '/access/signin', '/access/signup', '/access/suscription'].indexOf($location.path()) == -1 )) {
 
             if($location.path().indexOf("/app/public/dashboard/") > -1) return;
