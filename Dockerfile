@@ -56,4 +56,14 @@ RUN         sudo chmod -R 777 /etc/service/pm2
 RUN         mkdir /etc/service/newrelic && sudo chmod -R 777 /etc/service/newrelic
 ADD         ./scripts/services/newrelic.sh /etc/service/newrelic/run
 RUN         sudo chmod -R 777 /etc/service/newrelic
+ 
+RUN         mkdir -p `dirname /var/lib/swap.img` \
+             && dd if=/dev/zero of=/var/lib/swap.img bs=1024k count=512 \
+             && mkswap /var/lib/swap.img \
+             && chmod 0600 /var/lib/swap.img \
+             && swapon /var/lib/swap.img \
+             && echo "/var/lib/swap.img none swap sw 0 0" >> /etc/fstab \
+             && echo "created swap file"
 
+#https://github.com/muchlearning/make-swap/blob/master/make-swap
+#http://bencane.com/2016/05/18/creating-a-swap-file-for-tiny-cloud-servers/
