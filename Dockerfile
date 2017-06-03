@@ -56,4 +56,3 @@ RUN         sudo chmod -R 777 /etc/service/pm2
 RUN         mkdir /etc/service/newrelic && sudo chmod -R 777 /etc/service/newrelic
 ADD         ./scripts/services/newrelic.sh /etc/service/newrelic/run
 RUN         sudo chmod -R 777 /etc/service/newrelic
-
