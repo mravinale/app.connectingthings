@@ -31,6 +31,7 @@ angular.module('app')
                                         '<li><a href ng-click="editDevice()" >Edit Device</a></li>'+
                                         '<li><a href ng-click="editPanel()" >Edit Panel</a></li>'+
                                         '<li><a href ng-click="deletePanel()" >Delete Panel</a></li>'+
+                                        '<li><a href ng-click="clean()" >Clean Panel</a></li>'+
                                         '<li class="divider"></li>'+
                                         '<li><a href ng-click="showCode()" >Show Code Example</a></li>'+
                                     '</ul>'+
