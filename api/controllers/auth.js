@@ -69,27 +69,24 @@ var mongoose = require('mongoose'),
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
     // If there is no token then return an error
-    if (!token) {
+    if (!token) return res.json(401, { message: 'No token provided.' });
 
-      return res.json(401, { message: 'No token provided.' });
+    // Decode and verify the token
+    jwt.verify(token, secretKey, function (err, decodedToken) {
 
-    } else {
+      if (err) return res.json(401, { message: 'Failed to authenticate token.' });
 
-      // Decode and verify the token
-      jwt.verify(token, secretKey, function (err, decodedToken) {
+      User.findOne({ _id: decodedToken.user._id }, function (err, user) {
 
-        if (err) {
+        if (err)  return res.json(401, err);
+        if (!user) return res.json(401, { message: 'Authentication failed. User not found' });
 
-          return res.json(401, { message: 'Failed to authenticate token.' });
-
-        } else {
-          // If everything goes right, save the request for use in other routes
-          req.decoded = decodedToken;
-          req.user = decodedToken.user._id;
-          next();
-        }
+        // If everything goes right, save the request for use in other routes
+        req.decoded = decodedToken;
+        req.user = user;
+        next();
       });
+    });
 
-    }
   }
 
