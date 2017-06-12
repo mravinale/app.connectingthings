@@ -41,20 +41,7 @@ angular.module('app')
                     '</div>'+
                     '<div class="panel-body">'+
                         '<div class="text-center" style="margin-top: -35px;">'+
-                            '<nvd3-line-chart'+
-                                ' data="values"'+
-                                ' xAxisTickFormat="xAxisTickFormatFunction()"'+
-                                ' yAxisTickFormat="yAxisTickFormatFunction()"'+
-                                ' showXAxis="true"'+
-                                ' showYAxis="true"'+
-                                ' showYAxis="true"'+
-                                ' noData="No Data Yet :( "'+
-                                ' isArea="true"'+
-                                ' tooltips="true"'+
-                                ' interactive="true"'+
-                                ' tooltipcontent="toolTipContentFunction()"'+
-                                ' >'+
-                            '</nvd3-line-chart>'+
+                            '<nvd3 options="options" data="values"></nvd3>'+
 
                         '</div>'+
                     '</div>'+
@@ -64,12 +51,41 @@ angular.module('app')
                 var items = [];
                 var lastValue = null;
 
+                //TODO: work the height
+                scope.options = {
+                    chart: {
+                        type: 'lineChart',
+                        height: 300,
+                        margin : {
+                            top: 20,
+                            right: 20,
+                            bottom: 40,
+                            left: 55
+                        },
+                        x: function(d){
+
+                            return d.x;
+                        },
+                        y: function(d){
+
+                            return d.y;
+                        },
+                        useInteractiveGuideline: true,
+                        duration: 500,
+                        xAxis: {
+                            tickFormat: function(d){
+                                return d3.time.format('%H:%M:%S')(moment(d).toDate());
+                            }
+                        }
+                    }
+                };
+
                 scope.panelCogStyle = {color:'rgba(0,0,0,0)'};
                 scope.grey= {color:'rgba(0,0,0, 0)'};
                 scope.dark= {color:'rgba(0,0,0,.35)'};
                 scope.areOptionsEnabled = $location.path() === "/app/dashboard/me";
 
-                scope.values =[ { "values": [],"key": scope.name, color: '#26A69A' }];
+                scope.values =[ { "values": [],"key": scope.name }];
                 messageService.getAllMessages(scope.topic)
                     .success(function (response, status, headers, config) {
 
@@ -79,16 +95,16 @@ angular.module('app')
 
                             if(item.value  == "0" || item.value  == "1") {
                                 if(lastValue == item.value ) return;
-                                items.push([moment(item.createdAt).add(-1, "milliseconds").valueOf(), item.value == "1" ? "0" : "1"]);
+                                items.push({ x: moment(item.createdAt).add(-1, "milliseconds").valueOf(), y: item.value == "1" ? "0" : "1"});
                             }
 
-                            items.push([ moment(item.createdAt).valueOf(), item.value ]);
+                            items.push({ x: moment(item.createdAt).valueOf(), y: parseInt(item.value) });
                             lastValue = item.value;
                         });
 
-                        if(items.length === 0)  items.push([ moment().valueOf(), "0" ]);
+                        if(items.length === 0)  items.push({ x:moment().valueOf(), y: 0 });
 
-                        scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name, color: '#26A69A' } ];
+                        scope.values =  [ { values: _.sortBy(items, function(item) { return item.x; }), key: scope.name, color: '#26A69A',area: true } ];
 
                     })
                     .error(function(response, status, headers, config) {
@@ -116,11 +132,11 @@ angular.module('app')
                     items = [];
 
                     if(lastValue  == "0" || lastValue  == "1") {
-                      items.push([ moment().add(-1, "milliseconds").valueOf(), lastValue == "1"? "0" : "1"  ]);
+                      items.push({ x: moment().add(-1, "milliseconds").valueOf(), y: lastValue == "1"? "0" : "1"  });
                     }
-                    items.push([ moment().valueOf(), "0" ]);
+                    items.push({ x: moment().valueOf(), y: 0 });
 
-                    scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name,color: '#26A69A' } ];
+                    scope.values =  [ { "values": _.sortBy(items, function(o) { return o.x; }), "key": scope.name, color: '#26A69A',area: true } ];
                 };
 
                 socket.on(scope.topic, function (message) {
@@ -131,19 +147,19 @@ angular.module('app')
                         var messageValue = item.value;
 
                         if(messageValue == "0" || messageValue == "1") {
-                            var lastValue = _.sortBy(items, function(o) { return o[0]; })[1] ? _.last(_.sortBy(items, function(o) { return o[0]; }))[1] : "0" ;
+                            var lastValue = _.sortBy(items, function(o) { return o.x; }) ? _.last(_.sortBy(items, function(o) { return o.x; })).y : "0" ;
 
                             if(lastValue == messageValue ) return;
-                            items.push([moment().add(-1, "milliseconds").valueOf(), messageValue == "1"? "0" : "1" ]);
+                            items.push({ x: moment().add(-1, "milliseconds").valueOf(), y: messageValue == "1"? "0" : "1" });
                         }
 
-                        items.push([ moment().valueOf(), messageValue ]);
+                        items.push({ x:moment().valueOf(), y:messageValue });
 
-                        if(items.length > 20){
-                          items = _.rest(_.sortBy(items, function(o) { return o[0]; }));
+                        if(items.length > 10){
+                          items = _.rest(_.sortBy(items, function(o) { return o.x; }));
                         }
 
-                        scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name, color: '#26A69A' } ];
+                        scope.values =  [ { "values": _.sortBy(items, function(o) { return o.x; }), "key": scope.name, color: '#26A69A',area: true } ];
 
                 });
 

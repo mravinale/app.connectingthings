@@ -25,7 +25,7 @@ var app = angular.module('app', [
     'autofill-directive',
     'psResponsive',
     'btford.socket-io',
-    'nvd3ChartDirectives',
+    'nvd3',
     'localytics.directives',
     'ui.gravatar',
     'reCAPTCHA',
