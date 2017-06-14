@@ -79,14 +79,14 @@ angular.module('app')
 
                             if(item.value  == "0" || item.value  == "1") {
                                 if(lastValue == item.value ) return;
-                                items.push([moment(item.createdAt).add(-1, "milliseconds").valueOf(), item.value == "1" ? "0" : "1"]);
+                                items.push([moment(item.createdAt).add(-1, "milliseconds").valueOf(), item.value == "1" ? 0 : 1]);
                             }
 
-                            items.push([ moment(item.createdAt).valueOf(), item.value ]);
+                            items.push([ moment(item.createdAt).valueOf(), parseInt(item.value) ]);
                             lastValue = item.value;
                         });
 
-                        if(items.length === 0)  items.push([ moment().valueOf(), "0" ]);
+                        if(items.length === 0)  items.push([ moment().valueOf(), 0 ]);
 
                         scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name, color: '#26A69A' } ];
 
@@ -116,9 +116,9 @@ angular.module('app')
                     items = [];
 
                     if(lastValue  == "0" || lastValue  == "1") {
-                      items.push([ moment().add(-1, "milliseconds").valueOf(), lastValue == "1"? "0" : "1"  ]);
+                      items.push([ moment().add(-1, "milliseconds").valueOf(), lastValue == "1"? 0 : 1  ]);
                     }
-                    items.push([ moment().valueOf(), "0" ]);
+                    items.push([ moment().valueOf(), 0 ]);
 
                     scope.values =  [ { "values": _.sortBy(items, function(o) { return o[0]; }), "key": scope.name,color: '#26A69A' } ];
                 };
@@ -134,12 +134,12 @@ angular.module('app')
                             var lastValue = _.sortBy(items, function(o) { return o[0]; })[1] ? _.last(_.sortBy(items, function(o) { return o[0]; }))[1] : "0" ;
 
                             if(lastValue == messageValue ) return;
-                            items.push([moment().add(-1, "milliseconds").valueOf(), messageValue == "1"? "0" : "1" ]);
+                            items.push([moment().add(-1, "milliseconds").valueOf(), messageValue == "1"? 0 : 1 ]);
                         }
 
-                        items.push([ moment().valueOf(), messageValue ]);
+                        items.push([ moment().valueOf(), parseInt(messageValue) ]);
 
-                        if(items.length > 20){
+                        if(items.length > 10){
                           items = _.rest(_.sortBy(items, function(o) { return o[0]; }));
                         }
 
