@@ -1,8 +1,8 @@
 /**
  * Modified copy of https://github.com/lithiumtech/angular_and_d3/blob/master/step5/custom/gauges.js
  */
-//C:\GitHub\external\MQTT\examples\client>node simple-both.js
-//Slider-> http://angular-slider.github.io/angularjs-slider/
+//http://danielcrisp.github.io/angular-rangeslider/
+//https://stackoverflow.com/questions/2943222/find-objects-between-two-dates-mongodb
 'use strict';
 angular.module('app')
     .directive('panelD3Chart', function (socket, messageService, $modal, $log, $rootScope, SweetAlert, panelService, $location) {
