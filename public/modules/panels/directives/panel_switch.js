@@ -91,7 +91,8 @@ angular.module('app')
                     };
 
 
-                  $http.put(window.location.protocol+"//"+window.location.hostname+':3001/resources/'+infoToSend.topic, infoToSend.message)
+                  //$http.put(window.location.protocol+"//"+window.location.hostname+':3001/resources/'+infoToSend.topic, infoToSend.message)
+                  $http.put("https://localhost:3001/resources/"+infoToSend.topic, infoToSend.message)
                   .success(function (response, status, headers, config) {
                     //console.log(response);
                   })
