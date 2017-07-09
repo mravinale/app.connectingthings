@@ -37,7 +37,7 @@ deployment:
       - docker push connectingthings/app:dev
       - /bin/bash scripts/EB-deploy.dev.sh $CIRCLE_SHA1
   staging:
-    branch: test
+    branch: SPA
     commands:
       - grunt dev
       - docker build -t connectingthings/app:dev .
