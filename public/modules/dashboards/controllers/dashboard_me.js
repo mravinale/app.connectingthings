@@ -48,7 +48,7 @@ angular.module('app')
 
         $scope.gridsterOpts = {
           minColumns: 1,
-          swapping: false,
+          swapping: true,
           avoid_overlapped_widgets:true,
           width: 'auto',
           colWidth: 'auto', // can be an integer or 'auto'.  'auto' uses the pixel width of the element divided by 'columns'

@@ -1,5 +1,5 @@
 // Inject the $interceptor to avoid circular dependencies
-angular.module('app').factory('authInterceptor', ['$q', '$injector', function ($q, $injector) {
+angular.module('app').factory('authInterceptor', ['$q', '$injector', 'baseUrl', function ($q, $injector, baseUrl) {
 
   return {
 
@@ -9,7 +9,7 @@ angular.module('app').factory('authInterceptor', ['$q', '$injector', function ($
       var AuthService = $injector.get('authService');
       var token = AuthService.getToken();
 
-      config.url = config.url.split("/")[0] !== "" || config.url.includes(".html")? config.url : "https://localhost:3000/"+config.url.replace(/^\//, "");
+      config.url = config.url.split("/")[0] !== "" || config.url.includes(".html")? config.url : baseUrl+config.url.replace(/^\//, "");
       var isCommand = config.url.search("/resources/") != -1;
       if (token && !isCommand) {
         config.headers['x-access-token'] = token;
