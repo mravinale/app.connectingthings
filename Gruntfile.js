@@ -358,6 +358,7 @@ module.exports = function (grunt) {
         'watch'
     ]);
     grunt.registerTask('dev', [
+      'ngconstant:dev',
       'clean:dist',
       'copy:dist',
       'useminPrepare',
@@ -366,12 +367,12 @@ module.exports = function (grunt) {
       //'uglify:dist',
       'usemin',
       'concat:style',
-      'cssmin:dist',
-      'ngconstant:dev'
+      'cssmin:dist'
 
     ]);
     grunt.registerTask('prod', [
         //'bower',
+        'ngconstant:prod',
         'clean:dist',
         'copy:dist',
         'useminPrepare',
@@ -382,8 +383,7 @@ module.exports = function (grunt) {
         'usemin',
         'concat:style',
         //'htmlbuild:dist',
-        'cssmin:dist',
-        'ngconstant:prod'
+        'cssmin:dist'
 
     ]);
 
