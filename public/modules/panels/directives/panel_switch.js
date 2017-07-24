@@ -92,7 +92,7 @@ angular.module('app')
 
 
                   //$http.put(window.location.protocol+"//"+window.location.hostname+':3001/resources/'+infoToSend.topic, infoToSend.message)
-                  $http.put(baseUrl+"resources/"+infoToSend.topic, infoToSend.message)
+                  $http.put(baseUrl+":3001/resources/"+infoToSend.topic, infoToSend.message)
                   .success(function (response, status, headers, config) {
                     //console.log(response);
                   })
@@ -116,7 +116,7 @@ angular.module('app')
                     size: 'lg',
                     resolve: {
                       host: function () {
-                        return "app.connectingthings.io";
+                        return baseUrl;
                       },
                       topic: function () {
                         return "key/"+scope.topic.split("/")[1]+"/device/"+scope.topic.split("/")[2]+"/tag/"+scope.topic.split("/")[3];
