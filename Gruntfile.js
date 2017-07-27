@@ -317,17 +317,17 @@ module.exports = function (grunt) {
           },
           local: {
             constants: {
-              'baseUrl': 'https://localhost:3000'
+              'baseUrl': 'https://localhost:3000/'
             }
           },
           dev: {
             constants: {
-              'baseUrl': 'https://dev.connectingthings.io'
+              'baseUrl': 'https://dev.connectingthings.io/'
             }
           },
           prod: {
             constants: {
-              'baseUrl': 'https://app.connectingthings.io'
+              'baseUrl': 'https://app.connectingthings.io/'
             }
           }
         }

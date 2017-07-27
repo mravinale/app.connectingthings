@@ -92,7 +92,7 @@ angular.module('app')
 
 
                   //$http.put(window.location.protocol+"//"+window.location.hostname+':3001/resources/'+infoToSend.topic, infoToSend.message)
-                  $http.put(baseUrl+":3001/resources/"+infoToSend.topic, infoToSend.message)
+                  $http.put(baseUrl.replace(/:3000\//, "").replace(/io\//, "io")+":3001/resources/"+infoToSend.topic, infoToSend.message)
                   .success(function (response, status, headers, config) {
                     //console.log(response);
                   })
