@@ -193,6 +193,7 @@ module.exports = function (grunt) {
                     dest: 'dist/js/app.js',
                     src: [
                       '<%= yeoman.app %>/modules/app.js',
+                      '<%= yeoman.app %>/modules/constants.js',
                       '<%= yeoman.app %>/modules/dashboards/controllers/dashboard_me.js',
                       '<%= yeoman.app %>/modules/base/controllers/login.js',
                       '<%= yeoman.app %>/modules/base/controllers/signup.js',
@@ -306,6 +307,29 @@ module.exports = function (grunt) {
                     'dist/assets/css/style.css': [ 'dist/assets/css/style.css' ]
                 }
             }
+        },
+        ngconstant: {
+          options: {
+            space: ' ',
+            deps: false,
+            dest: 'public/modules/constants.js',
+            name: 'app'
+          },
+          local: {
+            constants: {
+              'baseUrl': 'https://localhost:3000/'
+            }
+          },
+          dev: {
+            constants: {
+              'baseUrl': 'https://dev.connectingthings.io/'
+            }
+          },
+          prod: {
+            constants: {
+              'baseUrl': 'https://app.connectingthings.io/'
+            }
+          }
         }
     });
 
@@ -318,37 +342,47 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-ng-constant');
 
-    grunt.registerTask('server', [
+
+    grunt.registerTask('default', [
+      //  'jshint',
+      'bower'
+    ]);
+    grunt.registerTask('local', [
         //  'jshint',
         //'bower',
+        'ngconstant:local',
         'express:dev',
         'open',
         'watch'
     ]);
-    grunt.registerTask('test', [
-        //  'jshint',
-        'bower'
+    grunt.registerTask('dev', [
+      'ngconstant:dev',
+      'clean:dist',
+      'copy:dist',
+      'useminPrepare',
+      'concat:app',
+      'ngAnnotate:dist',
+      //'uglify:dist',
+      'usemin',
+      'concat:style',
+      'cssmin:dist'
+
     ]);
-    grunt.registerTask('heroku:production', [
-        'bower'
-    ]);
-    grunt.registerTask('default', [
-        //  'jshint',
-        'bower'
-    ]);
-    grunt.registerTask('build', [
-      //  'bower',
+    grunt.registerTask('prod', [
+        //'bower',
+        'ngconstant:prod',
         'clean:dist',
         'copy:dist',
         'useminPrepare',
-//        'concat:lib',
+        //'concat:lib',
         'concat:app',
         'ngAnnotate:dist',
         'uglify:dist',
         'usemin',
         'concat:style',
-       // 'htmlbuild:dist',
+        //'htmlbuild:dist',
         'cssmin:dist'
 
     ]);

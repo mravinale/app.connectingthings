@@ -4,7 +4,7 @@
 //C:\GitHub\external\MQTT\examples\client>node simple-both.js
 'use strict';
 angular.module('app')
-    .directive('panelSwitch', function (socket, panelService, messageService, $modal, $log, $rootScope, SweetAlert, $location,$http) {
+    .directive('panelSwitch', function (socket, panelService, messageService, $modal, $log, $rootScope, SweetAlert, $location,$http,baseUrl) {
         return {
             scope:{
                 name:"@",
@@ -91,7 +91,8 @@ angular.module('app')
                     };
 
 
-                  $http.put(window.location.protocol+"//"+window.location.hostname+':3001/resources/'+infoToSend.topic, infoToSend.message)
+                  //$http.put(window.location.protocol+"//"+window.location.hostname+':3001/resources/'+infoToSend.topic, infoToSend.message)
+                  $http.put(baseUrl.replace(/:3000\//, "").replace(/io\//, "io")+":3001/resources/"+infoToSend.topic, infoToSend.message)
                   .success(function (response, status, headers, config) {
                     //console.log(response);
                   })
@@ -115,7 +116,7 @@ angular.module('app')
                     size: 'lg',
                     resolve: {
                       host: function () {
-                        return "app.connectingthings.io";
+                        return baseUrl;
                       },
                       topic: function () {
                         return "key/"+scope.topic.split("/")[1]+"/device/"+scope.topic.split("/")[2]+"/tag/"+scope.topic.split("/")[3];
