@@ -81,8 +81,6 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(express.logger('dev'));
-app.use(express.cookieParser('MEANP'));
-app.use(express.cookieSession());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 

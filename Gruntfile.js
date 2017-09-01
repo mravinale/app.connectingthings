@@ -96,6 +96,19 @@ module.exports = function (grunt) {
                     { src: 'public/index.html', dest: 'dist/index.html'},
                     { src: 'public/lib/chosen/chosen-sprite.png', dest: 'dist/assets/css/chosen-sprite.png'}
                 ]
+            },
+            mobile:  {
+              files: [
+                { expand: true, cwd: 'dist/assets/fonts/', src: ['**'], dest: 'mobile/www/assets/fonts/'},
+                { expand: true, cwd: 'dist/assets/css/', src: ['**'], dest: 'mobile/www/assets/css/'},
+                { expand: true, cwd: 'dist/assets/img/', src: ['**'], dest: 'mobile/www/assets/img/'},
+                { expand: true, cwd: 'dist/assets/l10n/', src: ['**'], dest: 'mobile/www/assets/l10n/'},
+                { expand: true, cwd: 'dist/modules/', src: ['**/views/**/*'], dest: 'mobile/www/modules/'},
+                { expand: true, cwd: 'dist/assets/templates/', src: ['**'], dest: 'mobile/www/assets/templates/'},
+                { expand: true, cwd: 'dist/js/', src: ['**'], dest: 'mobile/www/js/'},
+                { src: 'dist/favicon.ico', dest: 'mobile/www/favicon.ico'},
+                { src: 'dist/index.html', dest: 'mobile/www/index.html'}
+              ]
             }
         },
         concat: {
@@ -353,14 +366,24 @@ module.exports = function (grunt) {
         //  'jshint',
         //'bower',
         'ngconstant:local',
-        'express:dev',
-        'open',
-        'watch'
+        //'express:dev',
+        //'open',
+        //'watch',
+        'clean:dist',
+        'copy:dist',
+        'useminPrepare',
+        'concat:app',
+        'ngAnnotate:dist',
+        //'uglify:dist',
+        'usemin',
+        'concat:style',
+        'cssmin:dist'
     ]);
     grunt.registerTask('dev', [
       'ngconstant:dev',
       'clean:dist',
       'copy:dist',
+      'copy:mobile',
       'useminPrepare',
       'concat:app',
       'ngAnnotate:dist',
@@ -368,7 +391,6 @@ module.exports = function (grunt) {
       'usemin',
       'concat:style',
       'cssmin:dist'
-
     ]);
     grunt.registerTask('prod', [
         //'bower',
@@ -384,6 +406,23 @@ module.exports = function (grunt) {
         'concat:style',
         //'htmlbuild:dist',
         'cssmin:dist'
+
+    ]);
+    grunt.registerTask('mobile', [
+      //'bower',
+      'ngconstant:prod',
+      'clean:dist',
+      'copy:dist',
+      'useminPrepare',
+      //'concat:lib',
+      'concat:app',
+      'ngAnnotate:dist',
+      'uglify:dist',
+      'usemin',
+      'concat:style',
+      //'htmlbuild:dist',
+      'cssmin:dist',
+      'copy:mobile'
 
     ]);
 
