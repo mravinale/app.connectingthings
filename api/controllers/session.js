@@ -2,7 +2,6 @@
 
 var mongoose = require('mongoose'),
   async = require('async'),
-    passport = require('passport'),
     Device = mongoose.model('Device'),
     Panel = mongoose.model('Panel'),
     User = mongoose.model('User'),
