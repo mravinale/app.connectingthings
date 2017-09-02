@@ -32,6 +32,7 @@ deployment:
     branch: dev
     commands:
       - grunt dev
+      - grunt mobile
       - docker build -t connectingthings/app:dev .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push connectingthings/app:dev
@@ -40,6 +41,7 @@ deployment:
     branch: SPA
     commands:
       - grunt dev
+      - grunt mobile
       - docker build -t connectingthings/app:dev .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push connectingthings/app:dev
@@ -48,6 +50,7 @@ deployment:
     branch: master
     commands:
       - grunt prod
+      - grunt mobile
       - docker build -t connectingthings/app:prod .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push connectingthings/app:prod
