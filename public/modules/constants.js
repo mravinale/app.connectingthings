@@ -1,5 +1,5 @@
 angular.module('app')
 
-.constant('baseUrl', 'https://app.connectingthings.io/')
+.constant('baseUrl', 'https://dev.connectingthings.io/')
 
 ;

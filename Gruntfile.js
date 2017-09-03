@@ -370,27 +370,27 @@ module.exports = function (grunt) {
         //'open',
         //'watch',
         'clean:dist',
-        'copy:dist',
         'useminPrepare',
         'concat:app',
         'ngAnnotate:dist',
         //'uglify:dist',
         'usemin',
         'concat:style',
-        'cssmin:dist'
+        'cssmin:dist',
+        'copy:dist'
     ]);
     grunt.registerTask('dev', [
       'ngconstant:dev',
       'clean:dist',
       'copy:dist',
-      'copy:mobile',
       'useminPrepare',
       'concat:app',
       'ngAnnotate:dist',
       //'uglify:dist',
       'usemin',
       'concat:style',
-      'cssmin:dist'
+      'cssmin:dist',
+      'copy:mobile'
     ]);
     grunt.registerTask('prod', [
         //'bower',
@@ -405,7 +405,8 @@ module.exports = function (grunt) {
         'usemin',
         'concat:style',
         //'htmlbuild:dist',
-        'cssmin:dist'
+        'cssmin:dist',
+        'copy:mobile'
 
     ]);
     grunt.registerTask('mobile', [
