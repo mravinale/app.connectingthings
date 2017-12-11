@@ -1,0 +1,11 @@
+1 - generar *.csr y *.key
+openssl req -new -newkey rsa:2048 -nodes -out star_connectingthings_io.csr -keyout star_connectingthings_io.key -subj "/C=AR/ST=Santa Fe/L=Santa Fe/O=Connecting Things/OU=Web Administration/CN=*.connectingthings.io"
+
+2 - enviar *.csr a https://www.alphassl.com
+
+3 - generar rsa.key(para amazon)
+openssl rsa -in star_connectingthings_io.key -out star_connectingthings_io.key.rsa
+
+actualizar
+*.crt con el certificado que te manda alphassl + el certificado intermedio
+*key con la key nuewva generada localmente

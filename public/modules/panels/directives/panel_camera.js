@@ -51,7 +51,7 @@ angular.module('app')
                 scope.dark= {color:'rgba(0,0,0,.35)'};
 
                 scope.areOptionsEnabled = $location.path() === "/app/dashboard/me";
-                scope.stream = '/assets/img/noSignal.png';
+                scope.stream = 'assets/img/noSignal.png';
                 var stream = scope.url+"/videostream.cgi?user="+ scope.login +"&pwd="+ scope.password + '&cb=' + new Date().getTime();
 
                 //pooling waiting the conversion

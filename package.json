@@ -21,7 +21,7 @@
     "node-uuid": "1.4.x",
     "ponte": "git+https://mravinale:system1407@github.com/mravinale/ponte.git",
     "redis": "^2.6.0-1",
-    "request": "^2.58.0",
+    "request": "2.81.0",
     "route-parser": "0.0.4",
     "simple-recaptcha": "0.0.3",
     "socket.io": "1.3.7",

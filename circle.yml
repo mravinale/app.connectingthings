@@ -23,9 +23,9 @@ dependencies:
 
 test:
   pre:
-    - npm install -g mocha
+    - npm install -g mocha@2.5.3
   override:
-    - mocha test/testRunner.js
+    - mocha test/testRunner.js --harmony
 
 deployment:
   dev:
@@ -37,7 +37,7 @@ deployment:
       - docker push connectingthings/app:dev
       - /bin/bash scripts/EB-deploy.dev.sh $CIRCLE_SHA1
   staging:
-    branch: SPA
+    branch: test
     commands:
       - grunt dev
       - docker build -t connectingthings/app:dev .
