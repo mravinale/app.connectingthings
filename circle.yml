@@ -25,7 +25,7 @@ test:
   pre:
     - npm install -g mocha@2.5.3
   override:
-    - mocha test/testRunner.js
+    - mocha test/testRunner.js --harmony
 
 deployment:
   dev:
